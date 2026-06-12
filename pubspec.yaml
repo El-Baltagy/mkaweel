@@ -67,6 +67,7 @@ dependencies:
   hive_ce_flutter: ^2.3.4
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.14.4
   flutter_test:
     sdk: flutter
 
@@ -100,3 +101,10 @@ flutter:
   assets:
     - assets/l10n/
     - assets/images/
+
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  #  remove_alpha_ios: true
+  image_path: "assets/icon/icon.png"

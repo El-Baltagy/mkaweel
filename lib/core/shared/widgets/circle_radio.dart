@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mkaweel/core/constants/app_assets.dart';
+import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/shared/widgets/asset_image.dart';
 
 
@@ -19,7 +20,8 @@ class CustomSelectedCircle extends StatelessWidget {
           height:24 ,
         ),
         if(isSelected)
-          const CustomAssetImageWidget(AppAssets.imagesDotSvg,
+            CustomAssetImageWidget(AppAssets.imagesDotSvg,
+            color: context.theme.primaryColor,
             width: 12,
             height:12 ,
           ),

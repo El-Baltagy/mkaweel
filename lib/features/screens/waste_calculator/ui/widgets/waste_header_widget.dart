@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
+import 'package:mkaweel/core/extension/context.dart';
 
 class WasteHeaderWidget extends StatelessWidget {
   const WasteHeaderWidget({super.key});
@@ -32,7 +33,7 @@ class WasteHeaderWidget extends StatelessWidget {
               children: [
                 Text(
                   'waste_calculator_subtitle'.tr(),
-                  style: AppTextStyles.font16SemiBold.copyWith(color: AppColors.contractorDarkText),
+                  style: AppTextStyles.font16SemiBold.copyWith(color: context.theme.colorScheme.tertiaryFixed),
                   textAlign: TextAlign.right,
                 ),
                 4.verticalSpace,

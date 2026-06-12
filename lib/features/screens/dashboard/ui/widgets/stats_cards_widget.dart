@@ -4,6 +4,7 @@ import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
+import 'package:mkaweel/core/extension/context.dart';
 
 class StatsCardsWidget extends StatelessWidget {
   const StatsCardsWidget({super.key});
@@ -16,6 +17,7 @@ class StatsCardsWidget extends StatelessWidget {
         children: [
           Expanded(
             child: _buildCard(
+              context,
               icon: Icons.show_chart, // Or a custom heartbeat icon
               iconColor: Theme.of(context).primaryColor,
               value: '0%',
@@ -25,6 +27,7 @@ class StatsCardsWidget extends StatelessWidget {
           10.horizontalSpace,
           Expanded(
             child: _buildCard(
+              context,
               icon: Icons.attach_money,
               iconColor: AppColors.contractorGreen,
               value: '+٠ ر.س',
@@ -36,11 +39,11 @@ class StatsCardsWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildCard({required IconData icon, required Color iconColor, required String value, required String label}) {
+  Widget _buildCard(BuildContext context,{required IconData icon, required Color iconColor, required String value, required String label}) {
     return Container(
       padding: const EdgeInsets.all(AppPadding.p16),
       decoration: BoxDecoration(
-        color: AppColors.contractorSurface,
+        color: context.theme.scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(AppSizes.s12),
         boxShadow: [
           BoxShadow(

@@ -9,8 +9,7 @@ void showAddWorkerBottomSheet(BuildContext context) {
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
-    // backgroundColor: context.theme.colorScheme.secondary,
-    backgroundColor: Colors.transparent,
+     backgroundColor: Colors.transparent,
     builder: (_) => const AddWorkerBottomSheet(),
   );
 }
@@ -35,9 +34,9 @@ class _AddWorkerBottomSheetState extends State<AddWorkerBottomSheet> {
       maxChildSize: 0.95,
       minChildSize: 0.5,
       builder: (_, scrollController) => Container(
-        decoration: const BoxDecoration(
-          color: AppColors.contractorSurface,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(AppSizes.s24)),
+        decoration:   BoxDecoration(
+          color: context.theme.scaffoldBackgroundColor,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(AppSizes.s24)),
         ),
         child: Column(
           children: [
@@ -46,7 +45,7 @@ class _AddWorkerBottomSheetState extends State<AddWorkerBottomSheet> {
               width: 40,
               height: 4,
               decoration: BoxDecoration(
-                color: AppColors.contractorLightGrey,
+                color: context.theme.canvasColor,
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
@@ -105,7 +104,7 @@ class _AddWorkerBottomSheetState extends State<AddWorkerBottomSheet> {
 
   Widget _buildLabel(String label) => Padding(
     padding: const EdgeInsets.only(bottom: AppPadding.p8),
-    child: Text(label, style: AppTextStyles.font14Regular.copyWith(color: AppColors.contractorDarkText), textAlign: TextAlign.right),
+    child: Text(label, style: AppTextStyles.font14Regular.copyWith(color: context.theme.colorScheme.tertiaryFixed), textAlign: TextAlign.right),
   );
 
   Widget _buildTextField(TextEditingController ctrl, String hint, {int maxLines = 1}) => TextField(
@@ -120,11 +119,11 @@ class _AddWorkerBottomSheetState extends State<AddWorkerBottomSheet> {
       fillColor: context.theme.scaffoldBackgroundColor,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppSizes.s8),
-        borderSide: const BorderSide(color: AppColors.contractorLightGrey),
+        borderSide:   BorderSide(color: context.theme.canvasColor),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppSizes.s8),
-        borderSide: const BorderSide(color: AppColors.contractorLightGrey),
+        borderSide:   BorderSide(color: context.theme.canvasColor),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppSizes.s8),
@@ -148,7 +147,7 @@ class _AddWorkerBottomSheetState extends State<AddWorkerBottomSheet> {
       decoration: BoxDecoration(
         color: context.theme.scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(AppSizes.s8),
-        border: Border.all(color: AppColors.contractorLightGrey),
+        border: Border.all(color: context.theme.canvasColor),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

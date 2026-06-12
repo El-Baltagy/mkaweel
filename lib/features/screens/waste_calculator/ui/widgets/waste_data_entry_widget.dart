@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
+import 'package:mkaweel/core/extension/context.dart';
 
 class WasteDataEntryWidget extends StatelessWidget {
 
@@ -39,7 +40,7 @@ class WasteDataEntryWidget extends StatelessWidget {
         children: [
           Text(
             'data_entry'.tr(),
-            style: AppTextStyles.font16SemiBold.copyWith(color: AppColors.contractorDarkText),
+            style: AppTextStyles.font16SemiBold.copyWith(color: context.theme.colorScheme.tertiaryFixed),
           ),
           16.verticalSpace,
           Text(
@@ -49,7 +50,7 @@ class WasteDataEntryWidget extends StatelessWidget {
           8.verticalSpace,
           Container(
             decoration: BoxDecoration(
-              border: Border.all(color: AppColors.contractorLightGrey),
+              border: Border.all(color: context.theme.canvasColor),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
@@ -98,7 +99,7 @@ class WasteDataEntryWidget extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: AppColors.contractorLightGrey.withOpacity(0.5),
+              color: context.theme.canvasColor.withOpacity(0.5),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(

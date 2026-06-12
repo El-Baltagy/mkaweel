@@ -44,7 +44,7 @@ class PerformanceProjectListWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text('invoice_project_name_example'.tr(), style: AppTextStyles.font16SemiBold.copyWith(color: AppColors.contractorDarkText)),
+                    Text('invoice_project_name_example'.tr(), style: AppTextStyles.font16SemiBold.copyWith(color: context.theme.colorScheme.tertiaryFixed)),
                     8.horizontalSpace,
                     CircleAvatar(
                       radius: 12,
@@ -62,11 +62,11 @@ class PerformanceProjectListWidget extends StatelessWidget {
                   children: [
                     _buildBadge('active'.tr(), AppColors.contractorGreen, AppColors.contractorGreen.withOpacity(0.1)),
                     8.horizontalSpace,
-                    _buildBadge('tasks_0_0'.tr(), AppColors.contractorGreyText, AppColors.contractorLightGrey),
+                    _buildBadge('tasks_0_0'.tr(), AppColors.contractorGreyText, context.theme.canvasColor),
                     8.horizontalSpace,
-                    _buildBadge('spend_0'.tr(), AppColors.contractorGreyText, AppColors.contractorLightGrey),
+                    _buildBadge('spend_0'.tr(), AppColors.contractorGreyText, context.theme.canvasColor),
                     8.horizontalSpace,
-                    _buildBadge('completion_0'.tr(), AppColors.contractorGreyText, AppColors.contractorLightGrey),
+                    _buildBadge('completion_0'.tr(), AppColors.contractorGreyText, context.theme.canvasColor),
                   ],
                 )
               ],

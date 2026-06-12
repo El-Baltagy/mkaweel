@@ -89,7 +89,7 @@ class QuickToolsWidget extends StatelessWidget {
       onTap:onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: AppColors.contractorSurface,
+          color: context.theme.scaffoldBackgroundColor,
           borderRadius: BorderRadius.circular(AppSizes.s12),
           boxShadow: [
             BoxShadow(
@@ -120,7 +120,7 @@ class QuickToolsWidget extends StatelessWidget {
                  label,
                  style: AppTextStyles.font12Regular.copyWith(
                    fontWeight: FontWeight.bold,
-                   color: AppColors.contractorDarkText,
+                   color: context.theme.colorScheme.tertiaryFixed,
                  ),
                  textAlign: TextAlign.center,
                ),

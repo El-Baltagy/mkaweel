@@ -30,14 +30,14 @@ class CurrencyTabsWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppSizes.s8),
         /// to do: add border
         // border: BorderSide(
-        //   color: isSelected ? Theme.of(context).primaryColor : AppColors.contractorLightGrey,
+        //   color: isSelected ? Theme.of(context).primaryColor : context.theme.canvasColor,
         // ),
       ),
       alignment: Alignment.center,
       child: Text(
         label,
         style: AppTextStyles.font14Regular.copyWith(
-          color: isSelected ? Theme.of(context).primaryColor : AppColors.contractorDarkText,
+          color: isSelected ? Theme.of(context).primaryColor : context.theme.colorScheme.tertiaryFixed,
           fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
         ),
       ),

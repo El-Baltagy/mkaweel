@@ -21,21 +21,21 @@ class AppTextStyles {
     fontFamily: 'Cairo', // Assuming an Arabic font like Cairo
     fontSize: 24,
     fontWeight: FontWeight.bold,
-    color: AppColors.contractorDarkText,
+    color: AppColors.lightTextPrimary,
   );
 
   static const TextStyle font18SemiBold = TextStyle(
     fontFamily: 'Cairo',
     fontSize: 18,
     fontWeight: FontWeight.w600,
-    color: AppColors.contractorDarkText,
+    color: AppColors.lightTextPrimary,
   );
 
   static const TextStyle font16SemiBold = TextStyle(
     fontFamily: 'Cairo',
     fontSize: 16,
     fontWeight: FontWeight.w600,
-    color: AppColors.contractorDarkText,
+    color: AppColors.lightTextPrimary,
   );
 
   static const TextStyle font14Regular = TextStyle(

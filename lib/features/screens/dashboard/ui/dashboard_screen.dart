@@ -39,8 +39,7 @@ class _DashboardPageState extends DashboardPageBaseState {
         label: 'Dashboard Screen',
         child: Scaffold(
           backgroundColor: context.theme.scaffoldBackgroundColor,
-          // backgroundColor: context.theme.scaffoldBackgroundColor,
-          body: SafeArea(
+           body: SafeArea(
             bottom: false,
             child: SingleChildScrollView(
               child: Column(

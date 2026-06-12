@@ -73,9 +73,9 @@ class WorkerCardWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(AppPadding.p16),
       decoration: BoxDecoration(
-        color: AppColors.contractorSurface,
+        color: context.theme.scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(AppSizes.s12),
-        border: Border.all(color: AppColors.contractorLightGrey),
+        border: Border.all(color: context.theme.canvasColor),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.04),
@@ -86,10 +86,10 @@ class WorkerCardWidget extends StatelessWidget {
       ),
       child: Row(
          children: [
-          const CircleAvatar(
+            CircleAvatar(
             radius: 22,
-            backgroundColor: AppColors.contractorLightGrey,
-            child: Icon(Icons.person_outline, color: AppColors.contractorGreyText),
+            backgroundColor: context.theme.canvasColor,
+            child: const Icon(Icons.person_outline, color: AppColors.contractorGreyText),
           ),
           const SizedBox(width: AppSizes.s12),
            Column(

@@ -22,7 +22,7 @@ class CustomTextField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: AppTextStyles.font14Regular.copyWith(color: AppColors.contractorDarkText)),
+        Text(label, style: AppTextStyles.font14Regular.copyWith(color: context.theme.colorScheme.tertiaryFixed)),
         10.verticalSpace,
         TextFormField(
           decoration: InputDecoration(
@@ -34,11 +34,11 @@ class CustomTextField extends StatelessWidget {
             contentPadding: const EdgeInsets.symmetric(horizontal: AppPadding.p16, vertical: AppPadding.p12),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppSizes.s8),
-              borderSide: const BorderSide(color: AppColors.contractorLightGrey),
+              borderSide:   BorderSide(color: context.theme.canvasColor),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppSizes.s8),
-              borderSide: const BorderSide(color: AppColors.contractorLightGrey),
+              borderSide:   BorderSide(color: context.theme.canvasColor),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppSizes.s8),

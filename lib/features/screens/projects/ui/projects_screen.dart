@@ -43,7 +43,7 @@ class _ProjectsPageState extends ProjectsPageBaseState {
             title: Text('projects'.tr(), style: AppTextStyles.font18SemiBold.copyWith(color: context.theme.scaffoldBackgroundColor)),
             centerTitle: true,
             leading: IconButton(
-              icon: const Icon(Icons.sync, color: context.theme.scaffoldBackgroundColor),
+              icon:   Icon(Icons.sync, color: context.theme.scaffoldBackgroundColor),
               onPressed: () {},
             ),
           ),
@@ -52,7 +52,7 @@ class _ProjectsPageState extends ProjectsPageBaseState {
           floatingActionButton: FloatingActionButton(
             backgroundColor: context.theme.colorScheme.secondary,
             onPressed: () =>context.push(const CreateProjectRoute()),
-            child: const Icon(Icons.add, color: context.theme.scaffoldBackgroundColor),
+            child:   Icon(Icons.add, color: context.theme.scaffoldBackgroundColor),
           ),
         ),
       ),

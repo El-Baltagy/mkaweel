@@ -14,7 +14,7 @@ class CurrencySelectorWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('currency'.tr(), style: AppTextStyles.font14Regular.copyWith(color: AppColors.contractorDarkText)),
+        Text('currency'.tr(), style: AppTextStyles.font14Regular.copyWith(color: context.theme.colorScheme.tertiaryFixed)),
         10.verticalSpace,
         Row(
           children: [
@@ -37,7 +37,7 @@ class CurrencySelectorWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppSizes.s8),
         /// to do: add border
         // border: .new(
-        //   color: isSelected ? context.theme.primaryColor : AppColors.contractorLightGrey,
+        //   color: isSelected ? context.theme.primaryColor : context.theme.canvasColor,
         //   width: isSelected ? 2 : 1,
         // ),
       ),
@@ -46,7 +46,7 @@ class CurrencySelectorWidget extends StatelessWidget {
           Text(
             symbol,
             style: AppTextStyles.font18SemiBold.copyWith(
-              color: isSelected ? context.theme.primaryColor : AppColors.contractorDarkText,
+              color: isSelected ? context.theme.primaryColor : context.theme.colorScheme.tertiaryFixed,
             ),
           ),
           5.verticalSpace,

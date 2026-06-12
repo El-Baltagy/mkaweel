@@ -93,7 +93,9 @@ class _NavItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
-            Icon(data.icon, color: color, size: 26),
+            Transform.flip(
+              flipX: true,
+                child: Icon(data.icon, color: color, size: 26)),
             const SizedBox(height: 4),
             Text(
               data.label,

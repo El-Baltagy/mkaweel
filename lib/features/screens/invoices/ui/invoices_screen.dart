@@ -79,7 +79,7 @@ class _InvoicesPageState extends InvoicesPageBaseState {
                     24.verticalSpace,
                     Text(
                       'invoice_items'.tr(),
-                      style: AppTextStyles.font18SemiBold.copyWith(color: AppColors.contractorDarkText,
+                      style: AppTextStyles.font18SemiBold.copyWith(color: context.theme.colorScheme.tertiaryFixed,
                           fontSize: 14
                       ),
                     ),

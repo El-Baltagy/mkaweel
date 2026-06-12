@@ -47,7 +47,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
             leading: const SizedBox.shrink(),
             actions: [
               IconButton(
-                icon: const Icon(Icons.arrow_forward_ios, color: context.theme.scaffoldBackgroundColor),
+                icon:   Icon(Icons.arrow_forward_ios, color: context.theme.scaffoldBackgroundColor),
                 onPressed: ()=>context.pop(),
               ),
             ],
@@ -100,7 +100,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                   suffixIcon: const Icon(Icons.keyboard_arrow_down, color: AppColors.contractorGreyText),
                 ),
                 20.verticalSpace,
-                Text('site_location_gps'.tr(), style: AppTextStyles.font14Regular.copyWith(color: AppColors.contractorDarkText)),
+                Text('site_location_gps'.tr(), style: AppTextStyles.font14Regular.copyWith(color: context.theme.colorScheme.tertiaryFixed)),
                 10.verticalSpace,
                 Container(
                   width: double.infinity,
@@ -109,7 +109,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                     color: context.theme.scaffoldBackgroundColor,
                     borderRadius: BorderRadius.circular(AppSizes.s8),
                     /// to do: add border
-                    // border: BorderSide(color: AppColors.contractorLightGrey, style: BorderStyle.solid),
+                    // border: BorderSide(color: context.theme.canvasColor, style: BorderStyle.solid),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

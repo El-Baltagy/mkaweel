@@ -30,10 +30,10 @@ class _SettingsListWidgetState extends State<SettingsListWidget> {
               final isDark = themeMode == ThemeMode.dark;
               return Container(
                 decoration: BoxDecoration(
-                  color: Theme.of(context).cardTheme.color ?? AppColors.contractorSurface,
+                  color: Theme.of(context).cardTheme.color ?? context.theme.scaffoldBackgroundColor,
                   borderRadius: BorderRadius.circular(AppSizes.s12),
                   border: Border.all(
-                    color: Theme.of(context).dividerTheme.color ?? AppColors.contractorLightGrey,
+                    color: Theme.of(context).dividerTheme.color ?? context.theme.canvasColor,
                   ),
                 ),
                 child: ListTile(
@@ -75,9 +75,9 @@ class _SettingsListWidgetState extends State<SettingsListWidget> {
           // Info items
           Container(
             decoration: BoxDecoration(
-              color: AppColors.contractorSurface,
+              color: context.theme.scaffoldBackgroundColor,
               borderRadius: BorderRadius.circular(AppSizes.s12),
-              border: Border.all(color: AppColors.contractorLightGrey),
+              border: Border.all(color: context.theme.canvasColor),
             ),
             child: Column(
               children: [
@@ -159,7 +159,7 @@ class _SettingsListWidgetState extends State<SettingsListWidget> {
           onTap:onTap,
         ),
         if (showDivider)
-          const Divider(height: 1, indent: 16, endIndent: 16, color: AppColors.contractorLightGrey),
+            Divider(height: 1, indent: 16, endIndent: 16, color: context.theme.canvasColor),
       ],
     );
   }

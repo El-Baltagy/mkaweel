@@ -4,6 +4,7 @@ import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
+import 'package:mkaweel/core/extension/context.dart';
 
 class TodayTasksWidget extends StatelessWidget {
   const TodayTasksWidget({super.key});
@@ -30,7 +31,7 @@ class TodayTasksWidget extends StatelessWidget {
             width: double.infinity,
             padding: const EdgeInsets.symmetric(vertical: AppPadding.p40),
             decoration: BoxDecoration(
-              color: AppColors.contractorSurface,
+              color: context.theme.scaffoldBackgroundColor,
               borderRadius: BorderRadius.circular(AppSizes.s12),
               boxShadow: [
                 BoxShadow(

@@ -4,6 +4,7 @@ import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
+import 'package:mkaweel/core/extension/context.dart';
 
 class ExchangeRateWidget extends StatelessWidget {
   const ExchangeRateWidget({super.key});
@@ -27,7 +28,7 @@ class ExchangeRateWidget extends StatelessWidget {
             children: [
               Text('live_exchange_rates'.tr(), style: AppTextStyles.font14Regular.copyWith(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold)),
               5.verticalSpace,
-              Text('1 \$ = 45.89 ₺  |  1 \$ = 13,000 ل.س', style: AppTextStyles.font14Regular.copyWith(color: AppColors.contractorDarkText)),
+              Text('1 \$ = 45.89 ₺  |  1 \$ = 13,000 ل.س', style: AppTextStyles.font14Regular.copyWith(color: context.theme.colorScheme.tertiaryFixed)),
               5.verticalSpace,
               const Text('الآن • open.er-api.com', style: AppTextStyles.font12Regular),
             ],

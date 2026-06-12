@@ -58,7 +58,7 @@ class _LoginPageState extends LoginPageBaseState {
       child: Form(
         key: _key,
         child: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: context.theme.scaffoldBackgroundColor,
           body: SafeArea(
             child: Center(
               child: SingleChildScrollView(
@@ -142,8 +142,7 @@ class _LoginPageState extends LoginPageBaseState {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            backgroundColor: Colors
-                                .blueAccent, // Modify to match your app theme
+                            backgroundColor: context.theme.primaryColor
                           ),
                           child: isLoading
                               ? const SizedBox(

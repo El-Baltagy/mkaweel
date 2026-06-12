@@ -30,7 +30,7 @@ class DashboardHeaderWidget extends StatelessWidget {
                 'sunday_may_31'.tr(),
                 style: AppTextStyles.font14Regular.copyWith(color: context.theme.scaffoldBackgroundColor.withOpacity(0.8)),
               ),
-              const Icon(Icons.notifications_none, color: context.theme.scaffoldBackgroundColor),
+                Icon(Icons.notifications_none, color: context.theme.scaffoldBackgroundColor),
             ],
           ),
           5.verticalSpace,
@@ -42,11 +42,11 @@ class DashboardHeaderWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildStatItem('0', 'active_project'.tr()),
-              _buildDivider(),
-              _buildStatItem('0', 'completed'.tr()),
-              _buildDivider(),
-              _buildStatItem('0', 'todays_tasks'.tr()),
+              _buildStatItem(context,'0', 'active_project'.tr()),
+              _buildDivider(context),
+              _buildStatItem(context,'0', 'completed'.tr()),
+              _buildDivider(context),
+              _buildStatItem(context,'0', 'todays_tasks'.tr()),
             ],
           ),
         ],
@@ -54,7 +54,7 @@ class DashboardHeaderWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildStatItem(String count, String label) {
+  Widget _buildStatItem(BuildContext context,String count, String label) {
     return Column(
       children: [
         Text(
@@ -69,7 +69,7 @@ class DashboardHeaderWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildDivider() {
+  Widget _buildDivider(BuildContext context,) {
     return Container(
       height: AppSizes.s40,
       width: AppSizes.s1,

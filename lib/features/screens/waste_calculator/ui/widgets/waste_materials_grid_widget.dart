@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
+import 'package:mkaweel/core/extension/context.dart';
 
 class MaterialItem {
 
@@ -69,7 +70,7 @@ class WasteMaterialsGridWidget extends StatelessWidget {
                   color: isSelected ? Theme.of(context).primaryColor.withOpacity(0.1) : Colors.white,
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                    color: isSelected ? Theme.of(context).primaryColor : AppColors.contractorLightGrey,
+                    color: isSelected ? Theme.of(context).primaryColor : context.theme.canvasColor,
                     width: isSelected ? 1.5 : 1,
                   ),
                 ),
@@ -84,7 +85,7 @@ class WasteMaterialsGridWidget extends StatelessWidget {
                           Text(
                             material.title,
                             style: AppTextStyles.font18SemiBold.copyWith(
-                              color: isSelected ? Theme.of(context).primaryColor : AppColors.contractorDarkText,
+                              color: isSelected ? Theme.of(context).primaryColor : context.theme.colorScheme.tertiaryFixed,
                                 fontSize: 14
                             ),
                             textAlign: TextAlign.right,

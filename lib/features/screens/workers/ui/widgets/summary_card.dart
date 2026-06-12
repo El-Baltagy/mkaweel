@@ -3,6 +3,7 @@ import 'package:flutter/Material.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
+import 'package:mkaweel/core/extension/context.dart';
 
 class WorkersSummaryWidget extends StatelessWidget {
   const WorkersSummaryWidget({super.key, required this.activeCount, required this.inactiveCount});
@@ -19,7 +20,7 @@ class WorkersSummaryWidget extends StatelessWidget {
             child: SummaryCard(
               count: inactiveCount,
               label: 'inactive'.tr(),
-              countColor: AppColors.contractorDarkText,
+              countColor: context.theme.colorScheme.tertiaryFixed,
             ),
           ),
           const SizedBox(width: AppSizes.s12),
@@ -49,9 +50,9 @@ class SummaryCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(AppPadding.p20),
       decoration: BoxDecoration(
-        color: AppColors.contractorSurface,
+        color: context.theme.scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(AppSizes.s12),
-        border: Border.all(color: AppColors.contractorLightGrey),
+        border: Border.all(color: context.theme.canvasColor),
       ),
       child: Column(
         children: [

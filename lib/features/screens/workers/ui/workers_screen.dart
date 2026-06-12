@@ -73,7 +73,7 @@ class _WorkersPageState extends WorkersPageBaseState {
           ),
           centerTitle: true,
           leading: IconButton(
-            icon: const Icon(Icons.add, color: context.theme.scaffoldBackgroundColor),
+            icon:   Icon(Icons.add, color: context.theme.scaffoldBackgroundColor),
             onPressed: () => showAddWorkerBottomSheet(context),
           ),
 

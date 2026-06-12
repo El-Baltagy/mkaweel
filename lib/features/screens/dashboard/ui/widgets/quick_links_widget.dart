@@ -35,7 +35,7 @@ class QuickLinksWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(AppPadding.p16),
       decoration: BoxDecoration(
-        color: AppColors.contractorSurface,
+        color: context.theme.scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(AppSizes.s12),
         boxShadow: [
           BoxShadow(
@@ -63,7 +63,7 @@ class QuickLinksWidget extends StatelessWidget {
             child: TickerText(
               child: Text(
                  label,
-                style: AppTextStyles.font14Regular.copyWith(fontWeight: FontWeight.bold, color: AppColors.contractorDarkText),
+                style: AppTextStyles.font14Regular.copyWith(fontWeight: FontWeight.bold, color: context.theme.colorScheme.tertiaryFixed),
               ),
             ),
           ),

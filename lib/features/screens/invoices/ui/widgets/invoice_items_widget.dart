@@ -24,7 +24,7 @@ class InvoiceItemsWidget extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: AppColors.contractorLightGrey),
+              border: Border.all(color: context.theme.canvasColor),
             ),
             child: Text(
               'item_description'.tr(),
@@ -55,7 +55,7 @@ class InvoiceItemsWidget extends StatelessWidget {
                      Text('item_price'.tr(), style: AppTextStyles.font14Regular.copyWith(color: AppColors.contractorGreyText,
                          fontSize: 10)),
                      4.verticalSpace,
-                    _buildBox('0'),
+                    _buildBox(context,'0'),
                   ],
                 ),
               ),
@@ -68,7 +68,7 @@ class InvoiceItemsWidget extends StatelessWidget {
                      Text('item_quantity'.tr(), style: AppTextStyles.font14Regular.copyWith(color: AppColors.contractorGreyText,
                          fontSize: 10)),
                      4.verticalSpace,
-                    _buildBox('1'),
+                    _buildBox(context,'1'),
                   ],
                 ),
               ),
@@ -79,19 +79,19 @@ class InvoiceItemsWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildBox(String text) {
+  Widget _buildBox(BuildContext context,String text) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: AppColors.contractorLightGrey),
+        border: Border.all(color: context.theme.canvasColor),
       ),
       child: Text(
         text,
         textAlign: TextAlign.center,
-        style: AppTextStyles.font14Regular.copyWith(color: AppColors.contractorDarkText),
+        style: AppTextStyles.font14Regular.copyWith(color: context.theme.colorScheme.tertiaryFixed),
       ),
     );
   }

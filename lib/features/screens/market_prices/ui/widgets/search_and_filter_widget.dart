@@ -21,11 +21,11 @@ class SearchAndFilterWidget extends StatelessWidget {
             fillColor: context.theme.scaffoldBackgroundColor,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppSizes.s8),
-              borderSide: const BorderSide(color: AppColors.contractorLightGrey),
+              borderSide:   BorderSide(color: context.theme.canvasColor),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppSizes.s8),
-              borderSide: const BorderSide(color: AppColors.contractorLightGrey),
+              borderSide:   BorderSide(color: context.theme.canvasColor),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppSizes.s8),
@@ -65,7 +65,7 @@ class SearchAndFilterWidget extends StatelessWidget {
       child: Text(
         label,
         style: AppTextStyles.font14Regular.copyWith(
-          color: isSelected ? context.theme.scaffoldBackgroundColor : AppColors.contractorDarkText,
+          color: isSelected ? context.theme.scaffoldBackgroundColor : context.theme.colorScheme.tertiaryFixed,
           fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
         ),
       ),

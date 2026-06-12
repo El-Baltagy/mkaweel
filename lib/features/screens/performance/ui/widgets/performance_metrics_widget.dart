@@ -46,7 +46,7 @@ class PerformanceMetricsWidget extends StatelessWidget {
               child: _buildMetricCard(
                 title: 'total_contract_value'.tr(),
                 value: '٨٠,٠٠٠',
-                valueColor: AppColors.contractorDarkText,
+                valueColor: context.theme.colorScheme.tertiaryFixed,
               ),
             ),
           ],

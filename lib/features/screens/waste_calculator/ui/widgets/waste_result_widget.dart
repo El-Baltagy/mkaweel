@@ -74,7 +74,7 @@ class WasteResultWidget extends StatelessWidget {
                 fontSize: 14),
           ),
           16.verticalSpace,
-          _buildResultRow('net_quantity'.tr(), floorArea, context.theme.scaffoldBackgroundColor, AppColors.contractorDarkText),
+          _buildResultRow('net_quantity'.tr(), floorArea, context.theme.scaffoldBackgroundColor, context.theme.colorScheme.tertiaryFixed),
           12.verticalSpace,
           _buildResultRow(
             'waste_ratio_10'.tr().replaceAll('10', percentage.toInt().toString()),
@@ -89,7 +89,7 @@ class WasteResultWidget extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: AppColors.contractorLightGrey.withOpacity(0.4),
+              color: context.theme.canvasColor.withOpacity(0.4),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(

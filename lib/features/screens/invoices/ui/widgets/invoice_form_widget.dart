@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
+import 'package:mkaweel/core/extension/context.dart';
 
 class InvoiceFormWidget extends StatelessWidget {
   const InvoiceFormWidget({super.key});
@@ -85,7 +86,7 @@ class InvoiceFormWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: isNumber ? Theme.of(context).primaryColor : AppColors.contractorLightGrey),
+        border: Border.all(color: isNumber ? Theme.of(context).primaryColor : context.theme.canvasColor),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
       child: Row(
@@ -93,9 +94,9 @@ class InvoiceFormWidget extends StatelessWidget {
         children: [
           Text(
             hint,
-            style: AppTextStyles.font14Regular.copyWith(color: AppColors.contractorDarkText),
+            style: AppTextStyles.font14Regular.copyWith(color: context.theme.colorScheme.tertiaryFixed),
           ),
-          if (icon != null) Icon(icon, color: AppColors.contractorDarkText, size: 18),
+          if (icon != null) Icon(icon, color: context.theme.colorScheme.tertiaryFixed, size: 18),
           if (isNumber)
             const Column(
               mainAxisSize: MainAxisSize.min,

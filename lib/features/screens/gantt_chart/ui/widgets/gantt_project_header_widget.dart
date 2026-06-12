@@ -32,7 +32,7 @@ class GanttProjectHeaderWidget extends StatelessWidget {
             children: [
               Text(
                 'invoice_project_name_example'.tr(),
-                style: AppTextStyles.font16SemiBold.copyWith(color: AppColors.contractorDarkText),
+                style: AppTextStyles.font16SemiBold.copyWith(color: context.theme.colorScheme.tertiaryFixed),
               ),
               8.verticalSpace,
               Text(

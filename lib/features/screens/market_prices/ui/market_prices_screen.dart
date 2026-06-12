@@ -47,7 +47,7 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
             title: Text('market_prices'.tr(), style: AppTextStyles.font18SemiBold.copyWith(color: context.theme.scaffoldBackgroundColor)),
             centerTitle: true,
             leading: IconButton(
-              icon: const Icon(Icons.sync, color: context.theme.scaffoldBackgroundColor),
+              icon:   Icon(Icons.sync, color: context.theme.scaffoldBackgroundColor),
               onPressed: () {},
             ),
           ),

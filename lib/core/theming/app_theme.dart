@@ -10,6 +10,7 @@ class AppTheme {
       useMaterial3: true,
       brightness:  .light,
        primaryColor: AppColors.primaryLightColor,
+      canvasColor:AppColors.lightBorder ,
       scaffoldBackgroundColor: AppColors.lightBackground,
       colorScheme: const  .light(
         primary: AppColors.primaryLightColor,
@@ -17,6 +18,7 @@ class AppTheme {
         surface:AppColors. lightSurface,
         onPrimary: Colors.white,
         onSecondary: Colors.white,
+        tertiaryFixed: AppColors.lightTextPrimary,
       ),
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.primaryLightColor,
@@ -60,7 +62,7 @@ class AppTheme {
       primaryColor: AppColors.primaryDarkColor,
 
       scaffoldBackgroundColor:AppColors. darkBackground,
-      colorScheme: const  .dark(
+      colorScheme:    .dark(
         primary: AppColors.primaryDarkColor,
         secondary: AppColors.secondryDarkColor,
         surface: AppColors.darkSurface,
