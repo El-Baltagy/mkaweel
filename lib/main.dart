@@ -2,11 +2,13 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/app/app.dart';
 import 'package:mkaweel/localization.dart';
 import 'package:mkaweel/core/storage/storage_helper.dart';
+import 'package:mkaweel/core/theming/theme_cubit.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey(debugLabel: 'Main Navigator');
 Future<void> main() async {
@@ -15,14 +17,16 @@ Future<void> main() async {
   await EasyLocalization.ensureInitialized();
   await CodegenLoader.init();
   AppLocator().init();
-   runApp(
-     EasyLocalization(
-
-      supportedLocales: CodegenLoader.supportedLocales,
-      fallbackLocale: CodegenLoader.fallBackLocale,
-      path: CodegenLoader.assetTranslationsPath,
-      assetLoader: CodegenLoader(),
-      child: const MyApp(),
+  runApp(
+    BlocProvider<ThemeCubit>(
+      create: (context) => AppLocator()()(),
+      child: EasyLocalization(
+        supportedLocales: CodegenLoader.supportedLocales,
+        fallbackLocale: CodegenLoader.fallBackLocale,
+        path: CodegenLoader.assetTranslationsPath,
+        assetLoader: CodegenLoader(),
+        child: const MyApp(),
+      ),
     ),
   );
 }

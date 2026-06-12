@@ -26,23 +26,18 @@ class _MyAppState extends State<MyApp> {
   }
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ThemeCubit>(
-      create: (context) => AppLocator()()(),
-      child: BlocBuilder<ThemeCubit, ThemeMode>(
-        builder: (context, themeMode) {
-          return MaterialApp.router(
-            localizationsDelegates: context.localizationDelegates,
-            supportedLocales: context.supportedLocales,
-            locale: context.locale,
-            // locale: Locale(StorageHelper().readData('langCode')??"en"),
-            title: 'Mkaweel',
-            theme: AppTheme.lightTheme,
-            darkTheme: AppTheme.darkTheme,
-            themeMode: themeMode,
-            routerConfig: appRouter.config(),
-          );
-        },
-      ),
+    final themeMode = context.watch<ThemeCubit>().state;
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      key: Key(context.locale.languageCode),
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      title: 'Mkaweel',
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: themeMode,
+      routerConfig: appRouter.config(),
     );
   }
 }

@@ -81,7 +81,7 @@ class _LoginPageState extends LoginPageBaseState {
                       keyboardType: TextInputType.phone,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       decoration: InputDecoration(
-                        labelText: 'Phone_Number'.tr(),
+                        labelText: 'phone_number'.tr(),
                         prefixIcon: const Icon(Icons.phone),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -105,7 +105,7 @@ class _LoginPageState extends LoginPageBaseState {
                       obscureText: true,
                       autovalidateMode: .onUserInteraction,
                       decoration: InputDecoration(
-                        labelText: "Password".tr(),
+                        labelText: 'password'.tr(),
                         prefixIcon: const Icon(Icons.lock),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
