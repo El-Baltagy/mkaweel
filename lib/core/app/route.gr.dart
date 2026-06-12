@@ -39,11 +39,15 @@ abstract class _$AppRouter extends RootStackRouter {
         child: WrappedRoute(child: const InvoicesPage()),
       );
     },
-    /// part:2
     MainHomeRoute.name: (routeData) {
+      final args = routeData.argsAs<MainHomeRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: WrappedRoute(child: const MainHomePage()),
+        child: WrappedRoute(
+            child: MainHomePage(
+          key: args.key,
+          args: args.args,
+        )),
       );
     },
     MarketPricesRoute.name: (routeData) {
@@ -149,16 +153,40 @@ class InvoicesRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [MainHomePage]
-class MainHomeRoute extends PageRouteInfo<void> {
-  const MainHomeRoute({List<PageRouteInfo>? children})
-      : super(
+class MainHomeRoute extends PageRouteInfo<MainHomeRouteArgs> {
+  MainHomeRoute({
+    Key? key,
+    required MainHomeRouteArgs args,
+    List<PageRouteInfo>? children,
+  }) : super(
           MainHomeRoute.name,
+          args: MainHomeRouteArgs(
+            key: key,
+            args: args,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'MainHomeRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<MainHomeRouteArgs> page =
+      PageInfo<MainHomeRouteArgs>(name);
+}
+
+class MainHomeRouteArgs {
+  const MainHomeRouteArgs({
+    this.key,
+    required this.title,
+  });
+
+  final Key? key;
+
+  final String title;
+
+  @override
+  String toString() {
+    return 'MainHomeRouteArgs{key: $key, args: $title}';
+  }
 }
 
 /// generated route for

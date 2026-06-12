@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
+import 'package:mkaweel/features/screens/main_home/ui/main_home_screen.dart';
 import 'package:mkaweel/features/screens/splash/ui/widgets/loading_dots.dart';
  @RoutePage()
 class SplashPage extends StatefulWidget {
@@ -36,7 +37,7 @@ class _SplashPageState extends State<SplashPage>
     // Navigate to MainHome after 4 seconds
     Timer(const Duration(seconds: 4), () {
       if (mounted) {
-        context.router.replace(  const MainHomeRoute(   ));
+        context.router.replace(MainHomeRoute(args: const MainHomeRouteArgs(title: 'My Title')));
       }
     });
   }

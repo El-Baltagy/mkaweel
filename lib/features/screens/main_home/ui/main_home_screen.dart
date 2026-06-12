@@ -10,9 +10,12 @@ import 'package:mkaweel/features/screens/main_home/controller/main_home_cubit.da
 import 'package:mkaweel/features/screens/main_home/controller/main_home_state.dart';
 part 'widgets/bottom_nav_bar.dart';
 
+
+
 @RoutePage()
 class MainHomePage extends StatefulWidget implements AutoRouteWrapper {
-  const MainHomePage({super.key});
+  final MainHomeRouteArgs args;
+  const MainHomePage({super.key, required this.args});
   @override
   Widget wrappedRoute(BuildContext context) {
     return BlocProvider<MainHomeCubit>(
