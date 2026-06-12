@@ -36,7 +36,7 @@ class _SplashPageState extends State<SplashPage>
     // Navigate to MainHome after 4 seconds
     Timer(const Duration(seconds: 4), () {
       if (mounted) {
-        context.router.replace(const MainHomeRoute());
+        context.router.replace(  MainHomeRoute());
       }
     });
   }

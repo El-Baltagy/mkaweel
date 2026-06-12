@@ -12,8 +12,7 @@ void main() {
       if (ar.isNotEmpty) arToKey[ar] = key;
     }
   }
-  print('Parsed ${arToKey.length} Arabic keys from CSV');
-  
+
   final dir = Directory('lib/features/screens');
   final files = dir.listSync(recursive: true).whereType<File>().where((f) => f.path.endsWith('.dart'));
 
@@ -46,7 +45,6 @@ void main() {
         content = "import 'package:easy_localization/easy_localization.dart';\n" + content;
       }
       file.writeAsStringSync(content, encoding: utf8);
-      print('Updated ${file.path}');
-    }
+     }
   }
 }

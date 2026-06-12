@@ -7,8 +7,7 @@ import 'lib/core/tools/create_auto_files/locator_add_requried_data.dart';
 void main() async {
   final features = ['gantt_chart', 'invoices', 'performance', 'waste_calculator'];
   for (final f in features) {
-    print('Fixing \$f...');
-    PathConstants().setData(f);
+     PathConstants().setData(f);
     
     // 1. Generate Data Layer (Repo)
     await RepoAddRequiredFiles().makeRequiredFiles('data');

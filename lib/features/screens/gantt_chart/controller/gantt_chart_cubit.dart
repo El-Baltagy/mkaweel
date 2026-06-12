@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../service/gantt_chart_service.dart';
 
@@ -7,5 +8,5 @@ class GanttChartCubit extends Cubit<GanttChartState> {
   final GanttChartService _service;
   GanttChartCubit(this._service) : super(GanttChartInitial());
 
-  static GanttChartCubit get({required context}) => BlocProvider.of(context);
+  static GanttChartCubit get({required BuildContext context}) => BlocProvider.of(context);
 }

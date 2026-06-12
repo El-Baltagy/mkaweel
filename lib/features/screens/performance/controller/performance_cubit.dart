@@ -1,3 +1,4 @@
+import 'package:flutter/Material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../service/performance_service.dart';
 
@@ -7,5 +8,5 @@ class PerformanceCubit extends Cubit<PerformanceState> {
   final PerformanceService _service;
   PerformanceCubit(this._service) : super(PerformanceInitial());
 
-  static PerformanceCubit get({required context}) => BlocProvider.of(context);
+  static PerformanceCubit get({required BuildContext context}) => BlocProvider.of(context);
 }
