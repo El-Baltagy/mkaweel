@@ -3,6 +3,7 @@ import 'package:flutter/Material.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
+import 'package:mkaweel/core/extension/context.dart';
 
 class WorkersFilterWidget extends StatelessWidget {
   const WorkersFilterWidget({
@@ -37,7 +38,7 @@ class WorkersFilterWidget extends StatelessWidget {
                 child: Text(
                   labels[i],
                   style: AppTextStyles.font14Regular.copyWith(
-                    color: isSelected ? AppColors.white : AppColors.contractorGreyText,
+                    color: isSelected ? context.theme.scaffoldBackgroundColor : AppColors.contractorGreyText,
                     fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
                   ),
                 ),

@@ -115,7 +115,7 @@ class _SettingsListWidgetState extends State<SettingsListWidget> {
             child: OutlinedButton(
               onPressed: () =>context.pushAndPopUntil( const LoginRoute(), predicate: (Route<dynamic> route)=>false),
               style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: AppColors.contractorRed),
+                side:   BorderSide(color: context.theme.colorScheme.secondary),
                 padding: const EdgeInsets.symmetric(vertical: AppPadding.p16),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(AppSizes.s12),
@@ -123,7 +123,7 @@ class _SettingsListWidgetState extends State<SettingsListWidget> {
               ),
               child: Text(
                 'logout'.tr(),
-                style: AppTextStyles.font16SemiBold.copyWith(color: AppColors.contractorRed),
+                style: AppTextStyles.font16SemiBold.copyWith(color: context.theme.colorScheme.secondary),
               ),
             ),
           ),
@@ -151,7 +151,7 @@ class _SettingsListWidgetState extends State<SettingsListWidget> {
           trailing: Container(
             padding: const EdgeInsets.all(AppPadding.p8),
             decoration: BoxDecoration(
-              color: AppColors.contractorBackground,
+              color: context.theme.scaffoldBackgroundColor,
               borderRadius: BorderRadius.circular(AppSizes.s8),
             ),
             child: Icon(icon, color: iconColor, size: 20),

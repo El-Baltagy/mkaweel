@@ -4,6 +4,7 @@ import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
+import 'package:mkaweel/core/extension/context.dart';
 
 class CurrencyTabsWidget extends StatelessWidget {
   const CurrencyTabsWidget({super.key});
@@ -25,7 +26,7 @@ class CurrencyTabsWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: AppPadding.p12),
       decoration: BoxDecoration(
-        color: isSelected ? Theme.of(context).primaryColor.withOpacity(0.1) : AppColors.white,
+        color: isSelected ? Theme.of(context).primaryColor.withOpacity(0.1) : context.theme.scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(AppSizes.s8),
         /// to do: add border
         // border: BorderSide(

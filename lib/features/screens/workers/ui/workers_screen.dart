@@ -12,6 +12,7 @@ import 'package:mkaweel/features/screens/workers/ui/widgets/AddWorkerBottomSheet
 import 'package:mkaweel/features/screens/workers/ui/widgets/filter_wdgt.dart';
 import 'package:mkaweel/features/screens/workers/ui/widgets/summary_card.dart';
 import 'package:mkaweel/features/screens/workers/ui/widgets/workers_widgets.dart';
+import 'package:mkaweel/core/extension/context.dart';
 
 @RoutePage()
 class WorkersPage extends StatefulWidget implements AutoRouteWrapper {
@@ -62,17 +63,17 @@ class _WorkersPageState extends WorkersPageBaseState {
     return BlocListener<WorkersCubit, WorkersState>(
       listener: (context, state) {},
       child: Scaffold(
-        backgroundColor: AppColors.contractorBackground,
+        backgroundColor: context.theme.scaffoldBackgroundColor,
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
           elevation: 0,
           title: Text(
             'workers_management'.tr(),
-            style: AppTextStyles.font18SemiBold.copyWith(color: AppColors.white),
+            style: AppTextStyles.font18SemiBold.copyWith(color: context.theme.scaffoldBackgroundColor),
           ),
           centerTitle: true,
           leading: IconButton(
-            icon: const Icon(Icons.add, color: AppColors.white),
+            icon: const Icon(Icons.add, color: context.theme.scaffoldBackgroundColor),
             onPressed: () => showAddWorkerBottomSheet(context),
           ),
 

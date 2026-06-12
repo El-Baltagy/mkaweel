@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
+import 'package:mkaweel/core/extension/context.dart';
 
 class InvoiceItemsWidget extends StatelessWidget {
   const InvoiceItemsWidget({super.key});
@@ -12,7 +13,7 @@ class InvoiceItemsWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: AppColors.contractorBackground,
+        color: context.theme.scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(

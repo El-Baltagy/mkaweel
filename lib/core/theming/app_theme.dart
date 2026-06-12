@@ -9,11 +9,11 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       brightness:  .light,
-       // primaryColor: AppColors.primaryLightColor,
+       primaryColor: AppColors.primaryLightColor,
       scaffoldBackgroundColor: AppColors.lightBackground,
       colorScheme: const  .light(
         primary: AppColors.primaryLightColor,
-        secondary: AppColors.accentCoral,
+        secondary: AppColors.secondryLightColor,
         surface:AppColors. lightSurface,
         onPrimary: Colors.white,
         onSecondary: Colors.white,
@@ -58,10 +58,11 @@ class AppTheme {
       useMaterial3: true,
       brightness:  .dark,
       primaryColor: AppColors.primaryDarkColor,
+
       scaffoldBackgroundColor:AppColors. darkBackground,
       colorScheme: const  .dark(
         primary: AppColors.primaryDarkColor,
-        secondary: AppColors.accentCoral,
+        secondary: AppColors.secondryDarkColor,
         surface: AppColors.darkSurface,
         onPrimary: Colors.white,
         onSecondary: Colors.white,

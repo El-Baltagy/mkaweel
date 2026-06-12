@@ -35,7 +35,7 @@ class _WasteCalculatorPageState extends WasteCalculatorPageBaseState {
     return Semantics(
       label: 'Waste Calculator Screen',
       child: Scaffold(
-        backgroundColor: AppColors.contractorBackground,
+        backgroundColor: context.theme.scaffoldBackgroundColor,
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
           elevation: 0,

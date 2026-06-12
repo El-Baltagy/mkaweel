@@ -37,22 +37,22 @@ class _ProjectsPageState extends ProjectsPageBaseState {
       child: Semantics(
         label: 'Projects Screen',
         child: Scaffold(
-          backgroundColor: AppColors.contractorBackground,
+          backgroundColor: context.theme.scaffoldBackgroundColor,
           appBar: AppBar(
             backgroundColor: Theme.of(context).primaryColor,
-            title: Text('projects'.tr(), style: AppTextStyles.font18SemiBold.copyWith(color: AppColors.white)),
+            title: Text('projects'.tr(), style: AppTextStyles.font18SemiBold.copyWith(color: context.theme.scaffoldBackgroundColor)),
             centerTitle: true,
             leading: IconButton(
-              icon: const Icon(Icons.sync, color: AppColors.white),
+              icon: const Icon(Icons.sync, color: context.theme.scaffoldBackgroundColor),
               onPressed: () {},
             ),
           ),
           body: const EmptyProjectsWidget(),
           floatingActionButtonLocation: .centerFloat,
           floatingActionButton: FloatingActionButton(
-            backgroundColor: AppColors.contractorRed,
+            backgroundColor: context.theme.colorScheme.secondary,
             onPressed: () =>context.push(const CreateProjectRoute()),
-            child: const Icon(Icons.add, color: AppColors.white),
+            child: const Icon(Icons.add, color: context.theme.scaffoldBackgroundColor),
           ),
         ),
       ),

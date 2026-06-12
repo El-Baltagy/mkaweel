@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
+import 'package:mkaweel/core/extension/context.dart';
 
 class PerformanceMetricsWidget extends StatelessWidget {
   const PerformanceMetricsWidget({super.key});
@@ -37,7 +38,7 @@ class PerformanceMetricsWidget extends StatelessWidget {
               child: _buildMetricCard(
                 title: 'total_profits'.tr(),
                 value: '٨٠,٠٠٠',
-                valueColor: AppColors.contractorRed,
+                valueColor: context.theme.colorScheme.secondary,
               ),
             ),
             16.horizontalSpace,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
+import 'package:mkaweel/core/extension/context.dart';
 
 class GanttProjectHeaderWidget extends StatelessWidget {
   const GanttProjectHeaderWidget({super.key});
@@ -45,20 +46,20 @@ class GanttProjectHeaderWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            _buildLegendItem('today_task'.tr(), Colors.transparent, hasBorder: true),
+            _buildLegendItem(context,'today_task'.tr(), Colors.transparent, hasBorder: true),
             12.horizontalSpace,
-            _buildLegendItem('pending_task'.tr(), AppColors.contractorGreyText),
+            _buildLegendItem(context,'pending_task'.tr(), AppColors.contractorGreyText),
             12.horizontalSpace,
-            _buildLegendItem('in_progress_task'.tr(), AppColors.gold),
+            _buildLegendItem(context,'in_progress_task'.tr(), AppColors.gold),
             12.horizontalSpace,
-            _buildLegendItem('completed_task'.tr(), AppColors.contractorGreen),
+            _buildLegendItem(context,'completed_task'.tr(), AppColors.contractorGreen),
           ],
         ),
       ],
     );
   }
 
-  Widget _buildLegendItem(String title, Color color, {bool hasBorder = false}) {
+  Widget _buildLegendItem(BuildContext context,String title, Color color, {bool hasBorder = false}) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -73,7 +74,7 @@ class GanttProjectHeaderWidget extends StatelessWidget {
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.circular(2),
-            border: hasBorder ? Border.all(color: AppColors.contractorRed, width: 2) : null,
+            border: hasBorder ? Border.all(color: context.theme.colorScheme.secondary, width: 2) : null,
           ),
         ),
       ],

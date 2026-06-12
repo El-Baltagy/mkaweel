@@ -3,6 +3,7 @@ import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
+import 'package:mkaweel/core/extension/context.dart';
 
 class PriceItemWidget extends StatelessWidget {
 
@@ -26,7 +27,7 @@ class PriceItemWidget extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: AppPadding.p12),
       padding: const EdgeInsets.all(AppPadding.p16),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: context.theme.scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(AppSizes.s8),
         boxShadow: [
           BoxShadow(

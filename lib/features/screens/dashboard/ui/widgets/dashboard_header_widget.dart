@@ -4,6 +4,7 @@ import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
+import 'package:mkaweel/core/extension/context.dart';
 
 class DashboardHeaderWidget extends StatelessWidget {
   const DashboardHeaderWidget({super.key});
@@ -27,15 +28,15 @@ class DashboardHeaderWidget extends StatelessWidget {
             children: [
               Text(
                 'sunday_may_31'.tr(),
-                style: AppTextStyles.font14Regular.copyWith(color: AppColors.white.withOpacity(0.8)),
+                style: AppTextStyles.font14Regular.copyWith(color: context.theme.scaffoldBackgroundColor.withOpacity(0.8)),
               ),
-              const Icon(Icons.notifications_none, color: AppColors.white),
+              const Icon(Icons.notifications_none, color: context.theme.scaffoldBackgroundColor),
             ],
           ),
           5.verticalSpace,
           Text(
             'hello'.tr(),
-            style: AppTextStyles.font24Bold.copyWith(color: AppColors.white),
+            style: AppTextStyles.font24Bold.copyWith(color: context.theme.scaffoldBackgroundColor),
           ),
           20.verticalSpace,
           Row(
@@ -58,11 +59,11 @@ class DashboardHeaderWidget extends StatelessWidget {
       children: [
         Text(
           count,
-          style: AppTextStyles.font24Bold.copyWith(color: AppColors.white),
+          style: AppTextStyles.font24Bold.copyWith(color: context.theme.scaffoldBackgroundColor),
         ),
         Text(
           label,
-          style: AppTextStyles.font14Regular.copyWith(color: AppColors.white.withOpacity(0.8)),
+          style: AppTextStyles.font14Regular.copyWith(color: context.theme.scaffoldBackgroundColor.withOpacity(0.8)),
         ),
       ],
     );
@@ -72,7 +73,7 @@ class DashboardHeaderWidget extends StatelessWidget {
     return Container(
       height: AppSizes.s40,
       width: AppSizes.s1,
-      color: AppColors.white.withOpacity(0.3),
+      color: context.theme.scaffoldBackgroundColor.withOpacity(0.3),
     );
   }
 }

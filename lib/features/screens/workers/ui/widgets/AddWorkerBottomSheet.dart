@@ -3,11 +3,13 @@ import 'package:flutter/Material.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
+import 'package:mkaweel/core/extension/context.dart';
 
 void showAddWorkerBottomSheet(BuildContext context) {
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
+    // backgroundColor: context.theme.colorScheme.secondary,
     backgroundColor: Colors.transparent,
     builder: (_) => const AddWorkerBottomSheet(),
   );
@@ -89,7 +91,7 @@ class _AddWorkerBottomSheetState extends State<AddWorkerBottomSheet> {
                         padding: const EdgeInsets.symmetric(vertical: AppPadding.p16),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSizes.s12)),
                       ),
-                      child: Text('save'.tr(), style: AppTextStyles.font16SemiBold.copyWith(color: AppColors.white)),
+                      child: Text('save'.tr(), style: AppTextStyles.font16SemiBold.copyWith(color: context.theme.scaffoldBackgroundColor)),
                     ),
                   ),
                 ],
@@ -115,7 +117,7 @@ class _AddWorkerBottomSheetState extends State<AddWorkerBottomSheet> {
       hintText: hint,
       // hintTextDirection: TextDirection.rtl,
       filled: true,
-      fillColor: AppColors.contractorBackground,
+      fillColor: context.theme.scaffoldBackgroundColor,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppSizes.s8),
         borderSide: const BorderSide(color: AppColors.contractorLightGrey),
@@ -144,7 +146,7 @@ class _AddWorkerBottomSheetState extends State<AddWorkerBottomSheet> {
     child: Container(
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16, vertical: AppPadding.p14),
       decoration: BoxDecoration(
-        color: AppColors.contractorBackground,
+        color: context.theme.scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(AppSizes.s8),
         border: Border.all(color: AppColors.contractorLightGrey),
       ),

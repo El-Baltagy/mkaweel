@@ -33,7 +33,7 @@ class CurrencySelectorWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: AppPadding.p12),
       decoration: BoxDecoration(
-        color: isSelected ? context.theme.primaryColor.withOpacity(0.1) : AppColors.white,
+        color: isSelected ? context.theme.primaryColor.withOpacity(0.1) : context.theme.scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(AppSizes.s8),
         /// to do: add border
         // border: .new(

@@ -8,6 +8,7 @@ import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/features/screens/settings/controller/settings_cubit.dart';
 import 'package:mkaweel/features/screens/settings/controller/settings_state.dart';
 import 'package:mkaweel/features/screens/settings/ui/widgets/settings_list_widget.dart';
+import 'package:mkaweel/core/extension/context.dart';
 
 @RoutePage()
 class SettingsPage extends StatefulWidget implements AutoRouteWrapper {
@@ -38,7 +39,7 @@ class _SettingsPageState extends SettingsPageBaseState {
           title: Text(
             'settings_title'.tr(),
             style: AppTextStyles.font18SemiBold.copyWith(
-              color: Theme.of(context).appBarTheme.foregroundColor ?? AppColors.white,
+              color: Theme.of(context).appBarTheme.foregroundColor ?? context.theme.scaffoldBackgroundColor,
             ),
           ),
           centerTitle: true,

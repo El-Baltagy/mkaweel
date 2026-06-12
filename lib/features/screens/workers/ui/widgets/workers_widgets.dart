@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
+import 'package:mkaweel/core/extension/context.dart';
 
 class WorkerModel {
 
@@ -146,7 +147,7 @@ class WorkerCardWidget extends StatelessWidget {
               const SizedBox(height: AppSizes.s12),
               InkWell(
                 onTap: () {},
-                child: const Icon(Icons.delete_outline, color: AppColors.contractorRed, size: 20),
+                child:   Icon(Icons.delete_outline, color: context.theme.colorScheme.secondary, size: 20),
               ),
             ],
           ),

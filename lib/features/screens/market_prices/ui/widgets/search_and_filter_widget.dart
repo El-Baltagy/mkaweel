@@ -4,6 +4,7 @@ import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
+import 'package:mkaweel/core/extension/context.dart';
 
 class SearchAndFilterWidget extends StatelessWidget {
   const SearchAndFilterWidget({super.key});
@@ -17,7 +18,7 @@ class SearchAndFilterWidget extends StatelessWidget {
             hintText: 'search_material_hint'.tr(),
             hintStyle: AppTextStyles.font14Regular.copyWith(color: AppColors.contractorGreyText.withOpacity(0.6)),
             filled: true,
-            fillColor: AppColors.white,
+            fillColor: context.theme.scaffoldBackgroundColor,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppSizes.s8),
               borderSide: const BorderSide(color: AppColors.contractorLightGrey),
@@ -64,7 +65,7 @@ class SearchAndFilterWidget extends StatelessWidget {
       child: Text(
         label,
         style: AppTextStyles.font14Regular.copyWith(
-          color: isSelected ? AppColors.white : AppColors.contractorDarkText,
+          color: isSelected ? context.theme.scaffoldBackgroundColor : AppColors.contractorDarkText,
           fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
         ),
       ),

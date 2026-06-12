@@ -13,6 +13,7 @@ import 'package:mkaweel/features/screens/market_prices/ui/widgets/exchange_rate_
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/currency_tabs_widget.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/search_and_filter_widget.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/price_item_widget.dart';
+import 'package:mkaweel/core/extension/context.dart';
 
 @RoutePage()
 class MarketPricesPage extends StatefulWidget implements AutoRouteWrapper{
@@ -40,13 +41,13 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
       child: Semantics(
         label: 'Market Prices Screen',
         child: Scaffold(
-          backgroundColor: AppColors.contractorBackground,
+          backgroundColor: context.theme.scaffoldBackgroundColor,
           appBar: AppBar(
             backgroundColor: Theme.of(context).primaryColor,
-            title: Text('market_prices'.tr(), style: AppTextStyles.font18SemiBold.copyWith(color: AppColors.white)),
+            title: Text('market_prices'.tr(), style: AppTextStyles.font18SemiBold.copyWith(color: context.theme.scaffoldBackgroundColor)),
             centerTitle: true,
             leading: IconButton(
-              icon: const Icon(Icons.sync, color: AppColors.white),
+              icon: const Icon(Icons.sync, color: context.theme.scaffoldBackgroundColor),
               onPressed: () {},
             ),
           ),

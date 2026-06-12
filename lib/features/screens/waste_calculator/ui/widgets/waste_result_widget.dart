@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
+import 'package:mkaweel/core/extension/context.dart';
 
 class WasteResultWidget extends StatelessWidget {
 
@@ -73,7 +74,7 @@ class WasteResultWidget extends StatelessWidget {
                 fontSize: 14),
           ),
           16.verticalSpace,
-          _buildResultRow('net_quantity'.tr(), floorArea, AppColors.contractorBackground, AppColors.contractorDarkText),
+          _buildResultRow('net_quantity'.tr(), floorArea, context.theme.scaffoldBackgroundColor, AppColors.contractorDarkText),
           12.verticalSpace,
           _buildResultRow(
             'waste_ratio_10'.tr().replaceAll('10', percentage.toInt().toString()),

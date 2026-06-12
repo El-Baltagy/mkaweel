@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
+import 'package:mkaweel/core/extension/context.dart';
 
 class PerformanceProjectListWidget extends StatelessWidget {
   const PerformanceProjectListWidget({super.key});
@@ -29,7 +30,7 @@ class PerformanceProjectListWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('weak'.tr(), style: AppTextStyles.font16SemiBold.copyWith(color: AppColors.contractorRed)),
+                Text('weak'.tr(), style: AppTextStyles.font16SemiBold.copyWith(color: context.theme.colorScheme.secondary)),
                 4.verticalSpace,
                 Text('rate_0_0'.tr(), style: AppTextStyles.font12Regular.copyWith(color: AppColors.contractorGreyText)),
               ],

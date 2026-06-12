@@ -46,7 +46,7 @@ class _LangSheetState extends State<LangSheet> {
       ),
       child: Container(
         height: (CodegenLoader.supportedLocales.length*80)+60 ,
-        color: AppColors.white, // Color for the background of ClipRRect
+        color: context.theme.scaffoldBackgroundColor, // Color for the background of ClipRRect
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -118,7 +118,7 @@ class _LangSheetState extends State<LangSheet> {
           margin: const EdgeInsets.all(1.5),
           padding: const EdgeInsets.symmetric(horizontal: 10 ),
           decoration: BoxDecoration(
-              color: AppColors.white,
+              color: context.theme.scaffoldBackgroundColor,
               borderRadius: BorderRadius.circular(18)),
           child: Padding(
             padding:  const EdgeInsetsDirectional.fromSTEB(15 , 0, 0, 0),

@@ -39,15 +39,15 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
       child: Semantics(
         label: 'Create Project Screen',
         child: Scaffold(
-          backgroundColor: AppColors.contractorBackground,
+          backgroundColor: context.theme.scaffoldBackgroundColor,
           appBar: AppBar(
             backgroundColor: context.theme.primaryColor,
-            title: Text('new_project'.tr(), style: AppTextStyles.font18SemiBold.copyWith(color: AppColors.white)),
+            title: Text('new_project'.tr(), style: AppTextStyles.font18SemiBold.copyWith(color: context.theme.scaffoldBackgroundColor)),
             centerTitle: true,
             leading: const SizedBox.shrink(),
             actions: [
               IconButton(
-                icon: const Icon(Icons.arrow_forward_ios, color: AppColors.white),
+                icon: const Icon(Icons.arrow_forward_ios, color: context.theme.scaffoldBackgroundColor),
                 onPressed: ()=>context.pop(),
               ),
             ],
@@ -106,7 +106,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(vertical: AppPadding.p16),
                   decoration: BoxDecoration(
-                    color: AppColors.white,
+                    color: context.theme.scaffoldBackgroundColor,
                     borderRadius: BorderRadius.circular(AppSizes.s8),
                     /// to do: add border
                     // border: BorderSide(color: AppColors.contractorLightGrey, style: BorderStyle.solid),
@@ -132,7 +132,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                         borderRadius: BorderRadius.circular(AppSizes.s8),
                       ),
                     ),
-                    child: Text('create_project'.tr(), style: AppTextStyles.font16SemiBold.copyWith(color: AppColors.white)),
+                    child: Text('create_project'.tr(), style: AppTextStyles.font16SemiBold.copyWith(color: context.theme.scaffoldBackgroundColor)),
                   ),
                 ),
                 20.verticalSpace,

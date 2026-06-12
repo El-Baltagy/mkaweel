@@ -34,7 +34,7 @@ class _PerformancePageState extends PerformancePageBaseState {
     return Semantics(
       label: 'Performance Comparison Screen',
       child: Scaffold(
-        backgroundColor: AppColors.contractorBackground,
+        backgroundColor: context.theme.scaffoldBackgroundColor,
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
           elevation: 0,

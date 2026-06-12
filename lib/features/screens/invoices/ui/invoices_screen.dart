@@ -34,7 +34,7 @@ class _InvoicesPageState extends InvoicesPageBaseState {
     return Semantics(
       label: 'Invoices Screen',
       child: Scaffold(
-        backgroundColor: AppColors.contractorBackground,
+        backgroundColor: context.theme.scaffoldBackgroundColor,
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
           elevation: 0,
