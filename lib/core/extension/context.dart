@@ -26,6 +26,7 @@ extension AppRouterExtension on BuildContext {
 
   unfocus()=> FocusScope.of(this).unfocus();
   // EdgeInsets get padding=> MediaQuery.of(this).padding;
+  ThemeData get theme=> Theme.of(this);
   double get height=> MediaQuery.sizeOf(this).height;
   double get width=> MediaQuery.sizeOf(this).width;
   double get aspectRatio=> MediaQuery.sizeOf(this).aspectRatio;

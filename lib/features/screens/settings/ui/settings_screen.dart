@@ -31,13 +31,15 @@ class _SettingsPageState extends SettingsPageBaseState {
     return BlocListener<SettingsCubit, SettingsState>(
       listener: (context, state) {},
       child: Scaffold(
-        backgroundColor: AppColors.contractorBackground,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         appBar: AppBar(
-          backgroundColor: AppColors.contractorTeal,
+          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
           elevation: 0,
           title: Text(
             'settings_title'.tr(),
-            style: AppTextStyles.font18SemiBold.copyWith(color: AppColors.white),
+            style: AppTextStyles.font18SemiBold.copyWith(
+              color: Theme.of(context).appBarTheme.foregroundColor ?? AppColors.white,
+            ),
           ),
           centerTitle: true,
           automaticallyImplyLeading: false,

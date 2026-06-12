@@ -1,11 +1,13 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/extension/context.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mkaweel/core/theming/theme_cubit.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
+import 'package:mkaweel/features/screens/settings/ui/widgets/lang_sheet.dart';
 
 class SettingsListWidget extends StatefulWidget {
   const SettingsListWidget({super.key});
@@ -15,8 +17,6 @@ class SettingsListWidget extends StatefulWidget {
 }
 
 class _SettingsListWidgetState extends State<SettingsListWidget> {
-  bool _isDarkMode = false;
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -24,33 +24,51 @@ class _SettingsListWidgetState extends State<SettingsListWidget> {
       child: Column(
         children: [
           // Dark Mode Card
-          Container(
-            decoration: BoxDecoration(
-              color: AppColors.contractorSurface,
-              borderRadius: BorderRadius.circular(AppSizes.s12),
-              border: Border.all(color: AppColors.contractorLightGrey),
-            ),
-            child: ListTile(
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: AppPadding.p16,
-                vertical: AppPadding.p8,
-              ),
-              leading: Switch(
-                value: _isDarkMode,
-                onChanged: (v) => setState(() => _isDarkMode = v),
-                activeThumbColor: AppColors.contractorTeal,
-              ),
-              title: Text('dark_mode'.tr(), style: AppTextStyles.font16SemiBold, textAlign: TextAlign.right),
-              subtitle: Text('dark_mode_subtitle'.tr(), style: AppTextStyles.font12Regular, textAlign: TextAlign.right),
-              trailing: Container(
-                padding: const EdgeInsets.all(AppPadding.p8),
+          BlocBuilder<ThemeCubit, ThemeMode>(
+            builder: (context, themeMode) {
+              final isDark = themeMode == ThemeMode.dark;
+              return Container(
                 decoration: BoxDecoration(
-                  color: AppColors.contractorBackground,
-                  borderRadius: BorderRadius.circular(AppSizes.s8),
+                  color: Theme.of(context).cardTheme.color ?? AppColors.contractorSurface,
+                  borderRadius: BorderRadius.circular(AppSizes.s12),
+                  border: Border.all(
+                    color: Theme.of(context).dividerTheme.color ?? AppColors.contractorLightGrey,
+                  ),
                 ),
-                child: const Icon(Icons.wb_sunny_outlined, color: AppColors.contractorTeal),
-              ),
-            ),
+                child: ListTile(
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: AppPadding.p16,
+                    vertical: AppPadding.p8,
+                  ),
+                  leading: Switch(
+                    value: isDark,
+                    onChanged: (v) => context.read<ThemeCubit>().toggleTheme(v),
+                    activeThumbColor: Theme.of(context).primaryColor,
+                  ),
+                  title: Text(
+                    'dark_mode'.tr(),
+                    style: AppTextStyles.font16SemiBold,
+                    textAlign: TextAlign.right,
+                  ),
+                  subtitle: Text(
+                    'dark_mode_subtitle'.tr(),
+                    style: AppTextStyles.font12Regular,
+                    textAlign: TextAlign.right,
+                  ),
+                  trailing: Container(
+                    padding: const EdgeInsets.all(AppPadding.p8),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      borderRadius: BorderRadius.circular(AppSizes.s8),
+                    ),
+                    child: Icon(
+                      isDark ? Icons.nights_stay_outlined : Icons.wb_sunny_outlined,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                ),
+              );
+            },
           ),
           const SizedBox(height: AppSizes.s12),
           // Info items
@@ -63,18 +81,23 @@ class _SettingsListWidgetState extends State<SettingsListWidget> {
             child: Column(
               children: [
                 _buildSettingsItem(
+                  icon: Icons.language,
+                  title: 'language'.tr(),
+                  subtitle: 'choose_language'.tr(),
+                  iconColor: AppColors.contractorTeal,
+                  onTap: LangSheet().show,
+                 ),
+                _buildSettingsItem(
                   icon: Icons.info_outline,
                   title: 'about_app'.tr(),
                   subtitle: 'version'.tr(),
                   iconColor: AppColors.contractorTeal,
-                  showDivider: true,
-                ),
+                 ),
                 _buildSettingsItem(
                   icon: Icons.shield_outlined,
                   title: 'privacy_policy'.tr(),
                   iconColor: AppColors.contractorTeal,
-                  showDivider: true,
-                ),
+                 ),
                 _buildSettingsItem(
                   icon: Icons.help_outline,
                   title: 'help_and_support'.tr(),
@@ -112,8 +135,9 @@ class _SettingsListWidgetState extends State<SettingsListWidget> {
     required IconData icon,
     required String title,
     String? subtitle,
+    void Function()? onTap,
     required Color iconColor,
-    required bool showDivider,
+      bool showDivider=true,
   }) {
     return Column(
       children: [
@@ -131,7 +155,7 @@ class _SettingsListWidgetState extends State<SettingsListWidget> {
             ),
             child: Icon(icon, color: iconColor, size: 20),
           ),
-          onTap: () {},
+          onTap:onTap,
         ),
         if (showDivider)
           const Divider(height: 1, indent: 16, endIndent: 16, color: AppColors.contractorLightGrey),

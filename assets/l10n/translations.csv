@@ -29,7 +29,7 @@ us_dollar,US Dollar,دولار أمريكي
 new_project,New Project,مشروع جديد
 project_name,Project Name,اسم المشروع
 building_residential_house,Building a residential house,بناء منزل سكني
-contract_value,Contract Value ($),قيمة العقد ($)
+contract_value,Contract Value,قيمة العقد
 location,Location,الموقع
 damascus_mezzeh,Damascus - Mezzeh,دمشق - المزة
 end_date,End Date,تاريخ الانتهاء
@@ -67,10 +67,9 @@ active_worker,Active Worker,عامل نشط
 inactive_worker,Inactive Worker,غير نشط
 all_workers,All,الكل
 add_worker,Add Worker,إضافة عامل
-worker_name,Worker Name *,اسم العامل *
+worker_name,Worker Name ,اسم العامل
 full_name,Full Name,الاسم الكامل
 specialization,Specialization,التخصص
-phone_number,Phone Number,رقم الجوال
 certificate_expiry,Certificate / Residency Expiry,انتهاء الشهادة / الإقامة
 notes,Notes,ملاحظات
 worker_notes_hint,Any notes about the worker...,أي ملاحظات عن العامل...
@@ -87,9 +86,11 @@ privacy_policy,Privacy Policy,سياسة الخصوصية
 help_and_support,Help & Support,المساعدة والدعم
 logout,Logout,تسجيل الخروج
 login,login,تسجيل الدخول
-Password,Password,كلمة المرور
-Phone Number,Phone Number,رقم التليفون
-can't be empty,can't be empty,لا يمكن أن تكون فارغة
+choose_language,choose language, اختر اللغة
+language,language,اللغة
+en,English,الإنجليزية
+ar,Arabic,العربية
+can't_be_empty,can't be empty,لا يمكن أن تكون فارغة
 home,Home,الرئيسية
 projects_tab,Projects,المشاريع
 prices_tab,Prices,الأسعار
@@ -102,7 +103,7 @@ invoice_project_name_example,Akkad Villa,فيلا العقاد
 invoice_status,Status,الحالة
 invoice_status_draft,Draft,مسودة
 invoice_due_date,Due Date,تاريخ الاستحقاق
-invoice_tax_percentage,Tax Percentage (%),نسبة الضريبة (%)
+invoice_tax_percentage,Tax Percentage,نسبة الضريبة
 invoice_items,Invoice Items,بنود الفاتورة
 add_invoice_item,+ Add Item,+ إضافة بند
 item_description,Item Description,وصف البند
@@ -110,8 +111,7 @@ item_quantity,Quantity,الكمية
 item_price,Price,السعر
 item_total,Total,الإجمالي
 subtotal,Subtotal,المجموع الفرعي
-vat_tax,Value Added Tax (8%),ضريبة القيمة المضافة (8%)
-performance_comparison,Performance Comparison,مقارنة الأداء
+vat_tax,Value Added Tax (8),ضريبة القيمة المضافة (8)
 total_projects,Total Projects,إجمالي المشاريع
 average_profit_margin,Average Profit Margin,متوسط هامش الربح
 total_contract_value,Total Contract Value,إجمالي قيمة العقود
@@ -120,11 +120,11 @@ efficiency_tab,Efficiency,الكفاءة
 profitability_tab,Profitability,الربحية
 daily_cost_tab,Daily Cost,التكلفة اليومية
 aleppo_new_aleppo,Aleppo - New Aleppo,حلب - حلب الجديدة
-completion_0,Completion 0%,الإنجاز 0%
-spend_0,Spend 0%,الصرف 0%
-tasks_0_0,Tasks 0/0,المهام 0/0
+completion_0,Completion,الإنجاز
+spend_0,Spend ,الصرف
+tasks_0_0,Tasks,المهام
 weak,Weak,ضعيف
-rate_0_0,Rate 0.00,معدل 0.00
+rate_0_0,Rate,معدل
 gantt_date_example,31 May 2026 - 31 July 2026 . 61 days,31 مايو 2026 - 31 يوليو 2026 . 61 يوم
 completed_task,Completed,منجز
 in_progress_task,In Progress,جاري
@@ -138,26 +138,28 @@ waste_calculator_subtitle,Material Waste Calculator,حاسبة كميات الم
 waste_calculator_desc,Calculate actual quantities with standard waste ratio,احسب الكميات الفعلية مع نسبة الهدر المعيارية
 select_material,Select Material,اختر المادة
 tiles_ceramics,Tiles / Ceramics,بلاط / سيراميك
-waste_10,10% Waste,هدر 10%
+waste_10,10 Waste,هدر 10
 paints,Paints / Coating,دهانات / طلاء
-waste_8,8% Waste,هدر 8%
+waste_8,8 Waste,هدر 8
 cement_concrete,Cement (for concrete),إسمنت (للخرسانة)
-waste_5,5% Waste,هدر 5%
+waste_5,5 Waste,هدر 5
 rebar,Rebar,حديد تسليح
-waste_3,3% Waste,هدر 3%
+waste_3,3 Waste,هدر 3
 bricks_blocks,Bricks / Blocks,طابوق / بلوك
-waste_7,7% Waste,هدر 7%
+waste_7,7 Waste,هدر 7
 sand_material,Sand,رمل
 wood_carpentry,Wood (Doors / Carpentry),خشب (أبواب / نجارة)
-waste_15,15% Waste,هدر 15%
+waste_15,15 Waste,هدر 15
 curbs_cladding,Curbs / Cladding Stone,بردروات / حجر كسوة
-waste_12,12% Waste,هدر 12%
+waste_12,12 Waste,هدر 12
 data_entry,Data Entry,إدخال البيانات
 floor_area_m2,Floor Area (m²),مساحة الأرضية (م²)
-waste_reason_tiles,10% waste ratio due to cutting, breaking
+waste_reason_tiles,"10 waste ratio due to cutting, breaking",
 calculate_quantities,Calculate Quantities,احسب الكميات
 calculation_result_tiles,Calculation Result - Tiles / Ceramics,نتيجة الحساب - بلاط / سيراميك
 net_quantity,Net Quantity,الكمية الصافية
-waste_ratio_10,Waste Ratio (10%),نسبة الهدر (10%)
+waste_ratio_10,Waste Ratio,نسبة الهدر
 total_order,Total Order,إجمالي الطلبية
-order_hint_tiles,Order 55 m² to ensure no shortage on site. Save an additional 5% margin for unexpected modifications.,اطلب 55 م² لضمان عدم نقص المواد في الموقع، وفّر هامش إضافي 5% للتعديلات غير المتوقعة.
+order_hint_tiles,Order 55 m² to ensure no shortage on site. Save an additional 5 margin for unexpected modifications.,اطلب 55 م² لضمان عدم نقص المواد في الموقع، وفّر هامش إضافي 5 للتعديلات غير المتوقعة.
+phone_number,Phone Number,رقم الجوال
+password,Password,كلمة المرور

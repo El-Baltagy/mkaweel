@@ -6,7 +6,7 @@ class StorageHelper {
   // Singleton pattern implementation
   StorageHelper._();
   static final StorageHelper _instance = StorageHelper._();
-
+factory StorageHelper() => _instance;
   /// Gets the singleton instance of [StorageHelper]
   static StorageHelper get instance => _instance;
 
@@ -19,26 +19,26 @@ class StorageHelper {
   }
 
   /// Opens a custom box if it isn't already open.
-  Future<Box<T>> openBox<T>(String boxName) async {
+  Future<Box> openBox(String boxName) async {
     if (Hive.isBoxOpen(boxName)) {
-      return Hive.box<T>(  boxName);
+      return Hive.box(boxName);
     }
-    return await Hive.openBox<T>(boxName);
+    return await Hive.openBox(boxName);
   }
 
   /// Gets an open box by name, defaults to [_defaultBoxName].
-  Box<T> _getBox<T>([String boxName = _defaultBoxName]) {
+  Box _getBox([String boxName = _defaultBoxName]) {
     if (!Hive.isBoxOpen(boxName)) {
       throw StateError(
           'Box $boxName is not open. Call openBox first or use default box.');
     }
-    return Hive.box<T>(  boxName);
+    return Hive.box(boxName);
   }
 
   /// Create or Update (Add / Edit)
   /// Saves a [value] of type [T] to the specified [key].
   Future<void> writeData<T>(String key, T value, {String boxName = _defaultBoxName}) async {
-    final box = _getBox<T>(boxName);
+    final box = _getBox(boxName);
     await box.put(key, value);
   }
 
@@ -46,8 +46,10 @@ class StorageHelper {
   /// Retrieves a value of type [T] from the specified [key].
   /// Returns [defaultValue] if the key does not exist.
   T? readData<T>(String key, {String boxName = _defaultBoxName, T? defaultValue}) {
-    final box = _getBox<T>(boxName);
-    return box.get(key, defaultValue: defaultValue);
+    final box = _getBox(boxName);
+    final value = box.get(key, defaultValue: defaultValue);
+    if (value == null) return null;
+    return value as T;
   }
 
   /// Delete

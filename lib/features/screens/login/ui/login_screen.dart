@@ -31,7 +31,13 @@ class _LoginPageState extends LoginPageBaseState {
   final _key = GlobalKey<FormState>();
   (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field1 = (.new(), .new());
   (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field2 = (.new(), .new());
-
+@override
+  void dispose() {
+    // TODO: implement dispose
+  field1.$2?.dispose();
+  field2.$2?.dispose();
+  super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
@@ -75,7 +81,7 @@ class _LoginPageState extends LoginPageBaseState {
                       keyboardType: TextInputType.phone,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       decoration: InputDecoration(
-                        labelText: 'Phone Number'.tr(),
+                        labelText: 'Phone_Number'.tr(),
                         prefixIcon: const Icon(Icons.phone),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -83,7 +89,7 @@ class _LoginPageState extends LoginPageBaseState {
                       ),
                       validator: (value) {
                         if (value?.isEmpty == true) {
-                          return "can't be empty".tr();
+                          return "can't_be_empty".tr();
                         }
                         return null;
                       },
@@ -99,7 +105,7 @@ class _LoginPageState extends LoginPageBaseState {
                       obscureText: true,
                       autovalidateMode: .onUserInteraction,
                       decoration: InputDecoration(
-                        labelText: 'Password'.tr(),
+                        labelText: "Password".tr(),
                         prefixIcon: const Icon(Icons.lock),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -107,7 +113,7 @@ class _LoginPageState extends LoginPageBaseState {
                       ),
                       validator: (value) {
                         if (value?.isEmpty == true) {
-                          return "can't be empty".tr();
+                          return "can't_be_empty".tr();
                         }
                         return null;
                       },

@@ -1,6 +1,7 @@
 
 abstract class AppConstant {
 
+  static const String  langCode = 'langCode';
   static const String testNameKeyCash = 'bottom_nav_bar_testname_cache';
   static const int productsCancelId = 100;
   static const String get_messagesKeyCash = 'messages_get_messages_cache';

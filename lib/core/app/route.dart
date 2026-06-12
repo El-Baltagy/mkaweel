@@ -16,7 +16,7 @@ part  'route.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')
 class AppRouter extends _$AppRouter {
-  AppRouter() : super();
+  AppRouter({super.navigatorKey});
 
   @override
   List<AutoRoute> get routes => [

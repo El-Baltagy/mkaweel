@@ -6,15 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/app/app.dart';
 import 'package:mkaweel/localization.dart';
+import 'package:mkaweel/core/storage/storage_helper.dart';
+
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey(debugLabel: 'Main Navigator');
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await StorageHelper().init();
   await EasyLocalization.ensureInitialized();
   await CodegenLoader.init();
   AppLocator().init();
    runApp(
+     EasyLocalization(
 
-    EasyLocalization(
       supportedLocales: CodegenLoader.supportedLocales,
       fallbackLocale: CodegenLoader.fallBackLocale,
       path: CodegenLoader.assetTranslationsPath,

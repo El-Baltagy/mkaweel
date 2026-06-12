@@ -38,6 +38,7 @@ import 'package:mkaweel/features/screens/dashboard/controller/dashboard_cubit.da
 import 'package:get_it/get_it.dart';
 import 'package:mkaweel/core/api_helper/dio_helper.dart';
 import 'package:mkaweel/core/base/base_local_repo.dart';
+import 'package:mkaweel/core/theming/theme_cubit.dart';
 
 
 
@@ -115,6 +116,7 @@ class AppLocator {
     // ── Global Services ──────────────────────────────────────────────────────
     _sl.registerLazySingleton<BaseLocalRepo>(BaseLocalRepo.new);
     _sl.registerLazySingleton<DioHelper>(() => DioHelper()..call());
+    _sl.registerLazySingleton<ThemeCubit>(() => ThemeCubit());
 
   }
 }
