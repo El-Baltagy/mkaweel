@@ -2,10 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
+import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/features/screens/dashboard/controller/dashboard_cubit.dart';
 import 'package:mkaweel/features/screens/dashboard/controller/dashboard_state.dart';
-import 'package:mkaweel/core/theming/app_colors.dart';
-import 'package:mkaweel/core/extension/double.dart';
+ import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/widgets/dashboard_header_widget.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/widgets/stats_cards_widget.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/widgets/today_tasks_widget.dart';
@@ -38,7 +38,8 @@ class _DashboardPageState extends DashboardPageBaseState {
       child: Semantics(
         label: 'Dashboard Screen',
         child: Scaffold(
-          backgroundColor: AppColors.contractorBackground,
+          backgroundColor: context.theme.scaffoldBackgroundColor,
+          // backgroundColor: AppColors.contractorBackground,
           body: SafeArea(
             bottom: false,
             child: SingleChildScrollView(
