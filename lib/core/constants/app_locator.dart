@@ -1,4 +1,7 @@
 
+import 'package:mkaweel/features/screens/login/data/repo/remote/login_repo.dart';
+import 'package:mkaweel/features/screens/login/service/login_service.dart';
+import 'package:mkaweel/features/screens/login/controller/login_cubit.dart';
 import 'package:mkaweel/features/screens/waste_calculator/data/repo/remote/waste_calculator_repo.dart';
 import 'package:mkaweel/features/screens/waste_calculator/service/waste_calculator_service.dart';
 import 'package:mkaweel/features/screens/waste_calculator/controller/waste_calculator_cubit.dart';
@@ -48,6 +51,11 @@ class AppLocator {
   GetIt call() => _sl;
 
   void init(){
+    ///..................login.................///
+    _sl.registerLazySingleton(() => LoginRepo(_sl()));
+    _sl.registerLazySingleton(() => LoginService(_sl(), _sl()));
+    _sl.registerFactory(() => LoginCubit(_sl()));
+
     ///..................waste_calculator.................///
     _sl.registerLazySingleton(() => WasteCalculatorRepo(_sl()));
     _sl.registerLazySingleton(() => WasteCalculatorService(_sl(), _sl()));

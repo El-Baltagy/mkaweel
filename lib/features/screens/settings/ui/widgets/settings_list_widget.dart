@@ -1,5 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:mkaweel/core/app/route.dart';
+import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
@@ -86,7 +89,7 @@ class _SettingsListWidgetState extends State<SettingsListWidget> {
           SizedBox(
             width: double.infinity,
             child: OutlinedButton(
-              onPressed: () {},
+              onPressed: () =>context.pushAndPopUntil( LoginRoute(), predicate: (Route<dynamic> route)=>false),
               style: OutlinedButton.styleFrom(
                 side: const BorderSide(color: AppColors.contractorRed),
                 padding: const EdgeInsets.symmetric(vertical: AppPadding.p16),

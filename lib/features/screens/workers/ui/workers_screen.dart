@@ -8,6 +8,9 @@ import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/features/screens/workers/controller/workers_cubit.dart';
 import 'package:mkaweel/features/screens/workers/controller/workers_state.dart';
+import 'package:mkaweel/features/screens/workers/ui/widgets/AddWorkerBottomSheet.dart';
+import 'package:mkaweel/features/screens/workers/ui/widgets/filter_wdgt.dart';
+import 'package:mkaweel/features/screens/workers/ui/widgets/summary_card.dart';
 import 'package:mkaweel/features/screens/workers/ui/widgets/workers_widgets.dart';
 
 @RoutePage()
@@ -72,12 +75,7 @@ class _WorkersPageState extends WorkersPageBaseState {
             icon: const Icon(Icons.add, color: AppColors.white),
             onPressed: () => showAddWorkerBottomSheet(context),
           ),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.chevron_right, color: AppColors.white),
-              onPressed: () {},
-            ),
-          ],
+
         ),
         body: Column(
           children: [
@@ -85,6 +83,7 @@ class _WorkersPageState extends WorkersPageBaseState {
               activeCount: _activeCount,
               inactiveCount: _inactiveCount,
             ),
+            // if(false)
             WorkersFilterWidget(
               selectedFilter: _selectedFilter,
               onFilterChanged: (f) => setState(() => _selectedFilter = f),

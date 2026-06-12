@@ -39,13 +39,19 @@ abstract class _$AppRouter extends RootStackRouter {
         child: WrappedRoute(child: const InvoicesPage()),
       );
     },
+    LoginRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const LoginPage()),
+      );
+    },
     MainHomeRoute.name: (routeData) {
       final args = routeData.argsAs<MainHomeRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: WrappedRoute(
             child: MainHomePage(
-           title: args.title,
+                args: args
         )),
       );
     },
@@ -151,6 +157,21 @@ class InvoicesRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [LoginPage]
+class LoginRoute extends PageRouteInfo<void> {
+  const LoginRoute({List<PageRouteInfo>? children})
+      : super(
+          LoginRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'LoginRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+///......................................................................
+
+///generated route for
 /// [MainHomePage]
 class MainHomeRoute extends PageRouteInfo<MainHomeRouteArgs> {
   MainHomeRoute({
@@ -158,7 +179,7 @@ class MainHomeRoute extends PageRouteInfo<MainHomeRouteArgs> {
     List<PageRouteInfo>? children,
   }) : super(
           MainHomeRoute.name,
-          args:args,
+          args: args,
           initialChildren: children,
         );
 
@@ -167,10 +188,8 @@ class MainHomeRoute extends PageRouteInfo<MainHomeRouteArgs> {
   static const PageInfo<MainHomeRouteArgs> page =
       PageInfo<MainHomeRouteArgs>(name);
 }
-
 class MainHomeRouteArgs {
-  const MainHomeRouteArgs({  });
-
+  const MainHomeRouteArgs( );
 }
 
 /// generated route for
@@ -180,7 +199,6 @@ class MarketPricesRoute extends PageRouteInfo<void> {
       : super(
           MarketPricesRoute.name,
           initialChildren: children,
-    args: MarketPricesRouteArgs()
         );
 
   static const String name = 'MarketPricesRoute';

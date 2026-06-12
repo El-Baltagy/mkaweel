@@ -11,6 +11,7 @@ import 'package:mkaweel/features/screens/performance/ui/performance_screen.dart'
 import 'package:mkaweel/features/screens/gantt_chart/ui/gantt_chart_screen.dart';
 import 'package:mkaweel/features/screens/waste_calculator/ui/waste_calculator_screen.dart';
 import 'package:mkaweel/features/screens/splash/ui/splash_screen.dart';
+import 'package:mkaweel/features/screens/login/ui/login_screen.dart';
 part  'route.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')
@@ -19,6 +20,10 @@ class AppRouter extends _$AppRouter {
 
   @override
   List<AutoRoute> get routes => [
+      AutoRoute(
+        page: LoginRoute.page,
+        // initial: true,
+      ),
         AutoRoute(page: SplashRoute.page, initial: true),
         AutoRoute(
           page: MainHomeRoute.page,
