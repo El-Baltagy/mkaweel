@@ -3,10 +3,10 @@ import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 /// A singleton helper class for interacting with Hive CE storage.
 /// Provides generic methods for add, edit, update, delete, and read.
 class StorageHelper {
+factory StorageHelper() => _instance;
   // Singleton pattern implementation
   StorageHelper._();
   static final StorageHelper _instance = StorageHelper._();
-factory StorageHelper() => _instance;
   /// Gets the singleton instance of [StorageHelper]
   static StorageHelper get instance => _instance;
 

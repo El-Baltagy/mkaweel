@@ -13,10 +13,10 @@ class ExchangeRateWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(AppPadding.p16),
       decoration: BoxDecoration(
-        color: AppColors.contractorTeal.withOpacity(0.05),
+        color: Theme.of(context).primaryColor.withOpacity(0.05),
         borderRadius: BorderRadius.circular(AppSizes.s8),
         /// to do: add border
-        // border: BorderSide(color: AppColors.contractorTeal.withOpacity(0.2)),
+        // border: BorderSide(color: Theme.of(context).primaryColor.withOpacity(0.2)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -25,7 +25,7 @@ class ExchangeRateWidget extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text('live_exchange_rates'.tr(), style: AppTextStyles.font14Regular.copyWith(color: AppColors.contractorTeal, fontWeight: FontWeight.bold)),
+              Text('live_exchange_rates'.tr(), style: AppTextStyles.font14Regular.copyWith(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold)),
               5.verticalSpace,
               Text('1 \$ = 45.89 ₺  |  1 \$ = 13,000 ل.س', style: AppTextStyles.font14Regular.copyWith(color: AppColors.contractorDarkText)),
               5.verticalSpace,

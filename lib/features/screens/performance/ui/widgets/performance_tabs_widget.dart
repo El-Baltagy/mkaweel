@@ -11,19 +11,19 @@ class PerformanceTabsWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        _buildTab(title: 'daily_cost_tab'.tr(), isActive: false),
-        _buildTab(title: 'profitability_tab'.tr(), isActive: false),
-        _buildTab(title: 'efficiency_tab'.tr(), isActive: true),
+        _buildTab(context: context, title: 'daily_cost_tab'.tr(), isActive: false),
+        _buildTab(context: context, title: 'profitability_tab'.tr(), isActive: false),
+        _buildTab(context: context, title: 'efficiency_tab'.tr(), isActive: true),
       ],
     );
   }
 
-  Widget _buildTab({required String title, required bool isActive}) {
+  Widget _buildTab({required BuildContext context, required String title, required bool isActive}) {
     return Container(
       margin: const EdgeInsets.only(left: 8),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
-        color: isActive ? AppColors.contractorTeal : AppColors.contractorLightGrey.withOpacity(0.4),
+        color: isActive ? Theme.of(context).primaryColor : AppColors.contractorLightGrey.withOpacity(0.4),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Text(

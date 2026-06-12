@@ -1,6 +1,5 @@
  import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
- import 'package:flutter_svg/svg.dart';
 import 'package:mkaweel/core/constants/app_constant.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/double.dart';
@@ -12,9 +11,8 @@ import 'package:mkaweel/main.dart';
 
 
 class LangSheet extends StatefulWidget {
-  LangSheet(
-      {Key? key})
-      : super(key: key);
+  const LangSheet(
+      {super.key});
 
   @override
   State<LangSheet> createState() => _LangSheetState();
@@ -27,7 +25,7 @@ class _LangSheetState extends State<LangSheet> {
   @override
   void initState() {
     // TODO: implement initState
-    selectedIndexLang=CodegenLoader.supportedLocales.indexWhere((e) =>e.languageCode==(StorageHelper().readData(_langCode)??"en") );
+    selectedIndexLang=CodegenLoader.supportedLocales.indexWhere((e) =>e.languageCode==(StorageHelper().readData(_langCode)??'en') );
     notifier=.new( selectedIndexLang);
     super.initState();
   }
@@ -79,7 +77,7 @@ class _LangSheetState extends State<LangSheet> {
               child: ElevatedButton(
                 onPressed: () async {
                   if(selectedIndexLang!=notifier.value){
-                    String lang=CodegenLoader.supportedLocales[notifier.value].languageCode;
+                    final String lang=CodegenLoader.supportedLocales[notifier.value].languageCode;
                     await  Future.wait([
                     context.setLocale(Locale(lang)),
                       StorageHelper().writeData(_langCode, lang)
@@ -118,20 +116,19 @@ class _LangSheetState extends State<LangSheet> {
       onTap: () => notifier.value=index,
       child: Container(
           margin: const EdgeInsets.all(1.5),
-          padding: EdgeInsets.symmetric(horizontal: 10 ),
+          padding: const EdgeInsets.symmetric(horizontal: 10 ),
           decoration: BoxDecoration(
               color: AppColors.white,
               borderRadius: BorderRadius.circular(18)),
           child: Padding(
-            padding:  EdgeInsetsDirectional.fromSTEB(15 , 0, 0, 0),
+            padding:  const EdgeInsetsDirectional.fromSTEB(15 , 0, 0, 0),
             child: Column(
               crossAxisAlignment:  .start,
               children: [
                 ValueListenableBuilder(valueListenable: notifier, builder: (context, value, child) {
-                  bool isSelected=value==index;
+                  final bool isSelected=value==index;
                   return Row(
                     crossAxisAlignment:  .start,
-                    mainAxisAlignment:  .start,
                     children: [
                       15.horizontalSpace,
                       CustomSelectedCircle(
@@ -147,7 +144,7 @@ class _LangSheetState extends State<LangSheet> {
                 if (index != CodegenLoader.supportedLocales.length-1)
                   Container(
                     height: 0.5,
-                    margin: EdgeInsets.symmetric(horizontal: 30 ,vertical: 15 ),
+                    margin: const EdgeInsets.symmetric(horizontal: 30 ,vertical: 15 ),
                     color: AppColors.contractorGreyText,
                   )
               ],

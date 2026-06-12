@@ -21,7 +21,7 @@ class TodayTasksWidget extends StatelessWidget {
                 Text('todays_tasks'.tr(), style: AppTextStyles.font16SemiBold),
               Text(
                 'show_all'.tr(),
-                style: AppTextStyles.font14Regular.copyWith(color: AppColors.contractorTeal),
+                style: AppTextStyles.font14Regular.copyWith(color: Theme.of(context).primaryColor),
               ),
             ],
           ),

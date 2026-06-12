@@ -25,7 +25,7 @@ class PerformanceMetricsWidget extends StatelessWidget {
               child: _buildMetricCard(
                 title: 'total_projects'.tr(),
                 value: '1',
-                valueColor: AppColors.contractorTeal,
+                valueColor: Theme.of(context).primaryColor,
               ),
             ),
           ],

@@ -41,7 +41,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
         child: Scaffold(
           backgroundColor: AppColors.contractorBackground,
           appBar: AppBar(
-            backgroundColor: AppColors.contractorTeal,
+            backgroundColor: context.theme.primaryColor,
             title: Text('new_project'.tr(), style: AppTextStyles.font18SemiBold.copyWith(color: AppColors.white)),
             centerTitle: true,
             leading: const SizedBox.shrink(),
@@ -127,7 +127,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                   child: ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.contractorTeal,
+                      backgroundColor: context.theme.primaryColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(AppSizes.s8),
                       ),

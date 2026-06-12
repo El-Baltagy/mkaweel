@@ -36,7 +36,7 @@ class _PerformancePageState extends PerformancePageBaseState {
       child: Scaffold(
         backgroundColor: AppColors.contractorBackground,
         appBar: AppBar(
-          backgroundColor: AppColors.contractorTeal,
+          backgroundColor: Theme.of(context).primaryColor,
           elevation: 0,
           leading: IconButton(
             icon: const Icon(Icons.sync, color: Colors.white),

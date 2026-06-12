@@ -72,7 +72,7 @@ class _NavItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = isActive ? AppColors.contractorTeal : const Color(0xFFADB5BD);
+    final color = isActive ? Theme.of(context).primaryColor : const Color(0xFFADB5BD);
 
     return GestureDetector(
       onTap: onTap,
@@ -89,7 +89,7 @@ class _NavItem extends StatelessWidget {
               width: isActive ? 36 : 0,
               margin: const EdgeInsets.only(bottom: 6),
               decoration: BoxDecoration(
-                color: AppColors.contractorTeal,
+                color: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.circular(2),
               ),
             ),

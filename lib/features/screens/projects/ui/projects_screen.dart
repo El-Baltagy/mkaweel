@@ -39,7 +39,7 @@ class _ProjectsPageState extends ProjectsPageBaseState {
         child: Scaffold(
           backgroundColor: AppColors.contractorBackground,
           appBar: AppBar(
-            backgroundColor: AppColors.contractorTeal,
+            backgroundColor: Theme.of(context).primaryColor,
             title: Text('projects'.tr(), style: AppTextStyles.font18SemiBold.copyWith(color: AppColors.white)),
             centerTitle: true,
             leading: IconButton(
@@ -51,7 +51,7 @@ class _ProjectsPageState extends ProjectsPageBaseState {
           floatingActionButtonLocation: .centerFloat,
           floatingActionButton: FloatingActionButton(
             backgroundColor: AppColors.contractorRed,
-            onPressed: () =>context.push(CreateProjectRoute()),
+            onPressed: () =>context.push(const CreateProjectRoute()),
             child: const Icon(Icons.add, color: AppColors.white),
           ),
         ),

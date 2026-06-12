@@ -17,7 +17,7 @@ class StatsCardsWidget extends StatelessWidget {
           Expanded(
             child: _buildCard(
               icon: Icons.show_chart, // Or a custom heartbeat icon
-              iconColor: AppColors.contractorTeal,
+              iconColor: Theme.of(context).primaryColor,
               value: '0%',
               label: 'spending_rate'.tr(),
             ),

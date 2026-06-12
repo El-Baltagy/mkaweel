@@ -12,31 +12,31 @@ class CurrencyTabsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(child: _buildTab('turkish_lira'.tr(), false)),
+        Expanded(child: _buildTab(context,'turkish_lira'.tr(), false)),
         10.horizontalSpace,
-        Expanded(child: _buildTab('syrian_lira'.tr(), false)),
+        Expanded(child: _buildTab(context,'syrian_lira'.tr(), false)),
         10.horizontalSpace,
-        Expanded(child: _buildTab('dollar'.tr(), true)),
+        Expanded(child: _buildTab(context,'dollar'.tr(), true)),
       ],
     );
   }
 
-  Widget _buildTab(String label, bool isSelected) {
+  Widget _buildTab(BuildContext context,String label, bool isSelected) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: AppPadding.p12),
       decoration: BoxDecoration(
-        color: isSelected ? AppColors.contractorTeal.withOpacity(0.1) : AppColors.white,
+        color: isSelected ? Theme.of(context).primaryColor.withOpacity(0.1) : AppColors.white,
         borderRadius: BorderRadius.circular(AppSizes.s8),
         /// to do: add border
         // border: BorderSide(
-        //   color: isSelected ? AppColors.contractorTeal : AppColors.contractorLightGrey,
+        //   color: isSelected ? Theme.of(context).primaryColor : AppColors.contractorLightGrey,
         // ),
       ),
       alignment: Alignment.center,
       child: Text(
         label,
         style: AppTextStyles.font14Regular.copyWith(
-          color: isSelected ? AppColors.contractorTeal : AppColors.contractorDarkText,
+          color: isSelected ? Theme.of(context).primaryColor : AppColors.contractorDarkText,
           fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
         ),
       ),

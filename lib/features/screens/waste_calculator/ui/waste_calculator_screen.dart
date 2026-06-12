@@ -37,7 +37,7 @@ class _WasteCalculatorPageState extends WasteCalculatorPageBaseState {
       child: Scaffold(
         backgroundColor: AppColors.contractorBackground,
         appBar: AppBar(
-          backgroundColor: AppColors.contractorTeal,
+          backgroundColor: Theme.of(context).primaryColor,
           elevation: 0,
           leading: const SizedBox.shrink(),
           centerTitle: true,

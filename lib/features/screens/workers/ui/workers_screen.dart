@@ -64,7 +64,7 @@ class _WorkersPageState extends WorkersPageBaseState {
       child: Scaffold(
         backgroundColor: AppColors.contractorBackground,
         appBar: AppBar(
-          backgroundColor: AppColors.contractorTeal,
+          backgroundColor: Theme.of(context).primaryColor,
           elevation: 0,
           title: Text(
             'workers_management'.tr(),

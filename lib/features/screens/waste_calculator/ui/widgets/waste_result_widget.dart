@@ -55,7 +55,7 @@ class WasteResultWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.contractorTeal),
+        border: Border.all(color: Theme.of(context).primaryColor),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.04),
@@ -69,7 +69,7 @@ class WasteResultWidget extends StatelessWidget {
         children: [
           Text(
             '${'calculation_result_tiles'.tr().split('-')[0]} - $materialName',
-            style: AppTextStyles.font18SemiBold.copyWith(color: AppColors.contractorTeal,
+            style: AppTextStyles.font18SemiBold.copyWith(color: Theme.of(context).primaryColor,
                 fontSize: 14),
           ),
           16.verticalSpace,

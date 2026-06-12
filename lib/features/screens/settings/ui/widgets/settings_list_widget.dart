@@ -24,6 +24,7 @@ class _SettingsListWidgetState extends State<SettingsListWidget> {
       child: Column(
         children: [
           // Dark Mode Card
+          if(false)
           BlocBuilder<ThemeCubit, ThemeMode>(
             builder: (context, themeMode) {
               final isDark = themeMode == ThemeMode.dark;
@@ -84,24 +85,24 @@ class _SettingsListWidgetState extends State<SettingsListWidget> {
                   icon: Icons.language,
                   title: 'language'.tr(),
                   subtitle: 'choose_language'.tr(),
-                  iconColor: AppColors.contractorTeal,
-                  onTap: LangSheet().show,
+                  iconColor: Theme.of(context).primaryColor,
+                  onTap: const LangSheet().show,
                  ),
                 _buildSettingsItem(
                   icon: Icons.info_outline,
                   title: 'about_app'.tr(),
                   subtitle: 'version'.tr(),
-                  iconColor: AppColors.contractorTeal,
+                  iconColor: Theme.of(context).primaryColor,
                  ),
                 _buildSettingsItem(
                   icon: Icons.shield_outlined,
                   title: 'privacy_policy'.tr(),
-                  iconColor: AppColors.contractorTeal,
+                  iconColor: Theme.of(context).primaryColor,
                  ),
                 _buildSettingsItem(
                   icon: Icons.help_outline,
                   title: 'help_and_support'.tr(),
-                  iconColor: AppColors.contractorTeal,
+                  iconColor: Theme.of(context).primaryColor,
                   showDivider: false,
                 ),
               ],
@@ -112,7 +113,7 @@ class _SettingsListWidgetState extends State<SettingsListWidget> {
           SizedBox(
             width: double.infinity,
             child: OutlinedButton(
-              onPressed: () =>context.pushAndPopUntil( LoginRoute(), predicate: (Route<dynamic> route)=>false),
+              onPressed: () =>context.pushAndPopUntil( const LoginRoute(), predicate: (Route<dynamic> route)=>false),
               style: OutlinedButton.styleFrom(
                 side: const BorderSide(color: AppColors.contractorRed),
                 padding: const EdgeInsets.symmetric(vertical: AppPadding.p16),

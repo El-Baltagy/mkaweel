@@ -95,7 +95,7 @@ class WorkerCardWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(worker.name, style: AppTextStyles.font16SemiBold),
-              Text(worker.role, style: AppTextStyles.font14Regular.copyWith(color: AppColors.contractorTeal)),
+              Text(worker.role, style: AppTextStyles.font14Regular.copyWith(color: Theme.of(context).primaryColor)),
               const SizedBox(height: AppSizes.s8),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -135,13 +135,13 @@ class WorkerCardWidget extends StatelessWidget {
               ),
             ],
           ),
-          Spacer(),
+          const Spacer(),
           // Action icons
           Column(
             children: [
               InkWell(
                 onTap: () {},
-                child: const Icon(Icons.edit_outlined, color: AppColors.contractorTeal, size: 20),
+                child: Icon(Icons.edit_outlined, color: Theme.of(context).primaryColor, size: 20),
               ),
               const SizedBox(height: AppSizes.s12),
               InkWell(

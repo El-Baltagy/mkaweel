@@ -42,7 +42,7 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
         child: Scaffold(
           backgroundColor: AppColors.contractorBackground,
           appBar: AppBar(
-            backgroundColor: AppColors.contractorTeal,
+            backgroundColor: Theme.of(context).primaryColor,
             title: Text('market_prices'.tr(), style: AppTextStyles.font18SemiBold.copyWith(color: AppColors.white)),
             centerTitle: true,
             leading: IconButton(

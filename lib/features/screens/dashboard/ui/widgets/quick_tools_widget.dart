@@ -11,11 +11,6 @@ import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/app/route.dart';
 
 class ItemGridData {
-  final String label;
-  final IconData icon;
-  final Color bgColor, iconColor;
-  final VoidCallback? onTap;
-  final PageRouteInfo<dynamic>? routeNavigation;
   ItemGridData({
      required this.label,
      required this.icon,
@@ -24,6 +19,11 @@ class ItemGridData {
       this.onTap,
       this.routeNavigation,
 });
+  final String label;
+  final IconData icon;
+  final Color bgColor, iconColor;
+  final VoidCallback? onTap;
+  final PageRouteInfo<dynamic>? routeNavigation;
 }
 
 class QuickToolsWidget extends StatelessWidget {

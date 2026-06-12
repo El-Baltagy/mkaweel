@@ -36,7 +36,7 @@ class _InvoicesPageState extends InvoicesPageBaseState {
       child: Scaffold(
         backgroundColor: AppColors.contractorBackground,
         appBar: AppBar(
-          backgroundColor: AppColors.contractorTeal,
+          backgroundColor: Theme.of(context).primaryColor,
           elevation: 0,
           leading: IconButton(
             icon: const Icon(Icons.add, color: Colors.white),
@@ -90,10 +90,10 @@ class _InvoicesPageState extends InvoicesPageBaseState {
                       alignment: Alignment.centerLeft,
                       child: TextButton.icon(
                         onPressed: () {},
-                        icon: const Icon(Icons.add, color: AppColors.contractorTeal, size: 18),
+                        icon:   Icon(Icons.add, color: Theme.of(context).primaryColor, size: 18),
                         label: Text(
                           'add_invoice_item'.tr(),
-                          style: AppTextStyles.font18SemiBold.copyWith(color: AppColors.contractorTeal,
+                          style: AppTextStyles.font18SemiBold.copyWith(color: Theme.of(context).primaryColor,
                               fontSize: 14),
                         ),
                       ),

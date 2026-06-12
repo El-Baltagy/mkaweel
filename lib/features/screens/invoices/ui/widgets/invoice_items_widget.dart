@@ -40,7 +40,7 @@ class InvoiceItemsWidget extends StatelessWidget {
                     Text('item_total'.tr(), style: AppTextStyles.font14Regular.copyWith(color: AppColors.contractorGreyText,
                         fontSize: 10)),
                     4.verticalSpace,
-                    Text('0 ر.س', style: AppTextStyles.font18SemiBold.copyWith(color: AppColors.contractorTeal,
+                    Text('0 ر.س', style: AppTextStyles.font18SemiBold.copyWith(color: Theme.of(context).primaryColor,
                         fontSize: 12)),
                   ],
                 ),

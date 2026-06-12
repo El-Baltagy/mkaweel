@@ -24,7 +24,7 @@ extension AppRouterExtension on BuildContext {
   /// Check if the router can pop.
   bool get canPop => router.canPop();
 
-  unfocus()=> FocusScope.of(this).unfocus();
+  void unfocus()=> FocusScope.of(this).unfocus();
   // EdgeInsets get padding=> MediaQuery.of(this).padding;
   ThemeData get theme=> Theme.of(this);
   double get height=> MediaQuery.sizeOf(this).height;

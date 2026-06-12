@@ -14,14 +14,12 @@ class CustomSelectedCircle extends StatelessWidget {
     return Stack(
       alignment: AlignmentDirectional.center,
       children: [
-        CustomAssetImageWidget(AppAssets.imagesCircleSvg,
-          fit:  .contain,
+        const CustomAssetImageWidget(AppAssets.imagesCircleSvg,
           width: 24,
           height:24 ,
         ),
         if(isSelected)
-          CustomAssetImageWidget(AppAssets.imagesDotSvg,
-            fit:  .contain,
+          const CustomAssetImageWidget(AppAssets.imagesDotSvg,
             width: 12,
             height:12 ,
           ),

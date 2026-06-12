@@ -23,7 +23,7 @@ class QuickLinksWidget extends StatelessWidget {
             children: [
               _buildLinkItem(context,'performance_comparison'.tr(), Icons.bar_chart, Colors.deepOrange.shade100, Colors.deepOrange),
               10.verticalSpace,
-              _buildLinkItem(context,'new_invoice'.tr(), Icons.receipt_long, Colors.green.shade100, AppColors.contractorTeal),
+              _buildLinkItem(context,'new_invoice'.tr(), Icons.receipt_long, Colors.green.shade100, Theme.of(context).primaryColor),
             ],
           ),
         ],

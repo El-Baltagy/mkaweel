@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomAssetImageWidget extends StatelessWidget {
+  const CustomAssetImageWidget(this.image, {super.key, this.height = 20, this.width = 20, this.fit = BoxFit.contain, this.color});
   final String image;
   final double? height;
   final double? width;
   final BoxFit fit;
   final Color? color;
-  const CustomAssetImageWidget(this.image, {super.key, this.height = 20, this.width = 20, this.fit = BoxFit.contain, this.color});
 
   @override
   Widget build(BuildContext context) {

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
-import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/features/screens/main_home/controller/main_home_cubit.dart';
 import 'package:mkaweel/features/screens/main_home/controller/main_home_state.dart';
@@ -14,9 +13,9 @@ part 'widgets/bottom_nav_bar.dart';
 
 @RoutePage()
 class MainHomePage extends StatefulWidget implements AutoRouteWrapper {
-  final MainHomeRouteArgs args;
   
   const MainHomePage({super.key, required this.args});
+  final MainHomeRouteArgs args;
   @override
   Widget wrappedRoute(BuildContext context) {
     return BlocProvider<MainHomeCubit>(

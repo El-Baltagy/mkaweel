@@ -66,10 +66,10 @@ class WasteMaterialsGridWidget extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 decoration: BoxDecoration(
-                  color: isSelected ? AppColors.contractorTeal.withOpacity(0.1) : Colors.white,
+                  color: isSelected ? Theme.of(context).primaryColor.withOpacity(0.1) : Colors.white,
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                    color: isSelected ? AppColors.contractorTeal : AppColors.contractorLightGrey,
+                    color: isSelected ? Theme.of(context).primaryColor : AppColors.contractorLightGrey,
                     width: isSelected ? 1.5 : 1,
                   ),
                 ),
@@ -84,7 +84,7 @@ class WasteMaterialsGridWidget extends StatelessWidget {
                           Text(
                             material.title,
                             style: AppTextStyles.font18SemiBold.copyWith(
-                              color: isSelected ? AppColors.contractorTeal : AppColors.contractorDarkText,
+                              color: isSelected ? Theme.of(context).primaryColor : AppColors.contractorDarkText,
                                 fontSize: 14
                             ),
                             textAlign: TextAlign.right,

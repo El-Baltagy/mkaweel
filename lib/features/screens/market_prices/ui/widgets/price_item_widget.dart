@@ -42,7 +42,7 @@ class PriceItemWidget extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(price, style: AppTextStyles.font18SemiBold.copyWith(color: AppColors.contractorTeal)),
+              Text(price, style: AppTextStyles.font18SemiBold.copyWith(color: Theme.of(context).primaryColor)),
               5.verticalSpace,
               Text(date, style: AppTextStyles.font12Regular),
             ],
@@ -57,10 +57,10 @@ class PriceItemWidget extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8, vertical: AppPadding.p2),
                     decoration: BoxDecoration(
-                      color: AppColors.contractorTeal.withOpacity(0.1),
+                      color: Theme.of(context).primaryColor.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(AppSizes.s4),
                     ),
-                    child: Text(category, style: AppTextStyles.font12Regular.copyWith(color: AppColors.contractorTeal, fontWeight: FontWeight.bold)),
+                    child: Text(category, style: AppTextStyles.font12Regular.copyWith(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),

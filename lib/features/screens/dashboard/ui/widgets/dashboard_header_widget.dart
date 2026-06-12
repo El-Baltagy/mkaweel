@@ -12,9 +12,9 @@ class DashboardHeaderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(AppPadding.p20),
-      decoration: const BoxDecoration(
-        color: AppColors.contractorTeal,
-        borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+        color: Theme.of(context).primaryColor,
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(AppSizes.s20),
           bottomRight: Radius.circular(AppSizes.s20),
         ),

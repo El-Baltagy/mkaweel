@@ -1,6 +1,5 @@
  import 'package:flutter/Material.dart';
 
-import 'package:mkaweel/core/theming/app_colors.dart';
 
 class LoadingDots extends StatefulWidget {
   const LoadingDots({super.key});
@@ -64,7 +63,7 @@ class LoadingDotsState extends State<LoadingDots>
               decoration: BoxDecoration(
                 color: i == 1
                     ? const Color(0xFFE8726A)
-                    : AppColors.contractorTeal,
+                    : Theme.of(context).primaryColor,
                 shape: BoxShape.circle,
               ),
             ),

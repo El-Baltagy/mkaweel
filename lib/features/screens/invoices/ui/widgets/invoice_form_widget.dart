@@ -12,12 +12,15 @@ class InvoiceFormWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildTextField(hint: 'invoice_example_hint'.tr()),
+        _buildTextField(
+            context,
+            hint: 'invoice_example_hint'.tr()),
         16.verticalSpace,
         Row(
           children: [
             Expanded(
               child: _buildLabeledField(
+                context,
                 label: 'invoice_status'.tr(),
                 hint: 'invoice_status_draft'.tr(),
               ),
@@ -25,6 +28,7 @@ class InvoiceFormWidget extends StatelessWidget {
             16.horizontalSpace,
             Expanded(
               child: _buildLabeledField(
+                context,
                 label: 'invoice_project'.tr(),
                 hint: 'invoice_project_name_example'.tr(),
               ),
@@ -36,6 +40,7 @@ class InvoiceFormWidget extends StatelessWidget {
           children: [
             Expanded(
               child: _buildLabeledField(
+                context,
                 label: 'invoice_due_date'.tr(),
                 hint: 'mm/dd/yyyy',
                 icon: Icons.calendar_today_outlined,
@@ -44,6 +49,7 @@ class InvoiceFormWidget extends StatelessWidget {
             16.horizontalSpace,
             Expanded(
               child: _buildLabeledField(
+                context,
                 label: 'invoice_tax_percentage'.tr(),
                 hint: '8',
                 isNumber: true,
@@ -55,7 +61,7 @@ class InvoiceFormWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildLabeledField({
+  Widget _buildLabeledField(BuildContext context,{
     required String label,
     required String hint,
     IconData? icon,
@@ -69,17 +75,17 @@ class InvoiceFormWidget extends StatelessWidget {
           style: AppTextStyles.font12Regular.copyWith(color: AppColors.contractorGreyText),
         ),
         8.verticalSpace,
-        _buildTextField(hint: hint, icon: icon, isNumber: isNumber),
+        _buildTextField(context,hint: hint, icon: icon, isNumber: isNumber),
       ],
     );
   }
 
-  Widget _buildTextField({required String hint, IconData? icon, bool isNumber = false}) {
+  Widget _buildTextField(BuildContext context,{required String hint, IconData? icon, bool isNumber = false}) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: isNumber ? AppColors.contractorTeal : AppColors.contractorLightGrey),
+        border: Border.all(color: isNumber ? Theme.of(context).primaryColor : AppColors.contractorLightGrey),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
       child: Row(

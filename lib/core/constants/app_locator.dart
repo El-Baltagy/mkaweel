@@ -116,7 +116,7 @@ class AppLocator {
     // ── Global Services ──────────────────────────────────────────────────────
     _sl.registerLazySingleton<BaseLocalRepo>(BaseLocalRepo.new);
     _sl.registerLazySingleton<DioHelper>(() => DioHelper()..call());
-    _sl.registerLazySingleton<ThemeCubit>(() => ThemeCubit());
+    _sl.registerLazySingleton<ThemeCubit>(ThemeCubit.new);
 
   }
 }

@@ -28,7 +28,7 @@ class SearchAndFilterWidget extends StatelessWidget {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppSizes.s8),
-              borderSide: const BorderSide(color: AppColors.contractorTeal),
+              borderSide: BorderSide(color: Theme.of(context).primaryColor),
             ),
             contentPadding: const EdgeInsets.symmetric(horizontal: AppPadding.p16, vertical: AppPadding.p12),
           ),
@@ -38,14 +38,14 @@ class SearchAndFilterWidget extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              _buildFilterChip('all'.tr(), true),
-              _buildFilterChip('cement'.tr(), false),
-              _buildFilterChip('steel'.tr(), false),
-              _buildFilterChip('aggregate'.tr(), false),
-              _buildFilterChip('building'.tr(), false),
-              _buildFilterChip('finishing'.tr(), false),
-              _buildFilterChip('wood'.tr(), false),
-              _buildFilterChip('sanitary'.tr(), false),
+              _buildFilterChip(context, 'all'.tr(), true),
+              _buildFilterChip(context, 'cement'.tr(), false),
+              _buildFilterChip(context, 'steel'.tr(), false),
+              _buildFilterChip(context, 'aggregate'.tr(), false),
+              _buildFilterChip(context, 'building'.tr(), false),
+              _buildFilterChip(context, 'finishing'.tr(), false),
+              _buildFilterChip(context, 'wood'.tr(), false),
+              _buildFilterChip(context, 'sanitary'.tr(), false),
             ],
           ),
         ),
@@ -53,12 +53,12 @@ class SearchAndFilterWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildFilterChip(String label, bool isSelected) {
+  Widget _buildFilterChip(BuildContext context, String label, bool isSelected) {
     return Container(
       margin: const EdgeInsets.only(left: AppPadding.p8),
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16, vertical: AppPadding.p8),
       decoration: BoxDecoration(
-        color: isSelected ? AppColors.contractorTeal : AppColors.contractorTeal.withOpacity(0.05),
+        color: isSelected ? Theme.of(context).primaryColor : Theme.of(context).primaryColor.withOpacity(0.05),
         borderRadius: BorderRadius.circular(AppSizes.s20),
       ),
       child: Text(

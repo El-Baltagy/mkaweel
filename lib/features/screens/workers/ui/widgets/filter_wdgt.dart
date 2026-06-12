@@ -30,9 +30,9 @@ class WorkersFilterWidget extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16, vertical: AppPadding.p8),
                 decoration: BoxDecoration(
-                  color: isSelected ? AppColors.contractorTeal : AppColors.contractorSurface,
+                  color: isSelected ? Theme.of(context).primaryColor : AppColors.contractorSurface,
                   borderRadius: BorderRadius.circular(AppSizes.s20),
-                  border: Border.all(color: isSelected ? AppColors.contractorTeal : AppColors.contractorLightGrey),
+                  border: Border.all(color: isSelected ? Theme.of(context).primaryColor : AppColors.contractorLightGrey),
                 ),
                 child: Text(
                   labels[i],

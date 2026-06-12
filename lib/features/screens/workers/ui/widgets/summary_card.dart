@@ -27,7 +27,7 @@ class WorkersSummaryWidget extends StatelessWidget {
             child: SummaryCard(
               count: activeCount,
               label: 'active_worker'.tr(),
-              countColor: AppColors.contractorTeal,
+              countColor: Theme.of(context).primaryColor,
             ),
           ),
         ],
@@ -39,7 +39,7 @@ class WorkersSummaryWidget extends StatelessWidget {
 
 
 class SummaryCard extends StatelessWidget {
-  const SummaryCard({required this.count, required this.label, required this.countColor});
+  const SummaryCard({super.key, required this.count, required this.label, required this.countColor});
   final int count;
   final String label;
   final Color countColor;

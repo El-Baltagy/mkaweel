@@ -79,7 +79,7 @@ class _SplashPageState extends State<SplashPage>
               height: 280,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: AppColors.contractorTeal.withOpacity(0.06),
+                color: Theme.of(context).primaryColor.withOpacity(0.06),
               ),
             ),
           ),

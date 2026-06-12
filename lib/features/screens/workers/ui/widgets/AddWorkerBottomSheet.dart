@@ -85,7 +85,7 @@ class _AddWorkerBottomSheetState extends State<AddWorkerBottomSheet> {
                     child: ElevatedButton(
                       onPressed: () => Navigator.pop(context),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.contractorTeal,
+                        backgroundColor: Theme.of(context).primaryColor,
                         padding: const EdgeInsets.symmetric(vertical: AppPadding.p16),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSizes.s12)),
                       ),
@@ -126,7 +126,7 @@ class _AddWorkerBottomSheetState extends State<AddWorkerBottomSheet> {
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppSizes.s8),
-        borderSide: const BorderSide(color: AppColors.contractorTeal),
+        borderSide: BorderSide(color: Theme.of(context).primaryColor),
       ),
     ),
   );

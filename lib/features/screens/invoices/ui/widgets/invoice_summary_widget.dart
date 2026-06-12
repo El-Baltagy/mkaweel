@@ -40,7 +40,7 @@ class InvoiceSummaryWidget extends StatelessWidget {
             children: [
               Text('item_total'.tr(), style: AppTextStyles.font18SemiBold.copyWith(color: AppColors.contractorDarkText,
                   fontSize: 14)),
-              Text('0 ر.س', style: AppTextStyles.font16SemiBold.copyWith(color: AppColors.contractorTeal)),
+              Text('0 ر.س', style: AppTextStyles.font16SemiBold.copyWith(color: Theme.of(context).primaryColor)),
             ],
           ),
         ],

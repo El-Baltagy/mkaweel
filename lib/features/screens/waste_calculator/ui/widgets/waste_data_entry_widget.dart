@@ -112,7 +112,7 @@ class WasteDataEntryWidget extends StatelessWidget {
                   ),
                 ),
                 8.horizontalSpace,
-                const Icon(Icons.info_outline, size: 16, color: AppColors.contractorTeal),
+                Icon(Icons.info_outline, size: 16, color: Theme.of(context).primaryColor),
               ],
             ),
           ),
@@ -123,7 +123,7 @@ class WasteDataEntryWidget extends StatelessWidget {
             child: ElevatedButton(
               onPressed: floorArea > 0 ? onCalculate : null,
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.contractorTeal,
+                backgroundColor: Theme.of(context).primaryColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
