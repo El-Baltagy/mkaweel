@@ -10,9 +10,9 @@ class Testtt extends StatelessWidget {
 }
 
 class _BottomNavBar extends StatelessWidget {
+  const _BottomNavBar({required this.tabsRouter, required this.routesNav});
   final TabsRouter tabsRouter;
   final List<_NavItemData> routesNav;
-  const _BottomNavBar({required this.tabsRouter, required this.routesNav});
 
   @override
   Widget build(BuildContext context) {
@@ -53,22 +53,22 @@ class _BottomNavBar extends StatelessWidget {
 }
 
 class _NavItemData {
+  const _NavItemData({required this.icon, required this.route,required this.label});
   final IconData icon;
   final String label;
   final PageRouteInfo  route;
-  const _NavItemData({required this.icon, required this.route,required this.label});
 }
 
 class _NavItem extends StatelessWidget {
-  final _NavItemData data;
-  final bool isActive;
-  final VoidCallback onTap;
 
   const _NavItem({
     required this.data,
     required this.isActive,
     required this.onTap,
   });
+  final _NavItemData data;
+  final bool isActive;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {

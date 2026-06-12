@@ -1,8 +1,7 @@
-import 'dart:convert';
 import 'dart:io';
 
 void main() {
-  final csvLines = File('assets/l10n/translations.csv').readAsLinesSync(encoding: utf8);
+  final csvLines = File('assets/l10n/translations.csv').readAsLinesSync();
   final Map<String, String> arToKey = {};
   for (var line in csvLines.skip(1)) {
     final parts = line.split(',');
@@ -17,7 +16,7 @@ void main() {
   final files = dir.listSync(recursive: true).whereType<File>().where((f) => f.path.endsWith('.dart'));
 
   for (var file in files) {
-    String content = file.readAsStringSync(encoding: utf8);
+    String content = file.readAsStringSync();
     bool changed = false;
 
     for (var entry in arToKey.entries) {
@@ -42,9 +41,9 @@ void main() {
 
     if (changed) {
       if (!content.contains("import 'package:easy_localization/easy_localization.dart';")) {
-        content = "import 'package:easy_localization/easy_localization.dart';\n" + content;
+        content = "import 'package:easy_localization/easy_localization.dart';\n$content";
       }
-      file.writeAsStringSync(content, encoding: utf8);
+      file.writeAsStringSync(content);
      }
   }
 }

@@ -6,10 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/features/screens/gantt_chart/controller/gantt_chart_cubit.dart';
- import '../../../../core/constants/app_locator.dart';
-import 'widgets/gantt_actions_widget.dart';
-import 'widgets/gantt_empty_state_widget.dart';
-import 'widgets/gantt_project_header_widget.dart';
+ import 'package:mkaweel/core/constants/app_locator.dart';
+import 'package:mkaweel/features/screens/gantt_chart/ui/widgets/gantt_actions_widget.dart';
+import 'package:mkaweel/features/screens/gantt_chart/ui/widgets/gantt_empty_state_widget.dart';
+import 'package:mkaweel/features/screens/gantt_chart/ui/widgets/gantt_project_header_widget.dart';
 
 @RoutePage()
 class GanttChartPage extends StatefulWidget implements AutoRouteWrapper {

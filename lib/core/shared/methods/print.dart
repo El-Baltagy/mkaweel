@@ -26,9 +26,9 @@ enum LoggerType { warning, info, error, fatal }
 
 
   class PrintHelper {
+    factory PrintHelper() => _instance;
     PrintHelper._();
     static final PrintHelper _instance = PrintHelper._().._init();
-    factory PrintHelper() => _instance;
 
     logger_pkg.Logger? logger;
 

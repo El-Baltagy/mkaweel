@@ -34,7 +34,6 @@ class InvoiceItemsWidget extends StatelessWidget {
           Row(
             children: [
                Expanded(
-                flex: 1,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

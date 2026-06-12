@@ -3,8 +3,8 @@ import 'package:dio/dio.dart';
 
 class RetryInterceptor extends Interceptor {
   @override
-  void onError(DioException err, handler) async {
-    int retries = int.tryParse(err.requestOptions.extra['retries'].toString() )?? 0;
+  Future<void> onError(DioException err, ErrorInterceptorHandler handler) async {
+    final int retries = int.tryParse(err.requestOptions.extra['retries'].toString() )?? 0;
 
     if (retries < 3) {
       err.requestOptions.extra['retries'] = retries + 1;

@@ -6,10 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/features/screens/invoices/controller/invoices_cubit.dart';
- import '../../../../core/constants/app_locator.dart';
-import 'widgets/invoice_form_widget.dart';
-import 'widgets/invoice_items_widget.dart';
-import 'widgets/invoice_summary_widget.dart';
+ import 'package:mkaweel/core/constants/app_locator.dart';
+import 'package:mkaweel/features/screens/invoices/ui/widgets/invoice_form_widget.dart';
+import 'package:mkaweel/features/screens/invoices/ui/widgets/invoice_items_widget.dart';
+import 'package:mkaweel/features/screens/invoices/ui/widgets/invoice_summary_widget.dart';
 
 @RoutePage()
 class InvoicesPage extends StatefulWidget implements AutoRouteWrapper {

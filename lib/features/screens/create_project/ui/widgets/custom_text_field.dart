@@ -5,9 +5,6 @@ import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
 
 class CustomTextField extends StatelessWidget {
-  final String label;
-  final String hintText;
-  final Widget? suffixIcon;
 
   const CustomTextField({
     super.key,
@@ -15,6 +12,9 @@ class CustomTextField extends StatelessWidget {
     required this.hintText,
     this.suffixIcon,
   });
+  final String label;
+  final String hintText;
+  final Widget? suffixIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -33,15 +33,15 @@ class CustomTextField extends StatelessWidget {
             contentPadding: const EdgeInsets.symmetric(horizontal: AppPadding.p16, vertical: AppPadding.p12),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppSizes.s8),
-              borderSide: BorderSide(color: AppColors.contractorLightGrey),
+              borderSide: const BorderSide(color: AppColors.contractorLightGrey),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppSizes.s8),
-              borderSide: BorderSide(color: AppColors.contractorLightGrey),
+              borderSide: const BorderSide(color: AppColors.contractorLightGrey),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppSizes.s8),
-              borderSide: BorderSide(color: AppColors.contractorTeal),
+              borderSide: const BorderSide(color: AppColors.contractorTeal),
             ),
           ),
         ),

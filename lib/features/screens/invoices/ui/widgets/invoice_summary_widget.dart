@@ -33,7 +33,7 @@ class InvoiceSummaryWidget extends StatelessWidget {
             ],
           ),
           12.verticalSpace,
-          Divider(color: AppColors.contractorLightGrey),
+          const Divider(color: AppColors.contractorLightGrey),
           12.verticalSpace,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

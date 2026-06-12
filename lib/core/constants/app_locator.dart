@@ -33,16 +33,16 @@ import 'package:mkaweel/features/screens/dashboard/data/repo/remote/dashboard_re
 import 'package:mkaweel/features/screens/dashboard/service/dashboard_service.dart';
 import 'package:mkaweel/features/screens/dashboard/controller/dashboard_cubit.dart';
 import 'package:get_it/get_it.dart';
-import '../api_helper/dio_helper.dart';
-import '../base/base_local_repo.dart';
+import 'package:mkaweel/core/api_helper/dio_helper.dart';
+import 'package:mkaweel/core/base/base_local_repo.dart';
 
 
 
 
 class AppLocator {
+  factory AppLocator() => _instance;
   AppLocator._();
   static final AppLocator _instance = AppLocator._();
-  factory AppLocator() => _instance;
 
   final _sl = GetIt.instance;
   GetIt call() => _sl;
@@ -105,7 +105,7 @@ class AppLocator {
 
 
     // ── Global Services ──────────────────────────────────────────────────────
-    _sl.registerLazySingleton<BaseLocalRepo>(() => BaseLocalRepo());
+    _sl.registerLazySingleton<BaseLocalRepo>(BaseLocalRepo.new);
     _sl.registerLazySingleton<DioHelper>(() => DioHelper()..call());
 
   }

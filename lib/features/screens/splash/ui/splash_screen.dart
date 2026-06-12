@@ -36,7 +36,7 @@ class _SplashPageState extends State<SplashPage>
     // Navigate to MainHome after 4 seconds
     Timer(const Duration(seconds: 4), () {
       if (mounted) {
-        context.router.replace(  MainHomeRoute());
+        context.router.replace(  const MainHomeRoute(   ));
       }
     });
   }
@@ -111,7 +111,7 @@ class _SplashPageState extends State<SplashPage>
                     ),
                     const SizedBox(height: 32),
                     // Animated loading dots
-                     LoadingDots(),
+                     const LoadingDots(),
                   ],
                 ),
               ),

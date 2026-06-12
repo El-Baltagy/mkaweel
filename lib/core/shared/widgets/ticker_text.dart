@@ -1,6 +1,33 @@
 import 'package:flutter/Material.dart';
 
 class TickerText extends StatefulWidget {
+
+  /// Creates a widget that scrolls to reveal child contents if it overflows,
+  /// and scrolls back up when it reaches the end.
+  /// Optionally accepts a [TickerTextController] to control scroll behavior.
+  ///
+  /// Example:
+  /// ```
+  /// TickerText(
+  ///   scrollDirection: Axis.horizontal,
+  ///   speed: 20,
+  ///   startPauseDuration: const Duration(milliseconds: 500),
+  ///   endPauseDuration: const Duration(seconds: 2),
+  ///   child: Text("Very long paragraph of text...")
+  /// );
+  /// ```
+  const TickerText({
+    super.key,
+    required this.child,
+    this.scrollDirection = Axis.horizontal,
+    this.returnDuration = const Duration(milliseconds: 800),
+    this.startPauseDuration = const Duration(seconds: 10),
+    this.endPauseDuration,
+    this.speed = 20,
+    this.controller,
+    this.primaryCurve = Curves.linear,
+    this.returnCurve = Curves.easeOut,
+  })  : assert(speed > 0, 'Speed has to be greater than zero');
   final Widget child;
   final Axis scrollDirection;
 
@@ -26,34 +53,6 @@ class TickerText extends StatefulWidget {
 
   final Curve returnCurve;
 
-  /// Creates a widget that scrolls to reveal child contents if it overflows,
-  /// and scrolls back up when it reaches the end.
-  /// Optionally accepts a [TickerTextController] to control scroll behavior.
-  ///
-  /// Example:
-  /// ```
-  /// TickerText(
-  ///   scrollDirection: Axis.horizontal,
-  ///   speed: 20,
-  ///   startPauseDuration: const Duration(milliseconds: 500),
-  ///   endPauseDuration: const Duration(seconds: 2),
-  ///   child: Text("Very long paragraph of text...")
-  /// );
-  /// ```
-  const TickerText({
-    Key? key,
-    required this.child,
-    this.scrollDirection = Axis.horizontal,
-    this.returnDuration = const Duration(milliseconds: 800),
-    this.startPauseDuration = const Duration(seconds: 10),
-    this.endPauseDuration,
-    this.speed = 20,
-    this.controller,
-    this.primaryCurve = Curves.linear,
-    this.returnCurve = Curves.easeOut,
-  })  : assert(speed > 0, "Speed has to be greater than zero"),
-        super(key: key);
-
   @override
   State<TickerText> createState() => _TickerTextState();
 }
@@ -69,7 +68,7 @@ class _TickerTextState extends State<TickerText> {
 
   @override
   void initState() {
-    _scrollController = ScrollController(initialScrollOffset: 0.0);
+    _scrollController = ScrollController();
     _autoScrollController =
         widget.controller ?? TickerTextController(autoStart: true);
 
@@ -100,7 +99,7 @@ class _TickerTextState extends State<TickerText> {
     ;
   }
 
-  void _scroll() async {
+  Future<void> _scroll() async {
     if (_scrollController.hasClients &&
         _scrollController.offset > 0 &&
         !_autoScrollController.started) {
@@ -143,12 +142,12 @@ class _TickerTextState extends State<TickerText> {
 
 
 class TickerTextController extends ChangeNotifier {
+
+  TickerTextController({bool autoStart = false}) : _started = autoStart;
   bool _started;
 
   /// Check if scrolling has started
   bool get started => _started;
-
-  TickerTextController({bool autoStart = false}) : _started = autoStart;
 
   void startScroll() {
     _started = true;

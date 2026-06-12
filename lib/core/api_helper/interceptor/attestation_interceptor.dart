@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import '../../../core/api_helper/interceptor/attestation_service.dart';
+import 'package:mkaweel/core/api_helper/interceptor/attestation_service.dart';
 
 class AttestationInterceptor extends Interceptor {
   final AttestationService _attestationService = AttestationService();

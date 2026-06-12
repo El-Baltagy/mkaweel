@@ -5,22 +5,22 @@ import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 
 class MaterialItem {
+
+  MaterialItem(this.title, this.wasteLabel, this.wastePercentage);
   final String title;
   final String wasteLabel;
   final double wastePercentage;
-
-  MaterialItem(this.title, this.wasteLabel, this.wastePercentage);
 }
 
 class WasteMaterialsGridWidget extends StatelessWidget {
-  final int selectedIndex;
-  final ValueChanged<int> onMaterialSelected;
 
   const WasteMaterialsGridWidget({
     super.key,
     required this.selectedIndex,
     required this.onMaterialSelected,
   });
+  final int selectedIndex;
+  final ValueChanged<int> onMaterialSelected;
 
   List<MaterialItem> _getMaterials() {
     return [

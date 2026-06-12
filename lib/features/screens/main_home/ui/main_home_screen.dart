@@ -8,7 +8,8 @@ import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/features/screens/main_home/controller/main_home_cubit.dart';
 import 'package:mkaweel/features/screens/main_home/controller/main_home_state.dart';
- part 'widgets/bottom_nav_bar.dart';
+part 'widgets/bottom_nav_bar.dart';
+
 @RoutePage()
 class MainHomePage extends StatefulWidget implements AutoRouteWrapper {
   const MainHomePage({super.key});
@@ -28,11 +29,11 @@ class _MainHomePageState extends MainHomePageBaseState {
   @override
   Widget build(BuildContext context) {
     final List<_NavItemData> routesNav = [
-      _NavItemData(icon: Icons.grid_view_rounded, route:   DashboardRoute(),    label: 'home'.tr()),
-      _NavItemData(icon: Icons.business_center_outlined,route:   ProjectsRoute(), label: 'projects_tab'.tr()),
-      _NavItemData(icon: Icons.trending_up_rounded, route:   MarketPricesRoute(), label: 'prices_tab'.tr()),
-      _NavItemData(icon: Icons.group_outlined, route:   WorkersRoute(),       label: 'workers_tab'.tr()),
-      _NavItemData(icon: Icons.settings_outlined,route:   SettingsRoute(),     label: 'settings_tab'.tr()),
+      _NavItemData(icon: Icons.grid_view_rounded, route:   const DashboardRoute(),    label: 'home'.tr()),
+      _NavItemData(icon: Icons.business_center_outlined,route:   const ProjectsRoute(), label: 'projects_tab'.tr()),
+      _NavItemData(icon: Icons.trending_up_rounded, route:   const MarketPricesRoute(), label: 'prices_tab'.tr()),
+      _NavItemData(icon: Icons.group_outlined, route:   const WorkersRoute(),       label: 'workers_tab'.tr()),
+      _NavItemData(icon: Icons.settings_outlined,route:   const SettingsRoute(),     label: 'settings_tab'.tr()),
     ];
 
     return BlocListener<MainHomeCubit, MainHomeState>(

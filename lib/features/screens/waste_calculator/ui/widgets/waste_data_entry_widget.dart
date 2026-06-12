@@ -5,9 +5,6 @@ import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 
 class WasteDataEntryWidget extends StatelessWidget {
-  final double floorArea;
-  final ValueChanged<double> onAreaChanged;
-  final VoidCallback onCalculate;
 
   const WasteDataEntryWidget({
     super.key,
@@ -15,6 +12,9 @@ class WasteDataEntryWidget extends StatelessWidget {
     required this.onAreaChanged,
     required this.onCalculate,
   });
+  final double floorArea;
+  final ValueChanged<double> onAreaChanged;
+  final VoidCallback onCalculate;
 
   @override
   Widget build(BuildContext context) {

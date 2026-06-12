@@ -8,7 +8,6 @@ class DioHelper {
   DioHelper call() {
     _dio = Dio(
       BaseOptions(
-        baseUrl: '',
         // baseUrl: AppFlavorConfig.instance.baseUrl,
         connectTimeout: const Duration(seconds: 15),
         receiveTimeout: const Duration(seconds: 15),

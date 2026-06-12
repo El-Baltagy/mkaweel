@@ -6,7 +6,7 @@ import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
 
-import '../../../../../core/app/route.dart';
+import 'package:mkaweel/core/app/route.dart';
 
 class QuickToolsWidget extends StatelessWidget {
   const QuickToolsWidget({super.key});

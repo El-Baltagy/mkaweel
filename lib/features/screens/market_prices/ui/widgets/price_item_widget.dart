@@ -5,11 +5,6 @@ import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
 
 class PriceItemWidget extends StatelessWidget {
-  final String title;
-  final String subtitle;
-  final String category;
-  final String price;
-  final String date;
 
   const PriceItemWidget({
     super.key,
@@ -19,6 +14,11 @@ class PriceItemWidget extends StatelessWidget {
     required this.price,
     required this.date,
   });
+  final String title;
+  final String subtitle;
+  final String category;
+  final String price;
+  final String date;
 
   @override
   Widget build(BuildContext context) {

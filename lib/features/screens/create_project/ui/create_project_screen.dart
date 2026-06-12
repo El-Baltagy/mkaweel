@@ -9,8 +9,8 @@ import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
-import 'widgets/custom_text_field.dart';
-import 'widgets/currency_selector_widget.dart';
+import 'package:mkaweel/features/screens/create_project/ui/widgets/custom_text_field.dart';
+import 'package:mkaweel/features/screens/create_project/ui/widgets/currency_selector_widget.dart';
 
 @RoutePage()
 class CreateProjectPage extends StatefulWidget implements AutoRouteWrapper{
@@ -81,7 +81,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                       child: CustomTextField(
                         label: 'end_date'.tr(),
                         hintText: 'mm/dd/yyyy',
-                        suffixIcon: Icon(Icons.calendar_today_outlined, color: AppColors.contractorGreyText),
+                        suffixIcon: const Icon(Icons.calendar_today_outlined, color: AppColors.contractorGreyText),
                       ),
                     ),
                     10.horizontalSpace,
@@ -89,7 +89,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                       child: CustomTextField(
                         label: 'start_date'.tr(),
                         hintText: 'mm/dd/yyyy',
-                        suffixIcon: Icon(Icons.calendar_today_outlined, color: AppColors.contractorGreyText),
+                        suffixIcon: const Icon(Icons.calendar_today_outlined, color: AppColors.contractorGreyText),
                       ),
                     ),
                   ],
@@ -98,7 +98,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                   CustomTextField(
                   label: 'project_status'.tr(),
                   hintText: 'active'.tr(),
-                  suffixIcon: Icon(Icons.keyboard_arrow_down, color: AppColors.contractorGreyText),
+                  suffixIcon: const Icon(Icons.keyboard_arrow_down, color: AppColors.contractorGreyText),
                 ),
                 20.verticalSpace,
                 Text('site_location_gps'.tr(), style: AppTextStyles.font14Regular.copyWith(color: AppColors.contractorDarkText)),
@@ -117,7 +117,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                     children: [
                       Text('determine_current_location'.tr(), style: AppTextStyles.font16SemiBold.copyWith(color: AppColors.contractorGreyText)),
                       10.horizontalSpace,
-                      Icon(Icons.my_location, color: AppColors.contractorGreyText),
+                      const Icon(Icons.my_location, color: AppColors.contractorGreyText),
                     ],
                   ),
                 ),

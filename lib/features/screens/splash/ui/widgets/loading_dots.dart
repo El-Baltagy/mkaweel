@@ -1,8 +1,10 @@
  import 'package:flutter/Material.dart';
 
-import '../../../../../core/theming/app_colors.dart';
+import 'package:mkaweel/core/theming/app_colors.dart';
 
 class LoadingDots extends StatefulWidget {
+  const LoadingDots({super.key});
+
   @override
   State<LoadingDots> createState() => LoadingDotsState();
 }

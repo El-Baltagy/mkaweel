@@ -20,15 +20,15 @@ class SearchAndFilterWidget extends StatelessWidget {
             fillColor: AppColors.white,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppSizes.s8),
-              borderSide: BorderSide(color: AppColors.contractorLightGrey),
+              borderSide: const BorderSide(color: AppColors.contractorLightGrey),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppSizes.s8),
-              borderSide: BorderSide(color: AppColors.contractorLightGrey),
+              borderSide: const BorderSide(color: AppColors.contractorLightGrey),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppSizes.s8),
-              borderSide: BorderSide(color: AppColors.contractorTeal),
+              borderSide: const BorderSide(color: AppColors.contractorTeal),
             ),
             contentPadding: const EdgeInsets.symmetric(horizontal: AppPadding.p16, vertical: AppPadding.p12),
           ),

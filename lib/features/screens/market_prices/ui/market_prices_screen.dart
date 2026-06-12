@@ -9,10 +9,10 @@ import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
-import 'widgets/exchange_rate_widget.dart';
-import 'widgets/currency_tabs_widget.dart';
-import 'widgets/search_and_filter_widget.dart';
-import 'widgets/price_item_widget.dart';
+import 'package:mkaweel/features/screens/market_prices/ui/widgets/exchange_rate_widget.dart';
+import 'package:mkaweel/features/screens/market_prices/ui/widgets/currency_tabs_widget.dart';
+import 'package:mkaweel/features/screens/market_prices/ui/widgets/search_and_filter_widget.dart';
+import 'package:mkaweel/features/screens/market_prices/ui/widgets/price_item_widget.dart';
 
 @RoutePage()
 class MarketPricesPage extends StatefulWidget implements AutoRouteWrapper{

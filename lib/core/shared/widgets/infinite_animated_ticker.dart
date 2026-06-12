@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 class InfiniteTicker extends StatefulWidget {
-  final Widget child;
-  final double speed,width,height;
 
   const InfiniteTicker({
     super.key,
@@ -11,6 +9,8 @@ class InfiniteTicker extends StatefulWidget {
     required this.height,
     this.speed = 30,
   });
+  final Widget child;
+  final double speed,width,height;
 
   @override
   State<InfiniteTicker> createState() => _InfiniteTickerState();
@@ -72,7 +72,7 @@ class _InfiniteTickerState extends State<InfiniteTicker> {
     );
   }
 
-  void _start() async {
+  Future<void> _start() async {
     if (_running) return;
     _running = true;
 

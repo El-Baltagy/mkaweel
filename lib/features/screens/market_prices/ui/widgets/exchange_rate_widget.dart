@@ -21,7 +21,7 @@ class ExchangeRateWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Icon(Icons.sync, color: AppColors.contractorGreyText),
+          const Icon(Icons.sync, color: AppColors.contractorGreyText),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
@@ -29,7 +29,7 @@ class ExchangeRateWidget extends StatelessWidget {
               5.verticalSpace,
               Text('1 \$ = 45.89 ₺  |  1 \$ = 13,000 ل.س', style: AppTextStyles.font14Regular.copyWith(color: AppColors.contractorDarkText)),
               5.verticalSpace,
-              Text('الآن • open.er-api.com', style: AppTextStyles.font12Regular),
+              const Text('الآن • open.er-api.com', style: AppTextStyles.font12Regular),
             ],
           ),
         ],

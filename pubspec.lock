@@ -701,6 +701,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  mkaweel_lints:
+    dependency: "direct dev"
+    description:
+      path: "packages/mkaweel_lints"
+      relative: true
+    source: path
+    version: "1.0.0"
   nested:
     dependency: transitive
     description:
@@ -838,7 +845,7 @@ packages:
     source: hosted
     version: "1.5.0"
   rxdart:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: rxdart
       sha256: "0c7c0cedd93788d996e33041ffecda924cc54389199cde4e6a34b440f50044cb"
@@ -955,7 +962,7 @@ packages:
     source: hosted
     version: "7.0.0"
   stack_trace:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: stack_trace
       sha256: "8b27215b45d22309b5cddda1aa2b19bdfec9df0e765f2de506401c071d38d1b1"

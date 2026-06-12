@@ -5,11 +5,6 @@ import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 
 class WorkerModel {
-  final String name;
-  final String role;
-  final String phone;
-  final String certExpiry;
-  final bool isActive;
 
   const WorkerModel({
     required this.name,
@@ -18,11 +13,16 @@ class WorkerModel {
     required this.certExpiry,
     required this.isActive,
   });
+  final String name;
+  final String role;
+  final String phone;
+  final String certExpiry;
+  final bool isActive;
 }
 
 class WorkersListWidget extends StatelessWidget {
-  final List<WorkerModel> workers;
   const WorkersListWidget({super.key, required this.workers});
+  final List<WorkerModel> workers;
 
   @override
   Widget build(BuildContext context) {
@@ -64,8 +64,8 @@ class EmptyWorkersWidget extends StatelessWidget {
 }
 
 class WorkerCardWidget extends StatelessWidget {
-  final WorkerModel worker;
   const WorkerCardWidget({super.key, required this.worker});
+  final WorkerModel worker;
 
   @override
   Widget build(BuildContext context) {
@@ -102,10 +102,10 @@ class WorkerCardWidget extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(width: AppSizes.s12),
-                    CircleAvatar(
+                    const CircleAvatar(
                       radius: 22,
                       backgroundColor: AppColors.contractorLightGrey,
-                      child: const Icon(Icons.person_outline, color: AppColors.contractorGreyText),
+                      child: Icon(Icons.person_outline, color: AppColors.contractorGreyText),
                     ),
                   ],
                 ),
@@ -169,9 +169,9 @@ class WorkerCardWidget extends StatelessWidget {
 }
 
 class WorkersSummaryWidget extends StatelessWidget {
+  const WorkersSummaryWidget({super.key, required this.activeCount, required this.inactiveCount});
   final int activeCount;
   final int inactiveCount;
-  const WorkersSummaryWidget({super.key, required this.activeCount, required this.inactiveCount});
 
   @override
   Widget build(BuildContext context) {
@@ -201,10 +201,10 @@ class WorkersSummaryWidget extends StatelessWidget {
 }
 
 class _SummaryCard extends StatelessWidget {
+  const _SummaryCard({required this.count, required this.label, required this.countColor});
   final int count;
   final String label;
   final Color countColor;
-  const _SummaryCard({required this.count, required this.label, required this.countColor});
 
   @override
   Widget build(BuildContext context) {
@@ -230,13 +230,13 @@ class _SummaryCard extends StatelessWidget {
 }
 
 class WorkersFilterWidget extends StatelessWidget {
-  final String selectedFilter;
-  final ValueChanged<String> onFilterChanged;
   const WorkersFilterWidget({
     super.key,
     required this.selectedFilter,
     required this.onFilterChanged,
   });
+  final String selectedFilter;
+  final ValueChanged<String> onFilterChanged;
 
   @override
   Widget build(BuildContext context) {

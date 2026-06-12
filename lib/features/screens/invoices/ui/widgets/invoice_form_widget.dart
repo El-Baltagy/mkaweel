@@ -91,7 +91,7 @@ class InvoiceFormWidget extends StatelessWidget {
           ),
           if (icon != null) Icon(icon, color: AppColors.contractorDarkText, size: 18),
           if (isNumber)
-            Column(
+            const Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(Icons.arrow_drop_up, size: 16, color: AppColors.contractorGreyText),

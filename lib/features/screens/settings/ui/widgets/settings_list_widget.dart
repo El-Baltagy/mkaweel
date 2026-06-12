@@ -35,7 +35,7 @@ class _SettingsListWidgetState extends State<SettingsListWidget> {
               leading: Switch(
                 value: _isDarkMode,
                 onChanged: (v) => setState(() => _isDarkMode = v),
-                activeColor: AppColors.contractorTeal,
+                activeThumbColor: AppColors.contractorTeal,
               ),
               title: Text('dark_mode'.tr(), style: AppTextStyles.font16SemiBold, textAlign: TextAlign.right),
               subtitle: Text('dark_mode_subtitle'.tr(), style: AppTextStyles.font12Regular, textAlign: TextAlign.right),
@@ -116,7 +116,6 @@ class _SettingsListWidgetState extends State<SettingsListWidget> {
       children: [
         ListTile(
           contentPadding: const EdgeInsets.symmetric(horizontal: AppPadding.p16, vertical: AppPadding.p4),
-          leading: null,
           title: Text(title, style: AppTextStyles.font16SemiBold, textAlign: TextAlign.right),
           subtitle: subtitle != null
               ? Text(subtitle, style: AppTextStyles.font12Regular, textAlign: TextAlign.right)

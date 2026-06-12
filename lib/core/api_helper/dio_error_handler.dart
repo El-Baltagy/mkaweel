@@ -5,33 +5,33 @@ abstract class DioErrorHandler {
   static Failure handleError(DioException error) {
     switch (error.type) {
       case DioExceptionType.cancel:
-        return Failure('Request was cancelled by user.');
+        return const Failure('Request was cancelled by user.');
       case DioExceptionType.connectionTimeout:
-        return Failure('Connection timeout.');
+        return const Failure('Connection timeout.');
       case DioExceptionType.receiveTimeout:
-        return Failure('Receive timeout.');
+        return const Failure('Receive timeout.');
       case DioExceptionType.sendTimeout:
-        return Failure('Send timeout.');
+        return const Failure('Send timeout.');
       case DioExceptionType.badResponse:
         return _handleBadResponse(error.response);
       case DioExceptionType.connectionError:
         if (error.error is SocketException) {
-          return Failure('No internet connection.');
+          return const Failure('No internet connection.');
         }
-        return Failure('Connection error.');
+        return const Failure('Connection error.');
       case DioExceptionType.unknown:
         if (error.error is SocketException) {
-          return Failure('No internet connection.');
+          return const Failure('No internet connection.');
         }
-        return Failure('Unexpected network error.');
+        return const Failure('Unexpected network error.');
       case DioExceptionType.badCertificate:
         // TODO: Handle this case.
-        return Failure('incorrect certificate');
+        return const Failure('incorrect certificate');
     }
   }
 
   static Failure _handleBadResponse(Response? response) {
-    if (response == null) return Failure('Unknown server error.');
+    if (response == null) return const Failure('Unknown server error.');
     final code = response.statusCode ?? 0;
 
     String message;
@@ -59,10 +59,10 @@ abstract class DioErrorHandler {
   }
 }
 class Failure {
-  final String message;
-  final int? code;
 
   const Failure(this.message, [this.code]);
+  final String message;
+  final int? code;
 
   @override
   String toString() => 'Failure(code: $code, message: $message)';

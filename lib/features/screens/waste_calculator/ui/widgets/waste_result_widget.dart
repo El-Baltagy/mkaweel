@@ -5,14 +5,14 @@ import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 
 class WasteResultWidget extends StatelessWidget {
-  final double floorArea;
-  final int materialIndex;
 
   const WasteResultWidget({
     super.key,
     required this.floorArea,
     required this.materialIndex,
   });
+  final double floorArea;
+  final int materialIndex;
 
   double _getWastePercentage(int index) {
     switch (index) {
@@ -76,7 +76,7 @@ class WasteResultWidget extends StatelessWidget {
           _buildResultRow('net_quantity'.tr(), floorArea, AppColors.contractorBackground, AppColors.contractorDarkText),
           12.verticalSpace,
           _buildResultRow(
-            '${'waste_ratio_10'.tr().replaceAll('10', percentage.toInt().toString())}',
+            'waste_ratio_10'.tr().replaceAll('10', percentage.toInt().toString()),
             wasteAmount,
             AppColors.gold.withOpacity(0.1),
             AppColors.gold,

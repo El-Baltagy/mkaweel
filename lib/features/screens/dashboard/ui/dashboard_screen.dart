@@ -6,11 +6,11 @@ import 'package:mkaweel/features/screens/dashboard/controller/dashboard_cubit.da
 import 'package:mkaweel/features/screens/dashboard/controller/dashboard_state.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/extension/double.dart';
-import 'widgets/dashboard_header_widget.dart';
-import 'widgets/stats_cards_widget.dart';
-import 'widgets/today_tasks_widget.dart';
-import 'widgets/quick_tools_widget.dart';
-import 'widgets/quick_links_widget.dart';
+import 'package:mkaweel/features/screens/dashboard/ui/widgets/dashboard_header_widget.dart';
+import 'package:mkaweel/features/screens/dashboard/ui/widgets/stats_cards_widget.dart';
+import 'package:mkaweel/features/screens/dashboard/ui/widgets/today_tasks_widget.dart';
+import 'package:mkaweel/features/screens/dashboard/ui/widgets/quick_tools_widget.dart';
+import 'package:mkaweel/features/screens/dashboard/ui/widgets/quick_links_widget.dart';
 
 @RoutePage()
 class DashboardPage extends StatefulWidget implements AutoRouteWrapper{

@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import '../shared/methods/print.dart';
-import 'dio_error_handler.dart';
+import 'package:mkaweel/core/shared/methods/print.dart';
+import 'package:mkaweel/core/api_helper/dio_error_handler.dart';
 
 // Threshold for background processing: 100KB
 const int threshold = 100 * 1024;
@@ -22,7 +22,7 @@ Future<Either<Failure, T>> handleResponse<T>({
     final int size = jsonString.length;
 
     PrintHelper().loggerPrint(
-      '''✅ [API SUCCESS]\n   └─ Size: ${size} bytes\n   └─ Preview: ${size > 500 ? '${jsonString.substring(0, 500)}...' : jsonString}''',
+      '''✅ [API SUCCESS]\n   └─ Size: $size bytes\n   └─ Preview: ${size > 500 ? '${jsonString.substring(0, 500)}...' : jsonString}''',
       LoggerType.info,
     );
 
@@ -48,7 +48,7 @@ Future<Either<Failure, T>> handleResponse<T>({
       '''⚠️ [API PARSE/OTHER ERROR]\n   └─ Error: $e\n   └─ Stack: ${s.toString().split('\n').take(3).join('\n')}''',
       LoggerType.fatal,
     );
-    return left(Failure("Format Error or Unknown Error: $e", -2));
+    return left(Failure('Format Error or Unknown Error: $e', -2));
   }
 }
 

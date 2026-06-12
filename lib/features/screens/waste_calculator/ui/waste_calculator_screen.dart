@@ -6,11 +6,11 @@ import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/features/screens/waste_calculator/controller/waste_calculator_cubit.dart';
- import '../../../../core/constants/app_locator.dart';
-import 'widgets/waste_data_entry_widget.dart';
-import 'widgets/waste_header_widget.dart';
-import 'widgets/waste_materials_grid_widget.dart';
-import 'widgets/waste_result_widget.dart';
+ import 'package:mkaweel/core/constants/app_locator.dart';
+import 'package:mkaweel/features/screens/waste_calculator/ui/widgets/waste_data_entry_widget.dart';
+import 'package:mkaweel/features/screens/waste_calculator/ui/widgets/waste_header_widget.dart';
+import 'package:mkaweel/features/screens/waste_calculator/ui/widgets/waste_materials_grid_widget.dart';
+import 'package:mkaweel/features/screens/waste_calculator/ui/widgets/waste_result_widget.dart';
 
 @RoutePage()
 class WasteCalculatorPage extends StatefulWidget implements AutoRouteWrapper {

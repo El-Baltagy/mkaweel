@@ -1,11 +1,11 @@
 import 'package:flutter/Material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../service/waste_calculator_service.dart';
+import 'package:mkaweel/features/screens/waste_calculator/service/waste_calculator_service.dart';
  part 'waste_calculator_state.dart';
 
 class WasteCalculatorCubit extends Cubit<WasteCalculatorState> {
-  final WasteCalculatorService _service;
   WasteCalculatorCubit(this._service) : super(const WasteCalculatorState());
+  final WasteCalculatorService _service;
 
   static WasteCalculatorCubit get({required BuildContext context}) => BlocProvider.of(context);
 

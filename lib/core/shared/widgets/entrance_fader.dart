@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
 
 class EntranceFader extends StatefulWidget {
+  const EntranceFader({
+    super.key,
+    required this.child,
+    this.onAnimationEnded,
+    this.dx=-32,
+    this.dy=0,
+    this.delay = const Duration(milliseconds: 200),
+    this.duration = const Duration(milliseconds: 500),
+    this.enableAnimation=true,
+  });
   /// Child to be animated on entrance
   final Widget child;
   final void Function()? onAnimationEnded;
@@ -13,16 +23,6 @@ class EntranceFader extends StatefulWidget {
 
   final bool enableAnimation;
   final double dx,dy;
-  const EntranceFader({
-    super.key,
-    required this.child,
-    this.onAnimationEnded,
-    this.dx=-32,
-    this.dy=0,
-    this.delay = const Duration(milliseconds: 200),
-    this.duration = const Duration(milliseconds: 500),
-    this.enableAnimation=true,
-  });
 
   @override
   EntranceFaderState createState() {
@@ -71,7 +71,7 @@ class EntranceFaderState extends State<EntranceFader>
       builder: (context, child) => Opacity(
         opacity: _controller!.value,
         child: Transform.translate(
-          offset: Offset(_dxAnimation!.value, _dyAnimation!.value),
+          offset: Offset(double.parse(_dxAnimation!.value.toString()), double.parse(_dyAnimation!.value.toString())),
           child: widget.child,
         ),
       ),

@@ -6,10 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/features/screens/performance/controller/performance_cubit.dart';
- import '../../../../core/constants/app_locator.dart';
-import 'widgets/performance_metrics_widget.dart';
-import 'widgets/performance_project_list_widget.dart';
-import 'widgets/performance_tabs_widget.dart';
+ import 'package:mkaweel/core/constants/app_locator.dart';
+import 'package:mkaweel/features/screens/performance/ui/widgets/performance_metrics_widget.dart';
+import 'package:mkaweel/features/screens/performance/ui/widgets/performance_project_list_widget.dart';
+import 'package:mkaweel/features/screens/performance/ui/widgets/performance_tabs_widget.dart';
 
 @RoutePage()
 class PerformancePage extends StatefulWidget implements AutoRouteWrapper {
