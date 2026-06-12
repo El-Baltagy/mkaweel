@@ -1,0 +1,159 @@
+key,en,ar
+app_name,My App
+sunday_may_31,Sunday May 31,الأحد، 31 مايو
+hello,Hello,مرحباً، ...
+active_project,Active Project,مشروع نشط
+completed,Completed,مكتمل
+todays_tasks,Today's Tasks,مهام اليوم
+spending_rate,Spending Rate,نسبة الصرف
+expected_profit,Expected Profit,الربح المتوقع
+show_all,Show All,عرض الكل
+no_tasks_scheduled,No tasks scheduled for today,لا توجد مهام مجدولة لليوم
+quick_tools,Quick Tools,أدوات سريعة
+gantt_chart,Gantt Chart,مخطط غانت
+waste_calculator,Waste Calculator,حاسبة الهدر
+weather,Weather,الطقس
+attendance_registration,Attendance Registration,تسجيل حضور
+suppliers,Suppliers,الموردون
+templates,Templates,القوالب
+quick_links,Quick Links,روابط سريعة
+performance_comparison,Performance Comparison,مقارنة الأداء
+new_invoice,New Invoice,فاتورة جديدة
+no_projects,No Projects,لا توجد مشاريع
+press_to_create_project,Press + to create a new project,اضغط على + لإنشاء مشروع جديد
+projects,Projects,المشاريع
+currency,Currency,العملة
+turkish_lira,Turkish Lira,ليرة تركية
+syrian_lira,Syrian Lira,ليرة سورية
+us_dollar,US Dollar,دولار أمريكي
+new_project,New Project,مشروع جديد
+project_name,Project Name,اسم المشروع
+building_residential_house,Building a residential house,بناء منزل سكني
+contract_value,Contract Value ($),قيمة العقد ($)
+location,Location,الموقع
+damascus_mezzeh,Damascus - Mezzeh,دمشق - المزة
+end_date,End Date,تاريخ الانتهاء
+start_date,Start Date,تاريخ البدء
+project_status,Project Status,حالة المشروع
+active,Active,نشط
+site_location_gps,Site Location (GPS for attendance),موقع الموقع (GPS للحضور)
+determine_current_location,Determine current site location,تحديد موقع الموقع الحالي
+create_project,Create Project,إنشاء المشروع
+live_exchange_rates,Live Exchange Rates,أسعار الصرف اللحظية
+now,Now,الآن
+dollar,Dollar,دولار
+search_material_hint,Search for a material... example: cement steel,ابحث عن مادة... مثال: إسمنت، حديد
+all,All,الكل
+cement,Cement,إسمنت
+steel,Steel,حديد
+aggregate,Aggregate,ركام
+building,Building,بناء
+finishing,Finishing,تشطيب
+wood,Wood,خشب
+sanitary,Sanitary,صحي
+market_prices,Market Prices,أسعار السوق
+window_aluminum,Window Aluminum,ألمنيوم شبابيك
+per_m2,Per m²,لكل م²
+aluminum,Aluminum,ألمنيوم
+white_cement,White Cement,إسمنت أبيض
+per_40_kg_bag,Per 40 kg bag,لكل كيس 40 كغ
+portland_cement,Portland Cement,إسمنت بورتلاندي
+per_50_kg_bag,Per 50 kg bag,لكل كيس 50 كغ
+workers_management,Workers Management,إدارة العمال
+no_workers,No Workers,لا يوجد عمال
+press_to_add_worker,Press + to add a worker to the team,اضغط + لإضافة عامل للفريق
+inactive,Inactive,غير نشط
+active_worker,Active Worker,عامل نشط
+inactive_worker,Inactive Worker,غير نشط
+all_workers,All,الكل
+add_worker,Add Worker,إضافة عامل
+worker_name,Worker Name *,اسم العامل *
+full_name,Full Name,الاسم الكامل
+specialization,Specialization,التخصص
+phone_number,Phone Number,رقم الجوال
+certificate_expiry,Certificate / Residency Expiry,انتهاء الشهادة / الإقامة
+notes,Notes,ملاحظات
+worker_notes_hint,Any notes about the worker...,أي ملاحظات عن العامل...
+save,Save,حفظ
+cancel,Cancel,إلغاء
+supervisor,Supervisor,مشرف
+certificate_expiry_label,Certificate Expiry:,انتهاء الشهادة:
+settings_title,Settings,الإعدادات
+dark_mode,Dark Mode,الوضع الليلي
+dark_mode_subtitle,Enable / Disable Dark Mode,تفعيل/إلغاء الوضع الليلي
+about_app,About App,عن التطبيق
+version,Version 1.0.0,النسخة 1.0.0
+privacy_policy,Privacy Policy,سياسة الخصوصية
+help_and_support,Help & Support,المساعدة والدعم
+logout,Logout,تسجيل الخروج
+home,Home,الرئيسية
+projects_tab,Projects,المشاريع
+prices_tab,Prices,الأسعار
+workers_tab,Workers,العمال
+settings_tab,Settings,الإعدادات
+invoices_title,Invoices,الفواتير
+invoice_example_hint,Example: First Payment Invoice,مثال: فاتورة الدفعة الأولى
+invoice_project,Project,المشروع
+invoice_project_name_example,Akkad Villa,فيلا العقاد
+invoice_status,Status,الحالة
+invoice_status_draft,Draft,مسودة
+invoice_due_date,Due Date,تاريخ الاستحقاق
+invoice_tax_percentage,Tax Percentage (%),نسبة الضريبة (%)
+invoice_items,Invoice Items,بنود الفاتورة
+add_invoice_item,+ Add Item,+ إضافة بند
+item_description,Item Description,وصف البند
+item_quantity,Quantity,الكمية
+item_price,Price,السعر
+item_total,Total,الإجمالي
+subtotal,Subtotal,المجموع الفرعي
+vat_tax,Value Added Tax (8%),ضريبة القيمة المضافة (8%)
+performance_comparison,Performance Comparison,مقارنة الأداء
+total_projects,Total Projects,إجمالي المشاريع
+average_profit_margin,Average Profit Margin,متوسط هامش الربح
+total_contract_value,Total Contract Value,إجمالي قيمة العقود
+total_profits,Total Profits,إجمالي الأرباح
+efficiency_tab,Efficiency,الكفاءة
+profitability_tab,Profitability,الربحية
+daily_cost_tab,Daily Cost,التكلفة اليومية
+aleppo_new_aleppo,Aleppo - New Aleppo,حلب - حلب الجديدة
+completion_0,Completion 0%,الإنجاز 0%
+spend_0,Spend 0%,الصرف 0%
+tasks_0_0,Tasks 0/0,المهام 0/0
+weak,Weak,ضعيف
+rate_0_0,Rate 0.00,معدل 0.00
+gantt_date_example,31 May 2026 - 31 July 2026 . 61 days,31 مايو 2026 - 31 يوليو 2026 . 61 يوم
+completed_task,Completed,منجز
+in_progress_task,In Progress,جاري
+pending_task,Pending,معلق
+today_task,Today,اليوم
+no_tasks_in_project,No tasks in this project,لا توجد مهام في هذا المشروع
+add_tasks,Add Tasks,إضافة مهام
+manage_tasks,Manage Tasks,إدارة المهام
+waste_calculator_title,Waste Calculator,حاسبة الهدر
+waste_calculator_subtitle,Material Waste Calculator,حاسبة كميات المواد مع الهدر
+waste_calculator_desc,Calculate actual quantities with standard waste ratio,احسب الكميات الفعلية مع نسبة الهدر المعيارية
+select_material,Select Material,اختر المادة
+tiles_ceramics,Tiles / Ceramics,بلاط / سيراميك
+waste_10,10% Waste,هدر 10%
+paints,Paints / Coating,دهانات / طلاء
+waste_8,8% Waste,هدر 8%
+cement_concrete,Cement (for concrete),إسمنت (للخرسانة)
+waste_5,5% Waste,هدر 5%
+rebar,Rebar,حديد تسليح
+waste_3,3% Waste,هدر 3%
+bricks_blocks,Bricks / Blocks,طابوق / بلوك
+waste_7,7% Waste,هدر 7%
+sand_material,Sand,رمل
+wood_carpentry,Wood (Doors / Carpentry),خشب (أبواب / نجارة)
+waste_15,15% Waste,هدر 15%
+curbs_cladding,Curbs / Cladding Stone,بردروات / حجر كسوة
+waste_12,12% Waste,هدر 12%
+data_entry,Data Entry,إدخال البيانات
+floor_area_m2,Floor Area (m²),مساحة الأرضية (م²)
+waste_reason_tiles,10% waste ratio due to cutting, breaking, and corner installation,نسبة الهدر 10% بسبب القطع والكسر والتركيب في الزوايا
+calculate_quantities,Calculate Quantities,احسب الكميات
+calculation_result_tiles,Calculation Result - Tiles / Ceramics,نتيجة الحساب - بلاط / سيراميك
+net_quantity,Net Quantity,الكمية الصافية
+waste_ratio_10,Waste Ratio (10%),نسبة الهدر (10%)
+total_order,Total Order,إجمالي الطلبية
+order_hint_tiles,Order 55 m² to ensure no shortage on site. Save an additional 5% margin for unexpected modifications.,اطلب 55 م² لضمان عدم نقص المواد في الموقع، وفّر هامش إضافي 5% للتعديلات غير المتوقعة.

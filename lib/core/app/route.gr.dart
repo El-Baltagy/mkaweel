@@ -1,0 +1,259 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+// **************************************************************************
+// AutoRouterGenerator
+// **************************************************************************
+
+// ignore_for_file: type=lint
+// coverage:ignore-file
+
+part of 'route.dart';
+
+abstract class _$AppRouter extends RootStackRouter {
+  // ignore: unused_element
+  _$AppRouter({super.navigatorKey});
+
+  @override
+  final Map<String, PageFactory> pagesMap = {
+    CreateProjectRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const CreateProjectPage()),
+      );
+    },
+    DashboardRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const DashboardPage()),
+      );
+    },
+    GanttChartRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const GanttChartPage()),
+      );
+    },
+    InvoicesRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const InvoicesPage()),
+      );
+    },
+    MainHomeRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const MainHomePage()),
+      );
+    },
+    MarketPricesRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const MarketPricesPage()),
+      );
+    },
+    PerformanceRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const PerformancePage()),
+      );
+    },
+    ProjectsRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const ProjectsPage()),
+      );
+    },
+    SettingsRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const SettingsPage()),
+      );
+    },
+    SplashRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const SplashPage(),
+      );
+    },
+    WasteCalculatorRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const WasteCalculatorPage()),
+      );
+    },
+    WorkersRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const WorkersPage()),
+      );
+    },
+  };
+}
+
+/// generated route for
+/// [CreateProjectPage]
+class CreateProjectRoute extends PageRouteInfo<void> {
+  const CreateProjectRoute({List<PageRouteInfo>? children})
+      : super(
+          CreateProjectRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CreateProjectRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [DashboardPage]
+class DashboardRoute extends PageRouteInfo<void> {
+  const DashboardRoute({List<PageRouteInfo>? children})
+      : super(
+          DashboardRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'DashboardRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [GanttChartPage]
+class GanttChartRoute extends PageRouteInfo<void> {
+  const GanttChartRoute({List<PageRouteInfo>? children})
+      : super(
+          GanttChartRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'GanttChartRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [InvoicesPage]
+class InvoicesRoute extends PageRouteInfo<void> {
+  const InvoicesRoute({List<PageRouteInfo>? children})
+      : super(
+          InvoicesRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'InvoicesRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [MainHomePage]
+class MainHomeRoute extends PageRouteInfo<void> {
+  const MainHomeRoute({List<PageRouteInfo>? children})
+      : super(
+          MainHomeRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'MainHomeRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [MarketPricesPage]
+class MarketPricesRoute extends PageRouteInfo<void> {
+  const MarketPricesRoute({List<PageRouteInfo>? children})
+      : super(
+          MarketPricesRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'MarketPricesRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [PerformancePage]
+class PerformanceRoute extends PageRouteInfo<void> {
+  const PerformanceRoute({List<PageRouteInfo>? children})
+      : super(
+          PerformanceRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'PerformanceRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [ProjectsPage]
+class ProjectsRoute extends PageRouteInfo<void> {
+  const ProjectsRoute({List<PageRouteInfo>? children})
+      : super(
+          ProjectsRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ProjectsRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [SettingsPage]
+class SettingsRoute extends PageRouteInfo<void> {
+  const SettingsRoute({List<PageRouteInfo>? children})
+      : super(
+          SettingsRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SettingsRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [SplashPage]
+class SplashRoute extends PageRouteInfo<void> {
+  const SplashRoute({List<PageRouteInfo>? children})
+      : super(
+          SplashRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SplashRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [WasteCalculatorPage]
+class WasteCalculatorRoute extends PageRouteInfo<void> {
+  const WasteCalculatorRoute({List<PageRouteInfo>? children})
+      : super(
+          WasteCalculatorRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'WasteCalculatorRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [WorkersPage]
+class WorkersRoute extends PageRouteInfo<void> {
+  const WorkersRoute({List<PageRouteInfo>? children})
+      : super(
+          WorkersRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'WorkersRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
