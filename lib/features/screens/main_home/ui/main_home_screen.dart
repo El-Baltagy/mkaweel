@@ -14,8 +14,9 @@ part 'widgets/bottom_nav_bar.dart';
 
 @RoutePage()
 class MainHomePage extends StatefulWidget implements AutoRouteWrapper {
-  final MainHomeRouteArgs args;
-  const MainHomePage({super.key, required this.args});
+  final String title;
+  
+  const MainHomePage({super.key, required this.title});
   @override
   Widget wrappedRoute(BuildContext context) {
     return BlocProvider<MainHomeCubit>(

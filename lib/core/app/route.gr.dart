@@ -45,8 +45,7 @@ abstract class _$AppRouter extends RootStackRouter {
         routeData: routeData,
         child: WrappedRoute(
             child: MainHomePage(
-          key: args.key,
-          args: args.args,
+           title: args.title,
         )),
       );
     },
@@ -155,15 +154,11 @@ class InvoicesRoute extends PageRouteInfo<void> {
 /// [MainHomePage]
 class MainHomeRoute extends PageRouteInfo<MainHomeRouteArgs> {
   MainHomeRoute({
-    Key? key,
-    required MainHomeRouteArgs args,
+     required MainHomeRouteArgs args,
     List<PageRouteInfo>? children,
   }) : super(
           MainHomeRoute.name,
-          args: MainHomeRouteArgs(
-            key: key,
-            args: args,
-          ),
+          args:args,
           initialChildren: children,
         );
 
@@ -174,19 +169,8 @@ class MainHomeRoute extends PageRouteInfo<MainHomeRouteArgs> {
 }
 
 class MainHomeRouteArgs {
-  const MainHomeRouteArgs({
-    this.key,
-    required this.title,
-  });
+  const MainHomeRouteArgs({  });
 
-  final Key? key;
-
-  final String title;
-
-  @override
-  String toString() {
-    return 'MainHomeRouteArgs{key: $key, args: $title}';
-  }
 }
 
 /// generated route for
@@ -196,6 +180,7 @@ class MarketPricesRoute extends PageRouteInfo<void> {
       : super(
           MarketPricesRoute.name,
           initialChildren: children,
+    args: MarketPricesRouteArgs()
         );
 
   static const String name = 'MarketPricesRoute';
