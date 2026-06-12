@@ -22,10 +22,7 @@ class LoginCubit extends BaseCubit<LoginState> {
   }
 
   Future<void> login(String phone, String password) async {
-    if (phone.trim().isEmpty || password.trim().isEmpty) {
-      emit(LoginError("Phone and password cannot be empty"));
-      return;
-    }
+
     emit(LoginLoading());
     try {
       // Simulate API call

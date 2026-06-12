@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mkaweel/core/extension/context.dart';
  import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
@@ -49,7 +50,7 @@ class _GanttChartPageState extends GanttChartPageBaseState {
           actions: [
             IconButton(
               icon: const Icon(Icons.arrow_forward_ios, color: Colors.white, size: 20),
-              onPressed: () => context.router.pop(),
+              onPressed: () => context.pop(),
             ),
           ],
         ),

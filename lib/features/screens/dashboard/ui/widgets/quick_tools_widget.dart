@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:mkaweel/core/extension/context.dart';
+import 'package:mkaweel/core/shared/widgets/ticker_text.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
@@ -8,11 +10,43 @@ import 'package:mkaweel/core/extension/double.dart';
 
 import 'package:mkaweel/core/app/route.dart';
 
+class ItemGridData {
+  final String label;
+  final IconData icon;
+  final Color bgColor, iconColor;
+  final VoidCallback? onTap;
+  final PageRouteInfo<dynamic>? routeNavigation;
+  ItemGridData({
+     required this.label,
+     required this.icon,
+    required this.bgColor,
+    required this.iconColor,
+      this.onTap,
+      this.routeNavigation,
+});
+}
+
 class QuickToolsWidget extends StatelessWidget {
   const QuickToolsWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+
+    final List<ItemGridData>list=[
+      ItemGridData(label: 'gantt_chart'.tr(), icon: Icons.format_list_bulleted,
+          bgColor: Colors.indigo.shade100, iconColor: Colors.indigo,routeNavigation: const GanttChartRoute()),
+      ItemGridData(label: 'waste_calculator'.tr(), icon: Icons.calculate_outlined,
+          bgColor: Colors.orange.shade100, iconColor: Colors.orange,routeNavigation: const WasteCalculatorRoute()),
+      ItemGridData(label: 'weather'.tr(), icon: Icons.cloud_outlined,
+          bgColor: Colors.blue.shade100, iconColor: Colors.blue ),
+      ItemGridData(label: 'attendance_registration'.tr(), icon: Icons.how_to_reg,
+          bgColor: Colors.teal.shade100, iconColor: Colors.teal ),
+      ItemGridData(label: 'suppliers'.tr(), icon: Icons.inventory_2_outlined,
+          bgColor: Colors.green.shade100, iconColor: Colors.green ),
+      ItemGridData(label: 'templates'.tr(), icon: Icons.note_add_outlined,
+          bgColor: Colors.purple.shade100, iconColor: Colors.purple ),
+
+    ];
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
       child: Column(
@@ -27,28 +61,16 @@ class QuickToolsWidget extends StatelessWidget {
             mainAxisSpacing: 10,
             crossAxisSpacing: 10,
             childAspectRatio: 1.1,
-            children: [
-              _buildToolItem(
-                context,
-                'gantt_chart'.tr(),
-                Icons.format_list_bulleted,
-                Colors.indigo.shade100,
-                Colors.indigo,
-                onTap: () => context.router.push(const GanttChartRoute()),
-              ),
-              _buildToolItem(
-                context,
-                'waste_calculator'.tr(),
-                Icons.calculate_outlined,
-                Colors.orange.shade100,
-                Colors.orange,
-                onTap: () => context.router.push(const WasteCalculatorRoute()),
-              ),
-              _buildToolItem(context, 'weather'.tr(), Icons.cloud_outlined, Colors.blue.shade100, Colors.blue),
-              _buildToolItem(context, 'attendance_registration'.tr(), Icons.how_to_reg, Colors.teal.shade100, Colors.teal),
-              _buildToolItem(context, 'suppliers'.tr(), Icons.inventory_2_outlined, Colors.green.shade100, Colors.green),
-              _buildToolItem(context, 'templates'.tr(), Icons.note_add_outlined, Colors.purple.shade100, Colors.purple),
-            ],
+            children:List.generate(list.length, (index) =>     _buildToolItem(
+              context,
+              list[index].label,
+              list[index].icon,
+              list[index].bgColor,
+              list[index].iconColor,
+              onTap:  list[index].onTap??(list[index].routeNavigation==null?null:
+                  () => context.push(  list[index].routeNavigation!)),
+            ),)
+
           ),
         ],
       ),
@@ -63,42 +85,49 @@ class QuickToolsWidget extends StatelessWidget {
     Color iconColor, {
     VoidCallback? onTap,
   }) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.contractorSurface,
-        borderRadius: BorderRadius.circular(AppSizes.s12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.03),
-            blurRadius: 5,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: GestureDetector(
-        onTap: onTap,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(AppPadding.p8),
-              decoration: BoxDecoration(
-                color: bgColor.withOpacity(0.5),
-                borderRadius: BorderRadius.circular(AppSizes.s8),
-              ),
-              child: Icon(icon, color: iconColor),
-            ),
-            10.verticalSpace,
-            Text(
-              label,
-              style: AppTextStyles.font12Regular.copyWith(
-                fontWeight: FontWeight.bold,
-                color: AppColors.contractorDarkText,
-              ),
-              textAlign: TextAlign.center,
+    return GestureDetector(
+      onTap:onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.contractorSurface,
+          borderRadius: BorderRadius.circular(AppSizes.s12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.03),
+              blurRadius: 5,
+              offset: const Offset(0, 2),
             ),
           ],
         ),
+        child: Column(
+         mainAxisAlignment: MainAxisAlignment.center,
+         children: [
+           Container(
+             padding: const EdgeInsets.all(AppPadding.p8),
+             decoration: BoxDecoration(
+               color: bgColor.withOpacity(0.5),
+               borderRadius: BorderRadius.circular(AppSizes.s8),
+             ),
+             child: Icon(icon, color: iconColor),
+           ),
+           10.verticalSpace,
+           Container(
+             constraints: BoxConstraints(
+               maxWidth: context.width * 0.6,
+             ),
+             child: TickerText(
+               child: Text(
+                 label,
+                 style: AppTextStyles.font12Regular.copyWith(
+                   fontWeight: FontWeight.bold,
+                   color: AppColors.contractorDarkText,
+                 ),
+                 textAlign: TextAlign.center,
+               ),
+             ),
+           ),
+         ],
+                ),
       ),
     );
   }

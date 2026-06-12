@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:mkaweel/core/app/route.dart';
+import 'package:mkaweel/core/constants/app_assets.dart';
+import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/features/screens/splash/ui/widgets/loading_dots.dart';
  @RoutePage()
@@ -36,7 +38,7 @@ class _SplashPageState extends State<SplashPage>
     // Navigate to LoginRoute after 4 seconds
     Timer(const Duration(seconds: 4), () {
       if (mounted) {
-        context.router.replace(const LoginRoute());
+        context.replace(const LoginRoute());
       }
     });
   }
@@ -105,7 +107,7 @@ class _SplashPageState extends State<SplashPage>
                   children: [
                     // Logo
                     Image.asset(
-                      'assets/images/logo.png',
+                      AppAssets.imagesLogoPng,
                       width: 200,
                       height: 200,
                     ),

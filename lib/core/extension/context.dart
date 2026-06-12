@@ -24,6 +24,18 @@ extension AppRouterExtension on BuildContext {
   /// Check if the router can pop.
   bool get canPop => router.canPop();
 
+  unfocus()=> FocusScope.of(this).unfocus();
+  // EdgeInsets get padding=> MediaQuery.of(this).padding;
+  double get height=> MediaQuery.sizeOf(this).height;
+  double get width=> MediaQuery.sizeOf(this).width;
+  double get aspectRatio=> MediaQuery.sizeOf(this).aspectRatio;
+  bool get isLTR=>Directionality.of(this)==.ltr;
+  // double get getSizeInSaveArea=> height-(padding.top +padding.bottom);
+  //  double get mobileNavigationBarHeight=>padding.bottom;
+  //  double get mobileStatusBarHeight=>padding.top;
+  // EdgeInsets get viewInsets=>MediaQuery.of(this).viewInsets;
+  // bool get isKeyBoardOpened=>MediaQuery.of(this).viewInsets.bottom != 0;
+  // double get keyBoardOpenPadding=>MediaQuery.of(this).viewInsets.bottom  ;
 
 
 

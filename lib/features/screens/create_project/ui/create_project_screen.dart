@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
+import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/features/screens/create_project/controller/create_project_cubit.dart';
 import 'package:mkaweel/features/screens/create_project/controller/create_project_state.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
@@ -47,9 +48,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
             actions: [
               IconButton(
                 icon: const Icon(Icons.arrow_forward_ios, color: AppColors.white),
-                onPressed: () {
-                  // context.router.pop();
-                },
+                onPressed: ()=>context.pop(),
               ),
             ],
           ),

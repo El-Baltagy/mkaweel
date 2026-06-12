@@ -10,7 +10,7 @@ class GanttProjectHeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
+      // crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Container(
           width: double.infinity,
@@ -27,7 +27,7 @@ class GanttProjectHeaderWidget extends StatelessWidget {
             ],
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
+            // crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
                 'invoice_project_name_example'.tr(),
