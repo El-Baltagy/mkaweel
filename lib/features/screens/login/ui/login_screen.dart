@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mkaweel/core/api_helper/dio_error_handler.dart';
 import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_assets.dart';
@@ -10,6 +11,7 @@ import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/form_auto_scroll.dart';
 import 'package:mkaweel/core/shared/widgets/loading_widget_app.dart';
+import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/features/screens/login/controller/login_cubit.dart';
 import 'package:mkaweel/features/screens/login/controller/login_state.dart';
 import 'package:mkaweel/features/screens/login/data/model/login_res/login_res.dart';
@@ -74,7 +76,8 @@ class _LoginPageState extends LoginPageBaseState {
                     // Login Button
                     BlocBuilder<LoginCubit, LoginState>(
                       builder: (context, state) {
-                        final isLoading = state is LoginLoading;
+
+                        final isLoading = state is LoginResState && state.baseEmit is Loading;
                         return ElevatedButton(
                           onPressed: () async {
                             if (isLoading) return;
@@ -144,16 +147,28 @@ abstract class LoginPageBaseState extends State<LoginPage> {
     passwordController.dispose();
     super.dispose();
   }
-  void loginCubitListener(BuildContext context, state) {
+  void loginCubitListener(BuildContext context,LoginState state) {
     if (state is LoginResState) {
       if(state.baseEmit  is Success<LoginRes>) {
-        LoginRes data=state.baseEmit;
-        context.showSnackBar(Text(data.message));
+        final LoginRes data=(state.baseEmit as Success<LoginRes>).data!;
+        context.showSnackBar(Text(data.message,
+        style: const .new(
+          color: AppColors.green
+        )
+        ));
         context.replace(
           MainHomeRoute(args: const MainHomeRouteArgs()),
         );
-      }
+      }else
+      if(state.baseEmit  is ErrorState ) {
+        final ErrorState  data= state.baseEmit  as ErrorState;
+        context.showSnackBar(Text(data.failure.message,
+            style: const .new(
+                color: AppColors.green
+            )
+        ));
 
+      }
     }
     // if (state is LoginSuccess) {
     //   context.showSnackBar(Text(state.));

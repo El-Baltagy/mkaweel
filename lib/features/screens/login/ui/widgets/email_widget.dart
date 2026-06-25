@@ -23,7 +23,7 @@ class EmailInput extends StatelessWidget {
       keyboardType: TextInputType.emailAddress,
       // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       decoration: InputDecoration(
-        labelText: 'Email'.tr(),
+        labelText: 'email'.tr(),
         prefixIcon: const Icon(Icons.email_outlined),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
@@ -33,7 +33,7 @@ class EmailInput extends StatelessWidget {
         if (value?.isEmpty == true) {
           return "can't_be_empty".tr();
         }
-        if(AppRegEx.regExpValidEmail.hasMatch(value!)){
+        if(!AppRegEx.regExpValidEmail.hasMatch(value!)){
           return 'please_enter_valid_email'.tr();
         }
         return null;

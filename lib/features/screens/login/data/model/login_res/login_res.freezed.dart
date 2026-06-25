@@ -325,7 +325,7 @@ abstract class _Data extends Data {
       throw _privateConstructorUsedError;
 }
 
-User _$UserFromJson(Map<String, dynamic> json) {
+User _$UserFromJson(dynamic json) {
   return _User.fromJson(json);
 }
 

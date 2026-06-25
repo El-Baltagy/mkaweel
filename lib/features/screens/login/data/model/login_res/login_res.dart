@@ -59,7 +59,7 @@ class User with _$User, EquatableMixin {
     required String updated_at,
   }) = _User;
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  factory User.fromJson(dynamic json) => _$UserFromJson(json);
 
   @override
   List<Object?> get props => [

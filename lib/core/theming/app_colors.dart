@@ -3,6 +3,7 @@ import 'package:mkaweel/core/shared/methods/hex_color.dart';
 
 abstract class AppColors {
 
+   static const Color green = Colors.green;
    static const Color gold = Color(0xFFE2BE7F);
    static const Color primaryGoldStart = Color(0xFFC0A27B);
    static const Color contractorGreen = Color(0xFF48BB78);
