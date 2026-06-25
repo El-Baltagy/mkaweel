@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:mkaweel/core/constants/app_api.dart';
 
 class DioHelper {
   late Dio _dio;
@@ -8,7 +9,7 @@ class DioHelper {
   DioHelper call() {
     _dio = Dio(
       BaseOptions(
-        // baseUrl: AppFlavorConfig.instance.baseUrl,
+        baseUrl: EndPoints.baseUrl,
         connectTimeout: const Duration(seconds: 15),
         receiveTimeout: const Duration(seconds: 15),
         headers: {

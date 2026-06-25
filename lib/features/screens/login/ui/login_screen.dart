@@ -151,11 +151,11 @@ abstract class LoginPageBaseState extends State<LoginPage> {
     if (state is LoginResState) {
       if(state.baseEmit  is Success<LoginRes>) {
         final LoginRes data=(state.baseEmit as Success<LoginRes>).data!;
-        context.showSnackBar(Text(data.message,
-        style: const .new(
-          color: AppColors.green
-        )
-        ));
+        // context.showSnackBar(Text(data.message,
+        // style: const .new(
+        //   color: AppColors.green
+        // )
+        // ));
         context.replace(
           MainHomeRoute(args: const MainHomeRouteArgs()),
         );
