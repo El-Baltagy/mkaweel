@@ -25,17 +25,6 @@ class LoginCubit extends BaseCubit<LoginState> {
     // TODO: implement init
   }
 
-  // Future<void> login(String phone, String password) async {
-  //
-  //   emit(LoginLoading());
-  //   try {
-  //     // Simulate API call
-  //     await Future.delayed(const Duration(milliseconds: 1500));
-  //     emit(LoginSuccess());
-  //   } catch (e) {
-  //     emit(LoginError(e.toString()));
-  //   }
-  // }
 
   Future<void> login({required LoginParameters  parameter}) async {
     await CancelManager.runCancelableFun(loginKeyCode, (token) async {
