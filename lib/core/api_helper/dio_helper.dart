@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:mkaweel/core/constants/app_api.dart';
+import 'package:mkaweel/core/storage/storage_helper.dart';
 
 class DioHelper {
   late Dio _dio;
@@ -9,10 +10,12 @@ class DioHelper {
   DioHelper call() {
     _dio = Dio(
       BaseOptions(
+
         baseUrl: EndPoints.baseUrl,
         connectTimeout: const Duration(seconds: 15),
         receiveTimeout: const Duration(seconds: 15),
         headers: {
+          'Content-Type': 'application/json',
           'Accept': 'application/json',
           // 'X-App-Flavor': AppFlavorConfig.instance.flavor.name,
         },
@@ -81,7 +84,7 @@ class DioHelper {
     );
     return res.data;
   }
-
-  Future<String?> Function()? get getToken => null;
+Future<String?>_getToken()=>StorageHelper.getToken;
+  Future<String?> Function()? get getToken =>_getToken;
   Future<String?> Function()? get refreshToken => null;
 }

@@ -151,32 +151,22 @@ abstract class LoginPageBaseState extends State<LoginPage> {
     if (state is LoginResState) {
       if(state.baseEmit  is Success<LoginRes>) {
         final LoginRes data=(state.baseEmit as Success<LoginRes>).data!;
-        // context.showSnackBar(Text(data.message,
-        // style: const .new(
-        //   color: AppColors.green
-        // )
-        // ));
+        context.showToast(
+            data.message
+        );
         context.replace(
           MainHomeRoute(args: const MainHomeRouteArgs()),
         );
       }else
       if(state.baseEmit  is ErrorState ) {
         final ErrorState  data= state.baseEmit  as ErrorState;
-        context.showSnackBar(Text(data.failure.message,
-            style: const .new(
-                color: AppColors.green
-            )
-        ));
+        context.showToast(
+            data.failure.message,
+          isSuccess: false
+        );
 
       }
     }
-    // if (state is LoginSuccess) {
-    //   context.showSnackBar(Text(state.));
-    //   context.replace(
-    //     MainHomeRoute(args: const MainHomeRouteArgs()),
-    //   );
-    // } else if (state is LoginError) {
-    //   context.showSnackBar(Text(state.message));
-    // }
+
   }
 }

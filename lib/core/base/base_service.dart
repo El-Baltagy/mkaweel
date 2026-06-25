@@ -61,13 +61,12 @@ extension RequestHandler<T, P> on RequestCallbackObserver<T, P> {
     result.fold(
           onLeftCallback,
           (data) async {
-        if (fetchLocal != null) {
-          var local;
-          if (type is Pagination) {
-            local = await fetchLocal.call();
-          }
-          await saveLocal?.call(local, data);
+            var local;
+        if (fetchLocal != null&&type is Pagination) {
+          local = await fetchLocal.call();
         }
+          await saveLocal?.call(local, data);
+
         onRightCallback(data);
       },
     );

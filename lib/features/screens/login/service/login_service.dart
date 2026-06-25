@@ -23,12 +23,9 @@ class LoginService extends BaseService {
         cancelToken: token,
       ),
        // clearLocal: () => _localRepo.clearData(cacheKey),
-      // fetchLocal: () async {
-      //   final json = await _localRepo.readData(cacheKey);
-      //   return json == null ? null : LoginRes.fromJson(json);
-      // },
+      // fetchLocal: ()   {  },
       saveLocal: (old, newData) async {
-        if (newData?.message=='success'  ) {
+        if (newData?.status=='success'  ) {
           await _localRepo.saveData(AppConstant.userKeyCash, newData!.data.user.toJson());
           await HWSecureSaver.save(AppConstant.tokenKeyCash,  newData .data.token.toString());
         }

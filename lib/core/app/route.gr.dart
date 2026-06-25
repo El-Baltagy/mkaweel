@@ -51,7 +51,7 @@ abstract class _$AppRouter extends RootStackRouter {
         routeData: routeData,
         child: WrappedRoute(
             child: MainHomePage(
-                args: args
+           args: args ,
         )),
       );
     },
@@ -59,6 +59,12 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: WrappedRoute(child: const MarketPricesPage()),
+      );
+    },
+    OnboardingRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const OnboardingPage(),
       );
     },
     PerformanceRoute.name: (routeData) {
@@ -169,24 +175,23 @@ class LoginRoute extends PageRouteInfo<void> {
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
-///......................................................................
 
 ///generated route for
 /// [MainHomePage]
 class MainHomeRoute extends PageRouteInfo<MainHomeRouteArgs> {
   MainHomeRoute({
-     required MainHomeRouteArgs args,
+    required MainHomeRouteArgs args,
     List<PageRouteInfo>? children,
   }) : super(
-          MainHomeRoute.name,
-          args: args,
-          initialChildren: children,
-        );
+    MainHomeRoute.name,
+    args: args,
+    initialChildren: children,
+  );
 
   static const String name = 'MainHomeRoute';
 
   static const PageInfo<MainHomeRouteArgs> page =
-      PageInfo<MainHomeRouteArgs>(name);
+  PageInfo<MainHomeRouteArgs>(name);
 }
 class MainHomeRouteArgs {
   const MainHomeRouteArgs( );
@@ -202,6 +207,20 @@ class MarketPricesRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'MarketPricesRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [OnboardingPage]
+class OnboardingRoute extends PageRouteInfo<void> {
+  const OnboardingRoute({List<PageRouteInfo>? children})
+      : super(
+          OnboardingRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'OnboardingRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

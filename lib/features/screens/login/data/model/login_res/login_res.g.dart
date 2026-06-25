@@ -22,7 +22,7 @@ Map<String, dynamic> _$$LoginResImplToJson(_$LoginResImpl instance) =>
 
 _$DataImpl _$$DataImplFromJson(Map<String, dynamic> json) => _$DataImpl(
       token: json['token'] as String,
-      user: User.fromJson(json['user'] as Map<String, dynamic>),
+      user: User.fromJson(json['user']),
     );
 
 Map<String, dynamic> _$$DataImplToJson(_$DataImpl instance) =>

@@ -81,24 +81,33 @@ class TokenSaverPlugin: FlutterPlugin, MethodChannel.MethodCallHandler {
         if (ks.containsAlias(alias)) return
 
         val keyGen = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore")
-        val builder = KeyGenParameterSpec.Builder(
-            alias,
-            KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
-        )
-            .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
-            .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
-            .setKeySize(256)
-        // optional: require user authentication for key usage
-        // .setUserAuthenticationRequired(true)
+        
+        fun generate(useStrongBox: Boolean) {
+            val builder = KeyGenParameterSpec.Builder(
+                alias,
+                KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
+            )
+                .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
+                .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
+                .setKeySize(256)
+            
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && useStrongBox) {
+                builder.setIsStrongBoxBacked(true)
+            }
+            keyGen.init(builder.build())
+            keyGen.generateKey()
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             try {
-                builder.setIsStrongBoxBacked(true)
+                generate(true)
+                return
             } catch (e: Exception) {
-                Log.w(TAG, "StrongBox not available for this device: ${e.message}")
+                Log.w(TAG, "StrongBox not available for this device: ${e.message}. Falling back to default.")
             }
         }
-        keyGen.init(builder.build())
-        keyGen.generateKey()
+        
+        generate(false)
     }
 
     // Save token: encrypt using hardware key for this name and store iv|ciphertext|tag in prefs

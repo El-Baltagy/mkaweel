@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 extension AppRouterExtension on BuildContext {
   /// Access the [StackRouter] from any [BuildContext].
@@ -38,11 +39,24 @@ extension AppRouterExtension on BuildContext {
   // bool get isKeyBoardOpened=>MediaQuery.of(this).viewInsets.bottom != 0;
   // double get keyBoardOpenPadding=>MediaQuery.of(this).viewInsets.bottom  ;
 
-void   showSnackBar(Widget content,[Color  backgroundColor=Colors.redAccent])=> ScaffoldMessenger.of(this).showSnackBar(
-    SnackBar(
-      content: content,
-      backgroundColor: backgroundColor  ,
-    ),
-  );
-
+// void   showSnackBar(Widget content,[Color  backgroundColor=Colors.redAccent])=> ScaffoldMessenger.of(this).showSnackBar(
+//     SnackBar(
+//       content: content,
+//       backgroundColor: backgroundColor  ,
+//     ),
+//   );
+  void showToast( String message, {
+  Color? textColor,
+  Color? backgroundColor,
+    bool isSuccess=true,
+  ToastGravity  gravity= .BOTTOM})async {
+    await Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: gravity  ,
+        timeInSecForIosWeb: 3,
+        backgroundColor: backgroundColor?? (isSuccess?theme.primaryColor:theme.colorScheme.error),
+        textColor: textColor?? theme.colorScheme.onPrimary,
+        fontSize: 16.0);
+  }
 }
