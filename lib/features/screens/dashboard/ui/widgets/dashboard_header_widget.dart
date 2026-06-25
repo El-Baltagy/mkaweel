@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:mkaweel/core/storage/storage_helper.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
@@ -35,7 +36,7 @@ class DashboardHeaderWidget extends StatelessWidget {
           ),
           5.verticalSpace,
           Text(
-            'hello'.tr(),
+            'hello'.tr()+" ${StorageHelper.userData.name}",
             style: AppTextStyles.font24Bold.copyWith(color: context.theme.scaffoldBackgroundColor),
           ),
           20.verticalSpace,

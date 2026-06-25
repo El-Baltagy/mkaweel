@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/constants/app_constant.dart';
@@ -42,7 +43,7 @@ class _DashboardPageState extends DashboardPageBaseState {
         label: 'Dashboard Screen',
         child: Scaffold(
           backgroundColor: context.theme.scaffoldBackgroundColor,
-           floatingActionButton: InkWell(
+           floatingActionButton: kDebugMode?InkWell(
              onTap: () async {
                // context.showToast(
                //    " data.message"
@@ -53,7 +54,7 @@ class _DashboardPageState extends DashboardPageBaseState {
               debugPrint(token);
              },
              child: Text("test token"),
-           ),
+           ):null,
            body: SafeArea(
             bottom: false,
             child: SingleChildScrollView(
