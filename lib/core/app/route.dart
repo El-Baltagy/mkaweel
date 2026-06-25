@@ -24,14 +24,15 @@ class AppRouter extends _$AppRouter {
   List<AutoRoute> get routes => [
       AutoRoute(
         page: LoginRoute.page,
+        guards: [AuthGuard()],
       ),
       AutoRoute(
         page: OnboardingRoute.page,
+        guards: [AuthGuard()],
       ),
       AutoRoute(
         page: SplashRoute.page, 
         initial: true,
-        guards: [AuthGuard()],
       ),
       AutoRoute(
         page: MainHomeRoute.page,
@@ -60,7 +61,7 @@ class AuthGuard extends AutoRouteGuard {
       if (resolver.route.name == LoginRoute.name || 
           resolver.route.name == OnboardingRoute.name || 
           resolver.route.name == SplashRoute.name) {
-        resolver.redirect(  MainHomeRoute(args: MainHomeRouteArgs()));
+        resolver.redirect(  MainHomeRoute(args: const MainHomeRouteArgs()));
       } else {
         resolver.next();
       }
