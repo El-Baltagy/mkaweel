@@ -4,12 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/app/route.dart';
+import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_assets.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/form_auto_scroll.dart';
+import 'package:mkaweel/core/shared/widgets/loading_widget_app.dart';
 import 'package:mkaweel/features/screens/login/controller/login_cubit.dart';
 import 'package:mkaweel/features/screens/login/controller/login_state.dart';
+import 'package:mkaweel/features/screens/login/data/model/login_res/login_res.dart';
+import 'package:mkaweel/features/screens/login/ui/widgets/email_widget.dart';
+import 'package:mkaweel/features/screens/login/ui/widgets/password_widget.dart';
 
 @RoutePage()
 class LoginPage extends StatefulWidget implements AutoRouteWrapper {
@@ -41,20 +46,7 @@ class _LoginPageState extends LoginPageBaseState {
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
-      listener: (context, state) {
-        if (state is LoginSuccess) {
-          context.replace(
-            MainHomeRoute(args: const MainHomeRouteArgs()),
-          );
-        } else if (state is LoginError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.message),
-              backgroundColor: Colors.redAccent,
-            ),
-          );
-        }
-      },
+      listener: loginCubitListener,
       child: Form(
         key: _key,
         child: Scaffold(
@@ -72,52 +64,11 @@ class _LoginPageState extends LoginPageBaseState {
                     const SizedBox(height: 48),
 
                     // Phone Input
-                    TextFormField(
-                      key: field1.$1,
-                      focusNode: field1.$2,
-
-                      autovalidateMode: .onUserInteraction,
-                      controller: phoneController,
-                      keyboardType: TextInputType.phone,
-                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                      decoration: InputDecoration(
-                        labelText: 'phone_number'.tr(),
-                        prefixIcon: const Icon(Icons.phone),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value?.isEmpty == true) {
-                          return "can't_be_empty".tr();
-                        }
-                        return null;
-                      },
-                    ),
+                    EmailInput(field1: field1, phoneController: phoneController),
                     const SizedBox(height: 16),
 
                     // Password Input
-                    TextFormField(
-                      key: field2.$1,
-                      focusNode: field2.$2,
-
-                      controller: passwordController,
-                      obscureText: true,
-                      autovalidateMode: .onUserInteraction,
-                      decoration: InputDecoration(
-                        labelText: 'password'.tr(),
-                        prefixIcon: const Icon(Icons.lock),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value?.isEmpty == true) {
-                          return "can't_be_empty".tr();
-                        }
-                        return null;
-                      },
-                    ),
+                    PasswordWidget(field2: field2, passwordController: passwordController),
                     const SizedBox(height: 24),
 
                     // Login Button
@@ -132,8 +83,10 @@ class _LoginPageState extends LoginPageBaseState {
                               listRecorder: [field1, field2],
                             )) {
                               await argData.login(
-                                phoneController.text,
-                                passwordController.text,
+                                parameter: .new(
+                                 phoneController.text.trim(),
+                                    passwordController.text.trim(),
+                                )
                               );
                             }
                           },
@@ -148,12 +101,7 @@ class _LoginPageState extends LoginPageBaseState {
                               ? const SizedBox(
                                   height: 20,
                                   width: 20,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2,
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.white,
-                                    ),
-                                  ),
+                                  child: LoadingWidgetApp(),
                                 )
                               : Text(
                                   'login'.tr(),
@@ -175,6 +123,8 @@ class _LoginPageState extends LoginPageBaseState {
       ),
     );
   }
+
+
 }
 
 abstract class LoginPageBaseState extends State<LoginPage> {
@@ -193,5 +143,25 @@ abstract class LoginPageBaseState extends State<LoginPage> {
     phoneController.dispose();
     passwordController.dispose();
     super.dispose();
+  }
+  void loginCubitListener(BuildContext context, state) {
+    if (state is LoginResState) {
+      if(state.baseEmit  is Success<LoginRes>) {
+        LoginRes data=state.baseEmit;
+        context.showSnackBar(Text(data.message));
+        context.replace(
+          MainHomeRoute(args: const MainHomeRouteArgs()),
+        );
+      }
+
+    }
+    // if (state is LoginSuccess) {
+    //   context.showSnackBar(Text(state.));
+    //   context.replace(
+    //     MainHomeRoute(args: const MainHomeRouteArgs()),
+    //   );
+    // } else if (state is LoginError) {
+    //   context.showSnackBar(Text(state.message));
+    // }
   }
 }

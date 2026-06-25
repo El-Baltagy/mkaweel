@@ -38,6 +38,11 @@ extension AppRouterExtension on BuildContext {
   // bool get isKeyBoardOpened=>MediaQuery.of(this).viewInsets.bottom != 0;
   // double get keyBoardOpenPadding=>MediaQuery.of(this).viewInsets.bottom  ;
 
-
+void   showSnackBar(Widget content,[Color  backgroundColor=Colors.redAccent])=> ScaffoldMessenger.of(this).showSnackBar(
+    SnackBar(
+      content: content,
+      backgroundColor: backgroundColor  ,
+    ),
+  );
 
 }

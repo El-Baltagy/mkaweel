@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mkaweel/core/storage/storage_helper.dart';
+import 'package:mkaweel/core/storage/hive_storage.dart';
 
 class ThemeCubit extends Cubit<ThemeMode> {
   ThemeCubit() : super(ThemeMode.light) {
@@ -11,7 +11,7 @@ class ThemeCubit extends Cubit<ThemeMode> {
 
   void _loadTheme() {
     try {
-      final isDark = StorageHelper().readData<bool>(_themeKey, defaultValue: false);
+      final isDark = HiveStorage().readData<bool>(_themeKey, defaultValue: false);
       emit(isDark == true ? ThemeMode.dark : ThemeMode.light);
     } catch (_) {
       emit(ThemeMode.light);
@@ -21,7 +21,7 @@ class ThemeCubit extends Cubit<ThemeMode> {
   Future<void> toggleTheme(bool isDark) async {
     emit(isDark ? ThemeMode.dark : ThemeMode.light);
     try {
-      await StorageHelper().writeData<bool>(_themeKey, isDark);
+      await HiveStorage().writeData<bool>(_themeKey, isDark);
     } catch (_) {}
   }
 }

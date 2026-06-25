@@ -7,13 +7,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/app/app.dart';
 import 'package:mkaweel/localization.dart';
-import 'package:mkaweel/core/storage/storage_helper.dart';
+import 'package:mkaweel/core/storage/hive_storage.dart';
 import 'package:mkaweel/core/theming/theme_cubit.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey(debugLabel: 'Main Navigator');
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await StorageHelper().init();
+  await HiveStorage().init();
   await EasyLocalization.ensureInitialized();
   await CodegenLoader.init();
   AppLocator().init();

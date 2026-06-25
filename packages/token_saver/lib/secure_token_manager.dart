@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 
-class HWSecureSaver {
+abstract class HWSecureSaver {
   static const MethodChannel _channel = MethodChannel('token_saver');
 
   /// Save specific key using native secure hardware (StrongBox / KeyStore)

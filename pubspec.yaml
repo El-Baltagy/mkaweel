@@ -54,17 +54,16 @@ dependencies:
   custom_lint_builder: ^0.6.0
 
   crypto: ^3.0.3
-#  http_certificate_pinning: ^2.0.0
   app_attest_integrity: ^1.0.0
   pretty_dio_logger: ^1.3.1
   firebase_core: ^4.7.0
   firebase_messaging: ^16.2.0
-#  firebase_analytics: ^12.3.0
-#  firebase_crashlytics: ^5.2.0
   firebase_storage: ^13.3.0
   flutter_svg: ^2.3.0
   hive_ce: ^2.19.3
   hive_ce_flutter: ^2.3.4
+  token_saver:
+    path: packages/token_saver
 
 dev_dependencies:
   flutter_launcher_icons: ^0.14.4

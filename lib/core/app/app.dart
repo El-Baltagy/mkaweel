@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/app/route.dart';
-import 'package:mkaweel/core/storage/storage_helper.dart';
+import 'package:mkaweel/core/storage/hive_storage.dart';
 import 'package:mkaweel/core/theming/app_theme.dart';
 import 'package:mkaweel/core/theming/theme_cubit.dart';
 import 'package:mkaweel/main.dart';
@@ -20,7 +20,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void dispose() {
     // TODO: implement dispose
-    StorageHelper().closeBox();
+    HiveStorage().closeBox();
     super.dispose();
   }
   @override

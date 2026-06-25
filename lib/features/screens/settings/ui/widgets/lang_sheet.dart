@@ -4,7 +4,7 @@ import 'package:mkaweel/core/constants/app_constant.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/shared/widgets/circle_radio.dart';
-import 'package:mkaweel/core/storage/storage_helper.dart';
+import 'package:mkaweel/core/storage/hive_storage.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/localization.dart';
 import 'package:mkaweel/main.dart';
@@ -25,7 +25,7 @@ class _LangSheetState extends State<LangSheet> {
   @override
   void initState() {
     // TODO: implement initState
-    selectedIndexLang=CodegenLoader.supportedLocales.indexWhere((e) =>e.languageCode==(StorageHelper().readData(_langCode)??'en') );
+    selectedIndexLang=CodegenLoader.supportedLocales.indexWhere((e) =>e.languageCode==(HiveStorage().readData(_langCode)??'en') );
     notifier=.new( selectedIndexLang);
     super.initState();
   }
@@ -80,7 +80,7 @@ class _LangSheetState extends State<LangSheet> {
                     final String lang=CodegenLoader.supportedLocales[notifier.value].languageCode;
                     await  Future.wait([
                     context.setLocale(Locale(lang)),
-                      StorageHelper().writeData(_langCode, lang)
+                      HiveStorage().writeData(_langCode, lang)
                     ]);
 
                   }
