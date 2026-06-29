@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
+import 'package:mkaweel/core/extension/form_auto_scroll.dart';
 import 'package:mkaweel/features/screens/create_project/controller/create_project_cubit.dart';
 import 'package:mkaweel/features/screens/create_project/controller/create_project_state.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
@@ -30,6 +31,16 @@ class CreateProjectPage extends StatefulWidget implements AutoRouteWrapper{
 }
 
 class _CreateProjectPageState extends CreateProjectPageBaseState {
+  final _key = GlobalKey<FormState>();
+  (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field1 = (.new(), .new());
+  (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field2 = (.new(), .new());
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    field1.$2?.dispose();
+    field2.$2?.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
      return BlocListener<CreateProjectCubit, CreateProjectState>(
@@ -52,91 +63,112 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
               ),
             ],
           ),
-          body: SingleChildScrollView(
-            padding: const EdgeInsets.all(AppPadding.p16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                  CustomTextField(
-                  label: 'project_name'.tr(),
-                  hintText: 'building_residential_house'.tr(),
-                ),
-                20.verticalSpace,
-                const CurrencySelectorWidget(),
-                20.verticalSpace,
-                const CustomTextField(
-                  label: 'قيمة العقد (\$)',
-                  hintText: '50000',
-                ),
-                20.verticalSpace,
-                  CustomTextField(
-                  label: 'location'.tr(),
-                  hintText: 'damascus_mezzeh'.tr(),
-                ),
-                20.verticalSpace,
-                Row(
-                  children: [
-                    Expanded(
-                      child: CustomTextField(
-                        label: 'end_date'.tr(),
-                        hintText: 'mm/dd/yyyy',
-                        suffixIcon: const Icon(Icons.calendar_today_outlined, color: AppColors.contractorGreyText),
-                      ),
-                    ),
-                    10.horizontalSpace,
-                    Expanded(
-                      child: CustomTextField(
-                        label: 'start_date'.tr(),
-                        hintText: 'mm/dd/yyyy',
-                        suffixIcon: const Icon(Icons.calendar_today_outlined, color: AppColors.contractorGreyText),
-                      ),
-                    ),
-                  ],
-                ),
-                20.verticalSpace,
-                  CustomTextField(
-                  label: 'project_status'.tr(),
-                  hintText: 'active'.tr(),
-                  suffixIcon: const Icon(Icons.keyboard_arrow_down, color: AppColors.contractorGreyText),
-                ),
-                20.verticalSpace,
-                Text('site_location_gps'.tr(), style: AppTextStyles.font14Regular.copyWith(color: context.theme.colorScheme.tertiaryFixed)),
-                10.verticalSpace,
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(vertical: AppPadding.p16),
-                  decoration: BoxDecoration(
-                    color: context.theme.scaffoldBackgroundColor,
-                    borderRadius: BorderRadius.circular(AppSizes.s8),
-                    /// to do: add border
-                    // border: BorderSide(color: context.theme.canvasColor, style: BorderStyle.solid),
+          body: Form(
+            key: _key,
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(AppPadding.p16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                    CustomTextField(
+                      field: field1,
+                    label: 'project_name'.tr(),
+                    hintText: 'building_residential_house'.tr(),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  20.verticalSpace,
+                  CustomTextField(
+                    field: field2,
+                    label: 'project_owner'.tr(),
+                    hintText: 'ministry_of_housing'.tr(),
+                  ),
+                  // 20.verticalSpace,
+                  // const CurrencySelectorWidget(),
+                  // 20.verticalSpace,
+                  // const CustomTextField(
+                  //   label: 'قيمة العقد (\$)',
+                  //   hintText: '50000',
+                  // ),
+
+                  20.verticalSpace,
+                  Row(
                     children: [
-                      Text('determine_current_location'.tr(), style: AppTextStyles.font16SemiBold.copyWith(color: AppColors.contractorGreyText)),
+                      Expanded(
+                        child: CustomTextField(
+                          label: 'end_date'.tr(),
+                          hintText: 'mm/dd/yyyy',
+                          suffixIcon: const Icon(Icons.calendar_today_outlined, color: AppColors.contractorGreyText),
+                        ),
+                      ),
                       10.horizontalSpace,
-                      const Icon(Icons.my_location, color: AppColors.contractorGreyText),
+                      Expanded(
+                        child: CustomTextField(
+                          label: 'start_date'.tr(),
+                          hintText: 'mm/dd/yyyy',
+                          suffixIcon: const Icon(Icons.calendar_today_outlined, color: AppColors.contractorGreyText),
+                        ),
+                      ),
                     ],
                   ),
-                ),
-                30.verticalSpace,
-                SizedBox(
-                  width: double.infinity,
-                  height: AppSizes.s48,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: context.theme.primaryColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(AppSizes.s8),
-                      ),
+                  // 20.verticalSpace,
+                  //   CustomTextField(
+                  //   label: 'project_status'.tr(),
+                  //   hintText: 'active'.tr(),
+                  //   suffixIcon: const Icon(Icons.keyboard_arrow_down, color: AppColors.contractorGreyText),
+                  // ),
+
+                  // 20.verticalSpace,
+                  // CustomTextField(
+                  //   label: 'location'.tr(),
+                  //   hintText: 'damascus_mezzeh'.tr(),
+                  // ),
+                  20.verticalSpace,
+                  Text('site_location_gps'.tr(), style: AppTextStyles.font14Regular.copyWith(color: context.theme.colorScheme.tertiaryFixed)),
+                  10.verticalSpace,
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(vertical: AppPadding.p16),
+                    decoration: BoxDecoration(
+                      color: context.theme.scaffoldBackgroundColor,
+                      borderRadius: BorderRadius.circular(AppSizes.s8),
+                       border: Border.all(
+                           color: context.theme.canvasColor, ),
                     ),
-                    child: Text('create_project'.tr(), style: AppTextStyles.font16SemiBold.copyWith(color: context.theme.scaffoldBackgroundColor)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('determine_current_location'.tr(), style: AppTextStyles.font16SemiBold.copyWith(color: AppColors.contractorGreyText)),
+                        10.horizontalSpace,
+                        const Icon(Icons.my_location, color: AppColors.contractorGreyText),
+                      ],
+                    ),
                   ),
-                ),
-                20.verticalSpace,
-              ],
+                  30.verticalSpace,
+                  SizedBox(
+                    width: double.infinity,
+                    height: AppSizes.s48,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        // if (isLoading) return;
+                        if (await _key.validateAndScroll(
+                        context,
+                        listRecorder: [field1, field2],
+                        )) {
+
+                        }
+
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: context.theme.primaryColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(AppSizes.s8),
+                        ),
+                      ),
+                      child: Text('create_project'.tr(), style: AppTextStyles.font16SemiBold.copyWith(color: context.theme.scaffoldBackgroundColor)),
+                    ),
+                  ),
+                  20.verticalSpace,
+                ],
+              ),
             ),
           ),
         ),

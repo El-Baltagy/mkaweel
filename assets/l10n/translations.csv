@@ -163,6 +163,8 @@ total_order,Total Order,إجمالي الطلبية
 order_hint_tiles,Order 55 m² to ensure no shortage on site. Save an additional 5 margin for unexpected modifications.,اطلب 55 م² لضمان عدم نقص المواد في الموقع، وفّر هامش إضافي 5 للتعديلات غير المتوقعة.
 phone_number,Phone Number,رقم الجوال
 password,Password,كلمة المرور
-
 email,Email,بريد إلكتروني
-please_enter_valid_email,please_enter_valid_email,من فضلك أدخل لبريد إلكتروني صحيح
+please_enter_valid_email,please enter valid email,من فضلك أدخل لبريد إلكتروني صحيح
+
+ministry_of_housing,ministry of housing,وزارة الإسكان
+project_owner,project owner,صاحب المشروع

@@ -11,12 +11,13 @@ class CustomTextField extends StatelessWidget {
     super.key,
     required this.label,
     required this.hintText,
+    this.field,
     this.suffixIcon,
   });
   final String label;
   final String hintText;
   final Widget? suffixIcon;
-
+  final (GlobalKey<FormFieldState<dynamic>>, FocusNode?)? field ;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -25,6 +26,14 @@ class CustomTextField extends StatelessWidget {
         Text(label, style: AppTextStyles.font14Regular.copyWith(color: context.theme.colorScheme.tertiaryFixed)),
         10.verticalSpace,
         TextFormField(
+          key: field?.$1,
+          focusNode: field?.$2,
+          validator:  (value) {
+            if(value?.isEmpty==true){
+              return "can't_be_empty";
+            }
+            return null;
+          },
           decoration: InputDecoration(
             hintText: hintText,
             hintStyle: AppTextStyles.font14Regular.copyWith(color: AppColors.contractorGreyText.withOpacity(0.5)),
