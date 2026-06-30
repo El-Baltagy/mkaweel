@@ -30,7 +30,7 @@ class LoggerInterceptor extends Interceptor {
         '$body',
         LoggerType.warning,
         'HTTP',
-        0,
+        -1,
       );
     }
     handler.next(options);
@@ -50,7 +50,7 @@ class LoggerInterceptor extends Interceptor {
         '   └─ Preview : $preview',
         LoggerType.info,
         'HTTP',
-        0,
+        -1,
       );
     }
     handler.next(response);
@@ -68,7 +68,7 @@ class LoggerInterceptor extends Interceptor {
         '   └─ Data    : ${err.response?.data}',
         LoggerType.error,
         'HTTP',
-        0,
+        -1,
       );
     }
     handler.next(err);
