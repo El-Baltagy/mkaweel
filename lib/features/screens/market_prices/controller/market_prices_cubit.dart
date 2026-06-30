@@ -35,6 +35,7 @@ class MarketPricesCubit extends BaseCubit<MarketPricesState> {
     CancelManager.cancel(getSubCatogeriesKeyCode);
     // add every key in file
     CancelManager.cancel(getCatogeriesKeyCode);
+
     return super.close();
   }
 

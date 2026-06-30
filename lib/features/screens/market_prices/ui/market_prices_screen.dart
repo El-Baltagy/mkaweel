@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/features/screens/market_prices/controller/market_prices_cubit.dart';
 import 'package:mkaweel/features/screens/market_prices/controller/market_prices_state.dart';
@@ -10,6 +11,8 @@ import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
+import 'package:mkaweel/features/screens/market_prices/data/model/catogeries_res/catogeries_res.dart';
+import 'package:mkaweel/features/screens/market_prices/data/model/sub_catogeries_data/sub_catogeries_data.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/exchange_rate_widget.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/currency_tabs_widget.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/search_and_filter_widget.dart';
@@ -63,29 +66,74 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
                 16.verticalSpace,
                 const CurrencyTabsWidget(),
                 16.verticalSpace,
-                const SearchAndFilterWidget(),
+                BlocSelector<MarketPricesCubit, MarketPricesState, BaseEmit?>(
+                  selector: (state) => state is CatogeriesResState ? state.baseEmit : null,
+                  builder: (context, emit) {
+                    // ── 1. Initial / not yet loaded ──────────────────────────────
+                    // if (emit == null) return const SizedBox.shrink();
+
+                    // ── 2. Loading ───────────────────────────────────────────────
+                    if (emit is Loading) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+
+                    // ── 3. Error ─────────────────────────────────────────────────
+                    if (emit is ErrorState) {
+                      return Text(emit.failure.toString());
+                    }
+
+                    // ── 4. Success — data IS CatogeriesRes ───────────────────────
+                    if (emit is Success<CatogeriesRes>) {
+                      final CatogeriesRes? response = emit.data;       // CatogeriesRes?
+
+                      return   SearchAndFilterWidget( listCats: response?.data  );
+                    }
+
+                    return const SizedBox.shrink();
+                  },
+                ),
+
                 20.verticalSpace,
-                  PriceItemWidget(
-                  title: 'window_aluminum'.tr(),
-                  subtitle: 'per_m2'.tr(),
-                  category: 'aluminum'.tr(),
-                  price: '\$ 85',
-                  date: '14 مارس 2026',
+                BlocSelector<MarketPricesCubit, MarketPricesState, BaseEmit?>(
+                  selector: (state) =>
+                      state is SubCatogeriesDataState ? state.baseEmit : null,
+                  builder: (context, emit) {
+                    // ── 1. Initial / not yet loaded ──────────────────────
+                    if (emit == null) return const SizedBox.shrink();
+
+                    // ── 2. Loading ───────────────────────────────────────
+                    if (emit is Loading) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+
+                    // ── 3. Error ─────────────────────────────────────────
+                    if (emit is ErrorState) {
+                      return Text(emit.failure.toString());
+                    }
+
+                    // ── 4. Success — data IS SubCatogeriesData ───────────
+                    if (emit is Success<SubCatogeriesData>) {
+                      final List<DataItem> items = emit.data?.data ?? [];
+                      return Column(
+                        children: items
+                            .map(
+                              (item) => PriceItemWidget(
+                                title: item.name,
+                                subtitle: item.unit,
+                                category: item.category.name,
+                                price: '\$ ${item.selling_price}',
+                                date: item.created_at,
+                              ),
+                            )
+                            .toList(),
+                      );
+                    }
+
+                    return const SizedBox.shrink();
+                  },
                 ),
-                  PriceItemWidget(
-                  title: 'white_cement'.tr(),
-                  subtitle: 'per_40_kg_bag'.tr(),
-                  category: 'cement'.tr(),
-                  price: '\$ 12',
-                  date: '14 مارس 2026',
-                ),
-                  PriceItemWidget(
-                  title: 'portland_cement'.tr(),
-                  subtitle: 'per_50_kg_bag'.tr(),
-                  category: 'cement'.tr(),
-                  price: '\$ 8.5',
-                  date: '14 مارس 2026',
-                ),
+
+
               ],
             ),
           ),

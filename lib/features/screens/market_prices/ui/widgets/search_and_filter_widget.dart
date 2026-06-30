@@ -5,10 +5,11 @@ import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/extension/context.dart';
+import 'package:mkaweel/features/screens/market_prices/data/model/catogeries_res/catogeries_res.dart';
 
 class SearchAndFilterWidget extends StatelessWidget {
-  const SearchAndFilterWidget({super.key});
-
+  const SearchAndFilterWidget({super.key, required this.listCats});
+  final List<CatogeryItem>? listCats;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -35,19 +36,12 @@ class SearchAndFilterWidget extends StatelessWidget {
           ),
         ),
         16.verticalSpace,
+        if(listCats!=null)
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              _buildFilterChip(context, 'all'.tr(), true),
-              _buildFilterChip(context, 'cement'.tr(), false),
-              _buildFilterChip(context, 'steel'.tr(), false),
-              _buildFilterChip(context, 'aggregate'.tr(), false),
-              _buildFilterChip(context, 'building'.tr(), false),
-              _buildFilterChip(context, 'finishing'.tr(), false),
-              _buildFilterChip(context, 'wood'.tr(), false),
-              _buildFilterChip(context, 'sanitary'.tr(), false),
-            ],
+           child: Row(
+            children: List.generate(listCats!.length, (index) =>  _buildFilterChip(context, listCats![index].name, true))
+            // children: List.generate(listCats.length, (index) =>  _buildFilterChip(context, 'all'.tr(), true))
           ),
         ),
       ],
