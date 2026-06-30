@@ -11,8 +11,9 @@ _$SubCatogeriesDataImpl _$$SubCatogeriesDataImplFromJson(
     _$SubCatogeriesDataImpl(
       status: json['status'] as String,
       message: json['message'] as String,
+      currency: json['currency'] as String,
       data: (json['data'] as List<dynamic>)
-          .map((e) => DataItem.fromJson(e as Map<String, dynamic>))
+          .map((e) => SubCatogeryItem.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -21,11 +22,13 @@ Map<String, dynamic> _$$SubCatogeriesDataImplToJson(
     <String, dynamic>{
       'status': instance.status,
       'message': instance.message,
+      'currency': instance.currency,
       'data': instance.data,
     };
 
-_$DataItemImpl _$$DataItemImplFromJson(Map<String, dynamic> json) =>
-    _$DataItemImpl(
+_$SubCatogeryItemImpl _$$SubCatogeryItemImplFromJson(
+        Map<String, dynamic> json) =>
+    _$SubCatogeryItemImpl(
       id: (json['id'] as num).toInt(),
       code: json['code'] as String,
       name: json['name'] as String,
@@ -34,9 +37,9 @@ _$DataItemImpl _$$DataItemImplFromJson(Map<String, dynamic> json) =>
       unit: json['unit'] as String,
       brand: json['brand'],
       origin_country: json['origin_country'] as String,
-      unit_price: (json['unit_price'] as num).toInt(),
-      selling_price: (json['selling_price'] as num).toInt(),
-      image_path: json['image_path'],
+      unit_price: (json['unit_price'] as num).toDouble(),
+      selling_price: (json['selling_price'] as num).toDouble(),
+      image_path: json['image_path'] as String?,
       currency: json['currency'] as String,
       current_quantity: (json['current_quantity'] as num).toInt(),
       minimum_quantity: (json['minimum_quantity'] as num).toInt(),
@@ -49,7 +52,8 @@ _$DataItemImpl _$$DataItemImplFromJson(Map<String, dynamic> json) =>
       created_at: json['created_at'] as String,
     );
 
-Map<String, dynamic> _$$DataItemImplToJson(_$DataItemImpl instance) =>
+Map<String, dynamic> _$$SubCatogeryItemImplToJson(
+        _$SubCatogeryItemImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'code': instance.code,

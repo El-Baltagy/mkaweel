@@ -108,16 +108,12 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
 
                     // ── 4. Success — data IS SubCatogeriesData ───────────
                     if (emit is Success<SubCatogeriesData>) {
-                      final List<DataItem> items = emit.data?.data ?? [];
+                      final List<SubCatogeryItem> items = emit.data?.data ?? [];
                       return Column(
                         children: items
                             .map(
                               (item) => PriceItemWidget(
-                                title: item.name,
-                                subtitle: item.unit,
-                                category: item.category.name,
-                                price: '\$ ${item.selling_price}',
-                                date: item.created_at,
+                                subCatogeryItem: item
                               ),
                             )
                             .toList(),

@@ -22,7 +22,8 @@ SubCatogeriesData _$SubCatogeriesDataFromJson(Map<String, dynamic> json) {
 mixin _$SubCatogeriesData {
   String get status => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
-  List<DataItem> get data => throw _privateConstructorUsedError;
+  String get currency => throw _privateConstructorUsedError;
+  List<SubCatogeryItem> get data => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +37,11 @@ abstract class $SubCatogeriesDataCopyWith<$Res> {
           SubCatogeriesData value, $Res Function(SubCatogeriesData) then) =
       _$SubCatogeriesDataCopyWithImpl<$Res, SubCatogeriesData>;
   @useResult
-  $Res call({String status, String message, List<DataItem> data});
+  $Res call(
+      {String status,
+      String message,
+      String currency,
+      List<SubCatogeryItem> data});
 }
 
 /// @nodoc
@@ -54,6 +59,7 @@ class _$SubCatogeriesDataCopyWithImpl<$Res, $Val extends SubCatogeriesData>
   $Res call({
     Object? status = null,
     Object? message = null,
+    Object? currency = null,
     Object? data = null,
   }) {
     return _then(_value.copyWith(
@@ -65,10 +71,14 @@ class _$SubCatogeriesDataCopyWithImpl<$Res, $Val extends SubCatogeriesData>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
+      currency: null == currency
+          ? _value.currency
+          : currency // ignore: cast_nullable_to_non_nullable
+              as String,
       data: null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as List<DataItem>,
+              as List<SubCatogeryItem>,
     ) as $Val);
   }
 }
@@ -81,7 +91,11 @@ abstract class _$$SubCatogeriesDataImplCopyWith<$Res>
       __$$SubCatogeriesDataImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String status, String message, List<DataItem> data});
+  $Res call(
+      {String status,
+      String message,
+      String currency,
+      List<SubCatogeryItem> data});
 }
 
 /// @nodoc
@@ -97,6 +111,7 @@ class __$$SubCatogeriesDataImplCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? message = null,
+    Object? currency = null,
     Object? data = null,
   }) {
     return _then(_$SubCatogeriesDataImpl(
@@ -108,10 +123,14 @@ class __$$SubCatogeriesDataImplCopyWithImpl<$Res>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
+      currency: null == currency
+          ? _value.currency
+          : currency // ignore: cast_nullable_to_non_nullable
+              as String,
       data: null == data
           ? _value._data
           : data // ignore: cast_nullable_to_non_nullable
-              as List<DataItem>,
+              as List<SubCatogeryItem>,
     ));
   }
 }
@@ -122,7 +141,8 @@ class _$SubCatogeriesDataImpl extends _SubCatogeriesData {
   const _$SubCatogeriesDataImpl(
       {required this.status,
       required this.message,
-      required final List<DataItem> data})
+      required this.currency,
+      required final List<SubCatogeryItem> data})
       : _data = data,
         super._();
 
@@ -133,9 +153,11 @@ class _$SubCatogeriesDataImpl extends _SubCatogeriesData {
   final String status;
   @override
   final String message;
-  final List<DataItem> _data;
   @override
-  List<DataItem> get data {
+  final String currency;
+  final List<SubCatogeryItem> _data;
+  @override
+  List<SubCatogeryItem> get data {
     if (_data is EqualUnmodifiableListView) return _data;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_data);
@@ -160,7 +182,8 @@ abstract class _SubCatogeriesData extends SubCatogeriesData {
   const factory _SubCatogeriesData(
       {required final String status,
       required final String message,
-      required final List<DataItem> data}) = _$SubCatogeriesDataImpl;
+      required final String currency,
+      required final List<SubCatogeryItem> data}) = _$SubCatogeriesDataImpl;
   const _SubCatogeriesData._() : super._();
 
   factory _SubCatogeriesData.fromJson(Map<String, dynamic> json) =
@@ -171,19 +194,21 @@ abstract class _SubCatogeriesData extends SubCatogeriesData {
   @override
   String get message;
   @override
-  List<DataItem> get data;
+  String get currency;
+  @override
+  List<SubCatogeryItem> get data;
   @override
   @JsonKey(ignore: true)
   _$$SubCatogeriesDataImplCopyWith<_$SubCatogeriesDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-DataItem _$DataItemFromJson(Map<String, dynamic> json) {
-  return _DataItem.fromJson(json);
+SubCatogeryItem _$SubCatogeryItemFromJson(Map<String, dynamic> json) {
+  return _SubCatogeryItem.fromJson(json);
 }
 
 /// @nodoc
-mixin _$DataItem {
+mixin _$SubCatogeryItem {
   int get id => throw _privateConstructorUsedError;
   String get code => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
@@ -192,9 +217,9 @@ mixin _$DataItem {
   String get unit => throw _privateConstructorUsedError;
   dynamic get brand => throw _privateConstructorUsedError;
   String get origin_country => throw _privateConstructorUsedError;
-  int get unit_price => throw _privateConstructorUsedError;
-  int get selling_price => throw _privateConstructorUsedError;
-  dynamic get image_path => throw _privateConstructorUsedError;
+  double get unit_price => throw _privateConstructorUsedError;
+  double get selling_price => throw _privateConstructorUsedError;
+  String? get image_path => throw _privateConstructorUsedError;
   String get currency => throw _privateConstructorUsedError;
   int get current_quantity => throw _privateConstructorUsedError;
   int get minimum_quantity => throw _privateConstructorUsedError;
@@ -208,14 +233,15 @@ mixin _$DataItem {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $DataItemCopyWith<DataItem> get copyWith =>
+  $SubCatogeryItemCopyWith<SubCatogeryItem> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $DataItemCopyWith<$Res> {
-  factory $DataItemCopyWith(DataItem value, $Res Function(DataItem) then) =
-      _$DataItemCopyWithImpl<$Res, DataItem>;
+abstract class $SubCatogeryItemCopyWith<$Res> {
+  factory $SubCatogeryItemCopyWith(
+          SubCatogeryItem value, $Res Function(SubCatogeryItem) then) =
+      _$SubCatogeryItemCopyWithImpl<$Res, SubCatogeryItem>;
   @useResult
   $Res call(
       {int id,
@@ -226,9 +252,9 @@ abstract class $DataItemCopyWith<$Res> {
       String unit,
       dynamic brand,
       String origin_country,
-      int unit_price,
-      int selling_price,
-      dynamic image_path,
+      double unit_price,
+      double selling_price,
+      String? image_path,
       String currency,
       int current_quantity,
       int minimum_quantity,
@@ -244,9 +270,9 @@ abstract class $DataItemCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$DataItemCopyWithImpl<$Res, $Val extends DataItem>
-    implements $DataItemCopyWith<$Res> {
-  _$DataItemCopyWithImpl(this._value, this._then);
+class _$SubCatogeryItemCopyWithImpl<$Res, $Val extends SubCatogeryItem>
+    implements $SubCatogeryItemCopyWith<$Res> {
+  _$SubCatogeryItemCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -314,15 +340,15 @@ class _$DataItemCopyWithImpl<$Res, $Val extends DataItem>
       unit_price: null == unit_price
           ? _value.unit_price
           : unit_price // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       selling_price: null == selling_price
           ? _value.selling_price
           : selling_price // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       image_path: freezed == image_path
           ? _value.image_path
           : image_path // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String?,
       currency: null == currency
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
@@ -376,11 +402,11 @@ class _$DataItemCopyWithImpl<$Res, $Val extends DataItem>
 }
 
 /// @nodoc
-abstract class _$$DataItemImplCopyWith<$Res>
-    implements $DataItemCopyWith<$Res> {
-  factory _$$DataItemImplCopyWith(
-          _$DataItemImpl value, $Res Function(_$DataItemImpl) then) =
-      __$$DataItemImplCopyWithImpl<$Res>;
+abstract class _$$SubCatogeryItemImplCopyWith<$Res>
+    implements $SubCatogeryItemCopyWith<$Res> {
+  factory _$$SubCatogeryItemImplCopyWith(_$SubCatogeryItemImpl value,
+          $Res Function(_$SubCatogeryItemImpl) then) =
+      __$$SubCatogeryItemImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -392,9 +418,9 @@ abstract class _$$DataItemImplCopyWith<$Res>
       String unit,
       dynamic brand,
       String origin_country,
-      int unit_price,
-      int selling_price,
-      dynamic image_path,
+      double unit_price,
+      double selling_price,
+      String? image_path,
       String currency,
       int current_quantity,
       int minimum_quantity,
@@ -411,11 +437,11 @@ abstract class _$$DataItemImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$DataItemImplCopyWithImpl<$Res>
-    extends _$DataItemCopyWithImpl<$Res, _$DataItemImpl>
-    implements _$$DataItemImplCopyWith<$Res> {
-  __$$DataItemImplCopyWithImpl(
-      _$DataItemImpl _value, $Res Function(_$DataItemImpl) _then)
+class __$$SubCatogeryItemImplCopyWithImpl<$Res>
+    extends _$SubCatogeryItemCopyWithImpl<$Res, _$SubCatogeryItemImpl>
+    implements _$$SubCatogeryItemImplCopyWith<$Res> {
+  __$$SubCatogeryItemImplCopyWithImpl(
+      _$SubCatogeryItemImpl _value, $Res Function(_$SubCatogeryItemImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -443,7 +469,7 @@ class __$$DataItemImplCopyWithImpl<$Res>
     Object? notes = null,
     Object? created_at = null,
   }) {
-    return _then(_$DataItemImpl(
+    return _then(_$SubCatogeryItemImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -479,15 +505,15 @@ class __$$DataItemImplCopyWithImpl<$Res>
       unit_price: null == unit_price
           ? _value.unit_price
           : unit_price // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       selling_price: null == selling_price
           ? _value.selling_price
           : selling_price // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       image_path: freezed == image_path
           ? _value.image_path
           : image_path // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String?,
       currency: null == currency
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
@@ -534,8 +560,8 @@ class __$$DataItemImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$DataItemImpl extends _DataItem {
-  const _$DataItemImpl(
+class _$SubCatogeryItemImpl extends _SubCatogeryItem {
+  const _$SubCatogeryItemImpl(
       {required this.id,
       required this.code,
       required this.name,
@@ -559,8 +585,8 @@ class _$DataItemImpl extends _DataItem {
       required this.created_at})
       : super._();
 
-  factory _$DataItemImpl.fromJson(Map<String, dynamic> json) =>
-      _$$DataItemImplFromJson(json);
+  factory _$SubCatogeryItemImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SubCatogeryItemImplFromJson(json);
 
   @override
   final int id;
@@ -579,11 +605,11 @@ class _$DataItemImpl extends _DataItem {
   @override
   final String origin_country;
   @override
-  final int unit_price;
+  final double unit_price;
   @override
-  final int selling_price;
+  final double selling_price;
   @override
-  final dynamic image_path;
+  final String? image_path;
   @override
   final String currency;
   @override
@@ -608,19 +634,20 @@ class _$DataItemImpl extends _DataItem {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$DataItemImplCopyWith<_$DataItemImpl> get copyWith =>
-      __$$DataItemImplCopyWithImpl<_$DataItemImpl>(this, _$identity);
+  _$$SubCatogeryItemImplCopyWith<_$SubCatogeryItemImpl> get copyWith =>
+      __$$SubCatogeryItemImplCopyWithImpl<_$SubCatogeryItemImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$DataItemImplToJson(
+    return _$$SubCatogeryItemImplToJson(
       this,
     );
   }
 }
 
-abstract class _DataItem extends DataItem {
-  const factory _DataItem(
+abstract class _SubCatogeryItem extends SubCatogeryItem {
+  const factory _SubCatogeryItem(
       {required final int id,
       required final String code,
       required final String name,
@@ -629,9 +656,9 @@ abstract class _DataItem extends DataItem {
       required final String unit,
       required final dynamic brand,
       required final String origin_country,
-      required final int unit_price,
-      required final int selling_price,
-      required final dynamic image_path,
+      required final double unit_price,
+      required final double selling_price,
+      required final String? image_path,
       required final String currency,
       required final int current_quantity,
       required final int minimum_quantity,
@@ -641,11 +668,11 @@ abstract class _DataItem extends DataItem {
       required final String status,
       required final bool is_available,
       required final String notes,
-      required final String created_at}) = _$DataItemImpl;
-  const _DataItem._() : super._();
+      required final String created_at}) = _$SubCatogeryItemImpl;
+  const _SubCatogeryItem._() : super._();
 
-  factory _DataItem.fromJson(Map<String, dynamic> json) =
-      _$DataItemImpl.fromJson;
+  factory _SubCatogeryItem.fromJson(Map<String, dynamic> json) =
+      _$SubCatogeryItemImpl.fromJson;
 
   @override
   int get id;
@@ -664,11 +691,11 @@ abstract class _DataItem extends DataItem {
   @override
   String get origin_country;
   @override
-  int get unit_price;
+  double get unit_price;
   @override
-  int get selling_price;
+  double get selling_price;
   @override
-  dynamic get image_path;
+  String? get image_path;
   @override
   String get currency;
   @override
@@ -691,6 +718,6 @@ abstract class _DataItem extends DataItem {
   String get created_at;
   @override
   @JsonKey(ignore: true)
-  _$$DataItemImplCopyWith<_$DataItemImpl> get copyWith =>
+  _$$SubCatogeryItemImplCopyWith<_$SubCatogeryItemImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
