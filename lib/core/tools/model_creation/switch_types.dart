@@ -20,8 +20,19 @@ const _yellow = '\x1B[33m';
 const _cyan = '\x1B[36m';
 const _red = '\x1B[31m';
 const _dim = '\x1B[2m';
-
-void main(List<String> rawArgs) {
+//# Make a single field nullable
+// dart tool/switch_types.dart lib/ --fields construction_materials_count --from int --to "int?"
+//
+// # Make multiple fields nullable at once
+// dart tool/switch_types.dart lib/ --fields id,count,total --from int --to "int?"
+//
+// # Change a type completely
+// dart tool/switch_types.dart lib/features/screens/market_prices --fields status --from String --to bool
+//
+// # Always dry-run first to preview!
+// dart tool/switch_types.dart lib/ --fields id --from int --to "int?" --dry-run
+void main(List<String> rawArgs
+    ) {
   // ── Parse arguments ───────────────────────────────────────────────────────
   final args = _Args.parse(rawArgs);
   if (args == null) {
