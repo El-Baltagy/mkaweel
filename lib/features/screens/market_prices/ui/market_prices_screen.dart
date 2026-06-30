@@ -20,17 +20,17 @@ import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/text_input_filter.dart';
 
 @RoutePage()
-class MarketPricesPage extends StatefulWidget implements AutoRouteWrapper{
+class MarketPricesPage extends StatefulWidget implements AutoRouteWrapper {
   const MarketPricesPage({super.key});
-  
+
   @override
   Widget wrappedRoute(BuildContext context) {
     return BlocProvider<MarketPricesCubit>(
-      create: (context) =>MarketPricesCubit(AppLocator()()()),
+      create: (context) => MarketPricesCubit(AppLocator()()()),
       child: this,
     );
   }
-  
+
   @override
   State<MarketPricesPage> createState() => _MarketPricesPageState();
 }
@@ -38,7 +38,7 @@ class MarketPricesPage extends StatefulWidget implements AutoRouteWrapper{
 class _MarketPricesPageState extends MarketPricesPageBaseState {
   @override
   Widget build(BuildContext context) {
-     return BlocListener<MarketPricesCubit, MarketPricesState>(
+    return BlocListener<MarketPricesCubit, MarketPricesState>(
       listener: listenerPricesCubit,
       child: Semantics(
         label: 'Market Prices Screen',
@@ -46,42 +46,52 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
           backgroundColor: context.theme.scaffoldBackgroundColor,
           appBar: AppBar(
             backgroundColor: Theme.of(context).primaryColor,
-            title: Text('market_prices'.tr(), style: AppTextStyles.font18SemiBold.copyWith(color: context.theme.scaffoldBackgroundColor)),
+            title: Text(
+              'market_prices'.tr(),
+              style: AppTextStyles.font18SemiBold.copyWith(
+                color: context.theme.scaffoldBackgroundColor,
+              ),
+            ),
             centerTitle: true,
             leading: IconButton(
-              icon:   Icon(Icons.sync, color: context.theme.scaffoldBackgroundColor),
+              icon: Icon(
+                Icons.sync,
+                color: context.theme.scaffoldBackgroundColor,
+              ),
               onPressed: () {},
             ),
           ),
-          floatingActionButton: kDebugMode?
-              FloatingActionButton(onPressed: () {
-                _loadData();
-              },)
-              :null,
+          floatingActionButton: kDebugMode
+              ? FloatingActionButton(
+                  onPressed: () {
+                    _loadData();
+                  },
+                )
+              : null,
           body: SingleChildScrollView(
             padding: const EdgeInsets.all(AppPadding.p16),
             child: Column(
               children: [
                 const ExchangeRateWidget(),
                 16.verticalSpace,
-                 CurrencyTabsWidget(
-                   currencyTabNotifier: currencyTab,
-                 ),
+                CurrencyTabsWidget(currencyTabNotifier: currencyTabNotifier),
                 16.verticalSpace,
                 const TextInputFilter(),
                 16.verticalSpace,
                 BlocSelector<MarketPricesCubit, MarketPricesState, BaseEmit?>(
                   selector: (state) =>
-                  state is MarketPricesLoaded ? state.categoriesEmit : null,
+                      state is MarketPricesLoaded ? state.categoriesEmit : null,
                   builder: (context, emit) => SearchAndFilterWidget(
-                      selectedCat: selectedCatId,
-                      emit: emit),
+                    selectedCat: selectedCatIdNotifier,
+                    emit: emit,
+                  ),
                 ),
 
                 20.verticalSpace,
                 BlocSelector<MarketPricesCubit, MarketPricesState, BaseEmit?>(
-                  selector: (state) =>
-                  state is MarketPricesLoaded ? state.subCategoriesEmit : null,
+                  selector: (state) => state is MarketPricesLoaded
+                      ? state.subCategoriesEmit
+                      : null,
                   builder: (context, emit) {
                     // ── 1. Initial / not yet loaded ──────────────────────
                     if (emit == null) return const SizedBox.shrink();
@@ -117,8 +127,6 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
                     return const SizedBox.shrink();
                   },
                 ),
-
-
               ],
             ),
           ),
@@ -126,43 +134,53 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
       ),
     );
   }
-
- }
+}
 
 abstract class MarketPricesPageBaseState extends State<MarketPricesPage>
     with AutoRouteAwareStateMixin<MarketPricesPage> {
   late final MarketPricesCubit argData;
-ValueNotifier<int?>selectedCatId=.new(-1);
-  ValueNotifier<BaseCurrencyTab >currencyTab=.new(CurrencyTabsWidget.listTabs.first);
+  ValueNotifier<int?> selectedCatIdNotifier = .new(-1);
+  ValueNotifier<BaseCurrencyTab> currencyTabNotifier = .new(
+    CurrencyTabsWidget.listTabs.first,
+  );
 
-void _listenerNotfieir(){
-  debugPrint(selectedCatId.value.toString());
-  argData.getSubCatogeriesFunc(.reload, parameter: .new(selectedCatId.value!));
-}
-
+  void _listenerCatIdNotfieir() {
+    debugPrint("...................");
+     argData.getSubCatogeriesFunc(
+      .reload,
+      parameter: .new(selectedCatIdNotifier.value!,currencyTabNotifier.value.symbol),
+    );
+  }
+  void _listenerCurrencyNotfieir() {
+    _listenerCatIdNotfieir();
+  }
   @override
   void initState() {
     super.initState();
     debugPrint("init..............................");
     argData = MarketPricesCubit.get(context: context);
-    selectedCatId.addListener(_listenerNotfieir);
+    selectedCatIdNotifier.addListener(_listenerCatIdNotfieir);
+    currencyTabNotifier.addListener(_listenerCurrencyNotfieir);
 
     _loadData();
   }
 
-
-
   void _loadData() {
     debugPrint("loading data................");
     argData.getCatogeriesFunc(.reload);
-    argData.getSubCatogeriesFunc(.reload, parameter: .new(selectedCatId.value!));
+    argData.getSubCatogeriesFunc(
+      .reload,
+      parameter: .new(selectedCatIdNotifier.value!,currencyTabNotifier.value.symbol),
+    );
   }
 
   @override
   void dispose() {
     argData.close();
-    selectedCatId.removeListener(_listenerNotfieir);
-    selectedCatId.dispose();
+    selectedCatIdNotifier.removeListener(_listenerCatIdNotfieir);
+    selectedCatIdNotifier.dispose();
+    currencyTabNotifier.removeListener(_listenerCurrencyNotfieir);
+    currencyTabNotifier.dispose();
     super.dispose();
   }
 

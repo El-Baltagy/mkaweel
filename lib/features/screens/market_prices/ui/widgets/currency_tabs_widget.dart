@@ -71,7 +71,7 @@ class SyrialLira extends BaseCurrencyTab{
 
   @override
   // TODO: implement symbol
-  String get symbol => throw UnimplementedError();
+  String get symbol => "syp";
 
 }
 class TyrkishLira extends BaseCurrencyTab{
@@ -84,7 +84,7 @@ class TyrkishLira extends BaseCurrencyTab{
 
   @override
   // TODO: implement symbol
-  String get symbol => throw UnimplementedError();
+  String get symbol => "try";
 
 }
 class USDollar extends BaseCurrencyTab{
@@ -97,6 +97,6 @@ class USDollar extends BaseCurrencyTab{
 
   @override
   // TODO: implement symbol
-  String get symbol => throw UnimplementedError();
+  String get symbol => "usd";
 
 }

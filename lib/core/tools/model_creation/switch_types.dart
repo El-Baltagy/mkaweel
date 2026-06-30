@@ -363,3 +363,4 @@ class _Args {
     );
   }
 }
+//dart run lib/core/tools/model_creation/switch_types.dart lib/features/screens/market_prices/data/model/sub_catogeries_data --fields image_path --from dynamic --to "String?" --build

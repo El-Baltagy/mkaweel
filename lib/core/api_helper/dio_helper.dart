@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:mkaweel/core/api_helper/interceptor/auth_interceptor.dart';
 import 'package:mkaweel/core/api_helper/interceptor/logger_interceptor.dart';
+import 'package:mkaweel/core/api_helper/interceptor/retry_interceptor.dart';
 import 'package:mkaweel/core/constants/app_api.dart';
 import 'package:mkaweel/core/storage/storage_helper.dart';
 
@@ -14,8 +15,8 @@ class DioHelper {
       BaseOptions(
 
         baseUrl: EndPoints.baseUrl,
-        connectTimeout: const Duration(seconds: 15),
-        receiveTimeout: const Duration(seconds: 15),
+        connectTimeout: const Duration(seconds: 30),
+        receiveTimeout: const Duration(seconds: 30),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -27,6 +28,7 @@ class DioHelper {
     _dio.interceptors.addAll([
       LoggerInterceptor(),
       AuthInterceptor(dio: _dio, getAccessToken: () async => await StorageHelper.getToken, refreshToken: () async => null),
+      RetryInterceptor(dio: _dio, maxRetries: 3),
     ]);
 
     return this;

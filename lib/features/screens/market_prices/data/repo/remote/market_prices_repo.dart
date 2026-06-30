@@ -1,8 +1,6 @@
-import 'package:mkaweel/core/constants/app_constant.dart';
-import 'package:dio/dio.dart';
+ import 'package:dio/dio.dart';
 import 'package:mkaweel/core/api_helper/response_handler.dart';
-import 'package:mkaweel/core/api_helper/caller_tag.dart';
-import 'package:mkaweel/core/constants/app_api.dart';
+ import 'package:mkaweel/core/constants/app_api.dart';
 import 'package:mkaweel/core/shared/methods/print.dart';
 import 'package:mkaweel/features/screens/market_prices/data/model/catogeries_res/catogeries_res.dart';
 import 'package:mkaweel/core/api_helper/dio_error_handler.dart';
@@ -37,6 +35,7 @@ class MarketPricesRepo extends BaseRepo {
   }) async {
      return handleResponse(
        onCallData: dio.getData(
+         query:parameter?.toJsonParameters() ,
         uri: parameter!.id == -1
             ? EndPoints.getAllSubCatogeries
             : EndPoints.getSubCatogeriesById(parameter.id),

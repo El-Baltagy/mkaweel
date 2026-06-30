@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mkaweel/core/shared/methods/date_helper.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
@@ -45,7 +46,7 @@ class PriceItemWidget extends StatelessWidget {
             children: [
               Text(price, style: AppTextStyles.font18SemiBold.copyWith(color: Theme.of(context).primaryColor)),
               5.verticalSpace,
-              Text(date, style: AppTextStyles.font12Regular),
+              Text(DateTimeHelper.formatDateAsStringIntoStringDayMonth(date), style: AppTextStyles.font12Regular),
             ],
           ),
           Column(
