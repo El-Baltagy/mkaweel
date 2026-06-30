@@ -31,7 +31,7 @@ class LoggerInterceptor extends Interceptor {
         '   └─ Headers :\n$headers'
         '$body',
         LoggerType.warning,
-        'HTTP',
+        // 'HTTP',
         -1,
         caller,
       );
@@ -54,7 +54,7 @@ class LoggerInterceptor extends Interceptor {
         '   └─ Size    : ${raw.length} bytes\n'
         '   └─ Preview : $preview',
         LoggerType.info,
-        'HTTP',
+        // 'HTTP',
         -1,
         caller,
       );
@@ -75,7 +75,7 @@ class LoggerInterceptor extends Interceptor {
         '   └─ Message : ${err.message}\n'
         '   └─ Data    : ${err.response?.data}',
         LoggerType.error,
-        'HTTP',
+        // 'HTTP',
         -1,
         caller,
       );
