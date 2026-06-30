@@ -37,7 +37,7 @@ class CatogeryItem with _$CatogeryItem, EquatableMixin {
     required String description,
     required bool is_active,
     required String type,
-    required int  construction_materials_count,
+    required int?  construction_materials_count,
     required String created_at,
   }) = _CatogeryItem;
 

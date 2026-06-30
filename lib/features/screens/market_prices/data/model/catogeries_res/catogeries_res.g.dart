@@ -34,7 +34,7 @@ _$CatogeryItemImpl _$$CatogeryItemImplFromJson(Map<String, dynamic> json) =>
       is_active: json['is_active'] as bool,
       type: json['type'] as String,
       construction_materials_count:
-          (json['construction_materials_count'] as num).toInt(),
+          (json['construction_materials_count'] as num?)?.toInt(),
       created_at: json['created_at'] as String,
     );
 

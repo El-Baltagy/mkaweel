@@ -228,7 +228,7 @@ mixin _$CatogeryItem {
   String get description => throw _privateConstructorUsedError;
   bool get is_active => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
-  int get construction_materials_count => throw _privateConstructorUsedError;
+  int? get construction_materials_count => throw _privateConstructorUsedError;
   String get created_at => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -250,7 +250,7 @@ abstract class $CatogeryItemCopyWith<$Res> {
       String description,
       bool is_active,
       String type,
-      int construction_materials_count,
+      int? construction_materials_count,
       String created_at});
 }
 
@@ -273,7 +273,7 @@ class _$CatogeryItemCopyWithImpl<$Res, $Val extends CatogeryItem>
     Object? description = null,
     Object? is_active = null,
     Object? type = null,
-    Object? construction_materials_count = null,
+    Object? construction_materials_count = freezed,
     Object? created_at = null,
   }) {
     return _then(_value.copyWith(
@@ -301,10 +301,10 @@ class _$CatogeryItemCopyWithImpl<$Res, $Val extends CatogeryItem>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String,
-      construction_materials_count: null == construction_materials_count
+      construction_materials_count: freezed == construction_materials_count
           ? _value.construction_materials_count
           : construction_materials_count // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       created_at: null == created_at
           ? _value.created_at
           : created_at // ignore: cast_nullable_to_non_nullable
@@ -328,7 +328,7 @@ abstract class _$$CatogeryItemImplCopyWith<$Res>
       String description,
       bool is_active,
       String type,
-      int construction_materials_count,
+      int? construction_materials_count,
       String created_at});
 }
 
@@ -349,7 +349,7 @@ class __$$CatogeryItemImplCopyWithImpl<$Res>
     Object? description = null,
     Object? is_active = null,
     Object? type = null,
-    Object? construction_materials_count = null,
+    Object? construction_materials_count = freezed,
     Object? created_at = null,
   }) {
     return _then(_$CatogeryItemImpl(
@@ -377,10 +377,10 @@ class __$$CatogeryItemImplCopyWithImpl<$Res>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String,
-      construction_materials_count: null == construction_materials_count
+      construction_materials_count: freezed == construction_materials_count
           ? _value.construction_materials_count
           : construction_materials_count // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       created_at: null == created_at
           ? _value.created_at
           : created_at // ignore: cast_nullable_to_non_nullable
@@ -419,7 +419,7 @@ class _$CatogeryItemImpl extends _CatogeryItem {
   @override
   final String type;
   @override
-  final int construction_materials_count;
+  final int? construction_materials_count;
   @override
   final String created_at;
 
@@ -445,7 +445,7 @@ abstract class _CatogeryItem extends CatogeryItem {
       required final String description,
       required final bool is_active,
       required final String type,
-      required final int construction_materials_count,
+      required final int? construction_materials_count,
       required final String created_at}) = _$CatogeryItemImpl;
   const _CatogeryItem._() : super._();
 
@@ -465,7 +465,7 @@ abstract class _CatogeryItem extends CatogeryItem {
   @override
   String get type;
   @override
-  int get construction_materials_count;
+  int? get construction_materials_count;
   @override
   String get created_at;
   @override
