@@ -64,9 +64,11 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
               children: [
                 const ExchangeRateWidget(),
                 16.verticalSpace,
-                const CurrencyTabsWidget(),
+                 CurrencyTabsWidget(
+                   currencyTabNotifier: currencyTab,
+                 ),
                 16.verticalSpace,
-                TextInputFilter(),
+                const TextInputFilter(),
                 16.verticalSpace,
                 BlocSelector<MarketPricesCubit, MarketPricesState, BaseEmit?>(
                   selector: (state) =>
@@ -125,13 +127,14 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
     );
   }
 
-
-}
+ }
 
 abstract class MarketPricesPageBaseState extends State<MarketPricesPage>
     with AutoRouteAwareStateMixin<MarketPricesPage> {
   late final MarketPricesCubit argData;
 ValueNotifier<int?>selectedCatId=.new(-1);
+  ValueNotifier<BaseCurrencyTab >currencyTab=.new(CurrencyTabsWidget.listTabs.first);
+
 void _listenerNotfieir(){
   debugPrint(selectedCatId.value.toString());
   argData.getSubCatogeriesFunc(.reload, parameter: .new(selectedCatId.value!));
