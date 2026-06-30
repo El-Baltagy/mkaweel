@@ -1,5 +1,5 @@
- import 'package:mkaweel/core/constants/app_constant.dart';
-  import 'package:dio/dio.dart';
+import 'package:mkaweel/core/constants/app_constant.dart';
+import 'package:dio/dio.dart';
 import 'package:mkaweel/core/api_helper/response_handler.dart';
 import 'package:mkaweel/core/constants/app_api.dart';
 import 'package:mkaweel/core/shared/methods/print.dart';
@@ -13,10 +13,11 @@ import 'package:mkaweel/features/screens/market_prices/data/model/sub_catogeries
 
 class MarketPricesRepo extends BaseRepo {
   MarketPricesRepo(this.dio);
+
   final DioHelper dio;
 
   Future<Either<Failure, CatogeriesRes>> getcatogeriesApi(
-      NoParameter? parameter, {
+    NoParameter? parameter, {
     CancelToken? cancelToken,
   }) async {
     return handleResponse(
@@ -28,17 +29,18 @@ class MarketPricesRepo extends BaseRepo {
     );
   }
 
-   Future<Either<Failure, SubCatogeriesData>> getsubcatogeriesApi(
+  Future<Either<Failure, SubCatogeriesData>> getsubcatogeriesApi(
     SubCatogeriesInput? parameter, {
     CancelToken? cancelToken,
   }) async {
     return handleResponse(
       onCallData: dio.getData(
-        uri: EndPoints.getSubCatogeries(parameter!.id),
+        uri: parameter!.id == -1
+            ? EndPoints.getAllSubCatogeries
+            : EndPoints.getSubCatogeriesById(parameter.id),
         cancelToken: cancelToken,
       ),
       asObject: SubCatogeriesData.fromJson,
     );
   }
 }
-

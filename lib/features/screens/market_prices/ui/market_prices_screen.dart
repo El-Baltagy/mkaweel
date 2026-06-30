@@ -133,6 +133,7 @@ abstract class MarketPricesPageBaseState extends State<MarketPricesPage>
   late final MarketPricesCubit argData;
 ValueNotifier<int?>selectedCatId=.new(-1);
 void _listenerNotfieir(){
+  debugPrint(selectedCatId.value.toString());
   argData.getSubCatogeriesFunc(.reload, parameter: .new(selectedCatId.value!));
 }
 
@@ -151,7 +152,7 @@ void _listenerNotfieir(){
   void _loadData() {
     debugPrint("loading data................");
     argData.getCatogeriesFunc(.reload);
-    // argData.getSubCatogeriesFunc(.reload, parameter: .new(1));
+    argData.getSubCatogeriesFunc(.reload, parameter: .new(selectedCatId.value!));
   }
 
   @override
