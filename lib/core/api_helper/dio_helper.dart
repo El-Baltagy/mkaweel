@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:mkaweel/core/api_helper/interceptor/auth_interceptor.dart';
 import 'package:mkaweel/core/constants/app_api.dart';
 import 'package:mkaweel/core/storage/storage_helper.dart';
 
@@ -22,7 +23,9 @@ class DioHelper {
       ),
     );
 
-    // _dio.interceptors.addAll(AppFlavorConfig.instance.interceptors);
+    _dio.interceptors.addAll([
+      AuthInterceptor( dio:_dio , getAccessToken: ()async=>await StorageHelper.getToken, refreshToken: ()async=>null)
+    ]);
 
     return this;
   }
@@ -84,7 +87,5 @@ class DioHelper {
     );
     return res.data;
   }
-Future<String?>_getToken()=>StorageHelper.getToken;
-  Future<String?> Function()? get getToken =>_getToken;
-  Future<String?> Function()? get refreshToken => null;
+
 }
