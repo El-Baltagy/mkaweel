@@ -35,9 +35,7 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
   @override
   Widget build(BuildContext context) {
      return BlocListener<MarketPricesCubit, MarketPricesState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+      listener: listenerPricesCubit,
       child: Semantics(
         label: 'Market Prices Screen',
         child: Scaffold(
@@ -89,6 +87,8 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
       ),
     );
   }
+
+
 }
 
 abstract class  MarketPricesPageBaseState extends State<MarketPricesPage> {
@@ -97,11 +97,18 @@ abstract class  MarketPricesPageBaseState extends State<MarketPricesPage> {
   @override
   void initState() {
     argData = MarketPricesCubit.get(context: context);
+    argData.getcatogeriesFunc(.init);
+    argData.getSubCatogeriesFunc(.init,parameter: .new(1));
     super.initState();
   }
 
   @override
   void dispose() {
     super.dispose();
+    argData.close();
+  }
+
+  void listenerPricesCubit(BuildContext context,MarketPricesState state) {
+    // TODO: implement listener
   }
 }

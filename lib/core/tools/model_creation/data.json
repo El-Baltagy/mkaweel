@@ -1,19 +1,38 @@
 {
     "status": "success",
-    "message": "تم تسجيل الدخول بنجاح.",
-    "data": {
-        "token": "16|Cq7ObJrJ8qQGqzuSl06fvIMpq8nU84mfxzOinJMH",
-        "user": {
-            "id": 1,
-            "name": "Admin",
-            "email": "admin@themesbrand.com",
-            "dob": "2000-10-10",
-            "phone": "+123456789",
-            "specialization": "Site Manager",
-            "role": "Admin",
-            "avatar": "https://muqawili.app/images/1780772651.png",
-            "created_at": "2026-06-06T14:59:49.000000Z",
-            "updated_at": "2026-06-14T10:29:02.000000Z"
-        }
-    }
+    "message": "Construction materials list retrieved successfully.",
+    "data": [
+        {
+            "id": 93,
+            "code": "CM093",
+            "name": "هيكل معدني للأسقف المعلقة",
+            "category_id": 1,
+            "category": {
+                "id": 1,
+                "name": "الخرسانة والاسمنت",
+                "image_path": null,
+                "description": "الاسمنت والخرسانة الجاهزة ومشتقاتها",
+                "is_active": true,
+                "type": "material",
+                "created_at": "2026-06-24T19:49:36.000000Z",
+                "updated_at": "2026-06-24T19:49:36.000000Z"
+            },
+            "unit": "متر طولي",
+            "brand": null,
+            "origin_country": "سوريا",
+            "unit_price": 25000,
+            "selling_price": 27500,
+            "image_path": null,
+            "currency": "SYP",
+            "current_quantity": 300,
+            "minimum_quantity": 50,
+            "reorder_quantity": 100,
+            "supplier_name": "شركة الأسقف",
+            "supplier_phone": "011-2223334",
+            "status": "active",
+            "is_available": true,
+            "notes": "هيكل حديد مجلفن",
+            "created_at": "2026-06-24T19:54:19.000000Z"
+         }
+    ]
 }

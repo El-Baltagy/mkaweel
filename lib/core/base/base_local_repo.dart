@@ -21,9 +21,11 @@ import 'package:mkaweel/core/storage/hive_storage.dart';
   }
 
   /// Read data from local storage by key and return as Map.
-  Future<dynamic > readData(String key) async {
+  Future<Map<String, dynamic>? > readData(String key) async {
     try {
-      return        await HiveStorage().readData(key);
+      //
+      final data =  await HiveStorage().readData(key);
+       return  data==null?null:data as Map<String, dynamic>;
 
     } catch (e) {
       return null;

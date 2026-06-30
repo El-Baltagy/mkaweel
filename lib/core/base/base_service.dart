@@ -10,7 +10,7 @@ abstract class BaseService{
 class RequestCallbackObserver<T, P> {
   RequestCallbackObserver({
     required this.baseRequestBackType,
-    required this.parameter,
+      this.parameter,
     required this.onLoadCallback,
     required this.onRightCallback,
     required this.onLeftCallback,

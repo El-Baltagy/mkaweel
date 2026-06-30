@@ -177,8 +177,8 @@ Future<void> main(List<String> args) async {
     exit(1);
   }
 
-  final className =  args[1] ;
-  final screenName =  args[0] ;
+  final className =  args[0] ;
+  final screenName =  args[1] ;
   final String inputPath='lib/core/tools/model_creation/data.json';
   final modelFolderPath =  "lib/features/screens/$screenName/data/model" ;
 

@@ -3,7 +3,11 @@ import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart' as logger_pkg;
 
 
-
+class NoParameter{
+  NoParameter._();
+  factory NoParameter() => _instance;
+  static final NoParameter _instance = NoParameter._();
+ }
 enum LoggerType { warning, info, error, fatal }
 
 // extension LoggerTypeExt on LoggerType {
