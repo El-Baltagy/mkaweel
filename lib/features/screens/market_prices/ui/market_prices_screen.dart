@@ -11,13 +11,13 @@ import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
-import 'package:mkaweel/features/screens/market_prices/data/model/catogeries_res/catogeries_res.dart';
 import 'package:mkaweel/features/screens/market_prices/data/model/sub_catogeries_data/sub_catogeries_data.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/exchange_rate_widget.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/currency_tabs_widget.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/search_and_filter_widget.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/price_item_widget.dart';
 import 'package:mkaweel/core/extension/context.dart';
+import 'package:mkaweel/features/screens/market_prices/ui/widgets/text_input_filter.dart';
 
 @RoutePage()
 class MarketPricesPage extends StatefulWidget implements AutoRouteWrapper{
@@ -66,37 +66,20 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
                 16.verticalSpace,
                 const CurrencyTabsWidget(),
                 16.verticalSpace,
+                TextInputFilter(),
+                16.verticalSpace,
                 BlocSelector<MarketPricesCubit, MarketPricesState, BaseEmit?>(
-                  selector: (state) => state is CatogeriesResState ? state.baseEmit : null,
-                  builder: (context, emit) {
-                    // ── 1. Initial / not yet loaded ──────────────────────────────
-                    // if (emit == null) return const SizedBox.shrink();
-
-                    // ── 2. Loading ───────────────────────────────────────────────
-                    if (emit is Loading) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-
-                    // ── 3. Error ─────────────────────────────────────────────────
-                    if (emit is ErrorState) {
-                      return Text(emit.failure.toString());
-                    }
-
-                    // ── 4. Success — data IS CatogeriesRes ───────────────────────
-                    if (emit is Success<CatogeriesRes>) {
-                      final CatogeriesRes? response = emit.data;       // CatogeriesRes?
-
-                      return   SearchAndFilterWidget( listCats: response?.data  );
-                    }
-
-                    return const SizedBox.shrink();
-                  },
+                  selector: (state) =>
+                  state is MarketPricesLoaded ? state.categoriesEmit : null,
+                  builder: (context, emit) => SearchAndFilterWidget(
+                      selectedCat: selectedCatId,
+                      emit: emit),
                 ),
 
                 20.verticalSpace,
                 BlocSelector<MarketPricesCubit, MarketPricesState, BaseEmit?>(
                   selector: (state) =>
-                      state is SubCatogeriesDataState ? state.baseEmit : null,
+                  state is MarketPricesLoaded ? state.subCategoriesEmit : null,
                   builder: (context, emit) {
                     // ── 1. Initial / not yet loaded ──────────────────────
                     if (emit == null) return const SizedBox.shrink();
@@ -148,12 +131,18 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
 abstract class MarketPricesPageBaseState extends State<MarketPricesPage>
     with AutoRouteAwareStateMixin<MarketPricesPage> {
   late final MarketPricesCubit argData;
+ValueNotifier<int?>selectedCatId=.new(-1);
+void _listenerNotfieir(){
+  argData.getSubCatogeriesFunc(.reload, parameter: .new(selectedCatId.value!));
+}
 
   @override
   void initState() {
     super.initState();
-    debugPrint(".................................");
+    debugPrint("init..............................");
     argData = MarketPricesCubit.get(context: context);
+    selectedCatId.addListener(_listenerNotfieir);
+
     _loadData();
   }
 
@@ -162,12 +151,14 @@ abstract class MarketPricesPageBaseState extends State<MarketPricesPage>
   void _loadData() {
     debugPrint("loading data................");
     argData.getCatogeriesFunc(.reload);
-    argData.getSubCatogeriesFunc(.reload, parameter: .new(1));
+    // argData.getSubCatogeriesFunc(.reload, parameter: .new(1));
   }
 
   @override
   void dispose() {
     argData.close();
+    selectedCatId.removeListener(_listenerNotfieir);
+    selectedCatId.dispose();
     super.dispose();
   }
 

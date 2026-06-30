@@ -27,6 +27,9 @@ class CatogeriesRes with _$CatogeriesRes, EquatableMixin {
 
 @freezed
 class CatogeryItem with _$CatogeryItem, EquatableMixin {
+  static CatogeryItem toGetEmptyForLoading( ){
+     return const .new(id: 1, name: "test loading", image_path: null, description: "description", is_active: true, type: "type", construction_materials_count: 0, created_at: "2026-06-24T19:52:39.000000Z");
+  }
   const CatogeryItem._();
   const factory CatogeryItem({
     required int id,
@@ -52,6 +55,7 @@ class CatogeryItem with _$CatogeryItem, EquatableMixin {
     construction_materials_count,
     created_at,
    ];
-
 }
+
+
 

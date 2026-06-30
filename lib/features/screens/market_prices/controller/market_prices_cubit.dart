@@ -14,8 +14,12 @@ import 'package:mkaweel/features/screens/market_prices/controller/market_prices_
 import 'package:mkaweel/features/screens/market_prices/service/market_prices_service.dart';
 
 class MarketPricesCubit extends BaseCubit<MarketPricesState> {
-  MarketPricesCubit(this._service) : super(MarketPricesInitial());
+  MarketPricesCubit(this._service) : super(  MarketPricesLoaded());
   final MarketPricesService _service;
+
+  // Always holds the latest combined state — used by copyWith
+  MarketPricesLoaded get _current =>
+      state is MarketPricesLoaded ? state as MarketPricesLoaded :   MarketPricesLoaded();
 
   static MarketPricesCubit get({BuildContext? context, bool listen = false}) =>
       BlocProvider.of(context ?? navigatorKey.currentContext!, listen: listen);
@@ -45,11 +49,12 @@ class MarketPricesCubit extends BaseCubit<MarketPricesState> {
         RequestCallbackObserver<CatogeriesRes, NoParameter>(
           baseRequestBackType: requestType.toRequestType(),
           cancelToken: token,
-          onLoadCallback: () => safeEmit(CatogeriesResState(Loading())),
+          onLoadCallback: () =>
+              safeEmit(_current.copyWith(categoriesEmit: Loading())),
           onRightCallback: (data) =>
-              safeEmit(CatogeriesResState(Success(data))),
+              safeEmit(_current.copyWith(categoriesEmit: Success(data))),
           onLeftCallback: (failure) =>
-              safeEmit(CatogeriesResState(ErrorState(failure))),
+              safeEmit(_current.copyWith(categoriesEmit: ErrorState(failure))),
         ),
       );
     });
@@ -57,7 +62,7 @@ class MarketPricesCubit extends BaseCubit<MarketPricesState> {
 
   Future<void> getSubCatogeriesFunc(
     RequestTypeBackV2 requestType, {
-    required SubCatogeriesInput  parameter,
+    required SubCatogeriesInput parameter,
   }) async {
     await CancelManager.runCancelableFun(getSubCatogeriesKeyCode, (
       token,
@@ -67,11 +72,12 @@ class MarketPricesCubit extends BaseCubit<MarketPricesState> {
           baseRequestBackType: requestType.toRequestType(),
           parameter: parameter,
           cancelToken: token,
-          onLoadCallback: () => safeEmit(SubCatogeriesDataState(Loading())),
+          onLoadCallback: () =>
+              safeEmit(_current.copyWith(subCategoriesEmit: Loading())),
           onRightCallback: (data) =>
-              safeEmit(SubCatogeriesDataState(Success(data))),
+              safeEmit(_current.copyWith(subCategoriesEmit: Success(data))),
           onLeftCallback: (failure) =>
-              safeEmit(SubCatogeriesDataState(ErrorState(failure))),
+              safeEmit(_current.copyWith(subCategoriesEmit: ErrorState(failure))),
         ),
       );
     });
