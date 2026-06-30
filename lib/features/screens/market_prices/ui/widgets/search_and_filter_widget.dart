@@ -10,10 +10,11 @@ import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/features/screens/market_prices/data/model/catogeries_res/catogeries_res.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class SearchAndFilterWidget extends StatelessWidget {
-  const SearchAndFilterWidget({super.key, required this.emit, required this.selectedCat});
+class RowCatogeries extends StatelessWidget {
+  const RowCatogeries({super.key, required this.emit, required this.selectedCat});
   final BaseEmit? emit;
   final ValueNotifier<int?>selectedCat;
+
   @override
   Widget build(BuildContext context) {
     bool isLoading= emit is !Success<CatogeriesRes>;

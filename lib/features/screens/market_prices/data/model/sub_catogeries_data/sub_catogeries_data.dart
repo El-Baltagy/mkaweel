@@ -4,56 +4,62 @@ import 'package:equatable/equatable.dart';
 import 'package:mkaweel/features/screens/market_prices/data/model/catogeries_res/catogeries_res.dart';
 
 part 'sub_catogeries_data.freezed.dart';
+
 part 'sub_catogeries_data.g.dart';
 
 @freezed
 class SubCatogeriesData with _$SubCatogeriesData, EquatableMixin {
   const SubCatogeriesData._();
+
   const factory SubCatogeriesData({
     required String status,
     required String message,
-    required List<DataItem> data,
+    required String currency,
+    required List<SubCatogeryItem> data,
   }) = _SubCatogeriesData;
 
-  factory SubCatogeriesData.fromJson(Map<String, dynamic> json) => _$SubCatogeriesDataFromJson(json);
+  factory SubCatogeriesData.fromJson(Map<String, dynamic> json) =>
+      _$SubCatogeriesDataFromJson(json);
 
   @override
-  List<Object?> get props => [
-    status,
-    message,
-    data,
-  ];
-
+  List<Object?> get props => [status, message, currency, data];
 }
 
 @freezed
-class DataItem with _$DataItem, EquatableMixin {
-  const DataItem._();
-  const factory DataItem({
-    required int id,
-    required String code,
-    required String name,
-    required int category_id,
-    required CatogeryItem category,
-    required String unit,
-    required dynamic brand,
-    required String origin_country,
-    required int unit_price,
-    required int selling_price,
-    required dynamic image_path,
-    required String currency,
-    required int current_quantity,
-    required int minimum_quantity,
-    required int reorder_quantity,
-    required String supplier_name,
-    required String supplier_phone,
-    required String status,
-    required bool is_available,
-    required String notes,
-    required String created_at,
-  }) = _DataItem;
+class SubCatogeryItem with _$SubCatogeryItem, EquatableMixin {
+  static SubCatogeryItem toGetEmptyForLoading() {
+    return SubCatogeryItem(id: -1, name: 'cccccccccccccc',
+        category: CatogeryItem.toGetEmptyForLoading(),
+        origin_country: 'syria', unit_price: 1144, created_at: "2026-06-24T19:53:58.000000Z");
+  }
 
-  factory DataItem.fromJson(Map<String, dynamic> json) => _$DataItemFromJson(json);
+  const SubCatogeryItem._();
+
+  const factory SubCatogeryItem({
+    required int id,
+    String? code,
+    required String name,
+    int? category_id,
+    required CatogeryItem category,
+    String? unit,
+    required String origin_country,
+    required double unit_price,
+    double? selling_price,
+    String? image_path,
+    String? currency,
+    int? current_quantity,
+    int? minimum_quantity,
+    int? reorder_quantity,
+    String? supplier_name,
+    String? supplier_phone,
+    String? status,
+    bool? is_available,
+    String? notes,
+    required String created_at,
+  }) = _SubCatogeryItem;
+
+  factory SubCatogeryItem.fromJson(Map<String, dynamic> json) =>
+      _$SubCatogeryItemFromJson(json);
 
   @override
   List<Object?> get props => [
@@ -63,7 +69,6 @@ class DataItem with _$DataItem, EquatableMixin {
     category_id,
     category,
     unit,
-    brand,
     origin_country,
     unit_price,
     selling_price,
@@ -79,5 +84,4 @@ class DataItem with _$DataItem, EquatableMixin {
     notes,
     created_at,
   ];
-
 }

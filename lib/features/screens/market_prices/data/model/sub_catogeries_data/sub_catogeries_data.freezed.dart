@@ -210,25 +210,24 @@ SubCatogeryItem _$SubCatogeryItemFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$SubCatogeryItem {
   int get id => throw _privateConstructorUsedError;
-  String get code => throw _privateConstructorUsedError;
+  String? get code => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  int get category_id => throw _privateConstructorUsedError;
+  int? get category_id => throw _privateConstructorUsedError;
   CatogeryItem get category => throw _privateConstructorUsedError;
-  String get unit => throw _privateConstructorUsedError;
-  dynamic get brand => throw _privateConstructorUsedError;
+  String? get unit => throw _privateConstructorUsedError;
   String get origin_country => throw _privateConstructorUsedError;
   double get unit_price => throw _privateConstructorUsedError;
-  double get selling_price => throw _privateConstructorUsedError;
+  double? get selling_price => throw _privateConstructorUsedError;
   String? get image_path => throw _privateConstructorUsedError;
-  String get currency => throw _privateConstructorUsedError;
-  int get current_quantity => throw _privateConstructorUsedError;
-  int get minimum_quantity => throw _privateConstructorUsedError;
-  int get reorder_quantity => throw _privateConstructorUsedError;
-  String get supplier_name => throw _privateConstructorUsedError;
-  String get supplier_phone => throw _privateConstructorUsedError;
-  String get status => throw _privateConstructorUsedError;
-  bool get is_available => throw _privateConstructorUsedError;
-  String get notes => throw _privateConstructorUsedError;
+  String? get currency => throw _privateConstructorUsedError;
+  int? get current_quantity => throw _privateConstructorUsedError;
+  int? get minimum_quantity => throw _privateConstructorUsedError;
+  int? get reorder_quantity => throw _privateConstructorUsedError;
+  String? get supplier_name => throw _privateConstructorUsedError;
+  String? get supplier_phone => throw _privateConstructorUsedError;
+  String? get status => throw _privateConstructorUsedError;
+  bool? get is_available => throw _privateConstructorUsedError;
+  String? get notes => throw _privateConstructorUsedError;
   String get created_at => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -245,25 +244,24 @@ abstract class $SubCatogeryItemCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      String code,
+      String? code,
       String name,
-      int category_id,
+      int? category_id,
       CatogeryItem category,
-      String unit,
-      dynamic brand,
+      String? unit,
       String origin_country,
       double unit_price,
-      double selling_price,
+      double? selling_price,
       String? image_path,
-      String currency,
-      int current_quantity,
-      int minimum_quantity,
-      int reorder_quantity,
-      String supplier_name,
-      String supplier_phone,
-      String status,
-      bool is_available,
-      String notes,
+      String? currency,
+      int? current_quantity,
+      int? minimum_quantity,
+      int? reorder_quantity,
+      String? supplier_name,
+      String? supplier_phone,
+      String? status,
+      bool? is_available,
+      String? notes,
       String created_at});
 
   $CatogeryItemCopyWith<$Res> get category;
@@ -283,25 +281,24 @@ class _$SubCatogeryItemCopyWithImpl<$Res, $Val extends SubCatogeryItem>
   @override
   $Res call({
     Object? id = null,
-    Object? code = null,
+    Object? code = freezed,
     Object? name = null,
-    Object? category_id = null,
+    Object? category_id = freezed,
     Object? category = null,
-    Object? unit = null,
-    Object? brand = freezed,
+    Object? unit = freezed,
     Object? origin_country = null,
     Object? unit_price = null,
-    Object? selling_price = null,
+    Object? selling_price = freezed,
     Object? image_path = freezed,
-    Object? currency = null,
-    Object? current_quantity = null,
-    Object? minimum_quantity = null,
-    Object? reorder_quantity = null,
-    Object? supplier_name = null,
-    Object? supplier_phone = null,
-    Object? status = null,
-    Object? is_available = null,
-    Object? notes = null,
+    Object? currency = freezed,
+    Object? current_quantity = freezed,
+    Object? minimum_quantity = freezed,
+    Object? reorder_quantity = freezed,
+    Object? supplier_name = freezed,
+    Object? supplier_phone = freezed,
+    Object? status = freezed,
+    Object? is_available = freezed,
+    Object? notes = freezed,
     Object? created_at = null,
   }) {
     return _then(_value.copyWith(
@@ -309,30 +306,26 @@ class _$SubCatogeryItemCopyWithImpl<$Res, $Val extends SubCatogeryItem>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      code: null == code
+      code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      category_id: null == category_id
+      category_id: freezed == category_id
           ? _value.category_id
           : category_id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       category: null == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as CatogeryItem,
-      unit: null == unit
+      unit: freezed == unit
           ? _value.unit
           : unit // ignore: cast_nullable_to_non_nullable
-              as String,
-      brand: freezed == brand
-          ? _value.brand
-          : brand // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String?,
       origin_country: null == origin_country
           ? _value.origin_country
           : origin_country // ignore: cast_nullable_to_non_nullable
@@ -341,50 +334,50 @@ class _$SubCatogeryItemCopyWithImpl<$Res, $Val extends SubCatogeryItem>
           ? _value.unit_price
           : unit_price // ignore: cast_nullable_to_non_nullable
               as double,
-      selling_price: null == selling_price
+      selling_price: freezed == selling_price
           ? _value.selling_price
           : selling_price // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
       image_path: freezed == image_path
           ? _value.image_path
           : image_path // ignore: cast_nullable_to_non_nullable
               as String?,
-      currency: null == currency
+      currency: freezed == currency
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
-              as String,
-      current_quantity: null == current_quantity
+              as String?,
+      current_quantity: freezed == current_quantity
           ? _value.current_quantity
           : current_quantity // ignore: cast_nullable_to_non_nullable
-              as int,
-      minimum_quantity: null == minimum_quantity
+              as int?,
+      minimum_quantity: freezed == minimum_quantity
           ? _value.minimum_quantity
           : minimum_quantity // ignore: cast_nullable_to_non_nullable
-              as int,
-      reorder_quantity: null == reorder_quantity
+              as int?,
+      reorder_quantity: freezed == reorder_quantity
           ? _value.reorder_quantity
           : reorder_quantity // ignore: cast_nullable_to_non_nullable
-              as int,
-      supplier_name: null == supplier_name
+              as int?,
+      supplier_name: freezed == supplier_name
           ? _value.supplier_name
           : supplier_name // ignore: cast_nullable_to_non_nullable
-              as String,
-      supplier_phone: null == supplier_phone
+              as String?,
+      supplier_phone: freezed == supplier_phone
           ? _value.supplier_phone
           : supplier_phone // ignore: cast_nullable_to_non_nullable
-              as String,
-      status: null == status
+              as String?,
+      status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      is_available: null == is_available
+              as String?,
+      is_available: freezed == is_available
           ? _value.is_available
           : is_available // ignore: cast_nullable_to_non_nullable
-              as bool,
-      notes: null == notes
+              as bool?,
+      notes: freezed == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       created_at: null == created_at
           ? _value.created_at
           : created_at // ignore: cast_nullable_to_non_nullable
@@ -411,25 +404,24 @@ abstract class _$$SubCatogeryItemImplCopyWith<$Res>
   @useResult
   $Res call(
       {int id,
-      String code,
+      String? code,
       String name,
-      int category_id,
+      int? category_id,
       CatogeryItem category,
-      String unit,
-      dynamic brand,
+      String? unit,
       String origin_country,
       double unit_price,
-      double selling_price,
+      double? selling_price,
       String? image_path,
-      String currency,
-      int current_quantity,
-      int minimum_quantity,
-      int reorder_quantity,
-      String supplier_name,
-      String supplier_phone,
-      String status,
-      bool is_available,
-      String notes,
+      String? currency,
+      int? current_quantity,
+      int? minimum_quantity,
+      int? reorder_quantity,
+      String? supplier_name,
+      String? supplier_phone,
+      String? status,
+      bool? is_available,
+      String? notes,
       String created_at});
 
   @override
@@ -448,25 +440,24 @@ class __$$SubCatogeryItemImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? code = null,
+    Object? code = freezed,
     Object? name = null,
-    Object? category_id = null,
+    Object? category_id = freezed,
     Object? category = null,
-    Object? unit = null,
-    Object? brand = freezed,
+    Object? unit = freezed,
     Object? origin_country = null,
     Object? unit_price = null,
-    Object? selling_price = null,
+    Object? selling_price = freezed,
     Object? image_path = freezed,
-    Object? currency = null,
-    Object? current_quantity = null,
-    Object? minimum_quantity = null,
-    Object? reorder_quantity = null,
-    Object? supplier_name = null,
-    Object? supplier_phone = null,
-    Object? status = null,
-    Object? is_available = null,
-    Object? notes = null,
+    Object? currency = freezed,
+    Object? current_quantity = freezed,
+    Object? minimum_quantity = freezed,
+    Object? reorder_quantity = freezed,
+    Object? supplier_name = freezed,
+    Object? supplier_phone = freezed,
+    Object? status = freezed,
+    Object? is_available = freezed,
+    Object? notes = freezed,
     Object? created_at = null,
   }) {
     return _then(_$SubCatogeryItemImpl(
@@ -474,30 +465,26 @@ class __$$SubCatogeryItemImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      code: null == code
+      code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      category_id: null == category_id
+      category_id: freezed == category_id
           ? _value.category_id
           : category_id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       category: null == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as CatogeryItem,
-      unit: null == unit
+      unit: freezed == unit
           ? _value.unit
           : unit // ignore: cast_nullable_to_non_nullable
-              as String,
-      brand: freezed == brand
-          ? _value.brand
-          : brand // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String?,
       origin_country: null == origin_country
           ? _value.origin_country
           : origin_country // ignore: cast_nullable_to_non_nullable
@@ -506,50 +493,50 @@ class __$$SubCatogeryItemImplCopyWithImpl<$Res>
           ? _value.unit_price
           : unit_price // ignore: cast_nullable_to_non_nullable
               as double,
-      selling_price: null == selling_price
+      selling_price: freezed == selling_price
           ? _value.selling_price
           : selling_price // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
       image_path: freezed == image_path
           ? _value.image_path
           : image_path // ignore: cast_nullable_to_non_nullable
               as String?,
-      currency: null == currency
+      currency: freezed == currency
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
-              as String,
-      current_quantity: null == current_quantity
+              as String?,
+      current_quantity: freezed == current_quantity
           ? _value.current_quantity
           : current_quantity // ignore: cast_nullable_to_non_nullable
-              as int,
-      minimum_quantity: null == minimum_quantity
+              as int?,
+      minimum_quantity: freezed == minimum_quantity
           ? _value.minimum_quantity
           : minimum_quantity // ignore: cast_nullable_to_non_nullable
-              as int,
-      reorder_quantity: null == reorder_quantity
+              as int?,
+      reorder_quantity: freezed == reorder_quantity
           ? _value.reorder_quantity
           : reorder_quantity // ignore: cast_nullable_to_non_nullable
-              as int,
-      supplier_name: null == supplier_name
+              as int?,
+      supplier_name: freezed == supplier_name
           ? _value.supplier_name
           : supplier_name // ignore: cast_nullable_to_non_nullable
-              as String,
-      supplier_phone: null == supplier_phone
+              as String?,
+      supplier_phone: freezed == supplier_phone
           ? _value.supplier_phone
           : supplier_phone // ignore: cast_nullable_to_non_nullable
-              as String,
-      status: null == status
+              as String?,
+      status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      is_available: null == is_available
+              as String?,
+      is_available: freezed == is_available
           ? _value.is_available
           : is_available // ignore: cast_nullable_to_non_nullable
-              as bool,
-      notes: null == notes
+              as bool?,
+      notes: freezed == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       created_at: null == created_at
           ? _value.created_at
           : created_at // ignore: cast_nullable_to_non_nullable
@@ -563,25 +550,24 @@ class __$$SubCatogeryItemImplCopyWithImpl<$Res>
 class _$SubCatogeryItemImpl extends _SubCatogeryItem {
   const _$SubCatogeryItemImpl(
       {required this.id,
-      required this.code,
+      this.code,
       required this.name,
-      required this.category_id,
+      this.category_id,
       required this.category,
-      required this.unit,
-      required this.brand,
+      this.unit,
       required this.origin_country,
       required this.unit_price,
-      required this.selling_price,
-      required this.image_path,
-      required this.currency,
-      required this.current_quantity,
-      required this.minimum_quantity,
-      required this.reorder_quantity,
-      required this.supplier_name,
-      required this.supplier_phone,
-      required this.status,
-      required this.is_available,
-      required this.notes,
+      this.selling_price,
+      this.image_path,
+      this.currency,
+      this.current_quantity,
+      this.minimum_quantity,
+      this.reorder_quantity,
+      this.supplier_name,
+      this.supplier_phone,
+      this.status,
+      this.is_available,
+      this.notes,
       required this.created_at})
       : super._();
 
@@ -591,43 +577,41 @@ class _$SubCatogeryItemImpl extends _SubCatogeryItem {
   @override
   final int id;
   @override
-  final String code;
+  final String? code;
   @override
   final String name;
   @override
-  final int category_id;
+  final int? category_id;
   @override
   final CatogeryItem category;
   @override
-  final String unit;
-  @override
-  final dynamic brand;
+  final String? unit;
   @override
   final String origin_country;
   @override
   final double unit_price;
   @override
-  final double selling_price;
+  final double? selling_price;
   @override
   final String? image_path;
   @override
-  final String currency;
+  final String? currency;
   @override
-  final int current_quantity;
+  final int? current_quantity;
   @override
-  final int minimum_quantity;
+  final int? minimum_quantity;
   @override
-  final int reorder_quantity;
+  final int? reorder_quantity;
   @override
-  final String supplier_name;
+  final String? supplier_name;
   @override
-  final String supplier_phone;
+  final String? supplier_phone;
   @override
-  final String status;
+  final String? status;
   @override
-  final bool is_available;
+  final bool? is_available;
   @override
-  final String notes;
+  final String? notes;
   @override
   final String created_at;
 
@@ -649,25 +633,24 @@ class _$SubCatogeryItemImpl extends _SubCatogeryItem {
 abstract class _SubCatogeryItem extends SubCatogeryItem {
   const factory _SubCatogeryItem(
       {required final int id,
-      required final String code,
+      final String? code,
       required final String name,
-      required final int category_id,
+      final int? category_id,
       required final CatogeryItem category,
-      required final String unit,
-      required final dynamic brand,
+      final String? unit,
       required final String origin_country,
       required final double unit_price,
-      required final double selling_price,
-      required final String? image_path,
-      required final String currency,
-      required final int current_quantity,
-      required final int minimum_quantity,
-      required final int reorder_quantity,
-      required final String supplier_name,
-      required final String supplier_phone,
-      required final String status,
-      required final bool is_available,
-      required final String notes,
+      final double? selling_price,
+      final String? image_path,
+      final String? currency,
+      final int? current_quantity,
+      final int? minimum_quantity,
+      final int? reorder_quantity,
+      final String? supplier_name,
+      final String? supplier_phone,
+      final String? status,
+      final bool? is_available,
+      final String? notes,
       required final String created_at}) = _$SubCatogeryItemImpl;
   const _SubCatogeryItem._() : super._();
 
@@ -677,43 +660,41 @@ abstract class _SubCatogeryItem extends SubCatogeryItem {
   @override
   int get id;
   @override
-  String get code;
+  String? get code;
   @override
   String get name;
   @override
-  int get category_id;
+  int? get category_id;
   @override
   CatogeryItem get category;
   @override
-  String get unit;
-  @override
-  dynamic get brand;
+  String? get unit;
   @override
   String get origin_country;
   @override
   double get unit_price;
   @override
-  double get selling_price;
+  double? get selling_price;
   @override
   String? get image_path;
   @override
-  String get currency;
+  String? get currency;
   @override
-  int get current_quantity;
+  int? get current_quantity;
   @override
-  int get minimum_quantity;
+  int? get minimum_quantity;
   @override
-  int get reorder_quantity;
+  int? get reorder_quantity;
   @override
-  String get supplier_name;
+  String? get supplier_name;
   @override
-  String get supplier_phone;
+  String? get supplier_phone;
   @override
-  String get status;
+  String? get status;
   @override
-  bool get is_available;
+  bool? get is_available;
   @override
-  String get notes;
+  String? get notes;
   @override
   String get created_at;
   @override

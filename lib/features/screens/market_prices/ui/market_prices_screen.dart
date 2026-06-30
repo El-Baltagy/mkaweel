@@ -81,7 +81,7 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
                 BlocSelector<MarketPricesCubit, MarketPricesState, BaseEmit?>(
                   selector: (state) =>
                       state is MarketPricesLoaded ? state.categoriesEmit : null,
-                  builder: (context, emit) => SearchAndFilterWidget(
+                  builder: (context, emit) => RowCatogeries(
                     selectedCat: selectedCatIdNotifier,
                     emit: emit,
                   ),
@@ -90,38 +90,10 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
                 20.verticalSpace,
                 BlocSelector<MarketPricesCubit, MarketPricesState, BaseEmit?>(
                   selector: (state) => state is MarketPricesLoaded
-                      ? state.subCategoriesEmit
-                      : null,
-                  builder: (context, emit) {
-                    // ── 1. Initial / not yet loaded ──────────────────────
-                    if (emit == null) return const SizedBox.shrink();
-
-                    // ── 2. Loading ───────────────────────────────────────
-                    if (emit is Loading) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-
-                    // ── 3. Error ─────────────────────────────────────────
-                    if (emit is ErrorState) {
-                      return Text(emit.failure.toString());
-                    }
-
-                    // ── 4. Success — data IS SubCatogeriesData ───────────
-                    if (emit is Success<SubCatogeriesData>) {
-                      final List<SubCatogeryItem> items = emit.data?.data ?? [];
-                      return Column(
-                        children: items
-                            .map(
-                              (item) => PriceItemWidget(
-                                subCatogeryItem: item
-                              ),
-                            )
-                            .toList(),
-                      );
-                    }
-
-                    return const SizedBox.shrink();
-                  },
+                      ? state.subCategoriesEmit : null,
+                  builder: (context, emit) =>SubCatogeries(
+                      emit: emit
+                  ),
                 ),
               ],
             ),
