@@ -12,4 +12,6 @@ abstract class AppConstant {
   static const int getCatogeriesKeyCode = 2589;
   static const String getSubCatogeriesKeyCash = 'market_prices_getSubCatogeries_cache';
   static const int getSubCatogeriesKeyCode = 9764;
+  static const String logoutKeyCash = 'settings_logout_cache';
+  static const int logoutKeyCode = 8255;
 }

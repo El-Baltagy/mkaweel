@@ -7,11 +7,12 @@ import 'package:mkaweel/core/theming/theme_cubit.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
+import 'package:mkaweel/features/screens/settings/controller/settings_cubit.dart';
 import 'package:mkaweel/features/screens/settings/ui/widgets/lang_sheet.dart';
 
 class SettingsListWidget extends StatefulWidget {
-  const SettingsListWidget({super.key});
-
+  const SettingsListWidget({super.key, required this.settingsCubit});
+  final SettingsCubit settingsCubit ;
   @override
   State<SettingsListWidget> createState() => _SettingsListWidgetState();
 }
@@ -113,7 +114,7 @@ class _SettingsListWidgetState extends State<SettingsListWidget> {
           SizedBox(
             width: double.infinity,
             child: OutlinedButton(
-              onPressed: () =>context.pushAndPopUntil( const LoginRoute(), predicate: (Route<dynamic> route)=>false),
+              onPressed: () async=>await widget.settingsCubit.logoutFunc(.reload),
               style: OutlinedButton.styleFrom(
                 side:   BorderSide(color: context.theme.colorScheme.secondary),
                 padding: const EdgeInsets.symmetric(vertical: AppPadding.p16),

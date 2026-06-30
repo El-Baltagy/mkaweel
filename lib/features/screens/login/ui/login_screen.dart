@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -139,6 +140,10 @@ abstract class LoginPageBaseState extends State<LoginPage> {
   void initState() {
     super.initState();
     argData = LoginCubit.get(context: context);
+    if(kDebugMode){
+      phoneController.text='admin@themesbrand.com';
+      passwordController.text='123456';
+    }
   }
 
   @override

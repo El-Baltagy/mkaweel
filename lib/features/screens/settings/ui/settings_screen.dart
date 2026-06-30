@@ -2,11 +2,15 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mkaweel/core/app/route.dart';
+import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
+import 'package:mkaweel/core/storage/storage_helper.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/features/screens/settings/controller/settings_cubit.dart';
 import 'package:mkaweel/features/screens/settings/controller/settings_state.dart';
+import 'package:mkaweel/features/screens/settings/data/model/logout_res/logout_res.dart';
 import 'package:mkaweel/features/screens/settings/ui/widgets/settings_list_widget.dart';
 import 'package:mkaweel/core/extension/context.dart';
 
@@ -30,7 +34,7 @@ class _SettingsPageState extends SettingsPageBaseState {
   @override
   Widget build(BuildContext context) {
     return BlocListener<SettingsCubit, SettingsState>(
-      listener: (context, state) {},
+      listener: settingListener,
       child: Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         appBar: AppBar(
@@ -45,25 +49,44 @@ class _SettingsPageState extends SettingsPageBaseState {
           centerTitle: true,
           automaticallyImplyLeading: false,
         ),
-        body: const SingleChildScrollView(
-          child: SettingsListWidget(),
+        body:   SingleChildScrollView(
+          child: SettingsListWidget(settingsCubit:settingsCubit),
         ),
       ),
     );
   }
+
+
 }
 
 abstract class SettingsPageBaseState extends State<SettingsPage> {
-  late final SettingsCubit argData;
+  late final SettingsCubit settingsCubit;
 
   @override
   void initState() {
     super.initState();
-    argData = SettingsCubit.get(context: context);
+    settingsCubit = SettingsCubit.get(context: context);
   }
 
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void settingListener(BuildContext context,SettingsState state) {
+
+    if(state is LogoutResState){
+      if(state.baseEmit  is Success<LogoutRes>) {
+        final LogoutRes data=(state.baseEmit as Success<LogoutRes>).data!;
+        context.showToast(
+            data.message
+        );
+          StorageHelper.deleteUserData().whenComplete(() {
+            context.pushAndPopUntil( const LoginRoute(), predicate: (Route<dynamic> route)=>false);
+          },);
+      }
+
+    }
+
   }
 }

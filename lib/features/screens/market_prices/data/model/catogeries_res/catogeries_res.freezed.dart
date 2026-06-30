@@ -23,7 +23,6 @@ mixin _$CatogeriesRes {
   String get status => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
   List<CatogeryItem> get data => throw _privateConstructorUsedError;
-  Pagination get pagination => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,13 +36,7 @@ abstract class $CatogeriesResCopyWith<$Res> {
           CatogeriesRes value, $Res Function(CatogeriesRes) then) =
       _$CatogeriesResCopyWithImpl<$Res, CatogeriesRes>;
   @useResult
-  $Res call(
-      {String status,
-      String message,
-      List<CatogeryItem> data,
-      Pagination pagination});
-
-  $PaginationCopyWith<$Res> get pagination;
+  $Res call({String status, String message, List<CatogeryItem> data});
 }
 
 /// @nodoc
@@ -62,7 +55,6 @@ class _$CatogeriesResCopyWithImpl<$Res, $Val extends CatogeriesRes>
     Object? status = null,
     Object? message = null,
     Object? data = null,
-    Object? pagination = null,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -77,19 +69,7 @@ class _$CatogeriesResCopyWithImpl<$Res, $Val extends CatogeriesRes>
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as List<CatogeryItem>,
-      pagination: null == pagination
-          ? _value.pagination
-          : pagination // ignore: cast_nullable_to_non_nullable
-              as Pagination,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $PaginationCopyWith<$Res> get pagination {
-    return $PaginationCopyWith<$Res>(_value.pagination, (value) {
-      return _then(_value.copyWith(pagination: value) as $Val);
-    });
   }
 }
 
@@ -101,14 +81,7 @@ abstract class _$$CatogeriesResImplCopyWith<$Res>
       __$$CatogeriesResImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String status,
-      String message,
-      List<CatogeryItem> data,
-      Pagination pagination});
-
-  @override
-  $PaginationCopyWith<$Res> get pagination;
+  $Res call({String status, String message, List<CatogeryItem> data});
 }
 
 /// @nodoc
@@ -125,7 +98,6 @@ class __$$CatogeriesResImplCopyWithImpl<$Res>
     Object? status = null,
     Object? message = null,
     Object? data = null,
-    Object? pagination = null,
   }) {
     return _then(_$CatogeriesResImpl(
       status: null == status
@@ -140,10 +112,6 @@ class __$$CatogeriesResImplCopyWithImpl<$Res>
           ? _value._data
           : data // ignore: cast_nullable_to_non_nullable
               as List<CatogeryItem>,
-      pagination: null == pagination
-          ? _value.pagination
-          : pagination // ignore: cast_nullable_to_non_nullable
-              as Pagination,
     ));
   }
 }
@@ -154,8 +122,7 @@ class _$CatogeriesResImpl extends _CatogeriesRes {
   const _$CatogeriesResImpl(
       {required this.status,
       required this.message,
-      required final List<CatogeryItem> data,
-      required this.pagination})
+      required final List<CatogeryItem> data})
       : _data = data,
         super._();
 
@@ -173,9 +140,6 @@ class _$CatogeriesResImpl extends _CatogeriesRes {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_data);
   }
-
-  @override
-  final Pagination pagination;
 
   @JsonKey(ignore: true)
   @override
@@ -195,8 +159,7 @@ abstract class _CatogeriesRes extends CatogeriesRes {
   const factory _CatogeriesRes(
       {required final String status,
       required final String message,
-      required final List<CatogeryItem> data,
-      required final Pagination pagination}) = _$CatogeriesResImpl;
+      required final List<CatogeryItem> data}) = _$CatogeriesResImpl;
   const _CatogeriesRes._() : super._();
 
   factory _CatogeriesRes.fromJson(Map<String, dynamic> json) =
@@ -208,8 +171,6 @@ abstract class _CatogeriesRes extends CatogeriesRes {
   String get message;
   @override
   List<CatogeryItem> get data;
-  @override
-  Pagination get pagination;
   @override
   @JsonKey(ignore: true)
   _$$CatogeriesResImplCopyWith<_$CatogeriesResImpl> get copyWith =>
@@ -224,7 +185,7 @@ CatogeryItem _$CatogeryItemFromJson(Map<String, dynamic> json) {
 mixin _$CatogeryItem {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  dynamic get image_path => throw _privateConstructorUsedError;
+  String? get image_path => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   bool get is_active => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
@@ -246,7 +207,7 @@ abstract class $CatogeryItemCopyWith<$Res> {
   $Res call(
       {int id,
       String name,
-      dynamic image_path,
+      String? image_path,
       String description,
       bool is_active,
       String type,
@@ -288,7 +249,7 @@ class _$CatogeryItemCopyWithImpl<$Res, $Val extends CatogeryItem>
       image_path: freezed == image_path
           ? _value.image_path
           : image_path // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String?,
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -324,7 +285,7 @@ abstract class _$$CatogeryItemImplCopyWith<$Res>
   $Res call(
       {int id,
       String name,
-      dynamic image_path,
+      String? image_path,
       String description,
       bool is_active,
       String type,
@@ -364,7 +325,7 @@ class __$$CatogeryItemImplCopyWithImpl<$Res>
       image_path: freezed == image_path
           ? _value.image_path
           : image_path // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String?,
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -411,7 +372,7 @@ class _$CatogeryItemImpl extends _CatogeryItem {
   @override
   final String name;
   @override
-  final dynamic image_path;
+  final String? image_path;
   @override
   final String description;
   @override
@@ -441,7 +402,7 @@ abstract class _CatogeryItem extends CatogeryItem {
   const factory _CatogeryItem(
       {required final int id,
       required final String name,
-      required final dynamic image_path,
+      required final String? image_path,
       required final String description,
       required final bool is_active,
       required final String type,
@@ -457,7 +418,7 @@ abstract class _CatogeryItem extends CatogeryItem {
   @override
   String get name;
   @override
-  dynamic get image_path;
+  String? get image_path;
   @override
   String get description;
   @override
@@ -471,162 +432,5 @@ abstract class _CatogeryItem extends CatogeryItem {
   @override
   @JsonKey(ignore: true)
   _$$CatogeryItemImplCopyWith<_$CatogeryItemImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-Pagination _$PaginationFromJson(Map<String, dynamic> json) {
-  return _Pagination.fromJson(json);
-}
-
-/// @nodoc
-mixin _$Pagination {
-  int get current_page => throw _privateConstructorUsedError;
-  int get last_page => throw _privateConstructorUsedError;
-  int get total => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $PaginationCopyWith<Pagination> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $PaginationCopyWith<$Res> {
-  factory $PaginationCopyWith(
-          Pagination value, $Res Function(Pagination) then) =
-      _$PaginationCopyWithImpl<$Res, Pagination>;
-  @useResult
-  $Res call({int current_page, int last_page, int total});
-}
-
-/// @nodoc
-class _$PaginationCopyWithImpl<$Res, $Val extends Pagination>
-    implements $PaginationCopyWith<$Res> {
-  _$PaginationCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? current_page = null,
-    Object? last_page = null,
-    Object? total = null,
-  }) {
-    return _then(_value.copyWith(
-      current_page: null == current_page
-          ? _value.current_page
-          : current_page // ignore: cast_nullable_to_non_nullable
-              as int,
-      last_page: null == last_page
-          ? _value.last_page
-          : last_page // ignore: cast_nullable_to_non_nullable
-              as int,
-      total: null == total
-          ? _value.total
-          : total // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$PaginationImplCopyWith<$Res>
-    implements $PaginationCopyWith<$Res> {
-  factory _$$PaginationImplCopyWith(
-          _$PaginationImpl value, $Res Function(_$PaginationImpl) then) =
-      __$$PaginationImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({int current_page, int last_page, int total});
-}
-
-/// @nodoc
-class __$$PaginationImplCopyWithImpl<$Res>
-    extends _$PaginationCopyWithImpl<$Res, _$PaginationImpl>
-    implements _$$PaginationImplCopyWith<$Res> {
-  __$$PaginationImplCopyWithImpl(
-      _$PaginationImpl _value, $Res Function(_$PaginationImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? current_page = null,
-    Object? last_page = null,
-    Object? total = null,
-  }) {
-    return _then(_$PaginationImpl(
-      current_page: null == current_page
-          ? _value.current_page
-          : current_page // ignore: cast_nullable_to_non_nullable
-              as int,
-      last_page: null == last_page
-          ? _value.last_page
-          : last_page // ignore: cast_nullable_to_non_nullable
-              as int,
-      total: null == total
-          ? _value.total
-          : total // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$PaginationImpl extends _Pagination {
-  const _$PaginationImpl(
-      {required this.current_page,
-      required this.last_page,
-      required this.total})
-      : super._();
-
-  factory _$PaginationImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PaginationImplFromJson(json);
-
-  @override
-  final int current_page;
-  @override
-  final int last_page;
-  @override
-  final int total;
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PaginationImplCopyWith<_$PaginationImpl> get copyWith =>
-      __$$PaginationImplCopyWithImpl<_$PaginationImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PaginationImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _Pagination extends Pagination {
-  const factory _Pagination(
-      {required final int current_page,
-      required final int last_page,
-      required final int total}) = _$PaginationImpl;
-  const _Pagination._() : super._();
-
-  factory _Pagination.fromJson(Map<String, dynamic> json) =
-      _$PaginationImpl.fromJson;
-
-  @override
-  int get current_page;
-  @override
-  int get last_page;
-  @override
-  int get total;
-  @override
-  @JsonKey(ignore: true)
-  _$$PaginationImplCopyWith<_$PaginationImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

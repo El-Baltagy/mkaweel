@@ -66,7 +66,7 @@ class AuthGuard extends AutoRouteGuard {
         resolver.next();
       }
     } else {
-      if (!StorageHelper.hasViewedOnboarding) {
+      if (!StorageHelper.hasViewedOnboarding&&false) {
         if (resolver.route.name == OnboardingRoute.name) {
           resolver.next();
         } else {

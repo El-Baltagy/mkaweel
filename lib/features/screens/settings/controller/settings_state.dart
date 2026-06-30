@@ -1,3 +1,4 @@
+import 'package:mkaweel/core/base/base_state.dart';
 
 import 'package:flutter/material.dart';
 
@@ -5,3 +6,8 @@ import 'package:flutter/material.dart';
 abstract class SettingsState {}
 
 class SettingsInitial extends SettingsState {}
+
+class LogoutResState extends SettingsState {
+  final BaseEmit baseEmit;
+  LogoutResState(this.baseEmit);
+}

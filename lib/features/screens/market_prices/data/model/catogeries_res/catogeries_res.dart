@@ -12,7 +12,6 @@ class CatogeriesRes with _$CatogeriesRes, EquatableMixin {
     required String status,
     required String message,
     required List<CatogeryItem> data,
-    required Pagination pagination,
   }) = _CatogeriesRes;
 
   factory CatogeriesRes.fromJson(Map<String, dynamic> json) => _$CatogeriesResFromJson(json);
@@ -22,7 +21,6 @@ class CatogeriesRes with _$CatogeriesRes, EquatableMixin {
     status,
     message,
     data,
-    pagination,
   ];
 
 }
@@ -33,13 +31,13 @@ class CatogeryItem with _$CatogeryItem, EquatableMixin {
   const factory CatogeryItem({
     required int id,
     required String name,
-    required dynamic image_path,
+    required String? image_path,
     required String description,
     required bool is_active,
     required String type,
-    required int?  construction_materials_count,
+    required int? construction_materials_count,
     required String created_at,
-  }) = _CatogeryItem;
+   }) = _CatogeryItem;
 
   factory CatogeryItem.fromJson(Map<String, dynamic> json) => _$CatogeryItemFromJson(json);
 
@@ -53,27 +51,7 @@ class CatogeryItem with _$CatogeryItem, EquatableMixin {
     type,
     construction_materials_count,
     created_at,
-  ];
-
-}
-
-@freezed
-class Pagination with _$Pagination, EquatableMixin {
-  const Pagination._();
-  const factory Pagination({
-    required int current_page,
-    required int last_page,
-    required int total,
-  }) = _Pagination;
-
-  factory Pagination.fromJson(Map<String, dynamic> json) => _$PaginationFromJson(json);
-
-  @override
-  List<Object?> get props => [
-    current_page,
-    last_page,
-    total,
-  ];
+   ];
 
 }
 

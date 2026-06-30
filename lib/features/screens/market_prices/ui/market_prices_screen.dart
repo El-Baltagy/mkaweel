@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
@@ -49,6 +50,11 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
               onPressed: () {},
             ),
           ),
+          floatingActionButton: kDebugMode?
+              FloatingActionButton(onPressed: () {
+                _loadData();
+              },)
+              :null,
           body: SingleChildScrollView(
             padding: const EdgeInsets.all(AppPadding.p16),
             child: Column(
@@ -91,24 +97,33 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
 
 }
 
-abstract class  MarketPricesPageBaseState extends State<MarketPricesPage> {
+abstract class MarketPricesPageBaseState extends State<MarketPricesPage>
+    with AutoRouteAwareStateMixin<MarketPricesPage> {
   late final MarketPricesCubit argData;
-  
+
   @override
   void initState() {
-    argData = MarketPricesCubit.get(context: context);
-    argData.getcatogeriesFunc(.init);
-    argData.getSubCatogeriesFunc(.init,parameter: .new(1));
     super.initState();
+    debugPrint(".................................");
+    argData = MarketPricesCubit.get(context: context);
+    _loadData();
+  }
+
+
+
+  void _loadData() {
+    debugPrint("loading data................");
+    argData.getCatogeriesFunc(.reload);
+    argData.getSubCatogeriesFunc(.reload, parameter: .new(1));
   }
 
   @override
   void dispose() {
-    super.dispose();
     argData.close();
+    super.dispose();
   }
 
-  void listenerPricesCubit(BuildContext context,MarketPricesState state) {
+  void listenerPricesCubit(BuildContext context, MarketPricesState state) {
     // TODO: implement listener
   }
 }
