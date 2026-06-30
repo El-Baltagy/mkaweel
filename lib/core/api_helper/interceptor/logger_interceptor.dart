@@ -22,6 +22,8 @@ class LoggerInterceptor extends Interceptor {
           ? '\n   └─ Query   : ${options.queryParameters}'
           : '';
 
+      final caller = options.extra['caller'] as String?;
+
       _log.loggerPrint(
         '🌐 SENDING REQUEST............. \n'
         '   └─ Method  : ${options.method}\n'
@@ -31,6 +33,7 @@ class LoggerInterceptor extends Interceptor {
         LoggerType.warning,
         'HTTP',
         -1,
+        caller,
       );
     }
     handler.next(options);
@@ -41,6 +44,8 @@ class LoggerInterceptor extends Interceptor {
     if (kDebugMode) {
       final raw = response.data?.toString() ?? '';
       final preview = raw.length > 500 ? '${raw.substring(0, 500)}...' : raw;
+      
+      final caller = response.requestOptions.extra['caller'] as String?;
 
       _log.loggerPrint(
         '✅ [RESPONSE]\n'
@@ -51,6 +56,7 @@ class LoggerInterceptor extends Interceptor {
         LoggerType.info,
         'HTTP',
         -1,
+        caller,
       );
     }
     handler.next(response);
@@ -59,6 +65,8 @@ class LoggerInterceptor extends Interceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
     if (kDebugMode) {
+      final caller = err.requestOptions.extra['caller'] as String?;
+      
       _log.loggerPrint(
         '💥 [ERROR]\n'
         '   └─ Method  : ${err.requestOptions.method}\n'
@@ -69,6 +77,7 @@ class LoggerInterceptor extends Interceptor {
         LoggerType.error,
         'HTTP',
         -1,
+        caller,
       );
     }
     handler.next(err);

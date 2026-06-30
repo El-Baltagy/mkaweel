@@ -1,6 +1,8 @@
+import 'package:mkaweel/core/api_helper/caller_tag.dart';
+
 abstract class BaseRepo {
   // void init();
-
+  String getTag ()=> callerTag(); // captured synchronously — always correct
 }
 
 // class ApiService {

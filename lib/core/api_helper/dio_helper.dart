@@ -37,6 +37,7 @@ class DioHelper {
     CancelToken? cancelToken,
     Map<String, dynamic>? query,
     Map<String, dynamic>? headers,
+    String? caller,
   }) async {
     final res = await _dio.get(
       uri,
@@ -45,6 +46,7 @@ class DioHelper {
       options: Options(
         responseType: ResponseType.plain,
         headers: headers,
+        extra: {'caller': caller},
       ),
     );
     return res.data;
@@ -56,6 +58,7 @@ class DioHelper {
     dynamic data,
     Map<String, dynamic>? query,
     Map<String, dynamic>? headers,
+    String? caller,
   }) async {
     final res = await _dio.post(
       uri,
@@ -65,6 +68,7 @@ class DioHelper {
       options: Options(
         responseType: ResponseType.plain,
         headers: headers,
+        extra: {'caller': caller},
       ),
     );
     return res.data;
@@ -76,6 +80,7 @@ class DioHelper {
     dynamic data,
     Map<String, dynamic>? query,
     Map<String, dynamic>? headers,
+    String? caller,
   }) async {
     final res = await _dio.delete(
       uri,
@@ -85,6 +90,7 @@ class DioHelper {
       options: Options(
         responseType: ResponseType.plain,
         headers: headers,
+        extra: {'caller': caller},
       ),
     );
     return res.data;

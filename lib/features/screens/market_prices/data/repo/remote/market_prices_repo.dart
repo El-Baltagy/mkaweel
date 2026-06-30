@@ -21,12 +21,13 @@ class MarketPricesRepo extends BaseRepo {
     NoParameter? parameter, {
     CancelToken? cancelToken,
   }) async {
-    final tag = callerTag(); // captured synchronously — always correct
-    return handleResponse(
+    final tag = getTag();
+     return handleResponse(
       caller: tag,
       onCallData: dio.getData(
         uri: EndPoints.getCatogeries,
         cancelToken: cancelToken,
+        caller: tag,
       ),
       asObject: CatogeriesRes.fromJson,
     );
@@ -36,7 +37,7 @@ class MarketPricesRepo extends BaseRepo {
     SubCatogeriesInput? parameter, {
     CancelToken? cancelToken,
   }) async {
-    final tag = callerTag(); // captured synchronously — always correct
+    final tag = getTag();
     return handleResponse(
       caller: tag,
       onCallData: dio.getData(
@@ -44,6 +45,7 @@ class MarketPricesRepo extends BaseRepo {
             ? EndPoints.getAllSubCatogeries
             : EndPoints.getSubCatogeriesById(parameter.id),
         cancelToken: cancelToken,
+        caller: tag,
       ),
       asObject: SubCatogeriesData.fromJson,
     );

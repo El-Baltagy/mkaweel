@@ -20,11 +20,16 @@ String _resolveFrame(StackTrace stack, int skip) {
     // skip=1 → skip callerTag() itself, land on the actual caller
     for (int i = skip; i < lines.length; i++) {
       final line = lines[i];
-      if (line.contains('/lib/') && line.contains('.dart')) {
+      if (line.contains('.dart')) {
+        // Dart stack trace lines usually look like:
+        // #1      ClassName.methodName (package:app/path/file.dart:10:5)
+        // This regex extracts "package:app/path/file.dart:10:5"
         final pathMatch =
-            RegExp(r'(package:[^ ]+|/[^ ]+\.dart)').firstMatch(line);
+            RegExp(r'\((package:[^)]+|\w+://[^)]+|/[^)]+\.dart[^)]*)\)').firstMatch(line) ??
+            RegExp(r'(package:[^\s]+|\w+://[^\s]+|/[^\s]+\.dart[^\s]*)').firstMatch(line);
+
         final methodMatch =
-            RegExp(r' ([A-Za-z0-9_.<>]+)\(').firstMatch(line);
+            RegExp(r'#\d+\s+([^\s]+)\s+').firstMatch(line);
 
         final filePath = pathMatch != null
             ? pathMatch
@@ -34,7 +39,9 @@ String _resolveFrame(StackTrace stack, int skip) {
             : 'unknown_file.dart';
 
         final method = methodMatch?.group(1) ?? 'unknown_method';
-        return '$filePath → $method()';
+        
+        // Outputting exactly this format makes it clickable in VS Code/Android Studio
+        return '$filePath → $method';
       }
     }
     return 'unknown caller';
