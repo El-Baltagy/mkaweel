@@ -17,7 +17,7 @@ Future<void> runCommandBuild(List<String> args, Spinner spinner) async {
   final outFile = File('${outDir.path}/$fileName.dart');
 
   if (!await outFile.exists()) {
-    spinner.stop('Error: File ${outFile.path} does not exist! Please run create_entity.dart first.');
+    spinner.stop('Error: File ${outFile.path} does not exist! Please run 1-create_entity.dart first.');
     exit(1);
   }
 //SubCatogeriesData
@@ -69,13 +69,13 @@ Future<void> runCommandBuild(List<String> args, Spinner spinner) async {
 }
 
 /// Allows running this script directly from the terminal for an existing class
-/// Example: dart run lib/core/tools/model_creation/run_command_build.dart RootClassName ScreenName
+/// Example: dart run lib/core/tools/model_creation/2-run_commands_build.dart RootClassName ScreenName
 Future<void> main(List<String> args) async {
   final spinner = Spinner('⚙️ Running Build Runner...');
   spinner.start();
   
   if (args.length < 2) {
-    spinner.stop('Usage: dart run run_command_build.dart <ClassName> <ScreenName>');
+    spinner.stop('Usage: dart run 2-run_commands_build.dart <ClassName> <ScreenName>');
     exit(1);
   }
   

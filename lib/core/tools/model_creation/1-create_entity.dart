@@ -10,7 +10,7 @@ import 'dart:convert';
 import 'dart:io';
 import '../create_auto_files/path_constants.dart';
 import '../utils_spinner.dart';
-import 'run_command_build.dart';
+import '2-run_commands_build.dart';
 
 String capitalize(String s) => s.isEmpty ? s : s[0].toUpperCase() + s.substring(1);
 String classNameFromKey(String key) {

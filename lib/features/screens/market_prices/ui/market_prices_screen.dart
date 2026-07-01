@@ -11,6 +11,7 @@ import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
+import 'package:mkaweel/features/screens/market_prices/data/model/currency_data.dart';
 import 'package:mkaweel/features/screens/market_prices/data/model/sub_catogeries_data/sub_catogeries_data.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/exchange_rate_widget.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/currency_tabs_widget.dart';
@@ -72,8 +73,15 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
             padding: const EdgeInsets.all(AppPadding.p16),
             child: Column(
               children: [
-                const ExchangeRateWidget(),
-                16.verticalSpace,
+                BlocSelector<MarketPricesCubit, MarketPricesState, BaseEmit?>(
+                  selector: (state) =>
+                  state is MarketPricesLoaded ? state.exchangeRate : null,
+                  builder: (context, emit) =>    ExchangeRateWidget(
+                     emit: emit,
+                    currencyTabNotifier: currencyTabNotifier,
+                  ),
+                ),
+                 16.verticalSpace,
                 CurrencyTabsWidget(currencyTabNotifier: currencyTabNotifier),
                 16.verticalSpace,
                 const TextInputFilter(),
@@ -116,7 +124,7 @@ abstract class MarketPricesPageBaseState extends State<MarketPricesPage>
     debugPrint("...................");
      argData.getSubCatogeriesFunc(
       .reload,
-      parameter: .new(selectedCatIdNotifier.value!,currencyTabNotifier.value.symbol),
+      parameter: .new(selectedCatIdNotifier.value!,currencyTabNotifier.value.shortcut),
     );
   }
   void _listenerCurrencyNotfieir() {
@@ -138,7 +146,7 @@ abstract class MarketPricesPageBaseState extends State<MarketPricesPage>
     argData.getCatogeriesFunc(.reload);
     argData.getSubCatogeriesFunc(
       .reload,
-      parameter: .new(selectedCatIdNotifier.value!,currencyTabNotifier.value.symbol),
+      parameter: .new(selectedCatIdNotifier.value!,currencyTabNotifier.value.shortcut),
     );
   }
 

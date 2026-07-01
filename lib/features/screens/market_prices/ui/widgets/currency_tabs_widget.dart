@@ -5,6 +5,7 @@ import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/extension/context.dart';
+import 'package:mkaweel/features/screens/market_prices/data/model/currency_data.dart';
 
 class CurrencyTabsWidget extends StatelessWidget {
     const CurrencyTabsWidget({super.key, required this.currencyTabNotifier});
@@ -56,47 +57,4 @@ class CurrencyTabsWidget extends StatelessWidget {
       ),
     );
   }
-}
-abstract class BaseCurrencyTab{
-  String get label ;
-  String get  symbol;
-}
-class SyrialLira extends BaseCurrencyTab{
-  SyrialLira._();
-  static final SyrialLira _instance = SyrialLira._();
-  factory SyrialLira() => _instance;
-  @override
-  // TODO: implement label
-  String get label => 'syrian_lira'.tr();
-
-  @override
-  // TODO: implement symbol
-  String get symbol => "syp";
-
-}
-class TyrkishLira extends BaseCurrencyTab{
-  TyrkishLira._();
-  static final TyrkishLira _instance = TyrkishLira._();
-  factory TyrkishLira() => _instance;
-  @override
-  // TODO: implement label
-  String get label => 'turkish_lira'.tr();
-
-  @override
-  // TODO: implement symbol
-  String get symbol => "try";
-
-}
-class USDollar extends BaseCurrencyTab{
-  USDollar._();
-  static final USDollar _instance = USDollar._();
-  factory USDollar() => _instance;
-  @override
-  // TODO: implement label
-  String get label => 'dollar'.tr();
-
-  @override
-  // TODO: implement symbol
-  String get symbol => "usd";
-
 }
