@@ -58,13 +58,16 @@ enum LoggerType { warning, info, error, fatal }
   }
 
 
-    void loggerPrint(dynamic message, LoggerType type, [  int framesToSkip=3, String? explicitCaller]) {
-    if (kDebugMode  ) {
-      final String caller = explicitCaller ?? (framesToSkip < 0 ? '' : _getCallerFunction(framesToSkip));
-        final String callerSection = caller.isNotEmpty ? '$caller\n   └─ ' : '';
-      final String msg = ' $callerSection$message';
+void loggerPrint(dynamic message, LoggerType type, [String? tag, int framesToSkip=3, String? explicitCaller]) {
+ if (kDebugMode  ) {
+final String caller = explicitCaller ?? (framesToSkip < 0 ? '' : _getCallerFunction(framesToSkip));
+final String timestamp = DateTime.now().toString().split(' ').last;
+final String tagLabel = tag != null ? '[$tag] ' : '';
+final String callerSection = caller.isNotEmpty ? '$caller\n   └─ ' : '';
+final String msg = '[$timestamp] $tagLabel$callerSection$message';
 
-      switch (type) {
+
+switch (type) {
         case LoggerType.warning:
            logger?.w(msg);
           break;

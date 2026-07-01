@@ -20,12 +20,12 @@ Map<String, dynamic> _$$ExchangeRateImplToJson(_$ExchangeRateImpl instance) =>
 
 _$RateDataImpl _$$RateDataImplFromJson(Map<String, dynamic> json) =>
     _$RateDataImpl(
-      usd: USD.fromJson(json['usd'] as Map<String, dynamic>),
+      usd: USD.fromJson(json['USD'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$RateDataImplToJson(_$RateDataImpl instance) =>
     <String, dynamic>{
-      'usd': instance.usd,
+      'USD': instance.usd,
     };
 
 _$USDImpl _$$USDImplFromJson(Map<String, dynamic> json) => _$USDImpl(

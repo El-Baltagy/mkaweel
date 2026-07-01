@@ -2,6 +2,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mkaweel/core/base/base_state.dart';
+import 'package:mkaweel/core/shared/methods/date_helper.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
@@ -20,8 +21,8 @@ class ExchangeRateWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isLoading= emit is !Success<ExchangeRate>;
 
-    final RateData? exchangeData =isLoading?RateData.toGetEmptyForLoading():
-     (emit as Success<ExchangeRate>).data?.data       ;
+    final RateData  exchangeData =isLoading?RateData.toGetEmptyForLoading():
+     (emit as Success<ExchangeRate>).data?.data ?? RateData.toGetEmptyForLoading()     ;
 
     return Skeletonizer(
       enabled: isLoading,
@@ -45,10 +46,9 @@ class ExchangeRateWidget extends StatelessWidget {
                   Text('live_exchange_rates'.tr(), style: AppTextStyles.font14Regular.copyWith(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold)),
                   5.verticalSpace,
 
-                   Text('1 ${USDollar().symbol} = ${exchangeData?.usd.in_try.toStringAsFixed(2)} ${TyrkishLira().symbol}  |  1 ${USDollar().symbol} = ${exchangeData?.usd.sell_rate_syp.toStringAsFixed(2)} ${SyrialLira().symbol}', style: AppTextStyles.font14Regular.copyWith(color: context.theme.colorScheme.tertiaryFixed)),
-                  // Text('1 \$ = 45.89 ₺  |  1 \$ = 13,000 ل.س', style: AppTextStyles.font14Regular.copyWith(color: context.theme.colorScheme.tertiaryFixed)),
-                  5.verticalSpace,
-                    Text('${exchangeData?.usd.fetched_at.toString()} • open.er-api.com', style: AppTextStyles.font12Regular),
+                   Text('1 ${USDollar().symbol} = ${exchangeData.usd.in_try.toStringAsFixed(2)} ${TyrkishLira().symbol}  |  1 ${USDollar().symbol} = ${exchangeData?.usd.sell_rate_syp.toStringAsFixed(2)} ${SyrialLira().symbol}', style: AppTextStyles.font14Regular.copyWith(color: context.theme.colorScheme.tertiaryFixed)),
+                   5.verticalSpace,
+                    Text('open.er-api.com  • ${DateTimeHelper.formatDateAsStringIntoStringDayMonth(exchangeData.usd.fetched_at.toString())}', style: AppTextStyles.font12Regular),
                 ],
               );
             },),

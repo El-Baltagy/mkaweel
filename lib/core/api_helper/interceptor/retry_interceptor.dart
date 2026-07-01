@@ -36,7 +36,7 @@ class RetryInterceptor extends Interceptor {
       _log.loggerPrint(
         '🔄 [RETRY] Attempt ${retries + 1}/$maxRetries in $delaySeconds seconds for ${err.requestOptions.path}',
         LoggerType.warning,
-        // 'HTTP',
+        'HTTP',
         -1,
       );
 

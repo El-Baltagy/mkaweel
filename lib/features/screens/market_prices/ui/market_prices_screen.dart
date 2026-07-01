@@ -59,14 +59,14 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
                 Icons.sync,
                 color: context.theme.scaffoldBackgroundColor,
               ),
-              onPressed: () {},
+              onPressed: _loadData ,
             ),
           ),
           floatingActionButton: kDebugMode
               ? FloatingActionButton(
                   onPressed: () {
-                    marketPriceCubit.getExchagngeRateFunc(.reload);
-                    // _loadData();
+                    // marketPriceCubit.getExchagngeRateFunc(.reload);
+                    _loadData();
                   },
                 )
               : null,

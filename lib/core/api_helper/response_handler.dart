@@ -15,6 +15,7 @@ const int threshold = 100 * 1024;
 Future<Either<Failure, T>> handleResponse<T>({
   required Future<dynamic> onCallData,
   required T Function(Map<String, dynamic> map) asObject,
+String? caller,
  }) async {
   try {
     final dynamic data = await onCallData;
@@ -39,6 +40,7 @@ Future<Either<Failure, T>> handleResponse<T>({
     PrintHelper().loggerPrint(
       '⚠️ [PARSE ERROR]\n   └─ Error: $e\n   └─ Stack: ${s.toString().split('\n').take(3).join('\n')}',
       LoggerType.fatal,
+      caller,
        0,
     );
     return left(Failure('Format Error or Unknown Error: $e', -2));
