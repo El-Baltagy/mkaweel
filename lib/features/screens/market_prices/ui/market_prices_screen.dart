@@ -134,19 +134,20 @@ abstract class MarketPricesPageBaseState extends State<MarketPricesPage>
     );
   }
   void _listenerCurrencyNotfieir() {
-    _listenerCatIdNotfieir();
+    marketPriceCubit.getSubCatogeriesFunc(
+      Reload(),
+      parameter: .new(selectedCatIdNotifier.value!,currencyTabNotifier.value.shortcut),
+    );
   }
   @override
   void initState() {
     super.initState();
     debugPrint("init..............................");
     marketPriceCubit = MarketPricesCubit.get(context: context);
-    // selectedCatIdNotifier.addListener(_listenerCatIdNotfieir);
-    // currencyTabNotifier.addListener(_listenerCurrencyNotfieir);
+    selectedCatIdNotifier.addListener(_listenerCatIdNotfieir);
+    currencyTabNotifier.addListener(_listenerCurrencyNotfieir);
 
-    WidgetsBinding.instance.addPersistentFrameCallback((timeStamp) {
-      _loadData();
-    },);
+    _loadData();
   }
 
   Future<void>  _loadData() async {

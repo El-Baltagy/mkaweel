@@ -28,15 +28,13 @@ class RequestCallbackObserver<T, P> {
 extension RequestHandler<T, P> on RequestCallbackObserver<T, P> {
   Future<void> handleRequest({
     required Future<Either<Failure, T>> Function(CancelToken? token) fetchFromClient,
-    // ── Local storage hooks (optional) ──────────────────────────────────────
-    Future<T?> Function()? fetchLocal,
+     Future<T?> Function()? fetchLocal,
     Future<void> Function(T? old, T? newData)? saveLocal,
     Future<void> Function()? clearLocal,
   }) async {
     final type = baseRequestBackType;
 
-    // ── Guard by request type ──────────────────────────────────────────────
-    if (type is Init) {
+     if (type is Init) {
       if (fetchLocal != null) {
         final localData = await fetchLocal();
         if (localData != null) {

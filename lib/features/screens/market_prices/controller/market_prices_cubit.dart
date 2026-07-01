@@ -71,16 +71,12 @@ class MarketPricesCubit extends BaseCubit<MarketPricesState> {
       BaseRequestBackType requestType, {
     required SubCatogeriesInput parameter,
   }) async {
-    // await CancelManager.runCancelableFun(getSubCatogeriesKeyCode, (
-    //   token,
-    // ) async {
 
       await _service.getsubcatogeriesServ(
         RequestCallbackObserver<SubCatogeriesData, SubCatogeriesInput>(
           baseRequestBackType: requestType,
            parameter: parameter ,
-          // cancelToken: token,
-          onLoadCallback: () =>
+           onLoadCallback: () =>
               safeEmit(_current.copyWith(subCategoriesEmit: Loading())),
           onRightCallback: (data) =>
               safeEmit(_current.copyWith(subCategoriesEmit: Success(data))),
@@ -89,8 +85,7 @@ class MarketPricesCubit extends BaseCubit<MarketPricesState> {
           ),
         ),
       );
-    // });
-  }
+   }
 
   Future<void> getExchagngeRateFunc(
       BaseRequestBackType requestType, {

@@ -93,17 +93,22 @@ class _WasteCalculatorPageState extends WasteCalculatorPageBaseState {
                           ? state.subCategoriesEmit
                           : null,
                       builder: (context, state) => WasteMaterialsGridWidget(
-                        onShowMore: (c,l ) async =>
-                            await marketPriceCubit.getSubCatogeriesFunc(
-                              Pagination(currentPage: c, lastPage: l),
-                              parameter: .new(
-                                -1,
-                                CurrencyTabsWidget.listTabs.first.shortcut,
+                        onShowMore: (c,l ) async{
+                          debugPrint(c.toString());
+                          debugPrint(l.toString());
+                              await marketPriceCubit.getSubCatogeriesFunc(
+                                Pagination(currentPage: c, lastPage: l),
+                                parameter: .new(
+                                  -1,
+                                  CurrencyTabsWidget.listTabs.first.shortcut,
+                                    c
+                                ),
 
-                              ),
+                              );
+                        }
+                        // async =>
 
-                            ),
-                        emit: state,
+                        ,emit: state,
                         selectedSubCatNotifier: selectedSubCatNotifier,
                       ),
                     ),
