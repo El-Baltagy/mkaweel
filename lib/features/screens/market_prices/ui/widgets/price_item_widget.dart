@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/shared/methods/date_helper.dart';
@@ -63,7 +64,11 @@ class SubCatogeries extends StatelessWidget {
           children: [
             Text(subCatogeryItem.unit_price.toString(), style: AppTextStyles.font18SemiBold.copyWith(color: Theme.of(context).primaryColor)),
             5.verticalSpace,
-            Text(DateTimeHelper.formatDateAsStringIntoStringDayMonth(subCatogeryItem.created_at??DateTime.now().toString()), style: AppTextStyles.font12Regular),
+            Text(DateTimeHelper.formatDateTimeFromString(
+
+                subCatogeryItem.created_at ,
+                DateFormat(DateTimeHelper.formatDateFullMonth)
+            ), style: AppTextStyles.font12Regular),
           ],
         ),
         Column(

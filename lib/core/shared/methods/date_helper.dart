@@ -5,20 +5,16 @@ import 'package:intl/intl.dart';
 
 abstract class DateTimeHelper{
 
-   static String formatDateAsStringIntoStringDayMonth( String time,
-      {bool isFullMonth = false}) {
-    final DateTime dataTime = DateTime.parse(time);
-    final DateFormat formatter = isFullMonth
-        ? DateFormat.yMMMMd()
-        : DateFormat.yMMMd( );
-    return formatter.format(dataTime).toString();
-    /// for example convert this string date (“2024-03-15 14:30:00”) into Formatted Date: March 15, 2024
-  }
+  static String get formatDateOnly=>'dd/MM/yyyy';
+ static String get formatTimeOnly=>'hh:mm';
 
-   static String formatDateFromString(String date,
-      {String? format, String? local}) {
-    return
-      DateFormat(format ?? 'dd/MM/yyyy ', local ?? 'en').format(DateTime.parse(date));
+ static  String  get formatDateFullMonth=> 'y,MMMM,d' ;
+ static  String  get formatDateHalfMonth=> 'y MMM d' ;
+
+   static String formatDateTimeFromString(String date,
+ DateFormat  formatter ) {
+      // DateFormat.yMMMMd()
+     return formatter.format(DateTime.parse(date));
     /// for example convert this string date (“2024-03-15 14:30:00”) into Formatted Date: 2024/03/15 14:30
   }
 

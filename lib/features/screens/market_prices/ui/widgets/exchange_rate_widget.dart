@@ -48,7 +48,9 @@ class ExchangeRateWidget extends StatelessWidget {
 
                    Text('1 ${USDollar().symbol} = ${exchangeData.usd.in_try.toStringAsFixed(2)} ${TyrkishLira().symbol}  |  1 ${USDollar().symbol} = ${exchangeData?.usd.sell_rate_syp.toStringAsFixed(2)} ${SyrialLira().symbol}', style: AppTextStyles.font14Regular.copyWith(color: context.theme.colorScheme.tertiaryFixed)),
                    5.verticalSpace,
-                    Text('open.er-api.com  • ${DateTimeHelper.formatDateAsStringIntoStringDayMonth(exchangeData.usd.fetched_at.toString())}', style: AppTextStyles.font12Regular),
+                    Text('open.er-api.com  •   ${DateTimeHelper.formatDateTimeFromString(exchangeData.usd.fetched_at.toString(),
+                        DateFormat("${DateTimeHelper.formatTimeOnly} , ${DateTimeHelper.formatDateOnly}")
+                    )}', style: AppTextStyles.font12Regular),
                 ],
               );
             },),
