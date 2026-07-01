@@ -171,7 +171,7 @@ RateData _$RateDataFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$RateData {
-  USD get USD => throw _privateConstructorUsedError;
+  USD get usd => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -184,9 +184,9 @@ abstract class $RateDataCopyWith<$Res> {
   factory $RateDataCopyWith(RateData value, $Res Function(RateData) then) =
       _$RateDataCopyWithImpl<$Res, RateData>;
   @useResult
-  $Res call({USD USD});
+  $Res call({USD usd});
 
-  $USDCopyWith<$Res> get USD;
+  $USDCopyWith<$Res> get usd;
 }
 
 /// @nodoc
@@ -202,21 +202,21 @@ class _$RateDataCopyWithImpl<$Res, $Val extends RateData>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? USD = null,
+    Object? usd = null,
   }) {
     return _then(_value.copyWith(
-      USD: null == USD
-          ? _value.USD
-          : USD // ignore: cast_nullable_to_non_nullable
+      usd: null == usd
+          ? _value.usd
+          : usd // ignore: cast_nullable_to_non_nullable
               as USD,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $USDCopyWith<$Res> get USD {
-    return $USDCopyWith<$Res>(_value.USD, (value) {
-      return _then(_value.copyWith(USD: value) as $Val);
+  $USDCopyWith<$Res> get usd {
+    return $USDCopyWith<$Res>(_value.usd, (value) {
+      return _then(_value.copyWith(usd: value) as $Val);
     });
   }
 }
@@ -229,10 +229,10 @@ abstract class _$$RateDataImplCopyWith<$Res>
       __$$RateDataImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({USD USD});
+  $Res call({USD usd});
 
   @override
-  $USDCopyWith<$Res> get USD;
+  $USDCopyWith<$Res> get usd;
 }
 
 /// @nodoc
@@ -246,12 +246,12 @@ class __$$RateDataImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? USD = null,
+    Object? usd = null,
   }) {
     return _then(_$RateDataImpl(
-      USD: null == USD
-          ? _value.USD
-          : USD // ignore: cast_nullable_to_non_nullable
+      usd: null == usd
+          ? _value.usd
+          : usd // ignore: cast_nullable_to_non_nullable
               as USD,
     ));
   }
@@ -260,13 +260,13 @@ class __$$RateDataImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$RateDataImpl extends _RateData {
-  const _$RateDataImpl({required this.USD}) : super._();
+  const _$RateDataImpl({required this.usd}) : super._();
 
   factory _$RateDataImpl.fromJson(Map<String, dynamic> json) =>
       _$$RateDataImplFromJson(json);
 
   @override
-  final USD USD;
+  final USD usd;
 
   @JsonKey(ignore: true)
   @override
@@ -283,14 +283,14 @@ class _$RateDataImpl extends _RateData {
 }
 
 abstract class _RateData extends RateData {
-  const factory _RateData({required final USD USD}) = _$RateDataImpl;
+  const factory _RateData({required final USD usd}) = _$RateDataImpl;
   const _RateData._() : super._();
 
   factory _RateData.fromJson(Map<String, dynamic> json) =
       _$RateDataImpl.fromJson;
 
   @override
-  USD get USD;
+  USD get usd;
   @override
   @JsonKey(ignore: true)
   _$$RateDataImplCopyWith<_$RateDataImpl> get copyWith =>
@@ -303,9 +303,9 @@ USD _$USDFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$USD {
-  double get rateSyp => throw _privateConstructorUsedError;
-  double get rateTry => throw _privateConstructorUsedError;
-  String get updatedAt => throw _privateConstructorUsedError;
+  double get sell_rate_syp => throw _privateConstructorUsedError;
+  double get in_try => throw _privateConstructorUsedError;
+  String get fetched_at => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -317,7 +317,7 @@ abstract class $USDCopyWith<$Res> {
   factory $USDCopyWith(USD value, $Res Function(USD) then) =
       _$USDCopyWithImpl<$Res, USD>;
   @useResult
-  $Res call({double rateSyp, double rateTry, String updatedAt});
+  $Res call({double sell_rate_syp, double in_try, String fetched_at});
 }
 
 /// @nodoc
@@ -332,22 +332,22 @@ class _$USDCopyWithImpl<$Res, $Val extends USD> implements $USDCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? rateSyp = null,
-    Object? rateTry = null,
-    Object? updatedAt = null,
+    Object? sell_rate_syp = null,
+    Object? in_try = null,
+    Object? fetched_at = null,
   }) {
     return _then(_value.copyWith(
-      rateSyp: null == rateSyp
-          ? _value.rateSyp
-          : rateSyp // ignore: cast_nullable_to_non_nullable
+      sell_rate_syp: null == sell_rate_syp
+          ? _value.sell_rate_syp
+          : sell_rate_syp // ignore: cast_nullable_to_non_nullable
               as double,
-      rateTry: null == rateTry
-          ? _value.rateTry
-          : rateTry // ignore: cast_nullable_to_non_nullable
+      in_try: null == in_try
+          ? _value.in_try
+          : in_try // ignore: cast_nullable_to_non_nullable
               as double,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
+      fetched_at: null == fetched_at
+          ? _value.fetched_at
+          : fetched_at // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -359,7 +359,7 @@ abstract class _$$USDImplCopyWith<$Res> implements $USDCopyWith<$Res> {
       __$$USDImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({double rateSyp, double rateTry, String updatedAt});
+  $Res call({double sell_rate_syp, double in_try, String fetched_at});
 }
 
 /// @nodoc
@@ -371,22 +371,22 @@ class __$$USDImplCopyWithImpl<$Res> extends _$USDCopyWithImpl<$Res, _$USDImpl>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? rateSyp = null,
-    Object? rateTry = null,
-    Object? updatedAt = null,
+    Object? sell_rate_syp = null,
+    Object? in_try = null,
+    Object? fetched_at = null,
   }) {
     return _then(_$USDImpl(
-      rateSyp: null == rateSyp
-          ? _value.rateSyp
-          : rateSyp // ignore: cast_nullable_to_non_nullable
+      sell_rate_syp: null == sell_rate_syp
+          ? _value.sell_rate_syp
+          : sell_rate_syp // ignore: cast_nullable_to_non_nullable
               as double,
-      rateTry: null == rateTry
-          ? _value.rateTry
-          : rateTry // ignore: cast_nullable_to_non_nullable
+      in_try: null == in_try
+          ? _value.in_try
+          : in_try // ignore: cast_nullable_to_non_nullable
               as double,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
+      fetched_at: null == fetched_at
+          ? _value.fetched_at
+          : fetched_at // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -396,18 +396,20 @@ class __$$USDImplCopyWithImpl<$Res> extends _$USDCopyWithImpl<$Res, _$USDImpl>
 @JsonSerializable()
 class _$USDImpl extends _USD {
   const _$USDImpl(
-      {required this.rateSyp, required this.rateTry, required this.updatedAt})
+      {required this.sell_rate_syp,
+      required this.in_try,
+      required this.fetched_at})
       : super._();
 
   factory _$USDImpl.fromJson(Map<String, dynamic> json) =>
       _$$USDImplFromJson(json);
 
   @override
-  final double rateSyp;
+  final double sell_rate_syp;
   @override
-  final double rateTry;
+  final double in_try;
   @override
-  final String updatedAt;
+  final String fetched_at;
 
   @JsonKey(ignore: true)
   @override
@@ -425,19 +427,19 @@ class _$USDImpl extends _USD {
 
 abstract class _USD extends USD {
   const factory _USD(
-      {required final double rateSyp,
-      required final double rateTry,
-      required final String updatedAt}) = _$USDImpl;
+      {required final double sell_rate_syp,
+      required final double in_try,
+      required final String fetched_at}) = _$USDImpl;
   const _USD._() : super._();
 
   factory _USD.fromJson(Map<String, dynamic> json) = _$USDImpl.fromJson;
 
   @override
-  double get rateSyp;
+  double get sell_rate_syp;
   @override
-  double get rateTry;
+  double get in_try;
   @override
-  String get updatedAt;
+  String get fetched_at;
   @override
   @JsonKey(ignore: true)
   _$$USDImplCopyWith<_$USDImpl> get copyWith =>

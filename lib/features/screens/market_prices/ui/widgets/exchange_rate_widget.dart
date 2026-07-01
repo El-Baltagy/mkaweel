@@ -1,4 +1,3 @@
-import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +36,7 @@ class ExchangeRateWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             GestureDetector(
-                onTap:onUpdatePress.call ,
+                onTap:onUpdatePress?.call ,
                 child: const Icon(Icons.sync, color: AppColors.contractorGreyText)),
             ValueListenableBuilder(valueListenable: currencyTabNotifier, builder: (context, value, child) {
               return Column(
@@ -46,10 +45,10 @@ class ExchangeRateWidget extends StatelessWidget {
                   Text('live_exchange_rates'.tr(), style: AppTextStyles.font14Regular.copyWith(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold)),
                   5.verticalSpace,
 
-                   Text('1 ${USDollar().symbol} = 45.89 ${TyrkishLira().symbol}  |  1 ${USDollar().symbol} = 13,000 ${SyrialLira().symbol}', style: AppTextStyles.font14Regular.copyWith(color: context.theme.colorScheme.tertiaryFixed)),
+                   Text('1 ${USDollar().symbol} = ${exchangeData?.usd.in_try.toStringAsFixed(2)} ${TyrkishLira().symbol}  |  1 ${USDollar().symbol} = ${exchangeData?.usd.sell_rate_syp.toStringAsFixed(2)} ${SyrialLira().symbol}', style: AppTextStyles.font14Regular.copyWith(color: context.theme.colorScheme.tertiaryFixed)),
                   // Text('1 \$ = 45.89 ₺  |  1 \$ = 13,000 ل.س', style: AppTextStyles.font14Regular.copyWith(color: context.theme.colorScheme.tertiaryFixed)),
                   5.verticalSpace,
-                    Text('${exchangeData?.USD.updatedAt.toString()} • open.er-api.com', style: AppTextStyles.font12Regular),
+                    Text('${exchangeData?.usd.fetched_at.toString()} • open.er-api.com', style: AppTextStyles.font12Regular),
                 ],
               );
             },),
@@ -59,8 +58,3 @@ class ExchangeRateWidget extends StatelessWidget {
     );
   }
 }
-//static RateData toGetEmptyForLoading() {
-//     return const RateData(USD: USD(rateSyp: 1000, rateTry: 20, updatedAt: "2026-06-24T19:53:58.000000Z")
-//
-//     );
-//   }

@@ -1,3 +1,4 @@
+import 'package:mkaweel/features/screens/market_prices/data/model/exchange_rate/exchange_rate.dart';
  import 'package:dio/dio.dart';
 import 'package:mkaweel/core/api_helper/response_handler.dart';
  import 'package:mkaweel/core/constants/app_api.dart';
@@ -43,6 +44,19 @@ class MarketPricesRepo extends BaseRepo {
         caller: getTag(),
       ),
       asObject: SubCatogeriesData.fromJson,
+    );
+  }
+
+   Future<Either<Failure, ExchangeRate>> getexchagngerateApi(
+    NoParameter? parameter, {
+    CancelToken? cancelToken,
+  }) async {
+    return handleResponse(
+      onCallData: dio.getData(
+        uri: EndPoints.getExchagngeRate,
+        cancelToken: cancelToken,
+      ),
+      asObject: ExchangeRate.fromJson,
     );
   }
 }

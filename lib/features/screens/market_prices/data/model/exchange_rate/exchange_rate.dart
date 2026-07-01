@@ -7,7 +7,6 @@ part 'exchange_rate.g.dart';
 
 @freezed
 class ExchangeRate with _$ExchangeRate, EquatableMixin {
-
   const ExchangeRate._();
   const factory ExchangeRate({
     required String status,
@@ -27,20 +26,19 @@ class ExchangeRate with _$ExchangeRate, EquatableMixin {
 @freezed
 class RateData with _$RateData, EquatableMixin {
   static RateData toGetEmptyForLoading() {
-    return const RateData(USD: USD(rateSyp: 1000, rateTry: 20, updatedAt: "2026-06-24T19:53:58.000000Z")
-
-    );
+    return const RateData(usd: USD(sell_rate_syp: 1000, in_try: 20, fetched_at: "2026-06-24T19:53:58.000000Z"));
   }
+
   const RateData._();
   const factory RateData({
-    required USD USD,
+    required USD usd,
   }) = _RateData;
 
   factory RateData.fromJson(Map<String, dynamic> json) => _$RateDataFromJson(json);
 
   @override
   List<Object?> get props => [
-    USD,
+    usd,
   ];
 
 }
@@ -49,18 +47,18 @@ class RateData with _$RateData, EquatableMixin {
 class USD with _$USD, EquatableMixin {
   const USD._();
   const factory USD({
-    required double  rateSyp,
-    required double rateTry,
-    required String updatedAt,
+    required double sell_rate_syp,
+    required double in_try,
+    required String fetched_at,
   }) = _USD;
 
   factory USD.fromJson(Map<String, dynamic> json) => _$USDFromJson(json);
 
   @override
   List<Object?> get props => [
-    rateSyp,
-    rateTry,
-    updatedAt,
+    sell_rate_syp,
+    in_try,
+    fetched_at,
   ];
 
 }

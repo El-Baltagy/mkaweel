@@ -1,3 +1,4 @@
+
 import 'package:mkaweel/core/base/base_service.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_constant.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/shared/methods/print.dart';
 import 'package:mkaweel/features/screens/market_prices/data/model/catogeries_res/catogeries_res.dart';
+import 'package:mkaweel/features/screens/market_prices/data/model/exchange_rate/exchange_rate.dart';
 import 'package:mkaweel/features/screens/market_prices/data/model/sub_cat_input.dart';
 import 'package:mkaweel/features/screens/market_prices/data/model/sub_catogeries_data/sub_catogeries_data.dart';
 import 'package:mkaweel/main.dart';
@@ -28,12 +30,15 @@ class MarketPricesCubit extends BaseCubit<MarketPricesState> {
 
   int get getSubCatogeriesKeyCode => AppConstant.getSubCatogeriesKeyCode;
 
+    int get getExchagngeRateKeyCode => AppConstant.getExchagngeRateKeyCode;
   init() {
     // TODO: implement init
   }
 
   @override
   Future<void> close() {
+    // add every key in file
+    CancelManager.cancel(getExchagngeRateKeyCode);
     debugPrint("............closed");
     // add every key in file
     CancelManager.cancel(getSubCatogeriesKeyCode);
@@ -78,6 +83,21 @@ class MarketPricesCubit extends BaseCubit<MarketPricesState> {
               safeEmit(_current.copyWith(subCategoriesEmit: Success(data))),
           onLeftCallback: (failure) =>
               safeEmit(_current.copyWith(subCategoriesEmit: ErrorState(failure))),
+        ),
+      );
+    });
+  }
+
+  Future<void> getExchagngeRateFunc(RequestTypeBackV2 requestType, {NoParameter? parameter}) async {
+    await CancelManager.runCancelableFun(getExchagngeRateKeyCode, (token) async {
+      await _service.getexchagngerateServ(
+        RequestCallbackObserver<ExchangeRate, NoParameter>(
+          baseRequestBackType: requestType.toRequestType(),//exchangeRateState
+          parameter: parameter ,
+          cancelToken: token,
+          onLoadCallback: () => safeEmit(_current.copyWith(exchangeRateState: Loading())),
+          onRightCallback: (data) => safeEmit(_current.copyWith(exchangeRateState: Success(data))),
+          onLeftCallback: (failure) => safeEmit(_current.copyWith(exchangeRateState: ErrorState(failure))),
         ),
       );
     });

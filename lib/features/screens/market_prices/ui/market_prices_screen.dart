@@ -65,7 +65,8 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
           floatingActionButton: kDebugMode
               ? FloatingActionButton(
                   onPressed: () {
-                    _loadData();
+                    marketPriceCubit.getExchagngeRateFunc(.reload);
+                    // _loadData();
                   },
                 )
               : null,
@@ -75,9 +76,10 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
               children: [
                 BlocSelector<MarketPricesCubit, MarketPricesState, BaseEmit?>(
                   selector: (state) =>
-                  state is MarketPricesLoaded ? state.exchangeRate : null,
+                  state is MarketPricesLoaded ? state.exchangeRateState : null,
                   builder: (context, emit) =>    ExchangeRateWidget(
                      emit: emit,
+                    onUpdatePress: () async=>await marketPriceCubit.getExchagngeRateFunc(.reload),
                     currencyTabNotifier: currencyTabNotifier,
                   ),
                 ),
@@ -114,7 +116,7 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
 
 abstract class MarketPricesPageBaseState extends State<MarketPricesPage>
     with AutoRouteAwareStateMixin<MarketPricesPage> {
-  late final MarketPricesCubit argData;
+  late final MarketPricesCubit marketPriceCubit;
   ValueNotifier<int?> selectedCatIdNotifier = .new(-1);
   ValueNotifier<BaseCurrencyTab> currencyTabNotifier = .new(
     CurrencyTabsWidget.listTabs.first,
@@ -122,7 +124,7 @@ abstract class MarketPricesPageBaseState extends State<MarketPricesPage>
 
   void _listenerCatIdNotfieir() {
     debugPrint("...................");
-     argData.getSubCatogeriesFunc(
+     marketPriceCubit.getSubCatogeriesFunc(
       .reload,
       parameter: .new(selectedCatIdNotifier.value!,currencyTabNotifier.value.shortcut),
     );
@@ -134,25 +136,28 @@ abstract class MarketPricesPageBaseState extends State<MarketPricesPage>
   void initState() {
     super.initState();
     debugPrint("init..............................");
-    argData = MarketPricesCubit.get(context: context);
+    marketPriceCubit = MarketPricesCubit.get(context: context);
     selectedCatIdNotifier.addListener(_listenerCatIdNotfieir);
     currencyTabNotifier.addListener(_listenerCurrencyNotfieir);
 
     _loadData();
   }
 
-  void _loadData() {
+  void  _loadData()   {
     debugPrint("loading data................");
-    argData.getCatogeriesFunc(.reload);
-    argData.getSubCatogeriesFunc(
-      .reload,
+  Future.wait([
+marketPriceCubit.getExchagngeRateFunc(.reload),
+    marketPriceCubit.getCatogeriesFunc(.reload),
+    marketPriceCubit.getSubCatogeriesFunc(
+          .reload,
       parameter: .new(selectedCatIdNotifier.value!,currencyTabNotifier.value.shortcut),
-    );
+    )
+]);
   }
 
   @override
   void dispose() {
-    argData.close();
+    marketPriceCubit.close();
     selectedCatIdNotifier.removeListener(_listenerCatIdNotfieir);
     selectedCatIdNotifier.dispose();
     currencyTabNotifier.removeListener(_listenerCurrencyNotfieir);
