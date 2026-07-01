@@ -144,6 +144,7 @@ abstract class WasteCalculatorPageBaseState extends State<WasteCalculatorPage> {
   late final MarketPricesCubit marketPriceCubit;
   ValueNotifier<int> selectedSubCatNotifier = .new(-1);
   final ScrollController  scrollController=.new();
+
   @override
   void initState() {
     super.initState();
@@ -164,8 +165,23 @@ abstract class WasteCalculatorPageBaseState extends State<WasteCalculatorPage> {
 
 
   void listenerPricesCubit(BuildContext context, MarketPricesState state) {
-     if (state is MarketPricesLoaded) {
-       scrollController.jumpTo(scrollController .position.maxScrollExtent);
-     }
+    if (state is MarketPricesLoaded && state.subCategoriesEmit is Success) {
+      final successState = state.subCategoriesEmit as Success;
+      
+      // Only scroll to the bottom if this was a pagination request!
+      if (successState.requestType is PaginationInfo ) {
+        // Wait for the new items to be built so maxScrollExtent is updated
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (scrollController.hasClients) {
+            // You can also use animateTo for a smoother scroll!
+            scrollController.animateTo(
+              scrollController.position.maxScrollExtent,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeOut,
+            );
+          }
+        });
+      }
+    }
   }
 }

@@ -1,4 +1,5 @@
  import '../../core/api_helper/dio_error_handler.dart';
+ import 'base_cubit.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Shared emit wrappers (used inside every feature-specific state)
@@ -15,6 +16,7 @@ class ErrorState extends BaseEmit {
 
 class Success<T> extends BaseEmit {
   final T? data;
-  Success([this.data]);
+  final BaseRequestBackType? requestType;
+  Success([this.data, this.requestType]);
 }
 
