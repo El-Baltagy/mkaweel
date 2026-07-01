@@ -31,6 +31,7 @@ extension RequestHandler<T, P> on RequestCallbackObserver<T, P> {
      Future<T?> Function()? fetchLocal,
     Future<void> Function(T? old, T? newData)? saveLocal,
     Future<void> Function()? clearLocal,
+    T Function(T oldData, T newData)? combinePagination, // <--- 1. ADD THIS
   }) async {
     final type = baseRequestBackType;
 
@@ -47,7 +48,7 @@ extension RequestHandler<T, P> on RequestCallbackObserver<T, P> {
         await clearLocal?.call();
       }
 
-    } else if (type is Pagination) {
+    } else if (type is PaginationInfo) {
       if ((type.currentPage??0) >= (type.lastPage??0)) return;
     }
 
@@ -61,17 +62,23 @@ extension RequestHandler<T, P> on RequestCallbackObserver<T, P> {
     // ── Handle result ──────────────────────────────────────────────────────
     result.fold(
           onLeftCallback,
-          (data) async {
-            var local;
-        if (fetchLocal != null&&type is Pagination) {
-          local = await fetchLocal.call();
+          (newData) async {
+            T finalData = newData;
+            T? oldData;
+            
+        // ── Combine pagination data if needed ──────────────────────────────
+        if (type is PaginationInfo && fetchLocal != null) {
+          oldData = await fetchLocal.call();
+          if (oldData != null && combinePagination != null) {
+            finalData = combinePagination(oldData, newData);
+          }
         }
+
         if(saveLocal != null){
-          await saveLocal(local, data);
+          await saveLocal(oldData, finalData); // Save the combined finalData!
         }
 
-
-        onRightCallback(data);
+        onRightCallback(finalData); // Yield the combined finalData to the Cubit!
       },
     );
   }

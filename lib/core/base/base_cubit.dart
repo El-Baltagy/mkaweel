@@ -27,43 +27,12 @@ abstract class BaseCubit<T> extends Cubit<T> {
   }
 
 
-
-
-
 // void cancelRequest(int id) => CancelManager.cancel(id);
 
 }
 
 
-
 enum RequestTypeBackV1 { init, reload, pagination }
-
-// extension RequestTypeBack on RequestTypeBackV1 {
-//   BaseRequestBackType toRequestType({
-//     required int? currentPage,
-//     required int? lastPage,
-//   }) {
-//     return switch (this) {
-//       RequestTypeBackV1.init => Init(),
-//       RequestTypeBackV1.reload => Reload(),
-//       RequestTypeBackV1.pagination => Pagination(
-//         currentPage: currentPage,
-//         lastPage: lastPage,
-//       ),
-//     };
-//   }
-// }
-//
-// enum RequestTypeBackV2 { init, reload }
-//
-// extension RequestTypeBack2 on RequestTypeBackV2 {
-//   BaseRequestBackType toRequestType() {
-//     return switch (this) {
-//       RequestTypeBackV2.init => Init(),
-//       RequestTypeBackV2.reload => Reload(),
-//     };
-//   }
-// }
 
 abstract class BaseRequestBackType {}
 
@@ -79,7 +48,8 @@ class Reload extends BaseRequestBackType {
   factory Reload() => _instance;
 }
 
-class Pagination extends BaseRequestBackType {
+class PaginationInfo<P> extends BaseRequestBackType {
   final int? currentPage, lastPage;
-  Pagination({required this.currentPage, required this.lastPage});
+  final P? oldDataToCombine;
+  PaginationInfo({required this.currentPage, required this.lastPage, required this.oldDataToCombine});
 }

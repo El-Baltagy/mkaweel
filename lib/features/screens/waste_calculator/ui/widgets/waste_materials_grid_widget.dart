@@ -1,8 +1,10 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/extension/double.dart';
+import 'package:mkaweel/core/shared/methods/auto_height_grid_view.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/extension/context.dart';
@@ -16,12 +18,11 @@ class WasteMaterialsGridWidget extends StatelessWidget {
      required this.selectedSubCatNotifier,
     required this.emit,
     required this.onShowMore,
-  });
+   });
    final ValueNotifier<int> selectedSubCatNotifier ;
   final BaseEmit? emit;
-  final void Function(int?,int? )? onShowMore;
-
-  @override
+  final void Function(PaginationInfo<SubCatogeriesData>  )? onShowMore;
+   @override
   Widget build(BuildContext context) {
     bool isLoading= emit is !Success<SubCatogeriesData>;
     final SubCatogeriesData? subCatogeriesInSuccess= isLoading?null:  ( emit as Success<SubCatogeriesData>).data;
@@ -48,31 +49,30 @@ class WasteMaterialsGridWidget extends StatelessWidget {
         16.verticalSpace,
         Skeletonizer(
           enabled: isLoading,
-          child: GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 2.2,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-            ),
+          child:AutoHeightGridView(
+             mainAxisSpacing: 12,
+            enableScrool: false,
             itemCount: finalList.length,
-            itemBuilder: (context, index) {
-
+            builder: (context, index) {
 
               return ValueListenableBuilder(valueListenable:selectedSubCatNotifier , builder: (context, value, child) {
                 final isSelected = value == finalList[index].id;
                 return GestureDetector(
                   onTap: (){
                     if(finalList[index].id==-1){
-                      onShowMore?.call( subCatogeriesInSuccess?.pagination.current_page,subCatogeriesInSuccess?.pagination.last_page);
+                      onShowMore?.call(
+                          PaginationInfo<SubCatogeriesData>(
+                            currentPage: subCatogeriesInSuccess?.pagination.current_page,
+                            lastPage: subCatogeriesInSuccess?.pagination.last_page,
+                            oldDataToCombine: subCatogeriesInSuccess,
+                          )
+                       ) ;
                     }else
                     if(!isSelected){
                       selectedSubCatNotifier.value = finalList[index].id;
                     }
-                  },
-                  child: Container(
+                  }
+                  , child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     decoration: BoxDecoration(
                       color: isSelected ? Theme.of(context).primaryColor.withOpacity(0.1) : Colors.white,

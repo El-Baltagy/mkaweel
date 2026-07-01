@@ -75,67 +75,65 @@ class _WasteCalculatorPageState extends WasteCalculatorPageBaseState {
             ),
           ],
         ),
-        body: SafeArea(
-          child: BlocBuilder<WasteCalculatorCubit, WasteCalculatorState>(
-            builder: (context, state) {
-              return SingleChildScrollView(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: [
-                    const WasteHeaderWidget(),
-                    16.verticalSpace,
-                    BlocSelector<
-                      MarketPricesCubit,
-                      MarketPricesState,
-                      BaseEmit?
-                    >(
-                      selector: (state) => state is MarketPricesLoaded
-                          ? state.subCategoriesEmit
-                          : null,
-                      builder: (context, state) => WasteMaterialsGridWidget(
-                        onShowMore: (c,l ) async{
-                          debugPrint(c.toString());
-                          debugPrint(l.toString());
-                              await marketPriceCubit.getSubCatogeriesFunc(
-                                Pagination(currentPage: c, lastPage: l),
-                                parameter: .new(
-                                  -1,
-                                  CurrencyTabsWidget.listTabs.first.shortcut,
-                                    c
-                                ),
-
-                              );
-                        }
-                        // async =>
-
-                        ,emit: state,
-                        selectedSubCatNotifier: selectedSubCatNotifier,
-                      ),
-                    ),
-
-                    24.verticalSpace,
-                    WasteDataEntryWidget(
-                      floorArea: state.floorArea,
-                      onAreaChanged: (value) {
-                        // argData.updateFloorArea(value);
-                      },
-                      onCalculate: () {
-                        // argData.calculate();
-                      },
-                    ),
-                    if (state.isCalculated) ...[
-                      16.verticalSpace,
-                      WasteResultWidget(
-                        floorArea: state.floorArea,
-                        materialIndex: state.selectedMaterialIndex,
-                      ),
-                    ],
-                  ],
+        body: BlocListener<MarketPricesCubit, MarketPricesState>(
+          listener: listenerPricesCubit,
+  child: SafeArea(
+          child: SingleChildScrollView(
+            controller: scrollController,
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                const WasteHeaderWidget(),
+                16.verticalSpace,
+                BlocSelector<
+                    MarketPricesCubit,
+                    MarketPricesState,
+                    BaseEmit?
+                >(
+                  selector: (state) => state is MarketPricesLoaded
+                      ? state.subCategoriesEmit
+                      : null,
+                  builder: (context, state) => WasteMaterialsGridWidget(
+                     onShowMore: (p) async {
+                      debugPrint(p.currentPage.toString());
+                      debugPrint(p.lastPage.toString());
+                      await marketPriceCubit.getSubCatogeriesFunc(
+                        p,
+                        parameter: .new(
+                            -1,
+                            CurrencyTabsWidget.listTabs.first.shortcut,
+                            p.currentPage
+                        ),
+                      );
+                    },
+                    // async =>
+                    emit: state,
+                    selectedSubCatNotifier: selectedSubCatNotifier,
+                  ),
                 ),
-              );
-            },
-          ),
+
+                24.verticalSpace,
+                // WasteDataEntryWidget(
+                //   floorArea: state.floorArea,
+                //   onAreaChanged: (value) {
+                //     // argData.updateFloorArea(value);
+                //   },
+                //   onCalculate: () {
+                //     // argData.calculate();
+                //   },
+                // ),
+                // if (state.isCalculated) ...[
+                //   16.verticalSpace,
+                //   WasteResultWidget(
+                //     floorArea: state.floorArea,
+                //     materialIndex: state.selectedMaterialIndex,
+                //   ),
+                // ],
+              ],
+            ),
+          )
         ),
+),
       ),
     );
   }
@@ -145,7 +143,7 @@ abstract class WasteCalculatorPageBaseState extends State<WasteCalculatorPage> {
   late final WasteCalculatorCubit wasteCalculatorCubit;
   late final MarketPricesCubit marketPriceCubit;
   ValueNotifier<int> selectedSubCatNotifier = .new(-1);
-
+  final ScrollController  scrollController=.new();
   @override
   void initState() {
     super.initState();
@@ -162,5 +160,12 @@ abstract class WasteCalculatorPageBaseState extends State<WasteCalculatorPage> {
   @override
   void dispose() {
     super.dispose();
+  }
+
+
+  void listenerPricesCubit(BuildContext context, MarketPricesState state) {
+     if (state is MarketPricesLoaded) {
+       scrollController.jumpTo(scrollController .position.maxScrollExtent);
+     }
   }
 }

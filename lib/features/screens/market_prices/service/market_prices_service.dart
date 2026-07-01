@@ -1,4 +1,5 @@
 
+import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:mkaweel/core/constants/app_typedef.dart';
  import 'package:mkaweel/core/shared/methods/print.dart';
 import 'package:mkaweel/features/screens/market_prices/data/model/catogeries_res/catogeries_res.dart';
@@ -48,18 +49,18 @@ class MarketPricesService extends BaseService {
         requestInfo.parameter,
         cancelToken: token,
       ),
-      // fetchLocal: () async {
-      //   final json = await _localRepo.readData(cacheKey);
-      //   return json == null ? null : SubCatogeriesData.fromJson(json);
-      // },
-      // saveLocal: (old, newData) async {
-      //
-      //   if (newData != null) {
-      //     PrintHelper().ordinaryPrint("................saving\n${newData.toJson()}");
-      //      await _localRepo.saveData(cacheKey, newData.toJson());
-      //   }
-      // },
-      // clearLocal: () => _localRepo.clearData(cacheKey),
+      fetchLocal: () async {
+        return requestInfo.baseRequestBackType is PaginationInfo?
+        (requestInfo.baseRequestBackType as PaginationInfo<SubCatogeriesData>).oldDataToCombine:null;
+        // return requestInfo.parameter?.subCatogeriesData;
+      },
+
+      combinePagination: (oldData, newData) {
+         return newData.copyWith(
+          pagination:newData.pagination ,
+          data: [...oldData.data, ...newData.data],
+        );
+      },
     );
   }
 
@@ -82,6 +83,7 @@ class MarketPricesService extends BaseService {
         }
       },
       clearLocal: () => _localRepo.clearData(cacheKey),
+
     );
   }
 }
