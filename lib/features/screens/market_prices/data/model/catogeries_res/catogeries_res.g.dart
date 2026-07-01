@@ -19,7 +19,7 @@ Map<String, dynamic> _$$CatogeriesResImplToJson(_$CatogeriesResImpl instance) =>
     <String, dynamic>{
       'status': instance.status,
       'message': instance.message,
-      'data': instance.data,
+      'data': instance.data.map((e) => e.toJson()).toList(),
     };
 
 _$CatogeryItemImpl _$$CatogeryItemImplFromJson(Map<String, dynamic> json) =>

@@ -31,6 +31,7 @@ class MarketPricesService extends BaseService {
       },
       saveLocal: (old, newData) async {
         if (newData != null) {
+          PrintHelper().ordinaryPrint("................saving\n${newData.toJson()}");
           await _localRepo.saveData(cacheKey, newData.toJson());
         }
       },
@@ -39,24 +40,26 @@ class MarketPricesService extends BaseService {
   }
 
   Future<void> getsubcatogeriesServ(
-    RequestCallbackObserver<SubCatogeriesData, SubCatogeriesInput> requestInfo,
+    RequestCallbackObserver<SubCatogeriesData, SubCatogeriesInput> requestInfo
   ) {
-    const cacheKey = AppConstant.getSubCatogeriesKeyCash;
+    // const cacheKey = AppConstant.getSubCatogeriesKeyCash;
     return requestInfo.handleRequest(
       fetchFromClient: (token) => _remoteRepo.getsubcatogeriesApi(
         requestInfo.parameter,
         cancelToken: token,
       ),
-      fetchLocal: () async {
-        final json = await _localRepo.readData(cacheKey);
-        return json == null ? null : SubCatogeriesData.fromJson(json);
-      },
-      saveLocal: (old, newData) async {
-        if (newData != null) {
-          await _localRepo.saveData(cacheKey, newData.toJson());
-        }
-      },
-      clearLocal: () => _localRepo.clearData(cacheKey),
+      // fetchLocal: () async {
+      //   final json = await _localRepo.readData(cacheKey);
+      //   return json == null ? null : SubCatogeriesData.fromJson(json);
+      // },
+      // saveLocal: (old, newData) async {
+      //
+      //   if (newData != null) {
+      //     PrintHelper().ordinaryPrint("................saving\n${newData.toJson()}");
+      //      await _localRepo.saveData(cacheKey, newData.toJson());
+      //   }
+      // },
+      // clearLocal: () => _localRepo.clearData(cacheKey),
     );
   }
 

@@ -9,15 +9,5 @@ class WasteCalculatorCubit extends Cubit<WasteCalculatorState> {
 
   static WasteCalculatorCubit get({required BuildContext context}) => BlocProvider.of(context);
 
-  void selectMaterial(int index) {
-    emit(state.copyWith(selectedMaterialIndex: index, isCalculated: false));
-  }
 
-  void updateFloorArea(double area) {
-    emit(state.copyWith(floorArea: area, isCalculated: false));
-  }
-
-  void calculate() {
-    emit(state.copyWith(isCalculated: true));
-  }
 }

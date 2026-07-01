@@ -16,13 +16,14 @@ class SubCatogeriesData with _$SubCatogeriesData, EquatableMixin {
     required String message,
     required String currency,
     required List<SubCatogeryItem> data,
+    required Pagination pagination,
   }) = _SubCatogeriesData;
 
   factory SubCatogeriesData.fromJson(Map<String, dynamic> json) =>
       _$SubCatogeriesDataFromJson(json);
 
   @override
-  List<Object?> get props => [status, message, currency, data];
+  List<Object?> get props => [status, message, currency, data, pagination];
 }
 
 @freezed
@@ -84,4 +85,25 @@ class SubCatogeryItem with _$SubCatogeryItem, EquatableMixin {
     notes,
     created_at,
   ];
+}
+@freezed
+class Pagination with _$Pagination, EquatableMixin {
+  const Pagination._();
+  const factory Pagination({
+    required int current_page,
+    required int last_page,
+    required int per_page,
+    required int total,
+  }) = _Pagination;
+
+  factory Pagination.fromJson(Map<String, dynamic> json) => _$PaginationFromJson(json);
+
+  @override
+  List<Object?> get props => [
+    current_page,
+    last_page,
+    per_page,
+    total,
+  ];
+
 }

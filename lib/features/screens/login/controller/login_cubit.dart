@@ -21,16 +21,17 @@ class LoginCubit extends BaseCubit<LoginState> {
   @override
   int get loginKeyCode => AppConstant.loginKeyCode;
 
-  init() {
+  @override
+  Future<void> init() async {
     // TODO: implement init
-  }
 
+  }
 
   Future<void> login({required LoginParameters  parameter}) async {
     await CancelManager.runCancelableFun(loginKeyCode, (token) async {
       await _service.loginServ(
         RequestCallbackObserver<LoginRes, LoginParameters>(
-          baseRequestBackType: RequestTypeBackV2.reload.toRequestType(),
+          baseRequestBackType: Reload(),
           parameter: parameter,
           cancelToken: token,
           onLoadCallback: () => safeEmit(LoginResState(Loading())),

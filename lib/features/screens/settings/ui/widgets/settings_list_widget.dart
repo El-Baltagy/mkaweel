@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mkaweel/core/app/route.dart';
+import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/theming/theme_cubit.dart';
@@ -114,7 +115,7 @@ class _SettingsListWidgetState extends State<SettingsListWidget> {
           SizedBox(
             width: double.infinity,
             child: OutlinedButton(
-              onPressed: () async=>await widget.settingsCubit.logoutFunc(.reload),
+              onPressed: () async=>await widget.settingsCubit.logoutFunc(Reload()),
               style: OutlinedButton.styleFrom(
                 side:   BorderSide(color: context.theme.colorScheme.secondary),
                 padding: const EdgeInsets.symmetric(vertical: AppPadding.p16),

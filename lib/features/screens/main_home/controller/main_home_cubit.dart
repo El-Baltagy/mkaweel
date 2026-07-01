@@ -12,11 +12,11 @@ class MainHomeCubit extends BaseCubit<MainHomeState> {
   
      static MainHomeCubit get({BuildContext? context,bool listen=false}) =>
       BlocProvider.of(context??navigatorKey.currentContext!,listen: listen);
-  
-  @override
-  void init() {
-    // TODO: implement init
-   
-  }
+
+   @override
+   Future<void> init() async {
+     // TODO: implement init
+
+   }
   
 }

@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/features/screens/market_prices/controller/market_prices_cubit.dart';
@@ -11,7 +12,7 @@ import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/features/screens/market_prices/data/model/currency_data.dart';
-import 'package:mkaweel/features/screens/market_prices/ui/widgets/exchange_rate_widget.dart';
+ import 'package:mkaweel/features/screens/market_prices/ui/widgets/exchange_rate_widget.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/currency_tabs_widget.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/search_and_filter_widget.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/price_item_widget.dart';
@@ -62,9 +63,14 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
           ),
           floatingActionButton: kDebugMode
               ? FloatingActionButton(
-                  onPressed: () {
-                    // marketPriceCubit.getExchagngeRateFunc(.reload);
-                    _loadData();
+                  onPressed: () async {
+                   await _loadData();
+                    // await marketPriceCubit.getCatogeriesFunc(Init());
+                    // await Future.delayed(Duration(seconds: 2),()async {
+                    //   final json = await AppLocator()()<BaseLocalRepo>().readData(AppConstant.getCatogeriesKeyCash);
+                    //   PrintHelper().ordinaryPrint(json );
+                    // },);
+
                   },
                 )
               : null,
@@ -77,7 +83,7 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
                   state is MarketPricesLoaded ? state.exchangeRateState : null,
                   builder: (context, emit) =>    ExchangeRateWidget(
                      emit: emit,
-                    onUpdatePress: () async=>await marketPriceCubit.getExchagngeRateFunc(.reload),
+                    onUpdatePress: () async=>await marketPriceCubit.getExchagngeRateFunc(Reload()),
                     currencyTabNotifier: currencyTabNotifier,
                   ),
                 ),
@@ -123,7 +129,7 @@ abstract class MarketPricesPageBaseState extends State<MarketPricesPage>
   void _listenerCatIdNotfieir() {
     debugPrint("...................");
      marketPriceCubit.getSubCatogeriesFunc(
-      .reload,
+       Reload(),
       parameter: .new(selectedCatIdNotifier.value!,currencyTabNotifier.value.shortcut),
     );
   }
@@ -135,23 +141,27 @@ abstract class MarketPricesPageBaseState extends State<MarketPricesPage>
     super.initState();
     debugPrint("init..............................");
     marketPriceCubit = MarketPricesCubit.get(context: context);
-    selectedCatIdNotifier.addListener(_listenerCatIdNotfieir);
-    currencyTabNotifier.addListener(_listenerCurrencyNotfieir);
+    // selectedCatIdNotifier.addListener(_listenerCatIdNotfieir);
+    // currencyTabNotifier.addListener(_listenerCurrencyNotfieir);
 
-    _loadData();
+    WidgetsBinding.instance.addPersistentFrameCallback((timeStamp) {
+      _loadData();
+    },);
   }
 
-  void  _loadData()   {
-    debugPrint("loading data................");
-  Future.wait([
-marketPriceCubit.getExchagngeRateFunc(.reload),
-    marketPriceCubit.getCatogeriesFunc(.reload),
-    marketPriceCubit.getSubCatogeriesFunc(
-          .reload,
-      parameter: .new(selectedCatIdNotifier.value!,currencyTabNotifier.value.shortcut),
-    )
-]);
+  Future<void>  _loadData() async {
+    debugPrint("loading data in Market Prices Cubit ................");
+    await Future.wait([
+      marketPriceCubit.getCatogeriesFunc( Init()),
+      marketPriceCubit.getExchagngeRateFunc( Init()),
+
+      marketPriceCubit.getSubCatogeriesFunc(
+        Init(),
+          parameter:   .new(selectedCatIdNotifier.value!,currencyTabNotifier.value.shortcut),
+        ),
+    ]);
   }
+
 
   @override
   void dispose() {

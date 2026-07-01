@@ -18,17 +18,18 @@ class SettingsCubit extends BaseCubit<SettingsState> {
       BlocProvider.of(context??navigatorKey.currentContext!,listen: listen);
   
        // int get logoutKeyCode => AppConstant.logoutKeyCode;
-  init() {
-    // TODO: implement init
-   
-  }
+   @override
+   Future<void> init() async {
+     // TODO: implement init
+
+   }
   
 
-  Future<void> logoutFunc(RequestTypeBackV2 requestType, {NoParameter? parameter}) async {
+  Future<void> logoutFunc(BaseRequestBackType requestType, {NoParameter? parameter}) async {
     // await CancelManager.runCancelableFun(logoutKeyCode, (token) async {
       await _service.logoutServ(
         RequestCallbackObserver<LogoutRes, NoParameter>(
-          baseRequestBackType: requestType.toRequestType(),
+          baseRequestBackType: requestType ,
           parameter: parameter ,
           // cancelToken: token,
           onLoadCallback: () => safeEmit(LogoutResState(Loading())),

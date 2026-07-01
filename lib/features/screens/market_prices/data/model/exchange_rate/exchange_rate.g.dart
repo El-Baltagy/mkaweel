@@ -15,7 +15,7 @@ _$ExchangeRateImpl _$$ExchangeRateImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$ExchangeRateImplToJson(_$ExchangeRateImpl instance) =>
     <String, dynamic>{
       'status': instance.status,
-      'data': instance.data,
+      'data': instance.data.toJson(),
     };
 
 _$RateDataImpl _$$RateDataImplFromJson(Map<String, dynamic> json) =>
@@ -25,7 +25,7 @@ _$RateDataImpl _$$RateDataImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$RateDataImplToJson(_$RateDataImpl instance) =>
     <String, dynamic>{
-      'USD': instance.usd,
+      'USD': instance.usd.toJson(),
     };
 
 _$USDImpl _$$USDImplFromJson(Map<String, dynamic> json) => _$USDImpl(

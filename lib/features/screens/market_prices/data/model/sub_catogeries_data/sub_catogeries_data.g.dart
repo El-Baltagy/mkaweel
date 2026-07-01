@@ -15,6 +15,8 @@ _$SubCatogeriesDataImpl _$$SubCatogeriesDataImplFromJson(
       data: (json['data'] as List<dynamic>)
           .map((e) => SubCatogeryItem.fromJson(e as Map<String, dynamic>))
           .toList(),
+      pagination:
+          Pagination.fromJson(json['pagination'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$SubCatogeriesDataImplToJson(
@@ -23,7 +25,8 @@ Map<String, dynamic> _$$SubCatogeriesDataImplToJson(
       'status': instance.status,
       'message': instance.message,
       'currency': instance.currency,
-      'data': instance.data,
+      'data': instance.data.map((e) => e.toJson()).toList(),
+      'pagination': instance.pagination.toJson(),
     };
 
 _$SubCatogeryItemImpl _$$SubCatogeryItemImplFromJson(
@@ -58,7 +61,7 @@ Map<String, dynamic> _$$SubCatogeryItemImplToJson(
       'code': instance.code,
       'name': instance.name,
       'category_id': instance.category_id,
-      'category': instance.category,
+      'category': instance.category.toJson(),
       'unit': instance.unit,
       'origin_country': instance.origin_country,
       'unit_price': instance.unit_price,
@@ -74,4 +77,20 @@ Map<String, dynamic> _$$SubCatogeryItemImplToJson(
       'is_available': instance.is_available,
       'notes': instance.notes,
       'created_at': instance.created_at,
+    };
+
+_$PaginationImpl _$$PaginationImplFromJson(Map<String, dynamic> json) =>
+    _$PaginationImpl(
+      current_page: (json['current_page'] as num).toInt(),
+      last_page: (json['last_page'] as num).toInt(),
+      per_page: (json['per_page'] as num).toInt(),
+      total: (json['total'] as num).toInt(),
+    );
+
+Map<String, dynamic> _$$PaginationImplToJson(_$PaginationImpl instance) =>
+    <String, dynamic>{
+      'current_page': instance.current_page,
+      'last_page': instance.last_page,
+      'per_page': instance.per_page,
+      'total': instance.total,
     };

@@ -45,9 +45,12 @@ extension RequestHandler<T, P> on RequestCallbackObserver<T, P> {
         }
       }
     } else if (type is Reload) {
-      await clearLocal?.call();
+      if(clearLocal!=null){
+        await clearLocal?.call();
+      }
+
     } else if (type is Pagination) {
-      if (type.currentPage >= type.lastPage) return;
+      if ((type.currentPage??0) >= (type.lastPage??0)) return;
     }
 
     // ── Notify loading ─────────────────────────────────────────────────────
@@ -65,7 +68,10 @@ extension RequestHandler<T, P> on RequestCallbackObserver<T, P> {
         if (fetchLocal != null&&type is Pagination) {
           local = await fetchLocal.call();
         }
-          await saveLocal?.call(local, data);
+        if(saveLocal != null){
+          await saveLocal(local, data);
+        }
+
 
         onRightCallback(data);
       },

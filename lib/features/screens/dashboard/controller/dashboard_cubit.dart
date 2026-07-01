@@ -12,11 +12,11 @@ class DashboardCubit extends BaseCubit<DashboardState> {
   
      static DashboardCubit get({BuildContext? context,bool listen=false}) =>
       BlocProvider.of(context??navigatorKey.currentContext!,listen: listen);
-  
-  @override
-  void init() {
-    // TODO: implement init
-   
-  }
+
+   @override
+   Future<void> init() async {
+     // TODO: implement init
+
+   }
   
 }

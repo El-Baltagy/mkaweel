@@ -14,9 +14,9 @@ class CreateProjectCubit extends BaseCubit<CreateProjectState> {
       BlocProvider.of(context??navigatorKey.currentContext!,listen: listen);
   
   @override
-  void init() {
+  Future<void> init() async {
     // TODO: implement init
-   
+
   }
   
 }

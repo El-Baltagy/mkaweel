@@ -24,6 +24,7 @@ mixin _$SubCatogeriesData {
   String get message => throw _privateConstructorUsedError;
   String get currency => throw _privateConstructorUsedError;
   List<SubCatogeryItem> get data => throw _privateConstructorUsedError;
+  Pagination get pagination => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,7 +42,10 @@ abstract class $SubCatogeriesDataCopyWith<$Res> {
       {String status,
       String message,
       String currency,
-      List<SubCatogeryItem> data});
+      List<SubCatogeryItem> data,
+      Pagination pagination});
+
+  $PaginationCopyWith<$Res> get pagination;
 }
 
 /// @nodoc
@@ -61,6 +65,7 @@ class _$SubCatogeriesDataCopyWithImpl<$Res, $Val extends SubCatogeriesData>
     Object? message = null,
     Object? currency = null,
     Object? data = null,
+    Object? pagination = null,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -79,7 +84,19 @@ class _$SubCatogeriesDataCopyWithImpl<$Res, $Val extends SubCatogeriesData>
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as List<SubCatogeryItem>,
+      pagination: null == pagination
+          ? _value.pagination
+          : pagination // ignore: cast_nullable_to_non_nullable
+              as Pagination,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PaginationCopyWith<$Res> get pagination {
+    return $PaginationCopyWith<$Res>(_value.pagination, (value) {
+      return _then(_value.copyWith(pagination: value) as $Val);
+    });
   }
 }
 
@@ -95,7 +112,11 @@ abstract class _$$SubCatogeriesDataImplCopyWith<$Res>
       {String status,
       String message,
       String currency,
-      List<SubCatogeryItem> data});
+      List<SubCatogeryItem> data,
+      Pagination pagination});
+
+  @override
+  $PaginationCopyWith<$Res> get pagination;
 }
 
 /// @nodoc
@@ -113,6 +134,7 @@ class __$$SubCatogeriesDataImplCopyWithImpl<$Res>
     Object? message = null,
     Object? currency = null,
     Object? data = null,
+    Object? pagination = null,
   }) {
     return _then(_$SubCatogeriesDataImpl(
       status: null == status
@@ -131,6 +153,10 @@ class __$$SubCatogeriesDataImplCopyWithImpl<$Res>
           ? _value._data
           : data // ignore: cast_nullable_to_non_nullable
               as List<SubCatogeryItem>,
+      pagination: null == pagination
+          ? _value.pagination
+          : pagination // ignore: cast_nullable_to_non_nullable
+              as Pagination,
     ));
   }
 }
@@ -142,7 +168,8 @@ class _$SubCatogeriesDataImpl extends _SubCatogeriesData {
       {required this.status,
       required this.message,
       required this.currency,
-      required final List<SubCatogeryItem> data})
+      required final List<SubCatogeryItem> data,
+      required this.pagination})
       : _data = data,
         super._();
 
@@ -162,6 +189,9 @@ class _$SubCatogeriesDataImpl extends _SubCatogeriesData {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_data);
   }
+
+  @override
+  final Pagination pagination;
 
   @JsonKey(ignore: true)
   @override
@@ -183,7 +213,8 @@ abstract class _SubCatogeriesData extends SubCatogeriesData {
       {required final String status,
       required final String message,
       required final String currency,
-      required final List<SubCatogeryItem> data}) = _$SubCatogeriesDataImpl;
+      required final List<SubCatogeryItem> data,
+      required final Pagination pagination}) = _$SubCatogeriesDataImpl;
   const _SubCatogeriesData._() : super._();
 
   factory _SubCatogeriesData.fromJson(Map<String, dynamic> json) =
@@ -197,6 +228,8 @@ abstract class _SubCatogeriesData extends SubCatogeriesData {
   String get currency;
   @override
   List<SubCatogeryItem> get data;
+  @override
+  Pagination get pagination;
   @override
   @JsonKey(ignore: true)
   _$$SubCatogeriesDataImplCopyWith<_$SubCatogeriesDataImpl> get copyWith =>
@@ -700,5 +733,179 @@ abstract class _SubCatogeryItem extends SubCatogeryItem {
   @override
   @JsonKey(ignore: true)
   _$$SubCatogeryItemImplCopyWith<_$SubCatogeryItemImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Pagination _$PaginationFromJson(Map<String, dynamic> json) {
+  return _Pagination.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Pagination {
+  int get current_page => throw _privateConstructorUsedError;
+  int get last_page => throw _privateConstructorUsedError;
+  int get per_page => throw _privateConstructorUsedError;
+  int get total => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $PaginationCopyWith<Pagination> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PaginationCopyWith<$Res> {
+  factory $PaginationCopyWith(
+          Pagination value, $Res Function(Pagination) then) =
+      _$PaginationCopyWithImpl<$Res, Pagination>;
+  @useResult
+  $Res call({int current_page, int last_page, int per_page, int total});
+}
+
+/// @nodoc
+class _$PaginationCopyWithImpl<$Res, $Val extends Pagination>
+    implements $PaginationCopyWith<$Res> {
+  _$PaginationCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? current_page = null,
+    Object? last_page = null,
+    Object? per_page = null,
+    Object? total = null,
+  }) {
+    return _then(_value.copyWith(
+      current_page: null == current_page
+          ? _value.current_page
+          : current_page // ignore: cast_nullable_to_non_nullable
+              as int,
+      last_page: null == last_page
+          ? _value.last_page
+          : last_page // ignore: cast_nullable_to_non_nullable
+              as int,
+      per_page: null == per_page
+          ? _value.per_page
+          : per_page // ignore: cast_nullable_to_non_nullable
+              as int,
+      total: null == total
+          ? _value.total
+          : total // ignore: cast_nullable_to_non_nullable
+              as int,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$PaginationImplCopyWith<$Res>
+    implements $PaginationCopyWith<$Res> {
+  factory _$$PaginationImplCopyWith(
+          _$PaginationImpl value, $Res Function(_$PaginationImpl) then) =
+      __$$PaginationImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int current_page, int last_page, int per_page, int total});
+}
+
+/// @nodoc
+class __$$PaginationImplCopyWithImpl<$Res>
+    extends _$PaginationCopyWithImpl<$Res, _$PaginationImpl>
+    implements _$$PaginationImplCopyWith<$Res> {
+  __$$PaginationImplCopyWithImpl(
+      _$PaginationImpl _value, $Res Function(_$PaginationImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? current_page = null,
+    Object? last_page = null,
+    Object? per_page = null,
+    Object? total = null,
+  }) {
+    return _then(_$PaginationImpl(
+      current_page: null == current_page
+          ? _value.current_page
+          : current_page // ignore: cast_nullable_to_non_nullable
+              as int,
+      last_page: null == last_page
+          ? _value.last_page
+          : last_page // ignore: cast_nullable_to_non_nullable
+              as int,
+      per_page: null == per_page
+          ? _value.per_page
+          : per_page // ignore: cast_nullable_to_non_nullable
+              as int,
+      total: null == total
+          ? _value.total
+          : total // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$PaginationImpl extends _Pagination {
+  const _$PaginationImpl(
+      {required this.current_page,
+      required this.last_page,
+      required this.per_page,
+      required this.total})
+      : super._();
+
+  factory _$PaginationImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PaginationImplFromJson(json);
+
+  @override
+  final int current_page;
+  @override
+  final int last_page;
+  @override
+  final int per_page;
+  @override
+  final int total;
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PaginationImplCopyWith<_$PaginationImpl> get copyWith =>
+      __$$PaginationImplCopyWithImpl<_$PaginationImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$PaginationImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Pagination extends Pagination {
+  const factory _Pagination(
+      {required final int current_page,
+      required final int last_page,
+      required final int per_page,
+      required final int total}) = _$PaginationImpl;
+  const _Pagination._() : super._();
+
+  factory _Pagination.fromJson(Map<String, dynamic> json) =
+      _$PaginationImpl.fromJson;
+
+  @override
+  int get current_page;
+  @override
+  int get last_page;
+  @override
+  int get per_page;
+  @override
+  int get total;
+  @override
+  @JsonKey(ignore: true)
+  _$$PaginationImplCopyWith<_$PaginationImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
