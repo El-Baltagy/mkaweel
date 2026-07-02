@@ -17,6 +17,7 @@ import 'package:mkaweel/features/screens/login/controller/login_cubit.dart';
 import 'package:mkaweel/features/screens/login/controller/login_state.dart';
 import 'package:mkaweel/features/screens/login/data/model/login_res/login_res.dart';
 import 'package:mkaweel/features/screens/login/ui/widgets/email_widget.dart';
+import 'package:mkaweel/features/screens/login/ui/forget_password.dart';
 import 'package:mkaweel/features/screens/login/ui/widgets/password_widget.dart';
 
 @RoutePage()
@@ -73,7 +74,9 @@ class _LoginPageState extends LoginPageBaseState {
                     // Password Input
                     PasswordWidget(field2: field2, passwordController: passwordController),
                     const SizedBox(height: 24),
-
+                    forgetPasswordWidget(),
+                    
+                    const SizedBox(height: 24),
                     // Login Button
                     BlocBuilder<LoginCubit, LoginState>(
                       builder: (context, state) {
@@ -127,7 +130,23 @@ class _LoginPageState extends LoginPageBaseState {
       ),
     );
   }
-
+  Widget forgetPasswordWidget(){
+  return Row(
+    mainAxisAlignment: .end,
+    children: [
+      GestureDetector(
+        onTap: () => context.pushNavigation(ForgetPasswordScreen()),
+        child: Text("do_you_forget_password".tr()+" ؟ ",
+        style: TextStyle(
+          color: context.theme.primaryColor,
+          fontSize: 14,
+          fontWeight: .w700
+        ),
+        ),
+      )
+    ],
+  );
+  }
 
 }
 

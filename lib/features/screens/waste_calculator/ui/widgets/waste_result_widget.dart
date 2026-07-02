@@ -106,18 +106,18 @@ class WasteResultWidget extends StatelessWidget {
             crossAxisAlignment: .start,
             children: [
               Text(
-                   '${e.material_name}',
+                   e.material_name,
                   style:   AppTextStyles.font16SemiBold.copyWith(color: textColor)
 
               ),
               10.verticalSpace,
               Text(
-                  "waste_quantity".tr() +" : "+'${e.waste_quantity}',
+                  'waste_quantity'.tr() +' : '+'${e.waste_quantity}',
                   style:   AppTextStyles.font16SemiBold.copyWith(color: textColor)
 
               ),
               Text(
-                "waste_percentage".tr()+" : "+ '${e.waste_percentage} %',
+                'waste_percentage'.tr()+' : '+ '${e.waste_percentage} %',
                  style:   AppTextStyles.font14Regular.copyWith(color: AppColors.contractorGreyText),
               ),
             ],

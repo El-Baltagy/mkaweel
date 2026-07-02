@@ -22,6 +22,16 @@ extension AppRouterExtension on BuildContext {
   /// Pop all routes until the root route.
   void popUntilRoot() => router.popUntilRoot();
 
+   Future<dynamic>  pushNavigation(Widget widget,{
+    Curve curve = Curves.easeInOutCubicEmphasized,
+    double? X,
+    double? Y,
+  }) {
+    return Navigator .push(this,_createRoute(widget,
+        X: X,
+        Y: Y,
+        curve: curve));
+  }
   /// Check if the router can pop.
   bool get canPop => router.canPop();
 
@@ -32,6 +42,7 @@ extension AppRouterExtension on BuildContext {
   double get width=> MediaQuery.sizeOf(this).width;
   double get aspectRatio=> MediaQuery.sizeOf(this).aspectRatio;
   bool get isLTR=>Directionality.of(this)==.ltr;
+
   // double get getSizeInSaveArea=> height-(padding.top +padding.bottom);
   //  double get mobileNavigationBarHeight=>padding.bottom;
   //  double get mobileStatusBarHeight=>padding.top;
@@ -58,5 +69,31 @@ extension AppRouterExtension on BuildContext {
         backgroundColor: backgroundColor?? (isSuccess?theme.primaryColor:theme.colorScheme.error),
         textColor: textColor?? theme.colorScheme.onPrimary,
         fontSize: 16.0);
+  }
+  PageRouteBuilder<dynamic> _createRoute(
+      Widget sc, {
+        Curve curve = Curves.easeInOutCubicEmphasized,
+        double? X,
+        double? Y,
+      }) {
+    return
+      // Platform.isIos?
+      // CupertinoPageTransitionsBuilder():
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => sc,
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+
+
+          var tween = Tween(begin: Offset(X ?? 0, Y ?? 0), end: Offset.zero).
+          chain(CurveTween(curve: curve));
+
+          return SlideTransition(
+            position: animation.drive(tween),
+            child: child,
+          );
+        },
+      )
+
+    ;
   }
 }
