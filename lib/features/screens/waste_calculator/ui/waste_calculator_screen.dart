@@ -35,13 +35,7 @@ class WasteCalculatorPage extends StatefulWidget implements AutoRouteWrapper {
       ],
       child: this,
     );
-    // return BlocProvider<MarketPricesCubit>(
-    //   create: (context) => MarketPricesCubit(AppLocator()()()),
-    //   child: BlocProvider<WasteCalculatorCubit>(
-    //     create: (context) => WasteCalculatorCubit(AppLocator()()()),
-    //     child: this,
-    //   ),
-    // );
+
   }
 
   @override
@@ -113,15 +107,18 @@ class _WasteCalculatorPageState extends WasteCalculatorPageBaseState {
                 ),
 
                 24.verticalSpace,
-                // WasteDataEntryWidget(
-                //   floorArea: state.floorArea,
-                //   onAreaChanged: (value) {
-                //     // argData.updateFloorArea(value);
-                //   },
-                //   onCalculate: () {
-                //     // argData.calculate();
-                //   },
-                // ),
+                WasteDataEntryWidget(
+                  controller:controller ,
+                   onCalculate: () {
+                    debugPrint(".....aaaaa.............");
+                    if(selectedSubCatNotifier.value<0){
+                      context.showToast( "please_choose_material".tr(),isSuccess: false) ;
+                    }else
+                    if(double.parse(controller.text.isEmpty?'0':controller.text)<1){
+                      context.showToast( "please_enter_valid_quantity".tr(),isSuccess: false) ;
+                    }
+                  },
+                ),
                 // if (state.isCalculated) ...[
                 //   16.verticalSpace,
                 //   WasteResultWidget(
@@ -142,8 +139,9 @@ class _WasteCalculatorPageState extends WasteCalculatorPageBaseState {
 abstract class WasteCalculatorPageBaseState extends State<WasteCalculatorPage> {
   late final WasteCalculatorCubit wasteCalculatorCubit;
   late final MarketPricesCubit marketPriceCubit;
-  ValueNotifier<int> selectedSubCatNotifier = .new(-1);
+  ValueNotifier<int> selectedSubCatNotifier = .new(-2);
   final ScrollController  scrollController=.new();
+  final TextEditingController controller=.new(text: '0');
 
   @override
   void initState() {
@@ -160,6 +158,9 @@ abstract class WasteCalculatorPageBaseState extends State<WasteCalculatorPage> {
 
   @override
   void dispose() {
+    selectedSubCatNotifier.dispose();
+    controller.dispose();
+    scrollController.dispose();
     super.dispose();
   }
 

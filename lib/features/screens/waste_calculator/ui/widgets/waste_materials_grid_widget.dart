@@ -1,4 +1,3 @@
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mkaweel/core/base/base_cubit.dart';
@@ -11,74 +10,123 @@ import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/features/screens/market_prices/data/model/sub_catogeries_data/sub_catogeries_data.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class WasteMaterialsGridWidget extends StatelessWidget {
-
+class WasteMaterialsGridWidget extends StatefulWidget {
   const WasteMaterialsGridWidget({
     super.key,
-     required this.selectedSubCatNotifier,
+    required this.selectedSubCatNotifier,
     required this.emit,
     required this.onShowMore,
-   });
-   final ValueNotifier<int> selectedSubCatNotifier ;
+  });
+
+  final ValueNotifier<int> selectedSubCatNotifier;
   final BaseEmit? emit;
-  final void Function(PaginationInfo<SubCatogeriesData>  )? onShowMore;
-   @override
+  final void Function(PaginationInfo<SubCatogeriesData>)? onShowMore;
+
+  @override
+  State<WasteMaterialsGridWidget> createState() =>
+      _WasteMaterialsGridWidgetState();
+}
+
+class _WasteMaterialsGridWidgetState extends State<WasteMaterialsGridWidget> {
+  SubCatogeriesData? _cachedData;
+
+  @override
   Widget build(BuildContext context) {
-    bool isLoading= emit is !Success<SubCatogeriesData>;
-    final SubCatogeriesData? subCatogeriesInSuccess= isLoading?null:  ( emit as Success<SubCatogeriesData>).data;
+    // 1. Cache the data whenever we get a Success state!
+    if (widget.emit is Success<SubCatogeriesData>) {
+      _cachedData = (widget.emit as Success<SubCatogeriesData>).data;
+    }
 
-    bool hasMorePagination=
-        subCatogeriesInSuccess?.pagination==null?false:
-        (subCatogeriesInSuccess?.pagination.current_page??0)<(subCatogeriesInSuccess?.pagination.last_page??0);
-    final List<SubCatogeryItem> finalList =isLoading?List.generate(8, (index) =>SubCatogeryItem.toGetEmptyForLoading() ):
+    final bool isCurrentlyLoading = widget.emit is! Success<SubCatogeriesData>;
 
-    [
-      ...subCatogeriesInSuccess?.data??[],
-      if(hasMorePagination)
-        SubCatogeryItem.toGetEmptyForLoading().copyWith(name: 'show more' ,id: -1),
+    final bool hasMorePagination = _cachedData?.pagination == null
+        ? false
+        : (_cachedData?.pagination.current_page ?? 0) <
+              (_cachedData?.pagination.last_page ?? 0);
+
+    // 2. Use _cachedData instead of reading directly from state
+    final List<SubCatogeryItem> finalList = [
+      ...?_cachedData?.data,
+      if(isCurrentlyLoading)
+      ...List.generate(8, (index) => SubCatogeryItem.toGetEmptyForLoading()),
+      if (hasMorePagination)
+        SubCatogeryItem.toGetEmptyForLoading().copyWith(
+          name: 'show_more'.tr(),
+          id: -1,
+        ),
     ];
-     return Column(
+
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Text(
           'select_material'.tr(),
-          style: AppTextStyles.font18SemiBold.copyWith(color: AppColors.contractorGreyText,
-          fontSize: 14
+          style: AppTextStyles.font18SemiBold.copyWith(
+            color: AppColors.contractorGreyText,
+            fontSize: 14,
           ),
         ),
         16.verticalSpace,
-        Skeletonizer(
-          enabled: isLoading,
-          child:AutoHeightGridView(
-             mainAxisSpacing: 12,
-            enableScrool: false,
-            itemCount: finalList.length,
-            builder: (context, index) {
-
-              return ValueListenableBuilder(valueListenable:selectedSubCatNotifier , builder: (context, value, child) {
+        AutoHeightGridView(
+          mainAxisSpacing: 12,
+          enableScrool: false,
+          itemCount: finalList.length,
+          builder: (context, index) {
+            return ValueListenableBuilder(
+              valueListenable: widget.selectedSubCatNotifier,
+              builder: (context, value, child) {
                 final isSelected = value == finalList[index].id;
-                return GestureDetector(
-                  onTap: (){
-                    if(finalList[index].id==-1){
-                      onShowMore?.call(
-                          PaginationInfo<SubCatogeriesData>(
-                            currentPage: subCatogeriesInSuccess?.pagination.current_page,
-                            lastPage: subCatogeriesInSuccess?.pagination.last_page,
-                            oldDataToCombine: subCatogeriesInSuccess,
-                          )
-                       ) ;
-                    }else
-                    if(!isSelected){
-                      selectedSubCatNotifier.value = finalList[index].id;
-                    }
-                  }
-                  , child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+
+                // Optional: If it's the "show more" button and we are currently paginating,
+                // you can show a loading indicator instead of the text!
+                final bool isThisItemTheShowMoreBtn = finalList[index].id == -1;
+
+                return Skeletonizer(
+                  enabled: finalList[index].id<0&&isCurrentlyLoading,
+                  child: GestureDetector(
+                    onTap: () {
+                      if (isThisItemTheShowMoreBtn) {
+                        // Don't trigger again if we are already loading!
+                        if (!isCurrentlyLoading) {
+                          widget.onShowMore?.call(
+                            PaginationInfo<SubCatogeriesData>(
+                              currentPage: _cachedData?.pagination.current_page,
+                              lastPage: _cachedData?.pagination.last_page,
+                              oldDataToCombine: _cachedData,
+                            ),
+                          );
+                        }
+                      } else if (!isSelected) {
+                        widget.selectedSubCatNotifier.value =
+                            finalList[index].id;
+                      }
+                    },
+                    child: buildContainer(isSelected, context, finalList, index,isThisItemTheShowMoreBtn),
+                  ),
+                );
+              },
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  Container buildContainer(bool isSelected, BuildContext context, List<SubCatogeryItem> finalList, int index,bool isThisItemTheShowMoreBtn) {
+    return Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
                     decoration: BoxDecoration(
-                      color: isSelected ? Theme.of(context).primaryColor.withOpacity(0.1) : Colors.white,
+                      color: isSelected
+                          ? Theme.of(context).primaryColor.withOpacity(0.1)
+                          : Colors.white,
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(
-                        color: isSelected ? Theme.of(context).primaryColor : context.theme.canvasColor,
+                        color: isSelected
+                            ? Theme.of(context).primaryColor
+                            : context.theme.canvasColor,
                         width: isSelected ? 1.5 : 1,
                       ),
                     ),
@@ -87,38 +135,44 @@ class WasteMaterialsGridWidget extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                finalList[index].name,
-                                style: AppTextStyles.font18SemiBold.copyWith(
-                                    color: isSelected ? Theme.of(context).primaryColor : context.theme.colorScheme.tertiaryFixed,
-                                    fontSize: 14
+                            crossAxisAlignment:  .start,
+                             children:  [
+                                Container(
+                                  constraints: const BoxConstraints(),
+                                  child: Text(
+                                    finalList[index].name+(isThisItemTheShowMoreBtn?"":"\n\n"),
+                                    style: AppTextStyles.font18SemiBold
+                                        .copyWith(
+                                          color: isSelected
+                                              ? Theme.of(context).primaryColor
+                                              : context
+                                                    .theme
+                                                    .colorScheme
+                                                    .tertiaryFixed,
+                                          fontSize: 14,
+                                        ),
+                                     maxLines: 2,
+                                    overflow:  .ellipsis,
+                                  ),
                                 ),
-                                textAlign: TextAlign.right,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              4.verticalSpace,
-                              Text(
-                                finalList[index].origin_country,
-                                style: AppTextStyles.font14Regular.copyWith(color: AppColors.contractorGreyText,
-                                    fontSize: 10),
-                                textAlign: TextAlign.right,
-                              ),
-                            ],
+                                if(!isThisItemTheShowMoreBtn)
+                                ...[
+                                  4.verticalSpace,
+                                  Text(
+                                    finalList[index].waste_percentage??finalList[index].origin_country,
+                                    style: AppTextStyles.font14Regular.copyWith(
+                                      color: AppColors.contractorGreyText,
+                                      fontSize: 10,
+                                    ),
+                                    textAlign: TextAlign.right,
+                                  ),
+                                ]
+                              ],
+
                           ),
                         ),
                       ],
                     ),
-                  ),
-                );
-              },);
-            },
-          ),
-        ),
-      ],
-    );
+                  );
   }
 }

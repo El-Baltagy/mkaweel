@@ -259,6 +259,7 @@ mixin _$SubCatogeryItem {
   String? get supplier_name => throw _privateConstructorUsedError;
   String? get supplier_phone => throw _privateConstructorUsedError;
   String? get status => throw _privateConstructorUsedError;
+  String? get waste_percentage => throw _privateConstructorUsedError;
   bool? get is_available => throw _privateConstructorUsedError;
   String? get notes => throw _privateConstructorUsedError;
   String get created_at => throw _privateConstructorUsedError;
@@ -293,6 +294,7 @@ abstract class $SubCatogeryItemCopyWith<$Res> {
       String? supplier_name,
       String? supplier_phone,
       String? status,
+      String? waste_percentage,
       bool? is_available,
       String? notes,
       String created_at});
@@ -330,6 +332,7 @@ class _$SubCatogeryItemCopyWithImpl<$Res, $Val extends SubCatogeryItem>
     Object? supplier_name = freezed,
     Object? supplier_phone = freezed,
     Object? status = freezed,
+    Object? waste_percentage = freezed,
     Object? is_available = freezed,
     Object? notes = freezed,
     Object? created_at = null,
@@ -403,6 +406,10 @@ class _$SubCatogeryItemCopyWithImpl<$Res, $Val extends SubCatogeryItem>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String?,
+      waste_percentage: freezed == waste_percentage
+          ? _value.waste_percentage
+          : waste_percentage // ignore: cast_nullable_to_non_nullable
+              as String?,
       is_available: freezed == is_available
           ? _value.is_available
           : is_available // ignore: cast_nullable_to_non_nullable
@@ -453,6 +460,7 @@ abstract class _$$SubCatogeryItemImplCopyWith<$Res>
       String? supplier_name,
       String? supplier_phone,
       String? status,
+      String? waste_percentage,
       bool? is_available,
       String? notes,
       String created_at});
@@ -489,6 +497,7 @@ class __$$SubCatogeryItemImplCopyWithImpl<$Res>
     Object? supplier_name = freezed,
     Object? supplier_phone = freezed,
     Object? status = freezed,
+    Object? waste_percentage = freezed,
     Object? is_available = freezed,
     Object? notes = freezed,
     Object? created_at = null,
@@ -562,6 +571,10 @@ class __$$SubCatogeryItemImplCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String?,
+      waste_percentage: freezed == waste_percentage
+          ? _value.waste_percentage
+          : waste_percentage // ignore: cast_nullable_to_non_nullable
+              as String?,
       is_available: freezed == is_available
           ? _value.is_available
           : is_available // ignore: cast_nullable_to_non_nullable
@@ -599,6 +612,7 @@ class _$SubCatogeryItemImpl extends _SubCatogeryItem {
       this.supplier_name,
       this.supplier_phone,
       this.status,
+      this.waste_percentage,
       this.is_available,
       this.notes,
       required this.created_at})
@@ -642,6 +656,8 @@ class _$SubCatogeryItemImpl extends _SubCatogeryItem {
   @override
   final String? status;
   @override
+  final String? waste_percentage;
+  @override
   final bool? is_available;
   @override
   final String? notes;
@@ -682,6 +698,7 @@ abstract class _SubCatogeryItem extends SubCatogeryItem {
       final String? supplier_name,
       final String? supplier_phone,
       final String? status,
+      final String? waste_percentage,
       final bool? is_available,
       final String? notes,
       required final String created_at}) = _$SubCatogeryItemImpl;
@@ -724,6 +741,8 @@ abstract class _SubCatogeryItem extends SubCatogeryItem {
   String? get supplier_phone;
   @override
   String? get status;
+  @override
+  String? get waste_percentage;
   @override
   bool? get is_available;
   @override

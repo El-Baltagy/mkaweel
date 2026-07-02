@@ -29,7 +29,7 @@ class SubCatogeriesData with _$SubCatogeriesData, EquatableMixin {
 @freezed
 class SubCatogeryItem with _$SubCatogeryItem, EquatableMixin {
   static SubCatogeryItem toGetEmptyForLoading() {
-    return SubCatogeryItem(id: -1, name: 'cccccccccccccc',
+    return SubCatogeryItem(id: -2, name: 'cccccccccccccc',
         category: CatogeryItem.toGetEmptyForLoading(),
         origin_country: 'syria', unit_price: 1144, created_at: "2026-06-24T19:53:58.000000Z");
   }
@@ -54,6 +54,7 @@ class SubCatogeryItem with _$SubCatogeryItem, EquatableMixin {
     String? supplier_name,
     String? supplier_phone,
     String? status,
+    String? waste_percentage,
     bool? is_available,
     String? notes,
     required String created_at,
@@ -79,6 +80,7 @@ class SubCatogeryItem with _$SubCatogeryItem, EquatableMixin {
     minimum_quantity,
     reorder_quantity,
     supplier_name,
+    waste_percentage,
     supplier_phone,
     status,
     is_available,

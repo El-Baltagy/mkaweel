@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
@@ -9,17 +10,16 @@ class WasteDataEntryWidget extends StatelessWidget {
 
   const WasteDataEntryWidget({
     super.key,
-    required this.floorArea,
-    required this.onAreaChanged,
-    required this.onCalculate,
+     required this.onCalculate,
+    required this.controller,
   });
-  final double floorArea;
-  final ValueChanged<double> onAreaChanged;
+   // final ValueChanged<double> onAreaChanged;
   final VoidCallback onCalculate;
+  final TextEditingController controller  ;
 
   @override
   Widget build(BuildContext context) {
-    final controller = TextEditingController(text: floorArea == 0 ? '' : floorArea.toString());
+    // final controller = TextEditingController(text: floorArea == 0 ? '' : floorArea.toString());
     
     return Container(
       width: double.infinity,
@@ -36,17 +36,13 @@ class WasteDataEntryWidget extends StatelessWidget {
         ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             'data_entry'.tr(),
             style: AppTextStyles.font16SemiBold.copyWith(color: context.theme.colorScheme.tertiaryFixed),
           ),
-          16.verticalSpace,
-          Text(
-            'floor_area_m2'.tr(),
-            style: AppTextStyles.font12Regular.copyWith(color: AppColors.contractorGreyText),
-          ),
+
           8.verticalSpace,
           Container(
             decoration: BoxDecoration(
@@ -59,28 +55,33 @@ class WasteDataEntryWidget extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        onAreaChanged(floorArea + 1);
+                        controller.text=(double.parse(controller.text.isEmpty?'0':controller.text) + 1).toString();
                       },
                       child: const Icon(Icons.arrow_drop_up, color: AppColors.contractorGreyText),
                     ),
                     InkWell(
                       onTap: () {
-                        if (floorArea > 0) onAreaChanged(floorArea - 1);
+                        if (double.parse(controller.text.isEmpty?'0':controller.text) >  1) {
+                          controller.text=(double.parse(controller.text) - 1).toString();
+                        }
+
+
                       },
                       child: const Icon(Icons.arrow_drop_down, color: AppColors.contractorGreyText),
                     ),
                   ],
                 ),
                 Expanded(
-                  child: TextField(
+                  child: TextFormField(
                     controller: controller,
                     textAlign: TextAlign.right,
                     keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      FilteringTextInputFormatter.allow(RegExp(r'^[1-9][0-9]*$')),
+                    ],
                     onChanged: (val) {
-                      final parsed = double.tryParse(val);
-                      if (parsed != null) {
-                        onAreaChanged(parsed);
-                      }
+                        controller.text =val;
                     },
                     decoration: const InputDecoration(
                       border: InputBorder.none,
@@ -95,34 +96,13 @@ class WasteDataEntryWidget extends StatelessWidget {
               ],
             ),
           ),
-          12.verticalSpace,
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: context.theme.canvasColor.withOpacity(0.5),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Expanded(
-                  child: Text(
-                    'waste_reason_tiles'.tr(),
-                    style: AppTextStyles.font12Regular.copyWith(color: AppColors.contractorGreyText),
-                    textAlign: TextAlign.right,
-                  ),
-                ),
-                8.horizontalSpace,
-                Icon(Icons.info_outline, size: 16, color: Theme.of(context).primaryColor),
-              ],
-            ),
-          ),
+
           24.verticalSpace,
           SizedBox(
             width: double.infinity,
             height: 48,
             child: ElevatedButton(
-              onPressed: floorArea > 0 ? onCalculate : null,
+              onPressed:onCalculate,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).primaryColor,
                 shape: RoundedRectangleBorder(
