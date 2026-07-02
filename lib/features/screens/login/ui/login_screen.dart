@@ -68,7 +68,7 @@ class _LoginPageState extends LoginPageBaseState {
                     const SizedBox(height: 48),
 
                     // Phone Input
-                    EmailInput(field1: field1, phoneController: phoneController),
+                    EmailInput(field1: field1, emailController: phoneController),
                     const SizedBox(height: 16),
 
                     // Password Input

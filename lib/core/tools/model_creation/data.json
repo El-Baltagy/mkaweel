@@ -1,26 +1,4 @@
 {
     "status": "success",
-    "message": "تم حساب كميات الهدر بنجاح.",
-    "data": [
-        {
-            "material_id": 1,
-            "material_code": "CM001",
-            "material_name": "اسمنت بورتلاند عادي 50 كجم",
-            "unit": "كيس",
-            "waste_percentage": 3,
-            "required_quantity": 100,
-            "waste_quantity": 3,
-            "purchase_quantity": 103
-        },
-        {
-            "material_id": 5,
-            "material_code": "CM005",
-            "material_name": "حديد تسليح قطر 12 مم",
-            "unit": "طن",
-            "waste_percentage": 7,
-            "required_quantity": 10,
-            "waste_quantity": 0.7,
-            "purchase_quantity": 10.7
-        }
-    ]
+    "message": "تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني."
 }

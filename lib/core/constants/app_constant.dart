@@ -18,4 +18,6 @@ abstract class AppConstant {
   static const int getExchagngeRateKeyCode = 2495;
   static const String calculateWastePercentageKeyCash = 'waste_calculator_calculateWastePercentage_cache';
   static const int calculateWastePercentageKeyCode = 8458;
+  static const String sendResetPWLinkKeyCash = 'login_sendResetPWLink_cache';
+  static const int sendResetPWLinkKeyCode = 9742;
 }

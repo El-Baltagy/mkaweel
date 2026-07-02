@@ -160,3 +160,8 @@ waste_quantity,waste quantity,كمية الهدر
 waste_percentage,waste percentage,نسبة الهدر
 
 do_you_forget_password,Do You forget password,هل نسيت كلمة المرور
+
+forget_password,forget password,نسيت كلمة المرور
+send,send,يرسل
+
+enter_email_to_receive_reset_link,Enter email to receive reset link,أدخل البريد الإلكتروني لتلقي رابط إعادة التعيين

@@ -1,3 +1,5 @@
+import 'package:mkaweel/features/screens/login/data/model/forget_password_link/forget_password_link.dart';
+import 'package:mkaweel/features/screens/login/data/model/forget_password_parameter.dart';
 import 'package:mkaweel/core/base/base_service.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_constant.dart';
@@ -18,11 +20,12 @@ class LoginCubit extends BaseCubit<LoginState> {
   static LoginCubit get({BuildContext? context, bool listen = false}) =>
       BlocProvider.of(context ?? navigatorKey.currentContext!, listen: listen);
 
-  @override
+
   int get loginKeyCode => AppConstant.loginKeyCode;
 
-  @override
-  Future<void> init() async {
+
+       int get sendResetPWLinkKeyCode => AppConstant.sendResetPWLinkKeyCode;
+  init() async {
     // TODO: implement init
 
   }
@@ -46,7 +49,24 @@ class LoginCubit extends BaseCubit<LoginState> {
   @override
   Future<void> close() {
     // add every key in file
+    CancelManager.cancel(sendResetPWLinkKeyCode);
+    // add every key in file
     CancelManager.cancel(loginKeyCode);
     return super.close();
+  }
+
+  Future<void> sendResetPWLinkFunc( {ForgetPasswordParameter? parameter}) async {
+    await CancelManager.runCancelableFun(sendResetPWLinkKeyCode, (token) async {
+      await _service.sendResetPWLinkServ(
+        RequestCallbackObserver<ForgetPasswordLink, ForgetPasswordParameter>(
+          baseRequestBackType:Reload(),
+          parameter: parameter ,
+          cancelToken: token,
+          onLoadCallback: () => safeEmit(ForgetPasswordLinkState(Loading())),
+          onRightCallback: (data) => safeEmit(ForgetPasswordLinkState(Success(data))),
+          onLeftCallback: (failure) => safeEmit(ForgetPasswordLinkState(ErrorState(failure))),
+        ),
+      );
+    });
   }
 }

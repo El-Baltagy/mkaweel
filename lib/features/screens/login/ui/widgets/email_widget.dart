@@ -7,11 +7,11 @@ class EmailInput extends StatelessWidget {
   const EmailInput({
     super.key,
     required this.field1,
-    required this.phoneController,
+    required this.emailController,
   });
 
   final (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field1;
-  final TextEditingController phoneController;
+  final TextEditingController emailController;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class EmailInput extends StatelessWidget {
       key: field1.$1,
       focusNode: field1.$2,
       autovalidateMode: .onUserInteraction,
-      controller: phoneController,
+      controller: emailController,
       keyboardType: TextInputType.emailAddress,
       // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       decoration: InputDecoration(

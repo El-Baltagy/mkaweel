@@ -1,5 +1,5 @@
-
-import 'package:mkaweel/core/constants/app_typedef.dart';
+import 'package:mkaweel/features/screens/login/data/model/forget_password_link/forget_password_link.dart';
+import 'package:mkaweel/features/screens/login/data/model/forget_password_parameter.dart';
 import 'package:mkaweel/core/constants/app_constant.dart';
 import 'package:mkaweel/core/base/base_service.dart';
 import 'package:mkaweel/core/base/base_local_repo.dart';
@@ -30,6 +30,18 @@ class LoginService extends BaseService {
           await HWSecureSaver.save(AppConstant.tokenKeyCash,  newData .data.token.toString());
         }
       },
+
+    );
+  }
+
+  Future<void> sendResetPWLinkServ(
+    RequestCallbackObserver<ForgetPasswordLink, ForgetPasswordParameter> requestInfo,
+  ) {
+     return requestInfo.handleRequest(
+      fetchFromClient: (token) => _remoteRepo.sendresetpwlinkApi(
+        requestInfo.parameter,
+        cancelToken: token,
+      ),
 
     );
   }

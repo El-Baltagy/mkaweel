@@ -1,3 +1,5 @@
+import 'package:mkaweel/features/screens/login/data/model/forget_password_link/forget_password_link.dart';
+import 'package:mkaweel/features/screens/login/data/model/forget_password_parameter.dart';
 import 'package:dio/dio.dart';
 import 'package:mkaweel/core/api_helper/response_handler.dart';
 import 'package:mkaweel/core/constants/app_api.dart';
@@ -23,6 +25,20 @@ class LoginRepo extends BaseRepo {
         cancelToken: cancelToken,
       ),
       asObject: LoginRes.fromJson,
+    );
+  }
+
+   Future<Either<Failure, ForgetPasswordLink>> sendresetpwlinkApi(
+    ForgetPasswordParameter? parameter, {
+    CancelToken? cancelToken,
+  }) async {
+    return handleResponse(
+      onCallData: dio.postData(
+        data: parameter?.toJson(),
+        uri: EndPoints.sendResetPWLink,
+        cancelToken: cancelToken,
+      ),
+      asObject: ForgetPasswordLink.fromJson,
     );
   }
 }

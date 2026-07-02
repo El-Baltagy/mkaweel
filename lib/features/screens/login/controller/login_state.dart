@@ -20,3 +20,8 @@ class LoginResState extends LoginState {
   final BaseEmit baseEmit;
   LoginResState(this.baseEmit);
 }
+
+class ForgetPasswordLinkState extends LoginState {
+  final BaseEmit baseEmit;
+  ForgetPasswordLinkState(this.baseEmit);
+}
