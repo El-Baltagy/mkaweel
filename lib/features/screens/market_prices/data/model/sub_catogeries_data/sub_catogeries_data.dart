@@ -29,8 +29,10 @@ class SubCatogeriesData with _$SubCatogeriesData, EquatableMixin {
 @freezed
 class SubCatogeryItem with _$SubCatogeryItem, EquatableMixin {
   static SubCatogeryItem toGetEmptyForLoading() {
-    return SubCatogeryItem(id: -2, name: 'cccccccccccccc',
+    return SubCatogeryItem(id: -3, name: 'cccccccccccccc',
         category: CatogeryItem.toGetEmptyForLoading(),
+        unit: "meter",
+        waste_percentage: "5%",
         origin_country: 'syria', unit_price: 1144, created_at: "2026-06-24T19:53:58.000000Z");
   }
 

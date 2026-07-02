@@ -5,21 +5,23 @@ import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/extension/context.dart';
+import 'package:mkaweel/features/screens/market_prices/data/model/sub_catogeries_data/sub_catogeries_data.dart';
 
 class WasteDataEntryWidget extends StatelessWidget {
 
   const WasteDataEntryWidget({
     super.key,
-     required this.onCalculate,
+
     required this.controller,
+    required this.selectedSubCatNotifier,
   });
-   // final ValueChanged<double> onAreaChanged;
-  final VoidCallback onCalculate;
+  final ValueNotifier<SubCatogeryItem?> selectedSubCatNotifier;
+
   final TextEditingController controller  ;
 
   @override
   Widget build(BuildContext context) {
-    // final controller = TextEditingController(text: floorArea == 0 ? '' : floorArea.toString());
+
     
     return Container(
       width: double.infinity,
@@ -91,31 +93,18 @@ class WasteDataEntryWidget extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 12),
-                  child: Text('م²', style: AppTextStyles.font14Regular.copyWith(color: AppColors.contractorGreyText)),
+                  child: ValueListenableBuilder(valueListenable: selectedSubCatNotifier, builder: (context, value, child) {
+                   if(value==null){
+                     return const SizedBox.shrink();
+                   }
+                    return Text(value.unit??"", style: AppTextStyles.font14Regular.copyWith(color: AppColors.contractorGreyText));
+                  },),
                 ),
               ],
             ),
           ),
 
-          24.verticalSpace,
-          SizedBox(
-            width: double.infinity,
-            height: 48,
-            child: ElevatedButton(
-              onPressed:onCalculate,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).primaryColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                elevation: 0,
-              ),
-              child: Text(
-                'calculate_quantities'.tr(),
-                style: AppTextStyles.font16SemiBold.copyWith(color: Colors.white),
-              ),
-            ),
-          ),
+
         ],
       ),
     );

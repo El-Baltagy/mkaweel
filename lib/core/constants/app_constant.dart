@@ -16,4 +16,6 @@ abstract class AppConstant {
   static const int logoutKeyCode = 8255;
   static const String getExchagngeRateKeyCash = 'market_prices_getExchagngeRate_cache';
   static const int getExchagngeRateKeyCode = 2495;
+  static const String calculateWastePercentageKeyCash = 'waste_calculator_calculateWastePercentage_cache';
+  static const int calculateWastePercentageKeyCode = 8458;
 }

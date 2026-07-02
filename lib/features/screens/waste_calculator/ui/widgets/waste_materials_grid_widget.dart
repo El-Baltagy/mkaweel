@@ -18,7 +18,7 @@ class WasteMaterialsGridWidget extends StatefulWidget {
     required this.onShowMore,
   });
 
-  final ValueNotifier<int> selectedSubCatNotifier;
+  final ValueNotifier<SubCatogeryItem?> selectedSubCatNotifier;
   final BaseEmit? emit;
   final void Function(PaginationInfo<SubCatogeriesData>)? onShowMore;
 
@@ -75,13 +75,12 @@ class _WasteMaterialsGridWidgetState extends State<WasteMaterialsGridWidget> {
             return ValueListenableBuilder(
               valueListenable: widget.selectedSubCatNotifier,
               builder: (context, value, child) {
-                final isSelected = value == finalList[index].id;
+                final isSelected = value?.id == finalList[index].id;
 
-                // Optional: If it's the "show more" button and we are currently paginating,
-                // you can show a loading indicator instead of the text!
                 final bool isThisItemTheShowMoreBtn = finalList[index].id == -1;
 
                 return Skeletonizer(
+                  // enabled:true,
                   enabled: finalList[index].id<0&&isCurrentlyLoading,
                   child: GestureDetector(
                     onTap: () {
@@ -98,10 +97,10 @@ class _WasteMaterialsGridWidgetState extends State<WasteMaterialsGridWidget> {
                         }
                       } else if (!isSelected) {
                         widget.selectedSubCatNotifier.value =
-                            finalList[index].id;
+                            finalList[index] ;
                       }
                     },
-                    child: buildContainer(isSelected, context, finalList, index,isThisItemTheShowMoreBtn),
+                    child: buildContainer(isSelected, context, finalList[index],isThisItemTheShowMoreBtn),
                   ),
                 );
               },
@@ -112,7 +111,7 @@ class _WasteMaterialsGridWidgetState extends State<WasteMaterialsGridWidget> {
     );
   }
 
-  Container buildContainer(bool isSelected, BuildContext context, List<SubCatogeryItem> finalList, int index,bool isThisItemTheShowMoreBtn) {
+  Container buildContainer(bool isSelected, BuildContext context, SubCatogeryItem item,bool isThisItemTheShowMoreBtn) {
     return Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 12,
@@ -140,7 +139,7 @@ class _WasteMaterialsGridWidgetState extends State<WasteMaterialsGridWidget> {
                                 Container(
                                   constraints: const BoxConstraints(),
                                   child: Text(
-                                    finalList[index].name+(isThisItemTheShowMoreBtn?"":"\n\n"),
+                                    item.name+(isThisItemTheShowMoreBtn?"":"\n\n"),
                                     style: AppTextStyles.font18SemiBold
                                         .copyWith(
                                           color: isSelected
@@ -159,7 +158,7 @@ class _WasteMaterialsGridWidgetState extends State<WasteMaterialsGridWidget> {
                                 ...[
                                   4.verticalSpace,
                                   Text(
-                                    finalList[index].waste_percentage??finalList[index].origin_country,
+                                   '${item.waste_percentage!} ${item.unit}' ,
                                     style: AppTextStyles.font14Regular.copyWith(
                                       color: AppColors.contractorGreyText,
                                       fontSize: 10,

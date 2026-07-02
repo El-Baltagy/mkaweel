@@ -10,9 +10,11 @@ import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/features/screens/market_prices/controller/market_prices_cubit.dart';
 import 'package:mkaweel/features/screens/market_prices/controller/market_prices_state.dart';
+import 'package:mkaweel/features/screens/market_prices/data/model/sub_catogeries_data/sub_catogeries_data.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/currency_tabs_widget.dart';
 import 'package:mkaweel/features/screens/waste_calculator/controller/waste_calculator_cubit.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
+import 'package:mkaweel/features/screens/waste_calculator/data/model/waste_calc_paremeter.dart';
 import 'package:mkaweel/features/screens/waste_calculator/ui/widgets/waste_data_entry_widget.dart';
 import 'package:mkaweel/features/screens/waste_calculator/ui/widgets/waste_header_widget.dart';
 import 'package:mkaweel/features/screens/waste_calculator/ui/widgets/waste_materials_grid_widget.dart';
@@ -35,7 +37,6 @@ class WasteCalculatorPage extends StatefulWidget implements AutoRouteWrapper {
       ],
       child: this,
     );
-
   }
 
   @override
@@ -71,66 +72,46 @@ class _WasteCalculatorPageState extends WasteCalculatorPageBaseState {
         ),
         body: BlocListener<MarketPricesCubit, MarketPricesState>(
           listener: listenerPricesCubit,
-  child: SafeArea(
-          child: SingleChildScrollView(
-            controller: scrollController,
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                const WasteHeaderWidget(),
-                16.verticalSpace,
-                BlocSelector<
-                    MarketPricesCubit,
-                    MarketPricesState,
-                    BaseEmit?
-                >(
-                  selector: (state) => state is MarketPricesLoaded
-                      ? state.subCategoriesEmit
-                      : null,
-                  builder: (context, state) => WasteMaterialsGridWidget(
-                     onShowMore: (p) async {
-                      debugPrint(p.currentPage.toString());
-                      debugPrint(p.lastPage.toString());
-                      await marketPriceCubit.getSubCatogeriesFunc(
-                        p,
-                        parameter: .new(
-                            -1,
-                            CurrencyTabsWidget.listTabs.first.shortcut,
-                            p.currentPage
-                        ),
+          child: SafeArea(
+            child: SingleChildScrollView(
+              controller: scrollController,
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  const WasteHeaderWidget(),
+                  16.verticalSpace,
+                  BlocSelector<MarketPricesCubit, MarketPricesState, BaseEmit?>(
+                    selector: (state) => state is MarketPricesLoaded
+                        ? state.subCategoriesEmit
+                        : null,
+                    builder: (context, state) => WasteMaterialsGridWidget(
+                      onShowMore:onShowMore   ,
+                      emit: state,
+                      selectedSubCatNotifier: selectedSubCatNotifier,
+                    ),
+                  ),
+
+                  24.verticalSpace,
+                  WasteDataEntryWidget(
+                    selectedSubCatNotifier: selectedSubCatNotifier,
+                    controller: controller,
+
+                  ),
+                  24.verticalSpace,
+                  BlocSelector<WasteCalculatorCubit, WasteCalculatorState, BaseEmit?>(
+                    selector: (state)=>state is WasteCalculatorLoaded?state.wasteCalcEmit:null,
+                    builder: (context, state) {
+                      return WasteResultWidget(
+                        onCalculate:onCalculate ,
+                        emit: state,
                       );
                     },
-                    // async =>
-                    emit: state,
-                    selectedSubCatNotifier: selectedSubCatNotifier,
                   ),
-                ),
-
-                24.verticalSpace,
-                WasteDataEntryWidget(
-                  controller:controller ,
-                   onCalculate: () {
-                    debugPrint(".....aaaaa.............");
-                    if(selectedSubCatNotifier.value<0){
-                      context.showToast( "please_choose_material".tr(),isSuccess: false) ;
-                    }else
-                    if(double.parse(controller.text.isEmpty?'0':controller.text)<1){
-                      context.showToast( "please_enter_valid_quantity".tr(),isSuccess: false) ;
-                    }
-                  },
-                ),
-                // if (state.isCalculated) ...[
-                //   16.verticalSpace,
-                //   WasteResultWidget(
-                //     floorArea: state.floorArea,
-                //     materialIndex: state.selectedMaterialIndex,
-                //   ),
-                // ],
-              ],
+                ],
+              ),
             ),
-          )
+          ),
         ),
-),
       ),
     );
   }
@@ -139,9 +120,9 @@ class _WasteCalculatorPageState extends WasteCalculatorPageBaseState {
 abstract class WasteCalculatorPageBaseState extends State<WasteCalculatorPage> {
   late final WasteCalculatorCubit wasteCalculatorCubit;
   late final MarketPricesCubit marketPriceCubit;
-  ValueNotifier<int> selectedSubCatNotifier = .new(-2);
-  final ScrollController  scrollController=.new();
-  final TextEditingController controller=.new(text: '0');
+  final ValueNotifier<SubCatogeryItem?> selectedSubCatNotifier = .new(null);
+  final ScrollController scrollController = .new();
+  final TextEditingController controller = .new(text: '0');
 
   @override
   void initState() {
@@ -164,13 +145,12 @@ abstract class WasteCalculatorPageBaseState extends State<WasteCalculatorPage> {
     super.dispose();
   }
 
-
   void listenerPricesCubit(BuildContext context, MarketPricesState state) {
     if (state is MarketPricesLoaded && state.subCategoriesEmit is Success) {
       final successState = state.subCategoriesEmit as Success;
-      
+
       // Only scroll to the bottom if this was a pagination request!
-      if (successState.requestType is PaginationInfo ) {
+      if (successState.requestType is PaginationInfo) {
         // Wait for the new items to be built so maxScrollExtent is updated
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (scrollController.hasClients) {
@@ -184,5 +164,49 @@ abstract class WasteCalculatorPageBaseState extends State<WasteCalculatorPage> {
         });
       }
     }
+  }
+  Future<void>   onShowMore(PaginationInfo<SubCatogeriesData>p)async {
+    debugPrint(p.currentPage.toString());
+    debugPrint(p.lastPage.toString());
+    await marketPriceCubit.getSubCatogeriesFunc(
+      p,
+      parameter: .new(
+        -1,
+        CurrencyTabsWidget.listTabs.first.shortcut,
+        p.currentPage,
+      ),
+    );
+  }
+
+  void  onCalculate    () {
+      debugPrint('.....aaaaa.............');
+      if (selectedSubCatNotifier.value == null) {
+        context.showToast(
+          'please_choose_material'.tr(),
+          isSuccess: false,
+        );
+        return;
+      }
+      if (double.parse(
+        controller.text.isEmpty ? '0' : controller.text,
+      ) <
+          1) {
+        context.showToast(
+          'please_enter_valid_quantity'.tr(),
+          isSuccess: false,
+        );
+        return;
+      }
+      wasteCalculatorCubit.calculateWastePercentageFunc(
+        parameter: .new(
+          items: [
+            MaterialItem(
+              materialId: selectedSubCatNotifier.value!.id,
+              requiredQuantity: double.parse(controller.text),
+            ),
+          ],
+        ),
+      );
+
   }
 }

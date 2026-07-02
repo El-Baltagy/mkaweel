@@ -65,11 +65,7 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
               ? FloatingActionButton(
                   onPressed: () async {
                    await _loadData();
-                    // await marketPriceCubit.getCatogeriesFunc(Init());
-                    // await Future.delayed(Duration(seconds: 2),()async {
-                    //   final json = await AppLocator()()<BaseLocalRepo>().readData(AppConstant.getCatogeriesKeyCash);
-                    //   PrintHelper().ordinaryPrint(json );
-                    // },);
+
 
                   },
                 )

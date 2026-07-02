@@ -137,30 +137,12 @@ waste_calculator_title,Waste Calculator,حاسبة الهدر
 waste_calculator_subtitle,Material Waste Calculator,حاسبة كميات المواد مع الهدر
 waste_calculator_desc,Calculate actual quantities with standard waste ratio,احسب الكميات الفعلية مع نسبة الهدر المعيارية
 select_material,Select Material,اختر المادة
-tiles_ceramics,Tiles / Ceramics,بلاط / سيراميك
-waste_10,10 Waste,هدر 10
-paints,Paints / Coating,دهانات / طلاء
-waste_8,8 Waste,هدر 8
-cement_concrete,Cement (for concrete),إسمنت (للخرسانة)
-waste_5,5 Waste,هدر 5
-rebar,Rebar,حديد تسليح
-waste_3,3 Waste,هدر 3
-bricks_blocks,Bricks / Blocks,طابوق / بلوك
-waste_7,7 Waste,هدر 7
-sand_material,Sand,رمل
-wood_carpentry,Wood (Doors / Carpentry),خشب (أبواب / نجارة)
-waste_15,15 Waste,هدر 15
-curbs_cladding,Curbs / Cladding Stone,بردروات / حجر كسوة
-waste_12,12 Waste,هدر 12
 data_entry,Data Entry,إدخال البيانات
 floor_area_m2,Floor Area (m²),مساحة الأرضية (م²)
-waste_reason_tiles,"10 waste ratio due to cutting, breaking"
 calculate_quantities,Calculate Quantities,احسب الكميات
 calculation_result_tiles,Calculation Result - Tiles / Ceramics,نتيجة الحساب - بلاط / سيراميك
 net_quantity,Net Quantity,الكمية الصافية
-waste_ratio_10,Waste Ratio,نسبة الهدر
 total_order,Total Order,إجمالي الطلبية
-order_hint_tiles,Order 55 m² to ensure no shortage on site. Save an additional 5 margin for unexpected modifications.,اطلب 55 م² لضمان عدم نقص المواد في الموقع، وفّر هامش إضافي 5 للتعديلات غير المتوقعة.
 phone_number,Phone Number,رقم الجوال
 password,Password,كلمة المرور
 email,Email,بريد إلكتروني
@@ -170,9 +152,9 @@ ministry_of_housing,ministry of housing,وزارة الإسكان
 project_owner,project owner,صاحب المشروع
 
 show_more,show more,أظهر المزيد
-
-waste_reason_tiles,waste reason tiles,بلاط سبب النفايات
-
 please_enter_valid_quantity,please enter valid quantity,الرجاء إدخال كمية صالحة
 
 please_choose_material,please choose material,الرجاء اختيار المواد
+
+waste_quantity,waste quantity,كمية الهدر
+waste_percentage,waste percentage,نسبة الهدر
