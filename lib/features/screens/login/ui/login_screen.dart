@@ -4,21 +4,20 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mkaweel/core/api_helper/dio_error_handler.dart';
-import 'package:mkaweel/core/app/route.dart';
+ import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_assets.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/form_auto_scroll.dart';
 import 'package:mkaweel/core/shared/widgets/loading_widget_app.dart';
-import 'package:mkaweel/core/theming/app_colors.dart';
-import 'package:mkaweel/features/screens/login/controller/login_cubit.dart';
+ import 'package:mkaweel/features/screens/login/controller/login_cubit.dart';
 import 'package:mkaweel/features/screens/login/controller/login_state.dart';
 import 'package:mkaweel/features/screens/login/data/model/login_res/login_res.dart';
-import 'package:mkaweel/features/screens/login/ui/widgets/email_widget.dart';
-import 'package:mkaweel/features/screens/login/ui/forget_password.dart';
-import 'package:mkaweel/features/screens/login/ui/widgets/password_widget.dart';
+ import 'package:mkaweel/features/screens/login/ui/forget_password.dart';
+ import 'package:mkaweel/features/screens/login/ui/widgets/text_inputs/email_text_input_data.dart';
+import 'package:mkaweel/features/screens/login/ui/widgets/text_inputs/password_text_input_data.dart';
+import 'package:mkaweel/features/screens/login/ui/widgets/text_inputs/text_input_widget.dart';
 
 @RoutePage()
 class LoginPage extends StatefulWidget implements AutoRouteWrapper {
@@ -67,13 +66,21 @@ class _LoginPageState extends LoginPageBaseState {
                     Image.asset(AppAssets.imagesLogoPng, height: 120),
                     const SizedBox(height: 48),
 
-                    // Phone Input
-                    EmailInput(field1: field1, emailController: phoneController),
-                    const SizedBox(height: 16),
+                     TextInputWidget(
+                      data:  EmailInputData(
+                        controller: emailController,
+                        field: field1,
+                      )
+                    ),
 
-                    // Password Input
-                    PasswordWidget(field2: field2, passwordController: passwordController),
-                    const SizedBox(height: 24),
+                     const SizedBox(height: 16),
+                    TextInputWidget(
+                        data:  PasswordInputData(
+                          controller: passwordController,
+                          field: field2,
+                        )
+                    ),
+                     const SizedBox(height: 24),
                     forgetPasswordWidget(),
                     
                     const SizedBox(height: 24),
@@ -91,7 +98,7 @@ class _LoginPageState extends LoginPageBaseState {
                             )) {
                               await argData.login(
                                 parameter: .new(
-                                 phoneController.text.trim(),
+                                 emailController.text.trim(),
                                     passwordController.text.trim(),
                                 )
                               );
@@ -152,7 +159,7 @@ class _LoginPageState extends LoginPageBaseState {
 
 abstract class LoginPageBaseState extends State<LoginPage> {
   late final LoginCubit argData;
-  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   @override
@@ -160,14 +167,14 @@ abstract class LoginPageBaseState extends State<LoginPage> {
     super.initState();
     argData = LoginCubit.get(context: context);
     if(kDebugMode){
-      phoneController.text='admin@themesbrand.com';
+      emailController.text='admin@themesbrand.com';
       passwordController.text='123456';
     }
   }
 
   @override
   void dispose() {
-    phoneController.dispose();
+    emailController.dispose();
     passwordController.dispose();
     super.dispose();
   }

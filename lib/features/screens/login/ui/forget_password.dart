@@ -9,7 +9,8 @@ import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/features/screens/login/controller/login_cubit.dart';
 import 'package:mkaweel/features/screens/login/controller/login_state.dart';
 import 'package:mkaweel/features/screens/login/data/model/forget_password_link/forget_password_link.dart';
-import 'package:mkaweel/features/screens/login/ui/widgets/email_widget.dart';
+ import 'package:mkaweel/features/screens/login/ui/widgets/text_inputs/email_text_input_data.dart';
+import 'package:mkaweel/features/screens/login/ui/widgets/text_inputs/text_input_widget.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
   const ForgetPasswordScreen({super.key});
@@ -144,8 +145,13 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                     const SizedBox(height: 32),
 
                     // Phone input
-                    EmailInput(
-                        field1: field1, emailController: _emailController),
+                    TextInputWidget(
+                        data:  EmailInputData(
+                          controller: _emailController,
+                          field: field1,
+                        )
+                    ),
+
 
                     const SizedBox(height: 32),
 

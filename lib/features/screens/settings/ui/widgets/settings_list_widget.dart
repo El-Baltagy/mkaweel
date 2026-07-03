@@ -12,6 +12,7 @@ import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/features/screens/settings/controller/settings_cubit.dart';
 import 'package:mkaweel/features/screens/settings/controller/settings_state.dart';
+import 'package:mkaweel/features/screens/settings/ui/profile_screen.dart';
 import 'package:mkaweel/features/screens/settings/ui/widgets/lang_sheet.dart';
 
 class SettingsListWidget extends StatefulWidget {
@@ -86,6 +87,13 @@ class _SettingsListWidgetState extends State<SettingsListWidget> {
             ),
             child: Column(
               children: [
+                _buildSettingsItem(
+                  icon: Icons.person,
+                  title: 'personal_profile'.tr(),
+                  subtitle: 'update_your_personal_profile'.tr(),
+                  iconColor: Theme.of(context).primaryColor,
+                  onTap: ()=>context.pushNavigation(ProfileScreen()),
+                ),
                 _buildSettingsItem(
                   icon: Icons.language,
                   title: 'language'.tr(),
