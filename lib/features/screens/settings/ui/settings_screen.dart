@@ -10,6 +10,7 @@ import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/features/screens/settings/controller/settings_cubit.dart';
 import 'package:mkaweel/features/screens/settings/controller/settings_state.dart';
+import 'package:mkaweel/features/screens/settings/data/model/delete_account_res/delete_account_res.dart';
 import 'package:mkaweel/features/screens/settings/data/model/logout_res/logout_res.dart';
 import 'package:mkaweel/features/screens/settings/ui/widgets/settings_list_widget.dart';
 import 'package:mkaweel/core/extension/context.dart';
@@ -78,15 +79,24 @@ abstract class SettingsPageBaseState extends State<SettingsPage> {
     if(state is LogoutResState){
       if(state.baseEmit  is Success<LogoutRes>) {
         final LogoutRes data=(state.baseEmit as Success<LogoutRes>).data!;
-        context.showToast(
-            data.message
-        );
-          StorageHelper.deleteUserData().whenComplete(() {
-            context.pushAndPopUntil( const LoginRoute(), predicate: (Route<dynamic> route)=>false);
-          },);
+        actionOnDeleteAccountORLogout(data.message);
       }
-
+     }
+    if(state is DeleteAccountResState){
+      if(state.baseEmit  is Success<DeleteAccountRes>) {
+        final DeleteAccountRes data=(state.baseEmit as Success<DeleteAccountRes>).data!;
+        if(data.status=='success'){
+          actionOnDeleteAccountORLogout(data.message);
+        }
+      }
     }
-
+  }
+  void actionOnDeleteAccountORLogout(String message){
+    context.showToast(
+        message
+    );
+    StorageHelper.deleteUserData().whenComplete(() {
+     if(mounted) context.pushAndPopUntil( const LoginRoute(), predicate: (Route<dynamic> route)=>false);
+    },);
   }
 }

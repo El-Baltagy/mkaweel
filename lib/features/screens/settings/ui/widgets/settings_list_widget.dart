@@ -2,13 +2,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/base/base_cubit.dart';
+import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/theming/theme_cubit.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/features/screens/settings/controller/settings_cubit.dart';
+import 'package:mkaweel/features/screens/settings/controller/settings_state.dart';
 import 'package:mkaweel/features/screens/settings/ui/widgets/lang_sheet.dart';
 
 class SettingsListWidget extends StatefulWidget {
@@ -112,10 +115,15 @@ class _SettingsListWidgetState extends State<SettingsListWidget> {
           ),
           const SizedBox(height: AppSizes.s24),
           // Logout button
-          SizedBox(
-            width: double.infinity,
-            child: OutlinedButton(
-              onPressed: () async=>await widget.settingsCubit.logoutFunc(Reload()),
+          BlocBuilder<SettingsCubit, SettingsState>(
+  builder: (context, state) {
+    bool isLoading=state is LogoutResState && state.baseEmit is Loading;
+    return isLoading?
+    buildRow():SizedBox(
+             width: double.infinity,
+            child:
+            OutlinedButton(
+              onPressed: () async=>await widget.settingsCubit.logoutFunc( ),
               style: OutlinedButton.styleFrom(
                 side:   BorderSide(color: context.theme.colorScheme.secondary),
                 padding: const EdgeInsets.symmetric(vertical: AppPadding.p16),
@@ -123,15 +131,51 @@ class _SettingsListWidgetState extends State<SettingsListWidget> {
                   borderRadius: BorderRadius.circular(AppSizes.s12),
                 ),
               ),
-              child: Text(
+              child:  Text(
                 'logout'.tr(),
                 style: AppTextStyles.font16SemiBold.copyWith(color: context.theme.colorScheme.secondary),
               ),
             ),
-          ),
+          );
+  },
+),
+          AppSizes.s16.verticalSpace,
+          BlocBuilder<SettingsCubit, SettingsState>(
+  builder: (context, state) {
+    bool isLoading=state is DeleteAccountResState && state.baseEmit is Loading;
+    return isLoading?
+    buildRow():SizedBox(
+            width: double.infinity,
+            child: OutlinedButton(
+              onPressed: () async=>await widget.settingsCubit.deleteAccountFunc( ),
+              style: OutlinedButton.styleFrom(
+                backgroundColor: context.theme.colorScheme.secondary,
+                side:   BorderSide(color: context.theme.scaffoldBackgroundColor),
+                padding: const EdgeInsets.symmetric(vertical: AppPadding.p16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(AppSizes.s12),
+                ),
+              ),
+              child: Text(
+                'delete_account'.tr(),
+                style: AppTextStyles.font16SemiBold.copyWith(color: context.theme.scaffoldBackgroundColor),
+              ),
+            ),
+          );
+  },
+),
         ],
       ),
     );
+  }
+
+  Row buildRow() {
+    return Row(
+    mainAxisAlignment: .center,
+    children: [
+      CircularProgressIndicator(),
+    ],
+  );
   }
 
   Widget _buildSettingsItem({

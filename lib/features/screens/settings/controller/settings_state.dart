@@ -11,3 +11,8 @@ class LogoutResState extends SettingsState {
   final BaseEmit baseEmit;
   LogoutResState(this.baseEmit);
 }
+
+class DeleteAccountResState extends SettingsState {
+  final BaseEmit baseEmit;
+  DeleteAccountResState(this.baseEmit);
+}

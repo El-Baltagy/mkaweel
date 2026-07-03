@@ -54,7 +54,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               );
               Navigator.pop(context);
             } else if (state.baseEmit is ErrorState) {
-              final ErrorState data = state.baseEmit as ErrorState;
+              final ErrorState data =
+              state.baseEmit as ErrorState;
               context.showToast(
                   data.failure.message,
                   isSuccess: false

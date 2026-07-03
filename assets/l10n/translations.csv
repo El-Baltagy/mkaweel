@@ -165,3 +165,5 @@ forget_password,forget password,نسيت كلمة المرور
 send,send,يرسل
 
 enter_email_to_receive_reset_link,Enter email to receive reset link,أدخل البريد الإلكتروني لتلقي رابط إعادة التعيين
+
+delete_account,delete account,حذف الحساب
