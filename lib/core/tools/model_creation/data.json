@@ -1,5 +1,16 @@
 {
     "status": "success",
-    "message": "تم حذف الحساب بنجاح."
-
+    "message": "Profile updated successfully.",
+    "data": {
+        "user": {
+            "id": 2,
+            "name": "Ahmad Khalid",
+            "email": "muhammadmansour195@gmail.com",
+            "dob": "2000-10-10",
+            "phone": null,
+            "specialization": null,
+            "role": "Admin",
+            "avatar": "https://muqawili.app/public/images/1782832360.jpg"
+        }
+    }
 }

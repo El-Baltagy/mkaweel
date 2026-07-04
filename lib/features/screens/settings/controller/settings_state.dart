@@ -16,3 +16,8 @@ class DeleteAccountResState extends SettingsState {
   final BaseEmit baseEmit;
   DeleteAccountResState(this.baseEmit);
 }
+
+class UpdateProfileResState extends SettingsState {
+  final BaseEmit baseEmit;
+  UpdateProfileResState(this.baseEmit);
+}

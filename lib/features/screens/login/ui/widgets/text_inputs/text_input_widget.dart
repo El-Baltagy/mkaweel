@@ -1,5 +1,6 @@
 import 'package:flutter/Material.dart';
  import 'package:mkaweel/core/extension/context.dart';
+import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:flutter/material.dart';
 import 'package:mkaweel/features/screens/login/ui/widgets/text_inputs/base_text_input_data.dart';
@@ -26,6 +27,12 @@ class TextInputWidget extends StatelessWidget {
       inputFormatters: data.inputFormatters,
       onTap: data.onTap,
        decoration: InputDecoration(
+         hintStyle: const TextStyle(
+           color: AppColors.contractorGreyText
+         ),
+         labelStyle: const TextStyle(
+             color: AppColors.contractorGreyText
+         ),
         hintText:  data.isLabel?null:data.labelText ,
         labelText: data.isLabel?data.labelText:null,
         prefixIcon: Icon(
@@ -34,7 +41,6 @@ class TextInputWidget extends StatelessWidget {
         ),
         filled: true,
         fillColor: context.theme.scaffoldBackgroundColor,
-
         contentPadding: const EdgeInsets.symmetric(
           horizontal: AppPadding.p16,
           vertical: AppPadding.p12,

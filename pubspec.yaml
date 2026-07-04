@@ -44,6 +44,12 @@ dependencies:
   dio: ^5.9.0
   logger: ^2.6.2
   dartz: ^0.10.1
+  image_picker:
+  flutter_exif_rotation: ^0.5.2
+  path_provider:
+  mime:
+  image_cropper:
+  permission_handler:
   auto_route: ^7.9.2
   get_it: ^8.2.0
   flutter_bloc:

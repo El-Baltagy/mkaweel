@@ -22,4 +22,6 @@ abstract class AppConstant {
   static const int sendResetPWLinkKeyCode = 9742;
   static const String deleteAccountKeyCash = 'settings_deleteAccount_cache';
   static const int deleteAccountKeyCode = 8102;
+  static const String updateProfileKeyCash = 'settings_updateProfile_cache';
+  static const int updateProfileKeyCode = 4767;
 }
