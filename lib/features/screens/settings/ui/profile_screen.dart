@@ -11,6 +11,11 @@ import 'package:mkaweel/core/extension/form_auto_scroll.dart';
 import 'package:mkaweel/core/shared/methods/image_picker.dart';
 import 'package:mkaweel/core/shared/methods/print.dart';
 import 'package:mkaweel/core/shared/widgets/dialouge_choose_image.dart';
+import 'package:mkaweel/core/shared/widgets/text_inputs/dob_text_input_data.dart';
+import 'package:mkaweel/core/shared/widgets/text_inputs/email_text_input_data.dart';
+import 'package:mkaweel/core/shared/widgets/text_inputs/name_text_input_data.dart';
+import 'package:mkaweel/core/shared/widgets/text_inputs/phone_text_input_data.dart';
+import 'package:mkaweel/core/shared/widgets/text_inputs/text_input_widget.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/context.dart';
@@ -18,11 +23,6 @@ import 'package:mkaweel/core/extension/double.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:mkaweel/core/storage/storage_helper.dart';
 import 'package:mkaweel/features/screens/login/data/model/login_res/login_res.dart';
-import 'package:mkaweel/features/screens/login/ui/widgets/text_inputs/dob_text_input_data.dart';
-import 'package:mkaweel/features/screens/login/ui/widgets/text_inputs/email_text_input_data.dart';
-import 'package:mkaweel/features/screens/login/ui/widgets/text_inputs/name_text_input_data.dart';
-import 'package:mkaweel/features/screens/login/ui/widgets/text_inputs/phone_text_input_data.dart';
-import 'package:mkaweel/features/screens/login/ui/widgets/text_inputs/text_input_widget.dart';
 import 'package:mkaweel/features/screens/settings/controller/settings_cubit.dart';
 import 'package:mkaweel/features/screens/settings/controller/settings_state.dart';
 import 'package:mkaweel/features/screens/settings/data/model/update_profile_parameters.dart';
@@ -296,7 +296,7 @@ abstract class ProfilePageBaseState extends State<ProfileScreen> {
     },);
   }
 
-   void updateProfile(BuildContext context) async{
+   Future<void> updateProfile(BuildContext context) async{
     if(
      _avatarNotifier.value.startsWith("http")&&
          _dobController.text.trim()==user.dob&&

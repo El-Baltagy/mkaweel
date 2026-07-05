@@ -4,6 +4,7 @@ import 'package:mkaweel/core/constants/app_constant.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/shared/widgets/circle_radio.dart';
+import 'package:mkaweel/core/shared/widgets/one_item_drop_down_sheet.dart';
 import 'package:mkaweel/core/storage/hive_storage.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/localization.dart';
@@ -112,47 +113,19 @@ class _LangSheetState extends State<LangSheet> {
   }
 
   Widget buildRow({required int index, required String langCode,required ValueNotifier<int> notifier  }) {
-    return GestureDetector(
-      onTap: () => notifier.value=index,
-      child: Container(
-          margin: const EdgeInsets.all(1.5),
-          padding: const EdgeInsets.symmetric(horizontal: 10 ),
-          decoration: BoxDecoration(
-              color: context.theme.scaffoldBackgroundColor,
-              borderRadius: BorderRadius.circular(18)),
-          child: Padding(
-            padding:  const EdgeInsetsDirectional.fromSTEB(15 , 0, 0, 0),
-            child: Column(
-              crossAxisAlignment:  .start,
-              children: [
-                ValueListenableBuilder(valueListenable: notifier, builder: (context, value, child) {
-                  final bool isSelected=value==index;
-                  return Row(
-                    crossAxisAlignment:  .start,
-                    children: [
-                      15.horizontalSpace,
-                      CustomSelectedCircle(
-                        isSelected: isSelected,
-                      ),
-                      10.horizontalSpace,
-                      Text(langCode.tr()),
+    return  ValueListenableBuilder(valueListenable: notifier, builder: (context, value, child) {
+       return OneItemDropBottomSheetItem(
+        onTap: () => notifier.value=index,
+        title:langCode.tr() ,
+        isLastItem: index == CodegenLoader.supportedLocales.length-1,
+        isSelected: value==index,
+      );
+    },);
 
-                    ],
-                  );
-                },),
-
-                if (index != CodegenLoader.supportedLocales.length-1)
-                  Container(
-                    height: 0.5,
-                    margin: const EdgeInsets.symmetric(horizontal: 30 ,vertical: 15 ),
-                    color: AppColors.contractorGreyText,
-                  )
-              ],
-            ),
-          )),
-    );
   }
 }
+
+
 
 extension AddBottomSheetToLangSheet on LangSheet{
   void show({bool isScrollControlled = false, bool isDismiss = false}){

@@ -7,25 +7,28 @@ abstract class BaseTextInputData {
     this.keyboardType =  .text,
     this.readOnly = false,
     this.onTap,
-    required this.icon,
+      this.icon,
      this.field,
     this.labelText,
     this.validator,
     this.inputFormatters,
+    this.widgetPrefix,
     this.obscureText = false,
     this.enabled = true,
     this.enableValidation = true,
+    this.isSingleOrMultiSelect = false,
     this.isLabel = true,
   });
 
   final TextEditingController? controller;
   final (GlobalKey<FormFieldState<dynamic>>, FocusNode?)? field;
   final TextInputType keyboardType;
-  final bool readOnly, enableValidation,enabled, obscureText,isLabel;
+  final bool readOnly,isSingleOrMultiSelect, enableValidation,enabled, obscureText,isLabel;
 
-  final IconData icon;
+  final IconData? icon;
 
   final String?   labelText;
+  final Widget?   widgetPrefix;
 
   final VoidCallback? onTap;
 

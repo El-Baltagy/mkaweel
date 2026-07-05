@@ -11,13 +11,13 @@ import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/form_auto_scroll.dart';
 import 'package:mkaweel/core/shared/widgets/loading_widget_app.dart';
+import 'package:mkaweel/core/shared/widgets/text_inputs/email_text_input_data.dart';
+import 'package:mkaweel/core/shared/widgets/text_inputs/password_text_input_data.dart';
+import 'package:mkaweel/core/shared/widgets/text_inputs/text_input_widget.dart';
  import 'package:mkaweel/features/screens/login/controller/login_cubit.dart';
 import 'package:mkaweel/features/screens/login/controller/login_state.dart';
 import 'package:mkaweel/features/screens/login/data/model/login_res/login_res.dart';
  import 'package:mkaweel/features/screens/login/ui/forget_password.dart';
- import 'package:mkaweel/features/screens/login/ui/widgets/text_inputs/email_text_input_data.dart';
-import 'package:mkaweel/features/screens/login/ui/widgets/text_inputs/password_text_input_data.dart';
-import 'package:mkaweel/features/screens/login/ui/widgets/text_inputs/text_input_widget.dart';
 
 @RoutePage()
 class LoginPage extends StatefulWidget implements AutoRouteWrapper {

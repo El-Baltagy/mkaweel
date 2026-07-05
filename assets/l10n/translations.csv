@@ -172,11 +172,14 @@ date_of_birth,date of birth,تاريخ الميلاد
 
 personal_profile,personal profile,الملف الشخصي
 update_your_personal_profile,update your personal profile,تحديث ملفك الشخصي
-
-name,name,الاسم
+ name,name,الاسم
 phone,phone,الهاتف
 date_of_birth,date of birth,تاريخ الميلاد
-
-from_gallery,from gallery,من المعرض
+ from_gallery,from gallery,من المعرض
 from_camera,from camera,من الكاميرا
 profile,profile,حساب تعريفي
+  contract_value,contract value,قيمة العقد
+
+tap_to_select,tap to select,انقر لتحديد
+
+choose_from_one,choose from one,اختر من واحد
