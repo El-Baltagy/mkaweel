@@ -31,15 +31,15 @@ Map<String, dynamic> _$$DataImplToJson(_$DataImpl instance) =>
       'user': instance.user.toJson(),
     };
 
-_$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
+_$UserImpl _$$UserImplFromJson(dynamic json) => _$UserImpl(
       id: (json['id'] as num).toInt(),
       name: json['name'] as String,
-      email: json['email'] as String,
+      email: json['email'] as String?,
       dob: json['dob'] as String,
-      phone: json['phone'] as String,
-      specialization: json['specialization'] as String,
+      phone: json['phone'] as String?,
+      specialization: json['specialization'] as String?,
       role: json['role'] as String,
-      avatar: json['avatar'] as String,
+      avatar: json['avatar'] as String?,
       created_at: json['created_at'] as String,
       updated_at: json['updated_at'] as String,
     );

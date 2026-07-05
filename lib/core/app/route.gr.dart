@@ -294,6 +294,19 @@ class WasteCalculatorRoute extends PageRouteInfo<void> {
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
+/// generated route for
+/// [ProfileScreenPage]
+class ProfileScreenPageRoute extends PageRouteInfo<void> {
+  const ProfileScreenPageRoute({List<PageRouteInfo>? children})
+      : super(
+    ProfileScreenPageRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ProfileScreenPageRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
 
 /// generated route for
 /// [WorkersPage]

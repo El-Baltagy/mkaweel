@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,6 +9,7 @@ import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/form_auto_scroll.dart';
 import 'package:mkaweel/core/shared/methods/image_picker.dart';
+import 'package:mkaweel/core/shared/methods/print.dart';
 import 'package:mkaweel/core/shared/widgets/dialouge_choose_image.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
@@ -26,9 +28,16 @@ import 'package:mkaweel/features/screens/settings/controller/settings_state.dart
 import 'package:mkaweel/features/screens/settings/data/model/update_profile_parameters.dart';
 import 'package:mkaweel/features/screens/settings/data/model/update_profile_res/update_profile_res.dart';
 
-class ProfileScreen extends StatefulWidget {
+@RoutePage()
+class ProfileScreen extends StatefulWidget  implements AutoRouteWrapper{
   const ProfileScreen({super.key});
-
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return BlocProvider<SettingsCubit>(
+      create: (context) => SettingsCubit(AppLocator()()()),
+      child: this,
+    );
+  }
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
@@ -99,8 +108,8 @@ class _ProfileScreenState extends ProfilePageBaseState {
                   },),
                   GestureDetector(
                     onTap: ()=>DialougeChooseImage(
-                      chooseCameraData: ('camera'.tr(),()=>pickImage(.camera)),
-                      chooseGalleryData: ('gallery'.tr(),()=>pickImage(.gallery)),
+                      chooseCameraData: ('from_camera'.tr(),()=>pickImage(.camera)),
+                      chooseGalleryData: ('from_gallery'.tr(),()=>pickImage(.gallery)),
                     ).toShowDialougePick(context),
                     child: Container(
                       padding: const EdgeInsets.all(8),
@@ -270,9 +279,10 @@ abstract class ProfilePageBaseState extends State<ProfileScreen> {
     try {
       user  = StorageHelper.userData;
       _nameController.text = user.name;
-      _phoneController.text = user.phone;
+      _emailController.text = user.email??"";
+      _phoneController.text = user.phone??"";
       _dobController.text = user.dob;
-      _avatarNotifier.value = user.avatar;
+      _avatarNotifier.value = user.avatar??"";
     } catch (e) {
       // User data might not be available or parsed correctly
     }
@@ -288,7 +298,7 @@ abstract class ProfilePageBaseState extends State<ProfileScreen> {
 
    void updateProfile(BuildContext context) async{
     if(
-    !_avatarNotifier.value.startsWith("http")&&
+     _avatarNotifier.value.startsWith("http")&&
          _dobController.text.trim()==user.dob&&
          _nameController.text.trim()==user.name&&
           _emailController.text.trim()==user.email&&
@@ -297,13 +307,7 @@ abstract class ProfilePageBaseState extends State<ProfileScreen> {
       Navigator.pop(context);
       return ;
     }
-    // PrintHelper().ordinaryPrint(await UpdateProfileParameters(
-    //     name: _nameController.text.trim(),
-    //     email:_emailController.text.trim(),
-    //     phone: _phoneController.text.trim(),
-    //     date_of_birth:  _dobController.text.trim(),
-    //     image: _avatarNotifier.value.startsWith("http")?null:_avatarNotifier.value).toJson());
-    // return ;
+
     if (await _key.validateAndScroll(
       context,
       listRecorder: [field1, field2,field3,field4],
@@ -311,6 +315,7 @@ abstract class ProfilePageBaseState extends State<ProfileScreen> {
       await   SettingsCubit.get(context: context).updateProfileFunc(
           parameter:  UpdateProfileParameters(
               name: _nameController.text.trim(),
+              // email: null,
               email: _emailController.text.trim(),
               phone: _phoneController.text.trim(),
               date_of_birth:  _dobController.text.trim(),
@@ -326,8 +331,8 @@ abstract class ProfilePageBaseState extends State<ProfileScreen> {
         context.showToast(
             data.message
         );
-        context.replace(
-          MainHomeRoute(args: const MainHomeRouteArgs()),
+        context.pushAndPopUntil(
+          MainHomeRoute(args: const MainHomeRouteArgs()), predicate: (Route<dynamic> route) =>false,
         );
       }else
       if(state.baseEmit  is ErrorState ) {

@@ -333,12 +333,12 @@ User _$UserFromJson(dynamic json) {
 mixin _$User {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
   String get dob => throw _privateConstructorUsedError;
-  String get phone => throw _privateConstructorUsedError;
-  String get specialization => throw _privateConstructorUsedError;
+  String? get phone => throw _privateConstructorUsedError;
+  String? get specialization => throw _privateConstructorUsedError;
   String get role => throw _privateConstructorUsedError;
-  String get avatar => throw _privateConstructorUsedError;
+  String? get avatar => throw _privateConstructorUsedError;
   String get created_at => throw _privateConstructorUsedError;
   String get updated_at => throw _privateConstructorUsedError;
 
@@ -355,12 +355,12 @@ abstract class $UserCopyWith<$Res> {
   $Res call(
       {int id,
       String name,
-      String email,
+      String? email,
       String dob,
-      String phone,
-      String specialization,
+      String? phone,
+      String? specialization,
       String role,
-      String avatar,
+      String? avatar,
       String created_at,
       String updated_at});
 }
@@ -380,12 +380,12 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? email = null,
+    Object? email = freezed,
     Object? dob = null,
-    Object? phone = null,
-    Object? specialization = null,
+    Object? phone = freezed,
+    Object? specialization = freezed,
     Object? role = null,
-    Object? avatar = null,
+    Object? avatar = freezed,
     Object? created_at = null,
     Object? updated_at = null,
   }) {
@@ -398,30 +398,30 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      email: null == email
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       dob: null == dob
           ? _value.dob
           : dob // ignore: cast_nullable_to_non_nullable
               as String,
-      phone: null == phone
+      phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
-              as String,
-      specialization: null == specialization
+              as String?,
+      specialization: freezed == specialization
           ? _value.specialization
           : specialization // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       role: null == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
               as String,
-      avatar: null == avatar
+      avatar: freezed == avatar
           ? _value.avatar
           : avatar // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       created_at: null == created_at
           ? _value.created_at
           : created_at // ignore: cast_nullable_to_non_nullable
@@ -444,12 +444,12 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
   $Res call(
       {int id,
       String name,
-      String email,
+      String? email,
       String dob,
-      String phone,
-      String specialization,
+      String? phone,
+      String? specialization,
       String role,
-      String avatar,
+      String? avatar,
       String created_at,
       String updated_at});
 }
@@ -466,12 +466,12 @@ class __$$UserImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? email = null,
+    Object? email = freezed,
     Object? dob = null,
-    Object? phone = null,
-    Object? specialization = null,
+    Object? phone = freezed,
+    Object? specialization = freezed,
     Object? role = null,
-    Object? avatar = null,
+    Object? avatar = freezed,
     Object? created_at = null,
     Object? updated_at = null,
   }) {
@@ -484,30 +484,30 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      email: null == email
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       dob: null == dob
           ? _value.dob
           : dob // ignore: cast_nullable_to_non_nullable
               as String,
-      phone: null == phone
+      phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
-              as String,
-      specialization: null == specialization
+              as String?,
+      specialization: freezed == specialization
           ? _value.specialization
           : specialization // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       role: null == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
               as String,
-      avatar: null == avatar
+      avatar: freezed == avatar
           ? _value.avatar
           : avatar // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       created_at: null == created_at
           ? _value.created_at
           : created_at // ignore: cast_nullable_to_non_nullable
@@ -536,7 +536,7 @@ class _$UserImpl extends _User {
       required this.updated_at})
       : super._();
 
-  factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
+  factory _$UserImpl.fromJson(dynamic json) =>
       _$$UserImplFromJson(json);
 
   @override
@@ -544,17 +544,17 @@ class _$UserImpl extends _User {
   @override
   final String name;
   @override
-  final String email;
+  final String? email;
   @override
   final String dob;
   @override
-  final String phone;
+  final String? phone;
   @override
-  final String specialization;
+  final String? specialization;
   @override
   final String role;
   @override
-  final String avatar;
+  final String? avatar;
   @override
   final String created_at;
   @override
@@ -578,34 +578,34 @@ abstract class _User extends User {
   const factory _User(
       {required final int id,
       required final String name,
-      required final String email,
+      required final String? email,
       required final String dob,
-      required final String phone,
-      required final String specialization,
+      required final String? phone,
+      required final String? specialization,
       required final String role,
-      required final String avatar,
+      required final String? avatar,
       required final String created_at,
       required final String updated_at}) = _$UserImpl;
   const _User._() : super._();
 
-  factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
+  factory _User.fromJson(dynamic json) = _$UserImpl.fromJson;
 
   @override
   int get id;
   @override
   String get name;
   @override
-  String get email;
+  String? get email;
   @override
   String get dob;
   @override
-  String get phone;
+  String? get phone;
   @override
-  String get specialization;
+  String? get specialization;
   @override
   String get role;
   @override
-  String get avatar;
+  String? get avatar;
   @override
   String get created_at;
   @override

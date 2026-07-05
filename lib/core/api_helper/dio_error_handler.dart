@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'dart:io';
 
@@ -33,9 +35,31 @@ abstract class DioErrorHandler {
   static Failure _handleBadResponse(Response? response) {
     if (response == null) return const Failure('Unknown server error.');
     final code = response.statusCode ?? 0;
+     String message = response.statusMessage ?? 'Unknown error';
 
-    String message;
-    switch (code) {
+    try {
+      final   data = response.data is String
+          ? jsonDecode(response.data as String)
+           : response.data;
+
+      message = data['message']?.toString() ?? message;
+
+      if (data['errors'] is Map<String, dynamic>) {
+        final errors = data['errors'] as Map<String, dynamic>;
+
+        for (final value in errors.values) {
+          if (value is List && value.isNotEmpty) {
+            message = value.first.toString();
+            break;
+          }
+        }
+      }
+    } catch (_) {
+      // response.data wasn't valid JSON
+    }
+
+
+     switch (code) {
       case 400:
         message = 'Bad request.';
         break;
@@ -48,11 +72,12 @@ abstract class DioErrorHandler {
       case 404:
         message = 'Not found.';
         break;
+        case 422:
+        message = 'Unprocessable Entity\n'+message;
+        break;
       case 500:
         message = 'Internal server error.';
         break;
-      default:
-        message = 'Unexpected error. Code: $code';
     }
 
     return Failure(message, code);

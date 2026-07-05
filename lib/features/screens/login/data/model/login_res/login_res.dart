@@ -49,12 +49,12 @@ class User with _$User, EquatableMixin {
   const factory User({
     required int id,
     required String name,
-    required String email,
+    required String? email,
     required String dob,
-    required String phone,
-    required String specialization,
+    required String? phone,
+    required String? specialization,
     required String role,
-    required String avatar,
+    required String? avatar,
     required String created_at,
     required String updated_at,
   }) = _User;

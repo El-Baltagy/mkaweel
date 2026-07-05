@@ -5,6 +5,7 @@ import 'package:mkaweel/features/screens/projects/ui/projects_screen.dart';
 import 'package:mkaweel/features/screens/create_project/ui/create_project_screen.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/market_prices_screen.dart';
 import 'package:mkaweel/features/screens/main_home/ui/main_home_screen.dart';
+import 'package:mkaweel/features/screens/settings/ui/profile_screen.dart';
 import 'package:mkaweel/features/screens/workers/ui/workers_screen.dart';
 import 'package:mkaweel/features/screens/settings/ui/settings_screen.dart';
 import 'package:mkaweel/features/screens/invoices/ui/invoices_screen.dart';
@@ -50,6 +51,7 @@ class AppRouter extends _$AppRouter {
       AutoRoute(page: PerformanceRoute.page),
       AutoRoute(page: GanttChartRoute.page),
       AutoRoute(page: WasteCalculatorRoute.page),
+      AutoRoute(page: ProfileScreenPageRoute.page),
     ];
 }
 
