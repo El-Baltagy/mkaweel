@@ -7,7 +7,7 @@ import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/form_auto_scroll.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/base_text_input_data.dart';
-import 'package:mkaweel/core/shared/widgets/text_inputs/name_text_input_data.dart';
+ import 'package:mkaweel/core/shared/widgets/text_inputs/name_text_input_data.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/text_input_widget.dart';
 import 'package:mkaweel/features/screens/create_project/controller/create_project_cubit.dart';
 import 'package:mkaweel/features/screens/create_project/controller/create_project_state.dart';
@@ -16,7 +16,8 @@ import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/features/screens/create_project/ui/widgets/currency_selector_widget.dart';
-import 'package:mkaweel/features/screens/create_project/ui/widgets/custom_text_field.dart';
+import 'package:mkaweel/features/screens/create_project/ui/widgets/location_selection.dart';
+ import 'package:mkaweel/features/screens/create_project/ui/widgets/start_end_date.dart';
 
 @RoutePage()
 class CreateProjectPage extends StatefulWidget implements AutoRouteWrapper {
@@ -35,25 +36,6 @@ class CreateProjectPage extends StatefulWidget implements AutoRouteWrapper {
 }
 
 class _CreateProjectPageState extends CreateProjectPageBaseState {
-  final _key = GlobalKey<FormState>();
-  (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field1 = (.new(), .new());
-  (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field2 = (.new(), .new());
-  (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field3 = (.new(), .new());
-  final TextEditingController _controller1 = .new();
-  final TextEditingController _controller2 = .new();
-  final TextEditingController _controller3 = .new();
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    field1.$2?.dispose();
-    field2.$2?.dispose();
-    field3.$2?.dispose();
-    _controller1.dispose();
-    _controller2.dispose();
-    _controller3.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,9 +76,8 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                     'project_name'.tr(),
                     NameInputData(
                       isLabel: false,
-                      widgetPrefix: SizedBox.shrink(),
-                      // icon: ,
-                      field: field1,
+                      widgetPrefix: const SizedBox.shrink(),
+                       field: field1,
                       labelText: 'building_residential_house'.tr(),
                       controller: _controller1,
                     ),
@@ -107,7 +88,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                     'project_owner'.tr(),
                     NameInputData(
                       isLabel: false,
-                      widgetPrefix: SizedBox.shrink(),
+                      widgetPrefix: const SizedBox.shrink(),
                       field: field2,
                       labelText: 'ministry_of_housing'.tr(),
                       controller: _controller2,
@@ -122,10 +103,10 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
 
                   20.verticalSpace,
                   _buildTextField(
-                    'contract_value'.tr() + ' (\$)',
+                    '${'contract_value'.tr()} (\$)',
                     NameInputData(
                       isLabel: false,
-                      widgetPrefix: SizedBox.shrink(),
+                      widgetPrefix: const SizedBox.shrink(),
                       inputFormatters: [
                         FilteringTextInputFormatter.digitsOnly,
                         TextInputFormatter.withFunction((oldValue, newValue) {
@@ -149,17 +130,16 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                   ),
 
                   20.verticalSpace,
-                  buildDatePickers(),
+                  StartEndDates(
+                      controllerE:_controller5 ,
+                      controllerS: _controller4,
+                      fieldE: field5,
+                      fieldS:field4 ,
+                   ),
 
                   20.verticalSpace,
-                  Text(
-                    'site_location_gps'.tr(),
-                    style: AppTextStyles.font14Regular.copyWith(
-                      color: context.theme.colorScheme.tertiaryFixed,
-                    ),
-                  ),
-                  10.verticalSpace,
-                  buildLocation(context),
+                   LoccationSelection(),
+
                   30.verticalSpace,
                   SizedBox(
                     width: double.infinity,
@@ -196,58 +176,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
     );
   }
 
-  Container buildLocation(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: AppPadding.p16),
-      decoration: BoxDecoration(
-        color: context.theme.scaffoldBackgroundColor,
-        borderRadius: BorderRadius.circular(AppSizes.s8),
-        border: Border.all(color: context.theme.canvasColor),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'determine_current_location'.tr(),
-            style: AppTextStyles.font16SemiBold.copyWith(
-              color: AppColors.contractorGreyText,
-            ),
-          ),
-          10.horizontalSpace,
-          const Icon(Icons.my_location, color: AppColors.contractorGreyText),
-        ],
-      ),
-    );
-  }
 
-  Row buildDatePickers() {
-    return Row(
-      children: [
-        Expanded(
-          child: CustomTextField(
-            label: 'end_date'.tr(),
-            hintText: 'mm/dd/yyyy',
-            suffixIcon: const Icon(
-              Icons.calendar_today_outlined,
-              color: AppColors.contractorGreyText,
-            ),
-          ),
-        ),
-        10.horizontalSpace,
-        Expanded(
-          child: CustomTextField(
-            label: 'start_date'.tr(),
-            hintText: 'mm/dd/yyyy',
-            suffixIcon: const Icon(
-              Icons.calendar_today_outlined,
-              color: AppColors.contractorGreyText,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
 
   Widget _buildTextField(String mainLabel, BaseTextInputData data) {
     return Column(
@@ -269,6 +198,20 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
 abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
   late final CreateProjectCubit argData;
   final ValueNotifier<String> selectedCurrencyNotifier = .new('');
+  final _key = GlobalKey<FormState>();
+  (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field1 = (.new(), .new());
+  (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field2 = (.new(), .new());
+  (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field3 = (.new(), .new());
+  (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field4 = (.new(), .new());
+  (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field5 = (.new(), .new());
+  final TextEditingController _controller1 = .new();
+  final TextEditingController _controller2 = .new();
+  final TextEditingController _controller3 = .new();
+  final TextEditingController _controller4 = .new();
+  final TextEditingController _controller5 = .new();
+
+
+
   @override
   void initState() {
     argData = CreateProjectCubit.get(context: context);
@@ -277,7 +220,15 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
 
   @override
   void dispose() {
+    // TODO: implement dispose
+    field1.$2?.dispose();
+    field2.$2?.dispose();
+    field3.$2?.dispose();
+    _controller1.dispose();
+    _controller2.dispose();
+    _controller3.dispose();
     selectedCurrencyNotifier.dispose();
+
     super.dispose();
   }
 

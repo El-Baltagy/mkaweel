@@ -37,7 +37,7 @@ start_date,Start Date,تاريخ البدء
 project_status,Project Status,حالة المشروع
 active,Active,نشط
 site_location_gps,Site Location (GPS for attendance),موقع الموقع (GPS للحضور)
-determine_current_location,Determine current site location,تحديد موقع الموقع الحالي
+determine_current_location,Determine current location,تحديد الموقع الحالي
 create_project,Create Project,إنشاء المشروع
 live_exchange_rates,Live Exchange Rates,أسعار الصرف اللحظية
 now,Now,الآن
@@ -183,3 +183,9 @@ profile,profile,حساب تعريفي
 tap_to_select,tap to select,انقر لتحديد
 
 choose_from_one,choose from one,اختر من واحد
+
+please_select_start_date_first,please select start date first,يرجى تحديد تاريخ البدء أولا
+
+location,location,موقع
+
+site_location_gps,site location gps,موقع الموقع لتحديد المواقع

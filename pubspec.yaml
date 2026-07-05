@@ -30,6 +30,8 @@ environment:
 dependencies:
   stack_trace: ^1.11.0
   rxdart: ^0.27.0
+  geolocator:
+  geocoding:
   flutter:
     sdk: flutter
 

@@ -40,11 +40,15 @@ class TextInputWidget extends StatelessWidget {
     autovalidateMode: .onUserInteraction,
     onTap: data.onTap,
      decoration: InputDecoration(
-       hintStyle: const TextStyle(
-         color: AppColors.contractorGreyText
+       hintStyle:   TextStyle(
+         color: AppColors.contractorGreyText,
+         fontWeight: data.fontWeight,
+         fontSize: data.fontSize
        ),
-       labelStyle: const TextStyle(
-           color: AppColors.contractorGreyText
+       labelStyle:   TextStyle(
+           color: AppColors.contractorGreyText,
+           fontWeight: data.fontWeight,
+           fontSize: data.fontSize
        ),
       hintText:  data.isLabel?null:data.labelText ,
       labelText: data.isLabel?data.labelText:null,

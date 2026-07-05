@@ -18,6 +18,8 @@ abstract class BaseTextInputData {
     this.enableValidation = true,
     this.isSingleOrMultiSelect = false,
     this.isLabel = true,
+    this.fontSize,
+    this.fontWeight,
   });
 
   final TextEditingController? controller;
@@ -35,4 +37,6 @@ abstract class BaseTextInputData {
   final String? Function(String?)? validator;
 
   final List<TextInputFormatter>? inputFormatters;
+  final double? fontSize;
+  final FontWeight? fontWeight;
 }

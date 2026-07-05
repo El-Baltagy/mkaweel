@@ -15,7 +15,8 @@ class DropDownSingleSelectData extends BaseTextInputData {
   }) : super(
       readOnly: false,
       isSingleOrMultiSelect:true,
-     labelText:labelText?? 'tap_to_select'.tr(),
+     icon:icon ,
+      labelText:labelText?? 'tap_to_select'.tr(),
     validator: validator??(value) {
       if (value?.isEmpty == true) {
         return "can't_be_empty".tr();

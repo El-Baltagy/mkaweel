@@ -7,13 +7,17 @@ class DOPInputData extends BaseTextInputData {
   DOPInputData({
     super.controller,
     super.onTap,
+    super.fontSize,
+    super.fontWeight,
+    String? labelText,
       super.field
   }) : super(
     icon: Icons.calendar_month,
      keyboardType:  .emailAddress,
      readOnly: true,
      isLabel: false,
-     labelText:  'date_of_birth'.tr(),
+     labelText:labelText??  'date_of_birth'.tr(),
+
     validator: (value) {
       if (value?.isEmpty == true) {
         return "can't_be_empty".tr();
