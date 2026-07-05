@@ -48,6 +48,7 @@ class SettingsRepo extends BaseRepo {
   }) async {
     return handleResponse(
       onCallData: dio.postData(
+        data: FormData.fromMap(await parameter!.toJson()),
         uri: EndPoints.updateProfile,
         cancelToken: cancelToken,
       ),

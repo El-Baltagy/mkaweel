@@ -40,22 +40,11 @@ class SettingsService extends BaseService {
   Future<void> updateprofileServ(
     RequestCallbackObserver<UpdateProfileRes, UpdateProfileParameters> requestInfo,
   ) {
-    const cacheKey = AppConstant.updateProfileKeyCash;
-    return requestInfo.handleRequest(
+     return requestInfo.handleRequest(
       fetchFromClient: (token) => _remoteRepo.updateprofileApi(
         requestInfo.parameter,
         cancelToken: token,
       ),
-      fetchLocal: () async {
-        final json = await _localRepo.readData(cacheKey);
-        return json == null ? null : UpdateProfileRes.fromJson(json);
-      },
-      saveLocal: (old, newData) async {
-        if (newData != null) {
-          await _localRepo.saveData(cacheKey, newData.toJson());
-        }
-      },
-      clearLocal: () => _localRepo.clearData(cacheKey),
     );
   }
 }

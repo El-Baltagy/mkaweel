@@ -14,13 +14,14 @@ abstract class BaseTextInputData {
     this.inputFormatters,
     this.obscureText = false,
     this.enabled = true,
+    this.enableValidation = true,
     this.isLabel = true,
   });
 
   final TextEditingController? controller;
   final (GlobalKey<FormFieldState<dynamic>>, FocusNode?)? field;
   final TextInputType keyboardType;
-  final bool readOnly, enabled, obscureText,isLabel;
+  final bool readOnly, enableValidation,enabled, obscureText,isLabel;
 
   final IconData icon;
 

@@ -8,13 +8,15 @@ class EmailInputData extends BaseTextInputData {
   EmailInputData({
     super.controller,
     super.isLabel,
+    super.enableValidation,
     String? labelText,
+    String? Function(String?)? validator,
      super.field
   }) : super(
     icon: Icons.email_outlined,
      keyboardType:  .emailAddress,
      labelText:labelText?? 'email'.tr(),
-    validator: (value) {
+    validator: validator??(value) {
       if (value?.isEmpty == true) {
         return "can't_be_empty".tr();
       }

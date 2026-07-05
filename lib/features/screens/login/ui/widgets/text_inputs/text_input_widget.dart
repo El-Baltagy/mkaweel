@@ -23,8 +23,9 @@ class TextInputWidget extends StatelessWidget {
       readOnly: data.readOnly,
       enabled: data.enabled,
       obscureText: data.obscureText,
-      validator: data.validator,
+      validator:data.enableValidation? data.validator:null,
       inputFormatters: data.inputFormatters,
+      autovalidateMode: .onUserInteraction,
       onTap: data.onTap,
        decoration: InputDecoration(
          hintStyle: const TextStyle(
