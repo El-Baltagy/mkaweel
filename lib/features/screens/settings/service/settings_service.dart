@@ -45,6 +45,11 @@ class SettingsService extends BaseService {
         requestInfo.parameter,
         cancelToken: token,
       ),
+       saveLocal: (old, newData) async {
+         if (newData?.status=='success'  ) {
+           await _localRepo.saveData(AppConstant.userKeyCash, newData!.data.user.toJson());
+          }
+       },
     );
   }
 }

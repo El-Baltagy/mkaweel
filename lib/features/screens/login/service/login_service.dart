@@ -22,8 +22,6 @@ class LoginService extends BaseService {
         requestInfo.parameter,
         cancelToken: token,
       ),
-       // clearLocal: () => _localRepo.clearData(cacheKey),
-      // fetchLocal: ()   {  },
       saveLocal: (old, newData) async {
         if (newData?.status=='success'  ) {
           await _localRepo.saveData(AppConstant.userKeyCash, newData!.data.user.toJson());
