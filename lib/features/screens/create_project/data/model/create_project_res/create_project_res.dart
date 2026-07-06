@@ -11,7 +11,7 @@ class CreateProjectRes with _$CreateProjectRes, EquatableMixin {
   const factory CreateProjectRes({
     required String status,
     required String message,
-    required Data data,
+    required ProjectInfoData data,
   }) = _CreateProjectRes;
 
   factory CreateProjectRes.fromJson(Map<String, dynamic> json) => _$CreateProjectResFromJson(json);
@@ -26,9 +26,9 @@ class CreateProjectRes with _$CreateProjectRes, EquatableMixin {
 }
 
 @freezed
-class Data with _$Data, EquatableMixin {
-  const Data._();
-  const factory Data({
+class ProjectInfoData with _$ProjectInfoData, EquatableMixin {
+  const ProjectInfoData._();
+  const factory ProjectInfoData({
     required int id,
     required String name,
     required String owner_name,
@@ -44,9 +44,9 @@ class Data with _$Data, EquatableMixin {
     required List<ProjectphaseItem>? project_phases,
     required String created_at,
     required String updated_at,
-  }) = _Data;
+  }) = _ProjectInfoData;
 
-  factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
+  factory ProjectInfoData.fromJson(Map<String, dynamic> json) => _$ProjectInfoDataFromJson(json);
 
   @override
   List<Object?> get props => [
