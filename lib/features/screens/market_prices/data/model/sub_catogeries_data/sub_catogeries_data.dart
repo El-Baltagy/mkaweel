@@ -16,7 +16,7 @@ class SubCatogeriesData with _$SubCatogeriesData, EquatableMixin {
     required String message,
     required String currency,
     required List<SubCatogeryItem> data,
-    required Pagination pagination,
+    required Pagination? pagination,
   }) = _SubCatogeriesData;
 
   factory SubCatogeriesData.fromJson(Map<String, dynamic> json) =>

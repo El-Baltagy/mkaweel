@@ -15,8 +15,9 @@ _$SubCatogeriesDataImpl _$$SubCatogeriesDataImplFromJson(
       data: (json['data'] as List<dynamic>)
           .map((e) => SubCatogeryItem.fromJson(e as Map<String, dynamic>))
           .toList(),
-      pagination:
-          Pagination.fromJson(json['pagination'] as Map<String, dynamic>),
+      pagination: json['pagination'] == null
+          ? null
+          : Pagination.fromJson(json['pagination'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$SubCatogeriesDataImplToJson(
@@ -26,7 +27,7 @@ Map<String, dynamic> _$$SubCatogeriesDataImplToJson(
       'message': instance.message,
       'currency': instance.currency,
       'data': instance.data.map((e) => e.toJson()).toList(),
-      'pagination': instance.pagination.toJson(),
+      'pagination': instance.pagination?.toJson(),
     };
 
 _$SubCatogeryItemImpl _$$SubCatogeryItemImplFromJson(

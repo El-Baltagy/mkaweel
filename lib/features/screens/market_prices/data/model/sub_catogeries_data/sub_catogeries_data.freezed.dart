@@ -24,7 +24,7 @@ mixin _$SubCatogeriesData {
   String get message => throw _privateConstructorUsedError;
   String get currency => throw _privateConstructorUsedError;
   List<SubCatogeryItem> get data => throw _privateConstructorUsedError;
-  Pagination get pagination => throw _privateConstructorUsedError;
+  Pagination? get pagination => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,9 +43,9 @@ abstract class $SubCatogeriesDataCopyWith<$Res> {
       String message,
       String currency,
       List<SubCatogeryItem> data,
-      Pagination pagination});
+      Pagination? pagination});
 
-  $PaginationCopyWith<$Res> get pagination;
+  $PaginationCopyWith<$Res>? get pagination;
 }
 
 /// @nodoc
@@ -65,7 +65,7 @@ class _$SubCatogeriesDataCopyWithImpl<$Res, $Val extends SubCatogeriesData>
     Object? message = null,
     Object? currency = null,
     Object? data = null,
-    Object? pagination = null,
+    Object? pagination = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -84,17 +84,21 @@ class _$SubCatogeriesDataCopyWithImpl<$Res, $Val extends SubCatogeriesData>
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as List<SubCatogeryItem>,
-      pagination: null == pagination
+      pagination: freezed == pagination
           ? _value.pagination
           : pagination // ignore: cast_nullable_to_non_nullable
-              as Pagination,
+              as Pagination?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $PaginationCopyWith<$Res> get pagination {
-    return $PaginationCopyWith<$Res>(_value.pagination, (value) {
+  $PaginationCopyWith<$Res>? get pagination {
+    if (_value.pagination == null) {
+      return null;
+    }
+
+    return $PaginationCopyWith<$Res>(_value.pagination!, (value) {
       return _then(_value.copyWith(pagination: value) as $Val);
     });
   }
@@ -113,10 +117,10 @@ abstract class _$$SubCatogeriesDataImplCopyWith<$Res>
       String message,
       String currency,
       List<SubCatogeryItem> data,
-      Pagination pagination});
+      Pagination? pagination});
 
   @override
-  $PaginationCopyWith<$Res> get pagination;
+  $PaginationCopyWith<$Res>? get pagination;
 }
 
 /// @nodoc
@@ -134,7 +138,7 @@ class __$$SubCatogeriesDataImplCopyWithImpl<$Res>
     Object? message = null,
     Object? currency = null,
     Object? data = null,
-    Object? pagination = null,
+    Object? pagination = freezed,
   }) {
     return _then(_$SubCatogeriesDataImpl(
       status: null == status
@@ -153,10 +157,10 @@ class __$$SubCatogeriesDataImplCopyWithImpl<$Res>
           ? _value._data
           : data // ignore: cast_nullable_to_non_nullable
               as List<SubCatogeryItem>,
-      pagination: null == pagination
+      pagination: freezed == pagination
           ? _value.pagination
           : pagination // ignore: cast_nullable_to_non_nullable
-              as Pagination,
+              as Pagination?,
     ));
   }
 }
@@ -191,7 +195,7 @@ class _$SubCatogeriesDataImpl extends _SubCatogeriesData {
   }
 
   @override
-  final Pagination pagination;
+  final Pagination? pagination;
 
   @JsonKey(ignore: true)
   @override
@@ -214,7 +218,7 @@ abstract class _SubCatogeriesData extends SubCatogeriesData {
       required final String message,
       required final String currency,
       required final List<SubCatogeryItem> data,
-      required final Pagination pagination}) = _$SubCatogeriesDataImpl;
+      required final Pagination? pagination}) = _$SubCatogeriesDataImpl;
   const _SubCatogeriesData._() : super._();
 
   factory _SubCatogeriesData.fromJson(Map<String, dynamic> json) =
@@ -229,7 +233,7 @@ abstract class _SubCatogeriesData extends SubCatogeriesData {
   @override
   List<SubCatogeryItem> get data;
   @override
-  Pagination get pagination;
+  Pagination? get pagination;
   @override
   @JsonKey(ignore: true)
   _$$SubCatogeriesDataImplCopyWith<_$SubCatogeriesDataImpl> get copyWith =>

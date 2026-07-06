@@ -41,8 +41,8 @@ class _WasteMaterialsGridWidgetState extends State<WasteMaterialsGridWidget> {
 
     final bool hasMorePagination = _cachedData?.pagination == null
         ? false
-        : (_cachedData?.pagination.current_page ?? 0) <
-              (_cachedData?.pagination.last_page ?? 0);
+        : (_cachedData?.pagination?.current_page ?? 0) <
+              (_cachedData?.pagination?.last_page ?? 0);
 
     // 2. Use _cachedData instead of reading directly from state
     final List<SubCatogeryItem> finalList = [
@@ -89,8 +89,8 @@ class _WasteMaterialsGridWidgetState extends State<WasteMaterialsGridWidget> {
                         if (!isCurrentlyLoading) {
                           widget.onShowMore?.call(
                             PaginationInfo<SubCatogeriesData>(
-                              currentPage: _cachedData?.pagination.current_page,
-                              lastPage: _cachedData?.pagination.last_page,
+                              currentPage: _cachedData?.pagination?.current_page,
+                              lastPage: _cachedData?.pagination?.last_page,
                               oldDataToCombine: _cachedData,
                             ),
                           );
