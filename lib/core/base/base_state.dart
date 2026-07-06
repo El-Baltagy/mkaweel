@@ -7,7 +7,9 @@
 
 abstract class BaseEmit {}
 
-class Loading extends BaseEmit {}
+class Loading extends BaseEmit {
+
+}
 
 class ErrorState extends BaseEmit {
   final Failure failure;

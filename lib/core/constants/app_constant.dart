@@ -24,4 +24,6 @@ abstract class AppConstant {
   static const int deleteAccountKeyCode = 8102;
   static const String updateProfileKeyCash = 'settings_updateProfile_cache';
   static const int updateProfileKeyCode = 4767;
+  static const String CreateProjectKeyCash = 'create_project_CreateProject_cache';
+  static const int CreateProjectKeyCode = 4781;
 }

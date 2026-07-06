@@ -12,6 +12,7 @@ static const String calculateWastePercentage  =  '/api/construction-materials/ca
 static const String sendResetPWLink  =  '/api/forgot-password';
 static const String deleteAccount  =  '/api/delete_user';
 static const String updateProfile  =  '/api/update_profile';
+static const String createProject  =  '/api/projects';
 
 
 }

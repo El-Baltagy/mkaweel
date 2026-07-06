@@ -4,26 +4,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/app/route.dart';
+import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/form_auto_scroll.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/base_text_input_data.dart';
- import 'package:mkaweel/core/shared/widgets/text_inputs/name_text_input_data.dart';
+import 'package:mkaweel/core/shared/widgets/text_inputs/name_text_input_data.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/text_input_widget.dart';
 import 'package:mkaweel/features/screens/create_project/controller/create_project_cubit.dart';
 import 'package:mkaweel/features/screens/create_project/controller/create_project_state.dart';
- import 'package:mkaweel/core/theming/app_text_styles.dart';
+import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
+import 'package:mkaweel/features/screens/create_project/data/model/create_project_parameters.dart';
+import 'package:mkaweel/features/screens/create_project/data/model/create_project_res/create_project_res.dart';
 import 'package:mkaweel/features/screens/create_project/ui/widgets/currency_selector_widget.dart';
 import 'package:mkaweel/features/screens/create_project/ui/widgets/location_selection.dart';
- import 'package:mkaweel/features/screens/create_project/ui/widgets/start_end_date.dart';
+import 'package:mkaweel/features/screens/create_project/ui/widgets/start_end_date.dart';
 
 @RoutePage()
 class CreateProjectPage extends StatefulWidget implements AutoRouteWrapper {
   const CreateProjectPage({super.key, required this.args});
+
   /// if this has id ==>update otherwise this is add
-  final CreateProjectRouteArgs  args;
+  final CreateProjectRouteArgs args;
 
   @override
   Widget wrappedRoute(BuildContext context) {
@@ -38,7 +42,6 @@ class CreateProjectPage extends StatefulWidget implements AutoRouteWrapper {
 }
 
 class _CreateProjectPageState extends CreateProjectPageBaseState {
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<CreateProjectCubit, CreateProjectState>(
@@ -50,7 +53,9 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
           appBar: AppBar(
             backgroundColor: context.theme.primaryColor,
             title: Text(
-             widget.args.projectId!=null?'update_project'.tr(): 'new_project'.tr(),
+              widget.args.projectId != null
+                  ? 'update_project'.tr()
+                  : 'new_project'.tr(),
               style: AppTextStyles.font18SemiBold.copyWith(
                 color: context.theme.scaffoldBackgroundColor,
               ),
@@ -79,9 +84,9 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                     NameInputData(
                       isLabel: false,
                       widgetPrefix: const SizedBox.shrink(),
-                       field: field1,
+                      field: field1,
                       labelText: 'building_residential_house'.tr(),
-                      controller: _controller1,
+                      controller: _controllerName,
                     ),
                   ),
 
@@ -93,15 +98,15 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                       widgetPrefix: const SizedBox.shrink(),
                       field: field2,
                       labelText: 'ministry_of_housing'.tr(),
-                      controller: _controller2,
+                      controller: _controllerOwner_name,
                     ),
                   ),
 
                   20.verticalSpace,
-                    CurrencySelectorWidget(
-                      listStringCurrencies: _listStringCurrencies,
-                      selectedCurrencyNotifier: selectedCurrencyNotifier,
-                    ),
+                  CurrencySelectorWidget(
+                    listStringCurrencies: _listStringCurrencies,
+                    selectedCurrencyNotifier: selectedCurrencyNotifier,
+                  ),
 
                   20.verticalSpace,
                   _buildTextField(
@@ -127,23 +132,20 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                       ],
                       field: field3,
                       labelText: '50000',
-                      controller: _controller3,
+                      controller: _controllerContract_value,
                     ),
                   ),
 
                   20.verticalSpace,
                   StartEndDates(
-                      controllerE:_controller5 ,
-                      controllerS: _controller4,
-                      fieldE: field5,
-                      fieldS:field4 ,
-                   ),
+                    controllerE: _controllerEnd_date,
+                    controllerS: _controllerStart_date,
+                    fieldE: field5,
+                    fieldS: field4,
+                  ),
 
                   20.verticalSpace,
-                   LoccationSelection(
-                     locationNotifier: locationNotifier,
-
-                   ),
+                  LoccationSelection(locationNotifier: locationNotifier),
 
                   20.verticalSpace,
                   _buildTextField(
@@ -152,22 +154,24 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                       isLabel: false,
                       widgetPrefix: const SizedBox.shrink(),
                       field: field6,
-                      validator: (v) =>null ,
-                      labelText: 'enter_project_scope_and_description'.tr()+"...",
-                      controller: _controller6,
+                      validator: (v) => null,
+                      labelText:
+                      'enter_project_scope_and_description'.tr() + "...",
+                      controller: _controllerDescription,
                     ),
                   ),
 
                   20.verticalSpace,
                   _buildTextField(
-                    'additional_data'.tr()+" / "+'notes'.tr(),
+                    'additional_data'.tr() + " / " + 'notes'.tr(),
                     NameInputData(
                       isLabel: false,
                       widgetPrefix: const SizedBox.shrink(),
                       field: field7,
-                      validator: (v) =>null ,
-                      labelText: 'any_additional_details_or_requirements'.tr()+"...",
-                      controller: _controller7,
+                      validator: (v) => null,
+                      labelText:
+                      'any_additional_details_or_requirements'.tr() + "...",
+                      controller: _controllerExtra_details,
                     ),
                   ),
 
@@ -175,26 +179,33 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                   SizedBox(
                     width: double.infinity,
                     height: AppSizes.s48,
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        // if (isLoading) return;
-                        if (await _key.validateAndScroll(
-                          context,
-                          listRecorder: [field1, field2],
-                        )) {}
+                    child: BlocBuilder<CreateProjectCubit, CreateProjectState>(
+                      builder: (context, state) {
+
+                        bool isLoading=state is CreateProjectResState && state.baseEmit is Loading ;
+                        return
+                        ElevatedButton(
+                          onPressed: () => createProject(isLoading),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: context.theme.primaryColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(AppSizes.s8),
+                            ),
+                          ),
+                          child: isLoading?
+                          CircularProgressIndicator(
+                            color: context.theme.scaffoldBackgroundColor,
+                          ):
+                          Text(
+                            widget.args.projectId == null
+                                ? 'create_project'.tr()
+                                : 'save'.tr(),
+                            style: AppTextStyles.font16SemiBold.copyWith(
+                              color: context.theme.scaffoldBackgroundColor,
+                            ),
+                          ),
+                        );
                       },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: context.theme.primaryColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(AppSizes.s8),
-                        ),
-                      ),
-                      child: Text(
-                        widget.args.projectId==null?'create_project'.tr():   'save'.tr(),
-                        style: AppTextStyles.font16SemiBold.copyWith(
-                          color: context.theme.scaffoldBackgroundColor,
-                        ),
-                      ),
                     ),
                   ),
                   20.verticalSpace,
@@ -206,8 +217,6 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
       ),
     );
   }
-
-
 
   Widget _buildTextField(String mainLabel, BaseTextInputData data) {
     return Column(
@@ -227,7 +236,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
 }
 
 abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
-  late final CreateProjectCubit argData;
+  late final CreateProjectCubit createProjectCubit;
 
   final _key = GlobalKey<FormState>();
   (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field1 = (.new(), .new());
@@ -237,21 +246,20 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
   (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field5 = (.new(), .new());
   (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field6 = (.new(), .new());
   (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field7 = (.new(), .new());
-  final TextEditingController _controller1 = .new();
-  final TextEditingController _controller2 = .new();
-  final TextEditingController _controller3 = .new();
-  final TextEditingController _controller4 = .new();
-  final TextEditingController _controller5 = .new();
-  final TextEditingController _controller6 = .new();
-  final TextEditingController _controller7 = .new();
-  final ValueNotifier<(String?, LatLng?)> locationNotifier=.new((null,null));
+  final TextEditingController _controllerName = .new();
+  final TextEditingController _controllerOwner_name = .new();
+  final TextEditingController _controllerContract_value = .new();
+  final TextEditingController _controllerStart_date = .new();
+  final TextEditingController _controllerEnd_date = .new();
+  final TextEditingController _controllerDescription = .new();
+  final TextEditingController _controllerExtra_details = .new();
+  final ValueNotifier<(String?, LatLng?)> locationNotifier = .new((null, null));
   final ValueNotifier<String> selectedCurrencyNotifier = .new('');
 
   @override
   void initState() {
     super.initState();
-    argData = CreateProjectCubit.get(context: context);
-
+    createProjectCubit = CreateProjectCubit.get(context: context);
   }
 
   @override
@@ -265,13 +273,13 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
     field6.$2?.dispose();
     field7.$2?.dispose();
 
-    _controller1.dispose();
-    _controller2.dispose();
-    _controller3.dispose();
-    _controller4.dispose();
-    _controller5.dispose();
-    _controller6.dispose();
-    _controller7.dispose();
+    _controllerName.dispose();
+    _controllerOwner_name.dispose();
+    _controllerContract_value.dispose();
+    _controllerStart_date.dispose();
+    _controllerEnd_date.dispose();
+    _controllerDescription.dispose();
+    _controllerExtra_details.dispose();
 
     selectedCurrencyNotifier.dispose();
     locationNotifier.dispose();
@@ -279,8 +287,60 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
     super.dispose();
   }
 
-  void createProjectLisener(context, state) {
-    // TODO: implement listener
+  createProject(bool isLoading) async {
+    if (isLoading) return;
+    if (await _key.validateAndScroll(
+      context,
+      listRecorder: [field1, field2],
+    )) {
+      debugPrint(CreateProjectParameters(
+        name: _controllerName.text,
+        owner_name: _controllerOwner_name.text,
+        contract_value: _controllerContract_value.text,
+        start_date: _controllerStart_date.text,
+        end_date: _controllerEnd_date.text,
+        description: _controllerDescription.text,
+        extra_details: _controllerExtra_details.text,
+        currency: selectedCurrencyNotifier.value,
+        latitude: locationNotifier.value.$2!.lat.toString(),
+        longitude: locationNotifier.value.$2!.lng.toString(),
+      ).toJsonBody().toString());
+      // return;
+      await createProjectCubit.createProjectFunc(
+        parameter: CreateProjectParameters(
+          name: _controllerName.text,
+          owner_name: _controllerOwner_name.text,
+          contract_value: _controllerContract_value.text,
+          start_date: _controllerStart_date.text,
+          end_date: _controllerEnd_date.text,
+          description: _controllerDescription.text,
+          extra_details: _controllerExtra_details.text,
+          currency: selectedCurrencyNotifier.value,
+          latitude: locationNotifier.value.$2!.lat.toString(),
+          longitude: locationNotifier.value.$2!.lng.toString(),
+        ),
+      );
+    }
+  }
+
+  void createProjectLisener(BuildContext context,CreateProjectState state) {
+     if (state is CreateProjectResState) {
+       if(state.baseEmit  is Success<CreateProjectRes>) {
+         final CreateProjectRes data=(state.baseEmit as Success<CreateProjectRes>).data!;
+         context.showToast(
+             data.message
+         );
+         context.pop();
+       }else{
+         if(state.baseEmit  is ErrorState ) {
+           final ErrorState  data= state.baseEmit  as ErrorState;
+           context.showToast(
+               data.failure.message,
+               isSuccess: false
+           );
+       }
+       }
+     }
   }
 
   final List<String> _listStringCurrencies = [
