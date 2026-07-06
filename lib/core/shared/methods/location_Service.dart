@@ -1,58 +1,131 @@
-import 'package:geolocator/geolocator.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
 import 'package:geocoding/geocoding.dart';
- class LocationService {
-   LocationService._();
-   factory LocationService() => _instance;
-   static final LocationService _instance = LocationService._();
+import 'package:geolocator/geolocator.dart';
+import 'package:mkaweel/core/shared/methods/print.dart';
+import 'package:mkaweel/features/screens/create_project/data/model/address_model.dart';
+
+class LocationService {
+  LocationService._();
+
+  static final LocationService _instance = LocationService._();
+
+  factory LocationService() => _instance;
+
+  /// Get current device location
   Future<Position?> getCurrentLocation() async {
-    // Check if location service is enabled
-    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    try {
+      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
 
-    if (!serviceEnabled) {
-      throw Exception('Location services are disabled.');
-    }
-
-    // Check permission
-    LocationPermission permission = await Geolocator.checkPermission();
-
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-
-      if (permission == LocationPermission.denied) {
-        // throw Exception('Location permission denied.');
+      if (!serviceEnabled) {
+        await Geolocator.openLocationSettings();
         return null;
       }
-    }
 
-    if (permission == LocationPermission.deniedForever) {
-      // throw Exception(
-      //   'Location permission permanently denied. Please enable it in settings.',
-      // );
+      LocationPermission permission = await Geolocator.checkPermission();
+
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+      }
+
+      if (permission == LocationPermission.denied ||
+          permission == LocationPermission.deniedForever) {
+        return null;
+      }
+
+      return await Geolocator.getCurrentPosition(
+        locationSettings: const LocationSettings(
+          accuracy: LocationAccuracy.high,
+        ),
+      );
+    } catch (e) {
+      PrintHelper().ordinaryPrint('Location Error: $e');
       return null;
     }
-// var x=;
-    return await Geolocator.getCurrentPosition(
-      locationSettings: const LocationSettings(
-        accuracy: LocationAccuracy.high,
-      ),
-    ) ;
   }
 
+  /// Convert Position to Placemark
+  Future<Placemark?> getPlacemark(Position? position) async {
+    if (position == null) return null;
 
-  Future<Placemark?> getPlacemark(Position position) async {
-    try{
+    try {
       final placemarks = await placemarkFromCoordinates(
         position.latitude,
         position.longitude,
+        // localeIdentifier: "en",
       );
+
+      if (placemarks.isEmpty) {
+        return null;
+      }
+
       return placemarks.first;
-    }catch(e){
+    } on PlatformException catch (e, stack) {
+      PrintHelper().ordinaryPrint("Reverse Geocode Error:");
+      PrintHelper().ordinaryPrint(e);
+      PrintHelper().ordinaryPrint(stack);
+      return null;
+    }catch(e){}
+  }
+
+  /// Create readable address
+  String? localOfPlaceMark(Placemark? place) {
+    if (place == null) return null;
+
+    final parts = <String>[
+      ?place .street,
+      ?place.subLocality,
+      ?place.locality,
+      ?place.subAdministrativeArea,
+      ?place.administrativeArea,
+      ?place.country,
+    ].where((e) => e.trim().isNotEmpty).toList();
+
+    if (parts.isEmpty) {
       return null;
     }
+
+    return parts.join(", ");
   }
-    String localOfPlaceMark(Placemark? cityPlaceMark) {
-    return cityPlaceMark == null
-        ? ''
-        : '${cityPlaceMark.locality!} ${cityPlaceMark.subAdministrativeArea!} , ${cityPlaceMark.administrativeArea!}';
+
+  /// Get formatted address directly
+  Future<String?> getCurrentAddress() async {
+    final position = await getCurrentLocation();
+
+    if (position == null) return null;
+
+    final place = await getPlacemark(position);
+
+    return localOfPlaceMark(place);
+  }
+
+
+  final Dio _dio = Dio(
+    BaseOptions(
+      baseUrl: 'https://nominatim.openstreetmap.org/',
+      headers: {
+        'User-Agent': 'MkaweelApp/1.0',
+      },
+    ),
+  );
+
+
+
+  Future<AddressModel?> reverseGeocode(Position position) async {
+    try {
+      final response = await _dio.get(
+        'reverse',
+        queryParameters: {
+          'lat': position.latitude,
+          'lon': position.longitude,
+          'format': 'jsonv2',
+        },
+      );
+
+      return AddressModel.fromJson(response.data as Map<String,dynamic>);
+    } catch (e) {
+      PrintHelper().ordinaryPrint(e);
+      return null;
+    }
   }
 }

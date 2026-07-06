@@ -138,7 +138,10 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                    ),
 
                   20.verticalSpace,
-                   LoccationSelection(),
+                   LoccationSelection(
+                     locationNotifier: locationNotifier,
+
+                   ),
 
                   30.verticalSpace,
                   SizedBox(
@@ -209,13 +212,14 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
   final TextEditingController _controller3 = .new();
   final TextEditingController _controller4 = .new();
   final TextEditingController _controller5 = .new();
-
+  final ValueNotifier<(String?, LatLng?)> locationNotifier=.new((null,null));
 
 
   @override
   void initState() {
-    argData = CreateProjectCubit.get(context: context);
     super.initState();
+    argData = CreateProjectCubit.get(context: context);
+
   }
 
   @override
@@ -228,6 +232,7 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
     _controller2.dispose();
     _controller3.dispose();
     selectedCurrencyNotifier.dispose();
+    locationNotifier.dispose();
 
     super.dispose();
   }

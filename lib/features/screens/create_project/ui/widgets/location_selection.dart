@@ -11,51 +11,110 @@ import 'package:mkaweel/core/shared/widgets/text_inputs/text_input_widget.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
+import 'package:mkaweel/features/screens/create_project/data/model/address_model.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 class LatLng{
   final double lat, lng;
   LatLng(this.lat,this.lng);
 }
-class LoccationSelection extends StatelessWidget {
+class LoccationSelection extends StatefulWidget {
   const LoccationSelection({
     super.key,
     required this.locationNotifier
   });
   final   ValueNotifier<(String?,LatLng?)>locationNotifier  ;
+
+  @override
+  State<LoccationSelection> createState() => _LoccationSelectionState();
+}
+
+class _LoccationSelectionState extends State<LoccationSelection> {
+  final TextEditingController? _controller=.new();
+  void _listener(){
+    _controller?.text=widget.locationNotifier.value.$1??"";
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    widget.locationNotifier.addListener(_listener);
+    super.initState();
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    widget.locationNotifier.removeListener(_listener);
+    _controller?.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
+    bool isLoading=false;
     return Column(
       crossAxisAlignment: .start,
       children: [
         Row(
           children: [
             Text(
-              'location' ,
-              // 'site_location_gps'.tr(),
-              style: AppTextStyles.font14Regular.copyWith(
+              'location'.tr() ,
+               style: AppTextStyles.font14Regular.copyWith(
                 color: context.theme.colorScheme.tertiaryFixed,
               ),
             ),
             Spacer(),
-            GestureDetector(
-              onTap: () async{
-                PrintHelper().ordinaryPrint(".................");
-                Position pos= await LocationService().getCurrentLocation() ;
-                Placemark? plc=await LocationService().getPlacemark(pos) ;
-                LocationService().localOfPlaceMark(val)
-              },
-              child: Container(
-                padding: .symmetric(horizontal: 4,vertical: 8),
-                decoration: BoxDecoration(
-                  color: context.theme.primaryColor,
-                  borderRadius: BorderRadius.circular(AppSizes.s8),
-                ),
-                child: Text(
-                  'determine_current_location'.tr(),
-                  style: AppTextStyles.font14Regular.copyWith(
-                    color: context.theme.scaffoldBackgroundColor,
+            StatefulBuilder(
+              builder: (context,set) {
+
+                return  isLoading?
+                CircularProgressIndicator():
+                GestureDetector(
+                  onTap: () async{
+                    set((){
+                      isLoading=true;
+                    });
+
+                    PrintHelper().ordinaryPrint(".................");
+
+
+                    final locationService = LocationService();
+
+                    // final position = await locationService.getCurrentAddress();
+                    final position = await locationService.getCurrentLocation();
+                    AddressModel? address ;
+                    if (position != null) {
+                      address=
+                      await LocationService().reverseGeocode(position);
+
+                      PrintHelper().ordinaryPrint(position.latitude);
+                      PrintHelper().ordinaryPrint(position.longitude);
+
+                      PrintHelper().ordinaryPrint(address?.displayName);
+
+                      PrintHelper().ordinaryPrint(address?.city);
+
+                      PrintHelper().ordinaryPrint(address?.country);
+
+                      PrintHelper().ordinaryPrint(address);
+                    }
+                     widget.locationNotifier.value=(address.toString() ,LatLng(position!.latitude,position.longitude));
+                    set((){
+                      isLoading=false;
+                    });
+                  },
+                  child: Container(
+                    padding: .symmetric(horizontal: 4,vertical: 8),
+                    decoration: BoxDecoration(
+                      color: context.theme.primaryColor,
+                      borderRadius: BorderRadius.circular(AppSizes.s8),
+                    ),
+                    child: Text(
+                      'determine_current_location'.tr(),
+                      style: AppTextStyles.font14Regular.copyWith(
+                        color: context.theme.scaffoldBackgroundColor,
+                      ),
+                    ),
                   ),
-                ),
-              ),
+                );
+              }
             ),
           ],
         ),
@@ -68,7 +127,7 @@ class LoccationSelection extends StatelessWidget {
               onTap: (){
 
               },
-              // controller:  _controller
+              controller:  _controller
             // 'determine_current_location'.tr()
           ),
         ),
