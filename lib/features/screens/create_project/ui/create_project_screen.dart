@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/form_auto_scroll.dart';
@@ -11,8 +12,7 @@ import 'package:mkaweel/core/shared/widgets/text_inputs/base_text_input_data.dar
 import 'package:mkaweel/core/shared/widgets/text_inputs/text_input_widget.dart';
 import 'package:mkaweel/features/screens/create_project/controller/create_project_cubit.dart';
 import 'package:mkaweel/features/screens/create_project/controller/create_project_state.dart';
-import 'package:mkaweel/core/theming/app_colors.dart';
-import 'package:mkaweel/core/theming/app_text_styles.dart';
+ import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/features/screens/create_project/ui/widgets/currency_selector_widget.dart';
@@ -21,7 +21,9 @@ import 'package:mkaweel/features/screens/create_project/ui/widgets/location_sele
 
 @RoutePage()
 class CreateProjectPage extends StatefulWidget implements AutoRouteWrapper {
-  const CreateProjectPage({super.key});
+  const CreateProjectPage({super.key, required this.args});
+  /// if this has id ==>update otherwise this is add
+  final CreateProjectRouteArgs  args;
 
   @override
   Widget wrappedRoute(BuildContext context) {

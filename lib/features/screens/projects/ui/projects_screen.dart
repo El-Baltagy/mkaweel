@@ -51,7 +51,11 @@ class _ProjectsPageState extends ProjectsPageBaseState {
           floatingActionButtonLocation: .centerFloat,
           floatingActionButton: FloatingActionButton(
             backgroundColor: context.theme.colorScheme.secondary,
-            onPressed: () =>context.push(const CreateProjectRoute()),
+            onPressed: () =>context.push(  CreateProjectRoute(
+              args: const CreateProjectRouteArgs(
+                null
+              )
+            )),
             child:   Icon(Icons.add, color: context.theme.scaffoldBackgroundColor),
           ),
         ),

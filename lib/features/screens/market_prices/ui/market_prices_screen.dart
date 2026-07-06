@@ -58,7 +58,7 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
                 Icons.sync,
                 color: context.theme.scaffoldBackgroundColor,
               ),
-              onPressed: _loadData ,
+              onPressed: () => _loadData(Reload()) ,
             ),
           ),
           floatingActionButton: kDebugMode
@@ -146,14 +146,14 @@ abstract class MarketPricesPageBaseState extends State<MarketPricesPage>
     _loadData();
   }
 
-  Future<void>  _loadData() async {
+  Future<void>  _loadData([BaseRequestBackType? requestType  ]) async {
     debugPrint("loading data in Market Prices Cubit ................");
     await Future.wait([
-      marketPriceCubit.getCatogeriesFunc( Init()),
-      marketPriceCubit.getExchagngeRateFunc( Init()),
+      marketPriceCubit.getCatogeriesFunc( requestType??Init()),
+      marketPriceCubit.getExchagngeRateFunc(  requestType??Init()),
 
       marketPriceCubit.getSubCatogeriesFunc(
-        Init(),
+        requestType?? Init(),
           parameter:   .new(selectedCatIdNotifier.value!,currencyTabNotifier.value.shortcut),
         ),
     ]);

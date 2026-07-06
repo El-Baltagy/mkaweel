@@ -10,7 +10,7 @@ class RetryInterceptor extends Interceptor {
   RetryInterceptor({required this.dio, this.maxRetries = 3});
 
   bool _shouldRetry(DioException err) {
-    return false;
+    // return false;
     if (err.type == DioExceptionType.connectionTimeout ||
         err.type == DioExceptionType.sendTimeout ||
         err.type == DioExceptionType.receiveTimeout ||
