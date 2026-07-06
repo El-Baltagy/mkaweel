@@ -1,32 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:mkaweel/core/app/route.dart';
+import 'package:mkaweel/core/extension/context.dart';
+import 'package:mkaweel/features/screens/create_project/data/model/create_project_res/create_project_res.dart';
 
 class ProjectCard extends StatelessWidget {
-  const ProjectCard({
-    super.key,
-    required this.name,
-    required this.ownerName,
-    required this.startDate,
-    required this.endDate,
-    required this.description,
-    required this.extraDetails,
-    required this.contractValue,
-    required this.currency,
-    required this.progress,
-    required this.latitude,
-    required this.longitude,
-  });
+  const ProjectCard({super.key, required this.projectInfoData});
 
-  final String name;
-  final String ownerName;
-  final String startDate;
-  final String endDate;
-  final String description;
-  final String extraDetails;
-  final String contractValue;
-  final String currency;
-  final double progress;
-  final String latitude;
-  final String longitude;
+  final ProjectInfoData projectInfoData;
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +15,7 @@ class ProjectCard extends StatelessWidget {
     return Card(
       elevation: 2,
       margin: const EdgeInsets.all(12),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -49,10 +27,7 @@ class ProjectCard extends StatelessWidget {
                 CircleAvatar(
                   radius: 24,
                   backgroundColor: primary.withOpacity(.1),
-                  child: Icon(
-                    Icons.business_center,
-                    color: primary,
-                  ),
+                  child: Icon(Icons.business_center, color: primary),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -60,7 +35,7 @@ class ProjectCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        name,
+                        projectInfoData.name,
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -68,13 +43,28 @@ class ProjectCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        "Owner: $ownerName",
-                        style: TextStyle(
-                          color: Colors.grey.shade600,
-                        ),
+                        "Owner: ${projectInfoData.owner_name}",
+                        style: TextStyle(color: Colors.grey.shade600),
                       ),
                     ],
                   ),
+                ),
+                Row(
+                  mainAxisSize: .min,
+                  children: [
+                    GestureDetector(
+                      onTap: () =>context.push(  CreateProjectRoute(
+                          args:   CreateProjectRouteArgs(
+                              "${projectInfoData.id}"
+                          )
+                      )),
+                      child: const Icon(Icons.edit),
+                    ),
+                    GestureDetector(
+                      onTap: () {},
+                      child: const Icon(Icons.delete),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -89,12 +79,12 @@ class ProjectCard extends StatelessWidget {
                   "Progress",
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
-                Text("${progress.toInt()}%"),
+                Text("${projectInfoData.progress_percentage}%"),
               ],
             ),
             const SizedBox(height: 8),
             LinearProgressIndicator(
-              value: progress / 100,
+              value: projectInfoData.progress_percentage / 100,
               borderRadius: BorderRadius.circular(10),
               minHeight: 8,
             ),
@@ -108,7 +98,7 @@ class ProjectCard extends StatelessWidget {
                   child: _InfoTile(
                     Icons.calendar_today,
                     "Start",
-                    startDate,
+                    projectInfoData.start_date,
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -116,7 +106,7 @@ class ProjectCard extends StatelessWidget {
                   child: _InfoTile(
                     Icons.event,
                     "End",
-                    endDate,
+                    projectInfoData.end_date,
                   ),
                 ),
               ],
@@ -128,7 +118,7 @@ class ProjectCard extends StatelessWidget {
             _InfoRow(
               Icons.payments,
               "Contract",
-              "$contractValue $currency",
+              "${projectInfoData.contract_value} ${projectInfoData.currency}",
             ),
 
             const SizedBox(height: 10),
@@ -137,30 +127,29 @@ class ProjectCard extends StatelessWidget {
             _InfoRow(
               Icons.location_on,
               "Location",
-              "$latitude, $longitude",
+              "${projectInfoData.longitude}, ${projectInfoData.latitude}",
             ),
+            if (projectInfoData.description != null ||
+                projectInfoData.extra_details != null)
+              const Divider(height: 28),
 
-            const Divider(height: 28),
-
-            const Text(
-              "Description",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
+            if (projectInfoData.description != null) ...[
+              const Text(
+                "Description",
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
-            ),
-            const SizedBox(height: 6),
-            Text(description),
+              const SizedBox(height: 6),
+              Text(projectInfoData.description!),
+            ],
 
-            if (extraDetails.isNotEmpty) ...[
+            if (projectInfoData.extra_details != null) ...[
               const SizedBox(height: 16),
               const Text(
                 "Extra Details",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 6),
-              Text(extraDetails),
+              Text(projectInfoData.extra_details!),
             ],
           ],
         ),
@@ -170,11 +159,7 @@ class ProjectCard extends StatelessWidget {
 }
 
 class _InfoTile extends StatelessWidget {
-  const _InfoTile(
-      this.icon,
-      this.title,
-      this.value,
-      );
+  const _InfoTile(this.icon, this.title, this.value);
 
   final IconData icon;
   final String title;
@@ -192,31 +177,19 @@ class _InfoTile extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey.shade600,
-                ),
+                style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
               ),
-              Text(
-                value,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              Text(value, style: const TextStyle(fontWeight: FontWeight.w600)),
             ],
           ),
-        )
+        ),
       ],
     );
   }
 }
 
 class _InfoRow extends StatelessWidget {
-  const _InfoRow(
-      this.icon,
-      this.title,
-      this.value,
-      );
+  const _InfoRow(this.icon, this.title, this.value);
 
   final IconData icon;
   final String title;
@@ -228,12 +201,7 @@ class _InfoRow extends StatelessWidget {
       children: [
         Icon(icon, size: 18),
         const SizedBox(width: 10),
-        Text(
-          "$title:",
-          style: const TextStyle(
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+        Text("$title:", style: const TextStyle(fontWeight: FontWeight.w600)),
         const SizedBox(width: 8),
         Expanded(child: Text(value)),
       ],

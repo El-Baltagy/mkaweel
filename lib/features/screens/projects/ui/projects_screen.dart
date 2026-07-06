@@ -5,11 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
+import 'package:mkaweel/features/screens/create_project/data/model/create_project_res/create_project_res.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/features/screens/projects/ui/widgets/empty_projects_widget.dart';
+import 'package:mkaweel/features/screens/projects/ui/widgets/project_card.dart';
 
 @RoutePage()
 class ProjectsPage extends StatefulWidget implements AutoRouteWrapper{
@@ -47,7 +49,28 @@ class _ProjectsPageState extends ProjectsPageBaseState {
               onPressed: () {},
             ),
           ),
-          body: const EmptyProjectsWidget(),
+          body: ListView.builder(
+              itemCount: 20,
+              itemBuilder: (context, index) => ProjectCard(
+                projectInfoData: ProjectInfoData.fromJson({
+                  "id": 17,
+                  "name": "wasd",
+                  "owner_name": "scsc",
+                  "start_date": "2026-07-07",
+                  "end_date": "2026-07-31",
+                  "latitude": "38.90719310",
+                  "longitude": "-77.03687280",
+                  "description": null,
+                  "extra_details": null,
+                  "contract_value": "22222.00",
+                  "currency": "SAR",
+                  "progress_percentage": 0,
+                  "tasks": [],
+                  "created_at": "2026-07-06T13:44:43.000000Z",
+                  "updated_at": "2026-07-06T13:44:43.000000Z"
+                } ),
+              )),
+          // body: const EmptyProjectsWidget(),
           floatingActionButtonLocation: .centerFloat,
           floatingActionButton: FloatingActionButton(
             backgroundColor: context.theme.colorScheme.secondary,
