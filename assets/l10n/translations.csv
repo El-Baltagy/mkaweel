@@ -191,3 +191,9 @@ location,location,الموقع
 
 update_project,update project,تحديث المشروع
 save,save,حفظ
+
+enter_project_scope_and_description,Enter project scope and description,أدخل نطاق المشروع ووصفه
+description,description,الوصف
+additional_data,Additional data,بيانات إضافية
+notes,Notes,ملحوظات
+any_additional_details_or_requirements,Any additional details or requirements,أي تفاصيل أو متطلبات إضافية

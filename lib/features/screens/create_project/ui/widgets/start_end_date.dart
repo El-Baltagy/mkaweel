@@ -25,10 +25,11 @@ class StartEndDates extends StatelessWidget {
       ( 'end_date'.tr(), controllerE, fieldE ),
     ];
     return Row(
+      crossAxisAlignment:  .start,
       spacing: 10,
       children: List.generate(_list.length, (index) => Expanded(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment:  .start,
           children: [
             Text(_list[index].$1, style: AppTextStyles.font14Regular.copyWith(color: context.theme.colorScheme.tertiaryFixed)),
             10.verticalSpace,
@@ -39,7 +40,7 @@ class StartEndDates extends StatelessWidget {
                   field: _list[index].$3,
                   onTap: () async {
                     if(index==1&&controllerS.text.isEmpty){
-                      context.showToast("please_select_start_date_first" ,isSuccess: false);
+                      context.showToast("please_select_start_date_first".tr() ,isSuccess: false);
                       return ;
                     }
                     DateTime  _initialDate=(index==0? DateTime.now(): DateTime.parse(controllerS.text));

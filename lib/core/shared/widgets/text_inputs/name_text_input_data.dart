@@ -10,12 +10,13 @@ class NameInputData extends BaseTextInputData {
     super.widgetPrefix,
     String? labelText,
     IconData? icon,
+    String? Function(String?)? validator,
     super.inputFormatters,
     super.field
   }) : super(
     icon: icon?? Icons.person,
       labelText:labelText?? 'name'.tr(),
-    validator: (value) {
+    validator:validator?? (value) {
       if (value?.isEmpty == true) {
         return "can't_be_empty".tr();
       }

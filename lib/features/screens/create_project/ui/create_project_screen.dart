@@ -50,7 +50,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
           appBar: AppBar(
             backgroundColor: context.theme.primaryColor,
             title: Text(
-              'new_project'.tr(),
+             widget.args.projectId!=null?'update_project'.tr(): 'new_project'.tr(),
               style: AppTextStyles.font18SemiBold.copyWith(
                 color: context.theme.scaffoldBackgroundColor,
               ),
@@ -145,6 +145,32 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
 
                    ),
 
+                  20.verticalSpace,
+                  _buildTextField(
+                    'description'.tr(),
+                    NameInputData(
+                      isLabel: false,
+                      widgetPrefix: const SizedBox.shrink(),
+                      field: field6,
+                      validator: (v) =>null ,
+                      labelText: 'enter_project_scope_and_description'.tr()+"...",
+                      controller: _controller6,
+                    ),
+                  ),
+
+                  20.verticalSpace,
+                  _buildTextField(
+                    'additional_data'.tr()+" / "+'notes'.tr(),
+                    NameInputData(
+                      isLabel: false,
+                      widgetPrefix: const SizedBox.shrink(),
+                      field: field7,
+                      validator: (v) =>null ,
+                      labelText: 'any_additional_details_or_requirements'.tr()+"...",
+                      controller: _controller7,
+                    ),
+                  ),
+
                   30.verticalSpace,
                   SizedBox(
                     width: double.infinity,
@@ -164,7 +190,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                         ),
                       ),
                       child: Text(
-                        'create_project'.tr(),
+                        widget.args.projectId==null?'create_project'.tr():   'save'.tr(),
                         style: AppTextStyles.font16SemiBold.copyWith(
                           color: context.theme.scaffoldBackgroundColor,
                         ),
@@ -202,20 +228,24 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
 
 abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
   late final CreateProjectCubit argData;
-  final ValueNotifier<String> selectedCurrencyNotifier = .new('');
+
   final _key = GlobalKey<FormState>();
   (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field1 = (.new(), .new());
   (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field2 = (.new(), .new());
   (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field3 = (.new(), .new());
   (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field4 = (.new(), .new());
   (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field5 = (.new(), .new());
+  (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field6 = (.new(), .new());
+  (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field7 = (.new(), .new());
   final TextEditingController _controller1 = .new();
   final TextEditingController _controller2 = .new();
   final TextEditingController _controller3 = .new();
   final TextEditingController _controller4 = .new();
   final TextEditingController _controller5 = .new();
+  final TextEditingController _controller6 = .new();
+  final TextEditingController _controller7 = .new();
   final ValueNotifier<(String?, LatLng?)> locationNotifier=.new((null,null));
-
+  final ValueNotifier<String> selectedCurrencyNotifier = .new('');
 
   @override
   void initState() {
@@ -230,9 +260,19 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
     field1.$2?.dispose();
     field2.$2?.dispose();
     field3.$2?.dispose();
+    field4.$2?.dispose();
+    field5.$2?.dispose();
+    field6.$2?.dispose();
+    field7.$2?.dispose();
+
     _controller1.dispose();
     _controller2.dispose();
     _controller3.dispose();
+    _controller4.dispose();
+    _controller5.dispose();
+    _controller6.dispose();
+    _controller7.dispose();
+
     selectedCurrencyNotifier.dispose();
     locationNotifier.dispose();
 
