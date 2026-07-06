@@ -8,6 +8,7 @@ import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/form_auto_scroll.dart';
+import 'package:mkaweel/core/shared/methods/location_Service.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/base_text_input_data.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/name_text_input_data.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/text_input_widget.dart';
@@ -21,6 +22,7 @@ import 'package:mkaweel/features/screens/create_project/data/model/create_projec
 import 'package:mkaweel/features/screens/create_project/ui/widgets/currency_selector_widget.dart';
 import 'package:mkaweel/features/screens/create_project/ui/widgets/location_selection.dart';
 import 'package:mkaweel/features/screens/create_project/ui/widgets/start_end_date.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 part 'create_project_state.dart';
 
@@ -74,148 +76,154 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
               ),
             ],
           ),
-          body: Form(
-            key: _key,
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(AppPadding.p16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildTextField(
-                    'project_name'.tr(),
-                    NameInputData(
-                      isLabel: false,
-                      widgetPrefix: const SizedBox.shrink(),
-                      field: field1,
-                      labelText: 'building_residential_house'.tr(),
-                      controller: _controllerName,
+          body: ValueListenableBuilder(valueListenable:isLoadingNotifier , builder: (context, value, child) {
+            return Form(
+              key: _key,
+              child:
+              value?
+              const Center(
+                  child: CircularProgressIndicator()):
+              SingleChildScrollView(
+                padding: const EdgeInsets.all(AppPadding.p16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildTextField(
+                      'project_name'.tr(),
+                      NameInputData(
+                        isLabel: false,
+                        widgetPrefix: const SizedBox.shrink(),
+                        field: field1,
+                        labelText: 'building_residential_house'.tr(),
+                        controller: _controllerName,
+                      ),
                     ),
-                  ),
 
-                  20.verticalSpace,
-                  _buildTextField(
-                    'project_owner'.tr(),
-                    NameInputData(
-                      isLabel: false,
-                      widgetPrefix: const SizedBox.shrink(),
-                      field: field2,
-                      labelText: 'ministry_of_housing'.tr(),
-                      controller: _controllerOwner_name,
+                    20.verticalSpace,
+                    _buildTextField(
+                      'project_owner'.tr(),
+                      NameInputData(
+                        isLabel: false,
+                        widgetPrefix: const SizedBox.shrink(),
+                        field: field2,
+                        labelText: 'ministry_of_housing'.tr(),
+                        controller: _controllerOwner_name,
+                      ),
                     ),
-                  ),
 
-                  20.verticalSpace,
-                  CurrencySelectorWidget(
-                    listStringCurrencies: _listStringCurrencies,
-                    selectedCurrencyNotifier: selectedCurrencyNotifier,
-                  ),
+                    20.verticalSpace,
+                    CurrencySelectorWidget(
+                      listStringCurrencies: _listStringCurrencies,
+                      selectedCurrencyNotifier: selectedCurrencyNotifier,
+                    ),
 
-                  20.verticalSpace,
-                  _buildTextField(
-                    '${'contract_value'.tr()} (\$)',
-                    NameInputData(
-                      isLabel: false,
-                      widgetPrefix: const SizedBox.shrink(),
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                        TextInputFormatter.withFunction((oldValue, newValue) {
-                          // Allow clearing the field
-                          if (newValue.text.isEmpty) {
+                    20.verticalSpace,
+                    _buildTextField(
+                      '${'contract_value'.tr()} (\$)',
+                      NameInputData(
+                        isLabel: false,
+                        widgetPrefix: const SizedBox.shrink(),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          TextInputFormatter.withFunction((oldValue, newValue) {
+                            // Allow clearing the field
+                            if (newValue.text.isEmpty) {
+                              return newValue;
+                            }
+
+                            // Prevent entering 0 as the first character
+                            if (oldValue.text.isEmpty && newValue.text == '0') {
+                              return oldValue;
+                            }
+
                             return newValue;
-                          }
-
-                          // Prevent entering 0 as the first character
-                          if (oldValue.text.isEmpty && newValue.text == '0') {
-                            return oldValue;
-                          }
-
-                          return newValue;
-                        }),
-                      ],
-                      field: field3,
-                      labelText: '50000',
-                      controller: _controllerContract_value,
+                          }),
+                        ],
+                        field: field3,
+                        labelText: '50000',
+                        controller: _controllerContract_value,
+                      ),
                     ),
-                  ),
 
-                  20.verticalSpace,
-                  StartEndDates(
-                    controllerE: _controllerEnd_date,
-                    controllerS: _controllerStart_date,
-                    fieldE: field5,
-                    fieldS: field4,
-                  ),
-
-                  20.verticalSpace,
-                  LoccationSelection(locationNotifier: locationNotifier),
-
-                  20.verticalSpace,
-                  _buildTextField(
-                    'description'.tr(),
-                    NameInputData(
-                      isLabel: false,
-                      widgetPrefix: const SizedBox.shrink(),
-                      field: field6,
-                      validator: (v) => null,
-                      labelText:
-                          'enter_project_scope_and_description'.tr() + "...",
-                      controller: _controllerDescription,
+                    20.verticalSpace,
+                    StartEndDates(
+                      controllerE: _controllerEnd_date,
+                      controllerS: _controllerStart_date,
+                      fieldE: field5,
+                      fieldS: field4,
                     ),
-                  ),
 
-                  20.verticalSpace,
-                  _buildTextField(
-                    'additional_data'.tr() + " / " + 'notes'.tr(),
-                    NameInputData(
-                      isLabel: false,
-                      widgetPrefix: const SizedBox.shrink(),
-                      field: field7,
-                      validator: (v) => null,
-                      labelText:
-                          'any_additional_details_or_requirements'.tr() + "...",
-                      controller: _controllerExtra_details,
+                    20.verticalSpace,
+                    LoccationSelection(locationNotifier: locationNotifier),
+
+                    20.verticalSpace,
+                    _buildTextField(
+                      'description'.tr(),
+                      NameInputData(
+                        isLabel: false,
+                        widgetPrefix: const SizedBox.shrink(),
+                        field: field6,
+                        validator: (v) => null,
+                        labelText:
+                        'enter_project_scope_and_description'.tr() + "...",
+                        controller: _controllerDescription,
+                      ),
                     ),
-                  ),
 
-                  30.verticalSpace,
-                  SizedBox(
-                    width: double.infinity,
-                    height: AppSizes.s48,
-                    child: BlocBuilder<CreateProjectCubit, CreateProjectState>(
-                      builder: (context, state) {
-                        bool isLoading =
-                            state is CreateProjectResState &&
-                            state.baseEmit is Loading;
-                        return ElevatedButton(
-                          onPressed: () => createProject(isLoading),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: context.theme.primaryColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(AppSizes.s8),
+                    20.verticalSpace,
+                    _buildTextField(
+                      'additional_data'.tr() + " / " + 'notes'.tr(),
+                      NameInputData(
+                        isLabel: false,
+                        widgetPrefix: const SizedBox.shrink(),
+                        field: field7,
+                        validator: (v) => null,
+                        labelText:
+                        'any_additional_details_or_requirements'.tr() + "...",
+                        controller: _controllerExtra_details,
+                      ),
+                    ),
+
+                    30.verticalSpace,
+                    SizedBox(
+                      width: double.infinity,
+                      height: AppSizes.s48,
+                      child: BlocBuilder<CreateProjectCubit, CreateProjectState>(
+                        builder: (context, state) {
+                          bool isLoading =
+                              state is CreateProjectResState &&
+                                  state.baseEmit is Loading;
+                          return ElevatedButton(
+                            onPressed: () => createProject(isLoading),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: context.theme.primaryColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(AppSizes.s8),
+                              ),
                             ),
-                          ),
-                          child: isLoading
-                              ? CircularProgressIndicator(
-                                  color: context.theme.scaffoldBackgroundColor,
-                                )
-                              : Text(
-                                  widget.args.projectId == null
-                                      ? 'create_project'.tr()
-                                      : 'save'.tr(),
-                                  style: AppTextStyles.font16SemiBold.copyWith(
-                                    color:
-                                        context.theme.scaffoldBackgroundColor,
-                                  ),
-                                ),
-                        );
-                      },
+                            child: isLoading
+                                ? CircularProgressIndicator(
+                              color: context.theme.scaffoldBackgroundColor,
+                            )
+                                : Text(
+                              widget.args.projectId == null
+                                  ? 'create_project'.tr()
+                                  : 'save'.tr(),
+                              style: AppTextStyles.font16SemiBold.copyWith(
+                                color:
+                                context.theme.scaffoldBackgroundColor,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                  20.verticalSpace,
-                ],
+                    20.verticalSpace,
+                  ],
+                ),
               ),
-            ),
-          ),
+            );
+          },),
         ),
       ),
     );

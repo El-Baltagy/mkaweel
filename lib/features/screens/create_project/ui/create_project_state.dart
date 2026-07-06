@@ -10,6 +10,7 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
   (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field5 = (.new(), .new());
   (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field6 = (.new(), .new());
   (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field7 = (.new(), .new());
+
   final TextEditingController _controllerName = .new();
   final TextEditingController _controllerOwner_name = .new();
   final TextEditingController _controllerContract_value = .new();
@@ -19,11 +20,45 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
   final TextEditingController _controllerExtra_details = .new();
   final ValueNotifier<(String?, LatLng?)> locationNotifier = .new((null, null));
   final ValueNotifier<String> selectedCurrencyNotifier = .new('');
+  late final ValueNotifier<bool> isLoadingNotifier  ;
 
   @override
   void initState() {
+    isLoadingNotifier = .new(widget.args.projectId!=null );
     super.initState();
     createProjectCubit = CreateProjectCubit.get(context: context);
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async{
+      if(widget.args.projectId==null)return ;
+     await createProjectCubit.getProjectDataFunc(parameter:.new(widget.args.projectId!)).then((value) async {
+        if(value!=null){
+            _controllerName.text=value.data.name;
+            _controllerOwner_name.text=value.data.owner_name;
+            _controllerContract_value.text=value.data.contract_value;
+            _controllerStart_date.text=value.data.start_date;
+            _controllerEnd_date.text=value.data.end_date;
+            _controllerDescription.text=value.data.description??"";
+            _controllerExtra_details.text=value.data.extra_details??"";
+            Future.delayed(const Duration(milliseconds: 600),(){
+              selectedCurrencyNotifier.value=value.data.currency;
+            });
+            locationNotifier.value =  (null, LatLng(double.parse(value.data.latitude), double.parse(value.data.longitude))) ;
+
+        }
+       var addressModel= await LocationService().reverseGeocode(locationNotifier.value.$2 );
+        if(addressModel!=null){
+          Future.delayed(const Duration(milliseconds: 600),(){
+            locationNotifier.value=( addressModel!.toString(),locationNotifier.value.$2)  ;
+          });
+
+        }
+
+        isLoadingNotifier.value=false;
+      },);
+
+
+    },);
+
   }
 
   @override
@@ -46,6 +81,7 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
     _controllerExtra_details.dispose();
 
     selectedCurrencyNotifier.dispose();
+    isLoadingNotifier.dispose();
     locationNotifier.dispose();
 
     super.dispose();

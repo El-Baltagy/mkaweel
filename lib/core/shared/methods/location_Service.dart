@@ -4,6 +4,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:mkaweel/core/shared/methods/print.dart';
 import 'package:mkaweel/features/screens/create_project/data/model/address_model.dart';
+import 'package:mkaweel/features/screens/create_project/ui/widgets/location_selection.dart';
 
 class LocationService {
   LocationService._();
@@ -111,13 +112,15 @@ class LocationService {
 
 
 
-  Future<AddressModel?> reverseGeocode(Position position) async {
+  Future<AddressModel?> reverseGeocode(LatLng? position) async {
+    if (position == null) return null;
+
     try {
       final response = await _dio.get(
         'reverse',
         queryParameters: {
-          'lat': position.latitude,
-          'lon': position.longitude,
+          'lat': position.lat,
+          'lon': position.lng,
           'format': 'jsonv2',
         },
       );
@@ -128,4 +131,7 @@ class LocationService {
       return null;
     }
   }
+}
+extension PositionExt on Position?{
+  LatLng? toGetLatlngFromPos()=>this==null?null:LatLng(this!.latitude,this!.longitude);
 }

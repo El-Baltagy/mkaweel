@@ -13,32 +13,36 @@ import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/features/screens/create_project/data/model/address_model.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-class LatLng{
+
+class LatLng {
   final double lat, lng;
-  LatLng(this.lat,this.lng);
+
+  LatLng(this.lat, this.lng);
 }
+
 class LoccationSelection extends StatefulWidget {
-  const LoccationSelection({
-    super.key,
-    required this.locationNotifier
-  });
-  final   ValueNotifier<(String?,LatLng?)>locationNotifier  ;
+  const LoccationSelection({super.key, required this.locationNotifier});
+
+  final ValueNotifier<(String?, LatLng?)> locationNotifier;
 
   @override
   State<LoccationSelection> createState() => _LoccationSelectionState();
 }
 
 class _LoccationSelectionState extends State<LoccationSelection> {
-  final TextEditingController? _controller=.new();
-  void _listener(){
-    _controller?.text=widget.locationNotifier.value.$1??"";
+  final TextEditingController? _controller = .new();
+
+  void _listener() {
+    _controller?.text = widget.locationNotifier.value.$1 ?? "";
   }
+
   @override
   void initState() {
     // TODO: implement initState
     widget.locationNotifier.addListener(_listener);
     super.initState();
   }
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -46,88 +50,80 @@ class _LoccationSelectionState extends State<LoccationSelection> {
     _controller?.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-    bool isLoading=false;
+    bool isLoading = false;
     return Column(
       crossAxisAlignment: .start,
       children: [
         Row(
           children: [
             Text(
-              'location'.tr() ,
-               style: AppTextStyles.font14Regular.copyWith(
+              'location'.tr(),
+              style: AppTextStyles.font14Regular.copyWith(
                 color: context.theme.colorScheme.tertiaryFixed,
               ),
             ),
-            Spacer(),
+            const Spacer(),
             StatefulBuilder(
-              builder: (context,set) {
+              builder: (context, set) {
+                return isLoading
+                    ? const CircularProgressIndicator()
+                    : GestureDetector(
+                        onTap: () async {
+                          set(() {
+                            isLoading = true;
+                          });
 
-                return  isLoading?
-                CircularProgressIndicator():
-                GestureDetector(
-                  onTap: () async{
-                    set((){
-                      isLoading=true;
-                    });
+                          PrintHelper().ordinaryPrint(".................");
 
-                    PrintHelper().ordinaryPrint(".................");
+                          final locationService = LocationService();
 
+                          // final position = await locationService.getCurrentAddress();
+                          final position = await locationService
+                              .getCurrentLocation();
+                          AddressModel? address;
 
-                    final locationService = LocationService();
-
-                    // final position = await locationService.getCurrentAddress();
-                    final position = await locationService.getCurrentLocation();
-                    AddressModel? address ;
-                    if (position != null) {
-                      address=
-                      await LocationService().reverseGeocode(position);
-
-                      PrintHelper().ordinaryPrint(position.latitude);
-                      PrintHelper().ordinaryPrint(position.longitude);
-
-                      PrintHelper().ordinaryPrint(address?.displayName);
-
-                      PrintHelper().ordinaryPrint(address?.city);
-
-                      PrintHelper().ordinaryPrint(address?.country);
-
-                      PrintHelper().ordinaryPrint(address);
-                    }
-                     widget.locationNotifier.value=(address.toString() ,LatLng(position!.latitude,position.longitude));
-                    set((){
-                      isLoading=false;
-                    });
-                  },
-                  child: Container(
-                    padding: .symmetric(horizontal: 4,vertical: 8),
-                    decoration: BoxDecoration(
-                      color: context.theme.primaryColor,
-                      borderRadius: BorderRadius.circular(AppSizes.s8),
-                    ),
-                    child: Text(
-                      'determine_current_location'.tr(),
-                      style: AppTextStyles.font14Regular.copyWith(
-                        color: context.theme.scaffoldBackgroundColor,
-                      ),
-                    ),
-                  ),
-                );
-              }
+                          address = await LocationService().reverseGeocode(
+                            position.toGetLatlngFromPos(),
+                          );
+                          if (address != null) {
+                            widget.locationNotifier.value = (
+                              address.toString(),
+                              LatLng(position!.latitude, position.longitude),
+                            );
+                          }
+                          set(() {
+                            isLoading = false;
+                          });
+                        },
+                        child: Container(
+                          padding: const .symmetric(horizontal: 4, vertical: 8),
+                          decoration: BoxDecoration(
+                            color: context.theme.primaryColor,
+                            borderRadius: BorderRadius.circular(AppSizes.s8),
+                          ),
+                          child: Text(
+                            'determine_current_location'.tr(),
+                            style: AppTextStyles.font14Regular.copyWith(
+                              color: context.theme.scaffoldBackgroundColor,
+                            ),
+                          ),
+                        ),
+                      );
+              },
             ),
           ],
         ),
-         10.verticalSpace,
+        10.verticalSpace,
         TextInputWidget(
           data: DropDownSingleSelectData(
-            icon:   Icons.my_location,
-              isLabel: false,
-              labelText: "Damascus - Mezzeh",
-              onTap: (){
-
-              },
-              controller:  _controller
+            icon: Icons.my_location,
+            isLabel: false,
+            labelText: "Damascus - Mezzeh",
+            onTap: () {},
+            controller: _controller,
             // 'determine_current_location'.tr()
           ),
         ),

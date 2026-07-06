@@ -52,8 +52,8 @@ class _ProjectsPageState extends ProjectsPageBaseState {
           floatingActionButton: FloatingActionButton(
             backgroundColor: context.theme.colorScheme.secondary,
             onPressed: () =>context.push(  CreateProjectRoute(
-              args: const CreateProjectRouteArgs(
-                null
+              args:   CreateProjectRouteArgs(
+                "17"
               )
             )),
             child:   Icon(Icons.add, color: context.theme.scaffoldBackgroundColor),

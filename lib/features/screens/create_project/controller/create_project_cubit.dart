@@ -1,3 +1,4 @@
+
 import 'package:mkaweel/core/base/base_service.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_constant.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/features/screens/create_project/data/model/create_project_parameters.dart';
 import 'package:mkaweel/features/screens/create_project/data/model/create_project_res/create_project_res.dart';
+import 'package:mkaweel/features/screens/create_project/data/model/get_project_data_parameter.dart';
 import 'package:mkaweel/main.dart';
 import 'package:mkaweel/features/screens/create_project/controller/create_project_state.dart';
 import 'package:mkaweel/features/screens/create_project/service/create_project_service.dart';
@@ -20,6 +22,7 @@ class CreateProjectCubit extends BaseCubit<CreateProjectState> {
       BlocProvider.of(context??navigatorKey.currentContext!,listen: listen);
   
    int get createProjectKeyCode => AppConstant.CreateProjectKeyCode;
+
   init() async {
     // TODO: implement init
 
@@ -43,8 +46,24 @@ class CreateProjectCubit extends BaseCubit<CreateProjectState> {
 
   @override
   Future<void> close() {
+
     // add every key in file
     CancelManager.cancel(createProjectKeyCode);
     return super.close();
+  }
+
+  Future<CreateProjectRes?> getProjectDataFunc( {GetProjectDataParameter? parameter}) async {
+    CreateProjectRes? res;
+      await _service.getProjectDataServ(
+        RequestCallbackObserver<CreateProjectRes, GetProjectDataParameter>(
+          baseRequestBackType: Reload(),
+          parameter: parameter ,
+          onLoadCallback:  (){},
+          onRightCallback: (data) => res=data,
+          onLeftCallback: (failure){},
+        ),
+      );
+      return res;
+
   }
 }
