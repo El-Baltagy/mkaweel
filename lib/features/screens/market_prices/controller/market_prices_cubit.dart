@@ -77,7 +77,11 @@ class MarketPricesCubit extends BaseCubit<MarketPricesState> {
           baseRequestBackType: requestType,
            parameter: parameter ,
            onLoadCallback: () =>
-              safeEmit(_current.copyWith(subCategoriesEmit: Loading())),
+              safeEmit(_current.copyWith(subCategoriesEmit: Loading<SubCatogeriesData>(
+                _current.subCategoriesEmit is Success<SubCatogeriesData> ? 
+                (_current.subCategoriesEmit as Success<SubCatogeriesData>).data : null
+              )
+              )),
           onRightCallback: (data) =>
               safeEmit(_current.copyWith(subCategoriesEmit: Success(data, requestType))),
           onLeftCallback: (failure) => safeEmit(

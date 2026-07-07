@@ -21,13 +21,18 @@ class SubCatogeries extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isLoading= emit is! Success<SubCatogeriesData>;
+    SubCatogeriesData? data;
+    if (emit is Success<SubCatogeriesData>) data = (emit! as Success<SubCatogeriesData>).data;
+    else if (emit is Loading<SubCatogeriesData>) data = (emit! as Loading<SubCatogeriesData>).item;
 
-    final List<SubCatogeryItem> finalList =isLoading?List.generate(4, (index) =>SubCatogeryItem.toGetEmptyForLoading() ):
-    ((emit as Success<SubCatogeriesData>).data?.data )?? []  ;
+    bool isInitialLoading = data == null;
+
+    final List<SubCatogeryItem> finalList = isInitialLoading 
+        ? List.generate(4, (index) => SubCatogeryItem.toGetEmptyForLoading())
+        : data.data;
 
      return Skeletonizer(
-       enabled: isLoading,
+       enabled: isInitialLoading,
        child: Column(
         children: finalList
             .map(

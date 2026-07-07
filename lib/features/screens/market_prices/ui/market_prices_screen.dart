@@ -15,14 +15,13 @@ import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/features/screens/market_prices/data/model/currency_data.dart';
 import 'package:mkaweel/features/screens/market_prices/data/model/sub_catogeries_data/sub_catogeries_data.dart';
- import 'package:mkaweel/features/screens/market_prices/ui/widgets/exchange_rate_widget.dart';
+import 'package:mkaweel/features/screens/market_prices/ui/widgets/exchange_rate_widget.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/currency_tabs_widget.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/search_and_filter_widget.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/price_item_widget.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/text_input_filter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-
 
 @RoutePage()
 class MarketPricesPage extends StatefulWidget implements AutoRouteWrapper {
@@ -59,97 +58,113 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
             ),
             centerTitle: true,
             leading: SizedBox.shrink(),
-            // leading: IconButton(
-            //   icon: Icon(
-            //     Icons.sync,
-            //     color: context.theme.scaffoldBackgroundColor,
-            //   ),
-            //   onPressed: () => _loadData(Reload()) ,
-            // ),
           ),
 
           body: BlocSelector<MarketPricesCubit, MarketPricesState, BaseEmit?>(
-  selector: (state) =>state is MarketPricesLoaded
-      ? state.subCategoriesEmit : null,
-  builder: (context, state) {
+            selector: (state) =>
+                state is MarketPricesLoaded ? state.subCategoriesEmit : null,
+            builder: (context, state) {
+              SubCatogeriesData? data;
+              if (state is Success<SubCatogeriesData>) {
+                data = state.data;
+              } else if (state is Loading<SubCatogeriesData>)
+                data = state.item;
 
-    final SubCatogeriesData? data=state is  Success<SubCatogeriesData>?  state.data:null  ;
-    final Pagination? pagination=data?.pagination;
-    return SmartRefresher(
-            controller: refreshController,
-             onRefresh:  () async =>await _loadData(Reload()).whenComplete(() => refreshController.refreshCompleted()) ,
-            header:  const ClassicHeaderRefresh(),
-             onLoading: () {
-              if(pagination==null)return ;
-              PrintHelper().ordinaryPrint(".........loading");
-              marketPriceCubit.getSubCatogeriesFunc(
-                  pagination.toGetPaginationInfo(data),
-                // PaginationInfo(currentPage: currentPage, lastPage: lastPage, oldDataToCombine: oldDataToCombine),
-                parameter:   .new(selectedCatIdNotifier.value!,currencyTabNotifier.value.shortcut),
+              final Pagination? pagination = data?.pagination;
+              return SmartRefresher(
+                controller: refreshController,
+                onRefresh: () async =>
+                    await _loadData(Reload()).whenComplete(() {
+                      refreshController.loadComplete();
+                      refreshController.refreshCompleted();
+                    }),
+                header: const ClassicHeaderRefresh(),
+                onLoading: () async {
+                  if (pagination == null) {
+                    refreshController.loadComplete();
+                    return;
+                  }
+                  PrintHelper().ordinaryPrint(".........loading");
+                  await marketPriceCubit.getSubCatogeriesFunc(
+                    pagination.toGetPaginationInfo(data),
+                    parameter: .new(
+                      selectedCatIdNotifier.value!,
+                      currencyTabNotifier.value.shortcut,
+                      pagination.current_page,
+                    ),
+                  );
+                  refreshController.loadComplete();
+                },
+                 enablePullUp:
+                     (pagination != null &&
+                    pagination.current_page < pagination.last_page),
+                footer: CustomFooter(
+                  height: 50,
+                  builder: (BuildContext context, LoadStatus? mode) {
+                    if (mode == LoadStatus.loading) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+
+                    return const SizedBox.shrink();
+                  },
+                ),
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(AppPadding.p16),
+                  child: Column(
+                    children: [
+                      BlocSelector<
+                        MarketPricesCubit,
+                        MarketPricesState,
+                        BaseEmit?
+                      >(
+                        selector: (state) => state is MarketPricesLoaded
+                            ? state.exchangeRateState
+                            : null,
+                        builder: (context, emit) => ExchangeRateWidget(
+                          emit: emit,
+                          onUpdatePress: () async => await marketPriceCubit
+                              .getExchagngeRateFunc(Reload()),
+                          currencyTabNotifier: currencyTabNotifier,
+                        ),
+                      ),
+                      16.verticalSpace,
+                      CurrencyTabsWidget(
+                        currencyTabNotifier: currencyTabNotifier,
+                      ),
+                      16.verticalSpace,
+                      const TextInputFilter(),
+                      16.verticalSpace,
+                      BlocSelector<
+                        MarketPricesCubit,
+                        MarketPricesState,
+                        BaseEmit?
+                      >(
+                        selector: (state) => state is MarketPricesLoaded
+                            ? state.categoriesEmit
+                            : null,
+                        builder: (context, emit) => RowCatogeries(
+                          selectedCat: selectedCatIdNotifier,
+                          emit: emit,
+                        ),
+                      ),
+
+                      20.verticalSpace,
+                      BlocSelector<
+                        MarketPricesCubit,
+                        MarketPricesState,
+                        BaseEmit?
+                      >(
+                        selector: (state) => state is MarketPricesLoaded
+                            ? state.subCategoriesEmit
+                            : null,
+                        builder: (context, emit) => SubCatogeries(emit: emit),
+                      ),
+                    ],
+                  ),
+                ),
               );
             },
-             enablePullDown: true,
-            enablePullUp: (
-                pagination!=null&&
-                    pagination .current_page<
-                        pagination .last_page
-            ) ,
-            footer: CustomFooter(
-              builder: (BuildContext context, LoadStatus? mode) {
-                Widget? body;
-                if (mode == LoadStatus.loading) {
-                  body =   const CircularProgressIndicator();
-                }else   {
-                  body =   const SizedBox.shrink();
-                }
-
-                return SizedBox(
-                  height: mode == LoadStatus.loading?55.0:0,
-                  child: Center(child: body),
-                );
-              },
-            ),
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(AppPadding.p16),
-              child: Column(
-                children: [
-                  BlocSelector<MarketPricesCubit, MarketPricesState, BaseEmit?>(
-                    selector: (state) =>
-                    state is MarketPricesLoaded ? state.exchangeRateState : null,
-                    builder: (context, emit) =>    ExchangeRateWidget(
-                       emit: emit,
-                      onUpdatePress: () async=>await marketPriceCubit.getExchagngeRateFunc(Reload()),
-                      currencyTabNotifier: currencyTabNotifier,
-                    ),
-                  ),
-                   16.verticalSpace,
-                  CurrencyTabsWidget(currencyTabNotifier: currencyTabNotifier),
-                  16.verticalSpace,
-                  const TextInputFilter(),
-                  16.verticalSpace,
-                  BlocSelector<MarketPricesCubit, MarketPricesState, BaseEmit?>(
-                    selector: (state) =>
-                        state is MarketPricesLoaded ? state.categoriesEmit : null,
-                    builder: (context, emit) => RowCatogeries(
-                      selectedCat: selectedCatIdNotifier,
-                      emit: emit,
-                    ),
-                  ),
-            
-                  20.verticalSpace,
-                  BlocSelector<MarketPricesCubit, MarketPricesState, BaseEmit?>(
-                    selector: (state) => state is MarketPricesLoaded
-                        ? state.subCategoriesEmit : null,
-                    builder: (context, emit) =>SubCatogeries(
-                        emit: emit
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-  },
-),
+          ),
         ),
       ),
     );
@@ -159,7 +174,7 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
 abstract class MarketPricesPageBaseState extends State<MarketPricesPage>
     with AutoRouteAwareStateMixin<MarketPricesPage> {
   late final MarketPricesCubit marketPriceCubit;
-  RefreshController refreshController  =.new();
+  RefreshController refreshController = .new();
   ValueNotifier<int?> selectedCatIdNotifier = .new(-1);
   ValueNotifier<BaseCurrencyTab> currencyTabNotifier = .new(
     CurrencyTabsWidget.listTabs.first,
@@ -167,17 +182,25 @@ abstract class MarketPricesPageBaseState extends State<MarketPricesPage>
 
   void _listenerCatIdNotfieir() {
     debugPrint("...................");
-     marketPriceCubit.getSubCatogeriesFunc(
-       Reload(),
-      parameter: .new(selectedCatIdNotifier.value!,currencyTabNotifier.value.shortcut),
+    marketPriceCubit.getSubCatogeriesFunc(
+      Reload(),
+      parameter: .new(
+        selectedCatIdNotifier.value!,
+        currencyTabNotifier.value.shortcut,
+      ),
     );
   }
+
   void _listenerCurrencyNotfieir() {
     marketPriceCubit.getSubCatogeriesFunc(
       Reload(),
-      parameter: .new(selectedCatIdNotifier.value!,currencyTabNotifier.value.shortcut),
+      parameter: .new(
+        selectedCatIdNotifier.value!,
+        currencyTabNotifier.value.shortcut,
+      ),
     );
   }
+
   @override
   void initState() {
     super.initState();
@@ -189,19 +212,21 @@ abstract class MarketPricesPageBaseState extends State<MarketPricesPage>
     _loadData();
   }
 
-  Future<void>  _loadData([BaseRequestBackType? requestType  ]) async {
+  Future<void> _loadData([BaseRequestBackType? requestType]) async {
     debugPrint("loading data in Market Prices Cubit ................");
     await Future.wait([
-      marketPriceCubit.getCatogeriesFunc( requestType??Init()),
-      marketPriceCubit.getExchagngeRateFunc(  requestType??Init()),
+      marketPriceCubit.getCatogeriesFunc(requestType ?? Init()),
+      marketPriceCubit.getExchagngeRateFunc(requestType ?? Init()),
 
       marketPriceCubit.getSubCatogeriesFunc(
-        requestType?? Init(),
-          parameter:   .new(selectedCatIdNotifier.value!,currencyTabNotifier.value.shortcut),
+        requestType ?? Init(),
+        parameter: .new(
+          selectedCatIdNotifier.value!,
+          currencyTabNotifier.value.shortcut,
         ),
+      ),
     ]);
   }
-
 
   @override
   void dispose() {

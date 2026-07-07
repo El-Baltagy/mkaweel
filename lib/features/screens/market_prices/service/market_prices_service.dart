@@ -52,8 +52,7 @@ class MarketPricesService extends BaseService {
       fetchLocal: () async {
         return requestInfo.baseRequestBackType is PaginationInfo?
         (requestInfo.baseRequestBackType as PaginationInfo<SubCatogeriesData>).oldDataToCombine:null;
-        // return requestInfo.parameter?.subCatogeriesData;
-      },
+       },
 
       combinePagination: (oldData, newData) {
          return newData.copyWith(
