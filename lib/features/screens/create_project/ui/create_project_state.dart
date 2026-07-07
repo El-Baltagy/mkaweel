@@ -132,7 +132,7 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
         context.showToast(
             data.message
         );
-        context.pop();
+        context.pop(true);
       }else{
         if(state.baseEmit  is ErrorState ) {
           final ErrorState  data= state.baseEmit  as ErrorState;

@@ -5,6 +5,7 @@ abstract class AppColors {
 
    static const Color green = Colors.green;
    static const Color gold = Color(0xFFE2BE7F);
+   static const Color red = Colors.red;
    static const Color primaryGoldStart = Color(0xFFC0A27B);
    static const Color contractorGreen = Color(0xFF48BB78);
 
@@ -18,6 +19,7 @@ abstract class AppColors {
    static const Color lightTextPrimary = Color(0xFF2D3748);
    static const Color lightTextSecondary = Color(0xFF718096);
    static const Color lightBorder = Color(0xFFE2E8F0);
+
 
    // Dark Mode Colors
    static   Color primaryDarkColor = HexColor("#02a696");

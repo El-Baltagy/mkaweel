@@ -6,18 +6,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
+import 'package:mkaweel/core/shared/methods/print.dart';
+import 'package:mkaweel/core/shared/widgets/classic_header_refresh.dart';
 import 'package:mkaweel/features/screens/market_prices/controller/market_prices_cubit.dart';
 import 'package:mkaweel/features/screens/market_prices/controller/market_prices_state.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/features/screens/market_prices/data/model/currency_data.dart';
+import 'package:mkaweel/features/screens/market_prices/data/model/sub_catogeries_data/sub_catogeries_data.dart';
  import 'package:mkaweel/features/screens/market_prices/ui/widgets/exchange_rate_widget.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/currency_tabs_widget.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/search_and_filter_widget.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/price_item_widget.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/text_input_filter.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+
 
 @RoutePage()
 class MarketPricesPage extends StatefulWidget implements AutoRouteWrapper {
@@ -53,61 +58,98 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
               ),
             ),
             centerTitle: true,
-            leading: IconButton(
-              icon: Icon(
-                Icons.sync,
-                color: context.theme.scaffoldBackgroundColor,
+            leading: SizedBox.shrink(),
+            // leading: IconButton(
+            //   icon: Icon(
+            //     Icons.sync,
+            //     color: context.theme.scaffoldBackgroundColor,
+            //   ),
+            //   onPressed: () => _loadData(Reload()) ,
+            // ),
+          ),
+
+          body: BlocSelector<MarketPricesCubit, MarketPricesState, BaseEmit?>(
+  selector: (state) =>state is MarketPricesLoaded
+      ? state.subCategoriesEmit : null,
+  builder: (context, state) {
+
+    final SubCatogeriesData? data=state is  Success<SubCatogeriesData>?  state.data:null  ;
+    final Pagination? pagination=data?.pagination;
+    return SmartRefresher(
+            controller: refreshController,
+             onRefresh:  () async =>await _loadData(Reload()).whenComplete(() => refreshController.refreshCompleted()) ,
+            header:  const ClassicHeaderRefresh(),
+             onLoading: () {
+              if(pagination==null)return ;
+              PrintHelper().ordinaryPrint(".........loading");
+              marketPriceCubit.getSubCatogeriesFunc(
+                  pagination.toGetPaginationInfo(data),
+                // PaginationInfo(currentPage: currentPage, lastPage: lastPage, oldDataToCombine: oldDataToCombine),
+                parameter:   .new(selectedCatIdNotifier.value!,currencyTabNotifier.value.shortcut),
+              );
+            },
+             enablePullDown: true,
+            enablePullUp: (
+                pagination!=null&&
+                    pagination .current_page<
+                        pagination .last_page
+            ) ,
+            footer: CustomFooter(
+              builder: (BuildContext context, LoadStatus? mode) {
+                Widget? body;
+                if (mode == LoadStatus.loading) {
+                  body =   const CircularProgressIndicator();
+                }else   {
+                  body =   const SizedBox.shrink();
+                }
+
+                return SizedBox(
+                  height: mode == LoadStatus.loading?55.0:0,
+                  child: Center(child: body),
+                );
+              },
+            ),
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(AppPadding.p16),
+              child: Column(
+                children: [
+                  BlocSelector<MarketPricesCubit, MarketPricesState, BaseEmit?>(
+                    selector: (state) =>
+                    state is MarketPricesLoaded ? state.exchangeRateState : null,
+                    builder: (context, emit) =>    ExchangeRateWidget(
+                       emit: emit,
+                      onUpdatePress: () async=>await marketPriceCubit.getExchagngeRateFunc(Reload()),
+                      currencyTabNotifier: currencyTabNotifier,
+                    ),
+                  ),
+                   16.verticalSpace,
+                  CurrencyTabsWidget(currencyTabNotifier: currencyTabNotifier),
+                  16.verticalSpace,
+                  const TextInputFilter(),
+                  16.verticalSpace,
+                  BlocSelector<MarketPricesCubit, MarketPricesState, BaseEmit?>(
+                    selector: (state) =>
+                        state is MarketPricesLoaded ? state.categoriesEmit : null,
+                    builder: (context, emit) => RowCatogeries(
+                      selectedCat: selectedCatIdNotifier,
+                      emit: emit,
+                    ),
+                  ),
+            
+                  20.verticalSpace,
+                  BlocSelector<MarketPricesCubit, MarketPricesState, BaseEmit?>(
+                    selector: (state) => state is MarketPricesLoaded
+                        ? state.subCategoriesEmit : null,
+                    builder: (context, emit) =>SubCatogeries(
+                        emit: emit
+                    ),
+                  ),
+                ],
               ),
-              onPressed: () => _loadData(Reload()) ,
             ),
-          ),
-          floatingActionButton: kDebugMode
-              ? FloatingActionButton(
-                  onPressed: () async {
-                   await _loadData();
-
-
-                  },
-                )
-              : null,
-          body: SingleChildScrollView(
-            padding: const EdgeInsets.all(AppPadding.p16),
-            child: Column(
-              children: [
-                BlocSelector<MarketPricesCubit, MarketPricesState, BaseEmit?>(
-                  selector: (state) =>
-                  state is MarketPricesLoaded ? state.exchangeRateState : null,
-                  builder: (context, emit) =>    ExchangeRateWidget(
-                     emit: emit,
-                    onUpdatePress: () async=>await marketPriceCubit.getExchagngeRateFunc(Reload()),
-                    currencyTabNotifier: currencyTabNotifier,
-                  ),
-                ),
-                 16.verticalSpace,
-                CurrencyTabsWidget(currencyTabNotifier: currencyTabNotifier),
-                16.verticalSpace,
-                const TextInputFilter(),
-                16.verticalSpace,
-                BlocSelector<MarketPricesCubit, MarketPricesState, BaseEmit?>(
-                  selector: (state) =>
-                      state is MarketPricesLoaded ? state.categoriesEmit : null,
-                  builder: (context, emit) => RowCatogeries(
-                    selectedCat: selectedCatIdNotifier,
-                    emit: emit,
-                  ),
-                ),
-
-                20.verticalSpace,
-                BlocSelector<MarketPricesCubit, MarketPricesState, BaseEmit?>(
-                  selector: (state) => state is MarketPricesLoaded
-                      ? state.subCategoriesEmit : null,
-                  builder: (context, emit) =>SubCatogeries(
-                      emit: emit
-                  ),
-                ),
-              ],
-            ),
-          ),
+          );
+  },
+),
         ),
       ),
     );
@@ -117,6 +159,7 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
 abstract class MarketPricesPageBaseState extends State<MarketPricesPage>
     with AutoRouteAwareStateMixin<MarketPricesPage> {
   late final MarketPricesCubit marketPriceCubit;
+  RefreshController refreshController  =.new();
   ValueNotifier<int?> selectedCatIdNotifier = .new(-1);
   ValueNotifier<BaseCurrencyTab> currencyTabNotifier = .new(
     CurrencyTabsWidget.listTabs.first,
@@ -167,6 +210,7 @@ abstract class MarketPricesPageBaseState extends State<MarketPricesPage>
     selectedCatIdNotifier.dispose();
     currencyTabNotifier.removeListener(_listenerCurrencyNotfieir);
     currencyTabNotifier.dispose();
+    refreshController.dispose();
     super.dispose();
   }
 

@@ -50,6 +50,7 @@ dependencies:
   flutter_exif_rotation: ^0.5.2
   path_provider:
   mime:
+  pull_to_refresh:
   image_cropper:
   permission_handler:
   auto_route: ^7.9.2

@@ -6,6 +6,8 @@ import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
+import 'package:mkaweel/features/screens/create_project/controller/create_project_cubit.dart';
+import 'package:mkaweel/features/screens/create_project/controller/create_project_state.dart';
 import 'package:mkaweel/features/screens/create_project/data/model/create_project_res/create_project_res.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
@@ -21,10 +23,16 @@ class ProjectsPage extends StatefulWidget implements AutoRouteWrapper{
   
   @override
   Widget wrappedRoute(BuildContext context) {
-    return BlocProvider<ProjectsCubit>(
-      create: (context) =>ProjectsCubit(AppLocator()()()),
-      child: this,
-    );
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ProjectsCubit>(
+          create: (context) => ProjectsCubit(AppLocator()()()),
+        ),
+        BlocProvider<CreateProjectCubit>(
+          create: (context) => CreateProjectCubit(AppLocator()()()),
+        ),
+      ], child: this,);
+
   }
   
   @override
@@ -34,8 +42,8 @@ class ProjectsPage extends StatefulWidget implements AutoRouteWrapper{
 class _ProjectsPageState extends ProjectsPageBaseState {
   @override
   Widget build(BuildContext context) {
-     return BlocListener<ProjectsCubit, ProjectsState>(
-      listener: projectsListener,
+     return BlocListener<CreateProjectCubit, CreateProjectState>(
+      listener: createProjectsListener,
       child: Semantics(
         label: 'Projects Screen',
         child: Scaffold(
@@ -63,11 +71,12 @@ class _ProjectsPageState extends ProjectsPageBaseState {
           floatingActionButton: FloatingActionButton(
             backgroundColor: context.theme.colorScheme.secondary,
 
-            onPressed: () =>context.push(  CreateProjectRoute(
-              args:   const CreateProjectRouteArgs(
-                null
-              )
-            )),
+            onPressed: () async {
+              final result = await context.push(CreateProjectRoute(args: const CreateProjectRouteArgs(null)));
+              if (result == true) {
+                await projectsCubit.getAllProjectsFunc();
+              }
+            },
             child:   Icon(Icons.add, color: context.theme.scaffoldBackgroundColor),
           ),
         ),
@@ -75,12 +84,8 @@ class _ProjectsPageState extends ProjectsPageBaseState {
     );
   }
 
-  void projectsListener(context, state) {
-      if(state is ProjectsLoaded) {
-        if(state is BaseEmit && state is Success){
+  Future<void> createProjectsListener(BuildContext context,CreateProjectState state) async {
 
-        }
-      }
    }
 }
 

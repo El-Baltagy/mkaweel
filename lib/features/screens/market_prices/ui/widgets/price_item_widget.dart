@@ -21,7 +21,7 @@ class SubCatogeries extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isLoading= emit is !Success<SubCatogeriesData>;
+    bool isLoading= emit is! Success<SubCatogeriesData>;
 
     final List<SubCatogeryItem> finalList =isLoading?List.generate(4, (index) =>SubCatogeryItem.toGetEmptyForLoading() ):
     ((emit as Success<SubCatogeriesData>).data?.data )?? []  ;

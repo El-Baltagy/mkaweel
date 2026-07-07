@@ -64,15 +64,23 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
       RequestCallbackObserver<DeleteProjectRes, DeleteProjectParameter>(
         baseRequestBackType: Reload(),
         parameter: parameter ,
-        onLoadCallback: () => safeEmit(_current.copyWith(deleteProjectResState: Loading<String>(parameter .id.toString()) )),
+        onLoadCallback: () => safeEmit(_current.copyWith(
+          deleteProjectResState: Loading<String>(parameter.id.toString()),
+          deletingProjectIds: [..._current.deletingProjectIds, parameter.id.toString()]
+        )),
         onRightCallback: (data) => safeEmit(_current.copyWith(
             allProjectsResState: _current.allProjectsResState is Success<AllProjectsRes> ?
             Success<AllProjectsRes>((_current.allProjectsResState as Success<AllProjectsRes>).data!.copyWith(
               data: (_current.allProjectsResState as Success<AllProjectsRes>).data!.data.where((element) => element.id.toString() != parameter.id.toString()).toList(),
             ))
             :_current.allProjectsResState,
-            deleteProjectResState: Success(data) )),
-        onLeftCallback: (failure) => safeEmit(_current.copyWith(deleteProjectResState: ErrorState(failure) )),
+            deleteProjectResState: Success(data),
+            deletingProjectIds: _current.deletingProjectIds.where((id) => id != parameter.id.toString()).toList(),
+        )),
+        onLeftCallback: (failure) => safeEmit(_current.copyWith(
+          deleteProjectResState: ErrorState(failure),
+          deletingProjectIds: _current.deletingProjectIds.where((id) => id != parameter.id.toString()).toList(),
+        )),
       ),
     );
 

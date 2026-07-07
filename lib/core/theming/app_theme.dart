@@ -16,8 +16,9 @@ class AppTheme {
         primary: AppColors.primaryLightColor,
         secondary: AppColors.secondryLightColor,
         surface:AppColors. lightSurface,
-        onPrimary: Colors.white,
-        onSecondary: Colors.white,
+        error:AppColors.red ,
+        onPrimary: AppColors.green,
+        // onSecondary: Colors.white,
         tertiaryFixed: AppColors.lightTextPrimary,
       ),
       appBarTheme: const AppBarTheme(

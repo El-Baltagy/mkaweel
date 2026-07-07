@@ -112,8 +112,15 @@ class LocationService {
 
 
 
+  final Map<String, AddressModel?> _geocodeCache = {};
+
   Future<AddressModel?> reverseGeocode(LatLng? position) async {
     if (position == null) return null;
+
+    final cacheKey = '${position.lat},${position.lng}';
+    if (_geocodeCache.containsKey(cacheKey)) {
+      return _geocodeCache[cacheKey];
+    }
 
     try {
       final response = await _dio.get(
@@ -125,7 +132,9 @@ class LocationService {
         },
       );
 
-      return AddressModel.fromJson(response.data as Map<String,dynamic>);
+      final result = AddressModel.fromJson(response.data as Map<String,dynamic>);
+      _geocodeCache[cacheKey] = result;
+      return result;
     } catch (e) {
       PrintHelper().ordinaryPrint(e);
       return null;

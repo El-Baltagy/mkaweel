@@ -8,22 +8,26 @@ abstract class ProjectsState {}
 class ProjectsLoaded extends ProjectsState {
   final BaseEmit? allProjectsResState,deleteProjectResState;
   final ProjectsState? refreshOrInit;
+  final List<String> deletingProjectIds;
 
   ProjectsLoaded({
     this.deleteProjectResState,
     this.allProjectsResState,
-    this.refreshOrInit
+    this.refreshOrInit,
+    this.deletingProjectIds = const [],
   });
 
   ProjectsLoaded copyWith({
     BaseEmit? deleteProjectResState,
     BaseEmit? allProjectsResState,
     ProjectsState? refreshOrInit,
+    List<String>? deletingProjectIds,
   }) {
     return ProjectsLoaded(
       refreshOrInit: refreshOrInit ?? this.refreshOrInit,
         allProjectsResState: allProjectsResState ?? this.allProjectsResState,
-        deleteProjectResState: deleteProjectResState ?? this.deleteProjectResState
+        deleteProjectResState: deleteProjectResState ?? this.deleteProjectResState,
+        deletingProjectIds: deletingProjectIds ?? this.deletingProjectIds,
     );
   }
 }

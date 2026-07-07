@@ -3,10 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/double.dart';
-import 'package:mkaweel/features/screens/create_project/data/model/create_project_res/create_project_res.dart';
+import 'package:mkaweel/core/shared/methods/location_Service.dart';
+ import 'package:mkaweel/features/screens/create_project/data/model/create_project_res/create_project_res.dart';
+import 'package:mkaweel/features/screens/create_project/ui/widgets/location_selection.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/data/model/delete_pj_parameter.dart';
-import 'package:mkaweel/features/screens/projects/ui/widgets/delete_pj_dialouge.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
+ import 'package:mkaweel/features/screens/projects/ui/widgets/delete_pj_dialouge.dart';
+import 'package:skeletonizer/skeletonizer.dart';
+part   'info_row.dart';
+part   'location_row.dart';
+
 
 class ProjectCard extends StatelessWidget {
   const ProjectCard({super.key, required this.projectInfoData,required this.projectsCubit});
@@ -59,12 +67,12 @@ class ProjectCard extends StatelessWidget {
                   mainAxisSize: .min,
                   children: [
                     GestureDetector(
-
-                      onTap: () =>context.push(  CreateProjectRoute(
-                          args:   CreateProjectRouteArgs(
-                              '${projectInfoData.id}'
-                          )
-                      )),
+                      onTap: () async {
+                        final result = await context.push(CreateProjectRoute(args: CreateProjectRouteArgs('${projectInfoData.id}')));
+                        if (result == true) {
+                          await projectsCubit.getAllProjectsFunc();
+                        }
+                      },
                       child: CircleAvatar(
                           backgroundColor: context.theme.primaryColor,
                           radius: 18,
@@ -73,20 +81,39 @@ class ProjectCard extends StatelessWidget {
                           )),
                     ),
                     10.horizontalSpace,
-                    GestureDetector(
-                      onTap: DeletePjDialouge(
-                        onPressedDelete: ()=>projectsCubit.deleteProjectFunc(parameter:
-                        DeleteProjectParameter(projectInfoData.id.toString())
-                        ),
-                      ).toShowDialouge,
+                    BlocBuilder<ProjectsCubit, ProjectsState>(
+                      bloc: projectsCubit,
+                      builder: (context, state) {
+                        bool isDeleting = false;
+                        if (state is ProjectsLoaded && state.deletingProjectIds.contains(projectInfoData.id.toString())) {
+                          isDeleting = true;
+                        }
 
-                      child:   CircleAvatar(
-                        backgroundColor: context.theme.primaryColor,
-                        radius: 18,
-                        child: Icon(Icons.delete,
-                          color: context.theme.colorScheme.error,
-                        ),
-                      ),
+                        return isDeleting
+                            ? const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: CircularProgressIndicator(strokeWidth: 2),
+                                ),
+                              )
+                            : GestureDetector(
+                                onTap: DeletePjDialouge(
+                                  onPressedDelete: () => projectsCubit.deleteProjectFunc(
+                                    parameter: DeleteProjectParameter(projectInfoData.id.toString())
+                                  ),
+                                ).toShowDialouge,
+                                child: CircleAvatar(
+                                  backgroundColor: context.theme.primaryColor,
+                                  radius: 18,
+                                  child: Icon(
+                                    Icons.delete,
+                                    color: context.theme.colorScheme.secondary,
+                                  ),
+                                ),
+                              );
+                      },
                     ),
                   ],
                 ),
@@ -141,7 +168,7 @@ class ProjectCard extends StatelessWidget {
             /// Contract
         if(projectInfoData.contract_value!=null)
           ...[
-            _InfoRow(
+            InfoRow(
               Icons.payments,
               'contract_value'.tr(),
               '${projectInfoData.contract_value} ${projectInfoData.currency}',
@@ -151,11 +178,7 @@ class ProjectCard extends StatelessWidget {
           ],
 
             /// Location
-            _InfoRow(
-              Icons.location_on,
-              'location'.tr(),
-              '${projectInfoData.longitude}, ${projectInfoData.latitude}',
-            ),
+            _LocationRow(projectInfoData: projectInfoData),
             if (projectInfoData.description != null ||
                 projectInfoData.extra_details != null)
               const Divider(height: 28),
@@ -210,27 +233,6 @@ class _InfoTile extends StatelessWidget {
             ],
           ),
         ),
-      ],
-    );
-  }
-}
-
-class _InfoRow extends StatelessWidget {
-  const _InfoRow(this.icon, this.title, this.value);
-
-  final IconData icon;
-  final String title;
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(icon, size: 18),
-        const SizedBox(width: 10),
-        Text('$title:', style: const TextStyle(fontWeight: FontWeight.w600)),
-        const SizedBox(width: 8),
-        Expanded(child: Text(value)),
       ],
     );
   }
