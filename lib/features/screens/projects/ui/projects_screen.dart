@@ -46,7 +46,7 @@ class _ProjectsPageState extends ProjectsPageBaseState {
             centerTitle: true,
             leading: IconButton(
               icon:   Icon(Icons.sync, color: context.theme.scaffoldBackgroundColor),
-              onPressed: () {},
+              onPressed: () =>projectsCubit.getAllProjectsFunc(),
             ),
           ),
 
@@ -54,6 +54,7 @@ class _ProjectsPageState extends ProjectsPageBaseState {
   selector: (state) =>state is ProjectsLoaded ? state.allProjectsResState : null,
   builder: (context, state) {
     return ProjectsListWidget(
+      projectsCubit: projectsCubit,
             state: state,
           );
   },
@@ -61,6 +62,7 @@ class _ProjectsPageState extends ProjectsPageBaseState {
           floatingActionButtonLocation: .centerFloat,
           floatingActionButton: FloatingActionButton(
             backgroundColor: context.theme.colorScheme.secondary,
+
             onPressed: () =>context.push(  CreateProjectRoute(
               args:   const CreateProjectRouteArgs(
                 null
@@ -74,7 +76,11 @@ class _ProjectsPageState extends ProjectsPageBaseState {
   }
 
   void projectsListener(context, state) {
-     // TODO: implement listener
+      if(state is ProjectsLoaded) {
+        if(state is BaseEmit && state is Success){
+
+        }
+      }
    }
 }
 

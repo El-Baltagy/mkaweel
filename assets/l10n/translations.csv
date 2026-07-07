@@ -197,3 +197,13 @@ description,description,الوصف
 additional_data,Additional data,بيانات إضافية
 notes,Notes,ملحوظات
 any_additional_details_or_requirements,Any additional details or requirements,أي تفاصيل أو متطلبات إضافية
+
+extra_details,Extra details,تفاصيل اضافية
+description,Description,الوصف
+location,Location,الموقع
+ end,End,نهاية
+start,Start,البدايه
+owner,Owner,المالك
+
+progress_percentage,progress percentage,نسبة التقدم
+contract_value,contract value,قيمة العقد

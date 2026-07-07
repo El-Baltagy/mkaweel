@@ -1,13 +1,18 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/extension/context.dart';
+import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/features/screens/create_project/data/model/create_project_res/create_project_res.dart';
+import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
+import 'package:mkaweel/features/screens/projects/data/model/delete_pj_parameter.dart';
+import 'package:mkaweel/features/screens/projects/ui/widgets/delete_pj_dialouge.dart';
 
 class ProjectCard extends StatelessWidget {
-  const ProjectCard({super.key, required this.projectInfoData});
+  const ProjectCard({super.key, required this.projectInfoData,required this.projectsCubit});
 
   final ProjectInfoData projectInfoData;
-
+  final ProjectsCubit projectsCubit;
   @override
   Widget build(BuildContext context) {
     final primary = Theme.of(context).primaryColor;
@@ -35,7 +40,8 @@ class ProjectCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        projectInfoData.name,
+                         projectInfoData.name,
+                        maxLines: 3,
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -43,7 +49,7 @@ class ProjectCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        "Owner: ${projectInfoData.owner_name}",
+                        'owner'.tr()+ ' : ${projectInfoData.owner_name}',
                         style: TextStyle(color: Colors.grey.shade600),
                       ),
                     ],
@@ -53,16 +59,34 @@ class ProjectCard extends StatelessWidget {
                   mainAxisSize: .min,
                   children: [
                     GestureDetector(
+
                       onTap: () =>context.push(  CreateProjectRoute(
                           args:   CreateProjectRouteArgs(
-                              "${projectInfoData.id}"
+                              '${projectInfoData.id}'
                           )
                       )),
-                      child: const Icon(Icons.edit),
+                      child: CircleAvatar(
+                          backgroundColor: context.theme.primaryColor,
+                          radius: 18,
+                          child:   Icon(Icons.edit,
+                          color: context.theme.scaffoldBackgroundColor,
+                          )),
                     ),
+                    10.horizontalSpace,
                     GestureDetector(
-                      onTap: () {},
-                      child: const Icon(Icons.delete),
+                      onTap: DeletePjDialouge(
+                        onPressedDelete: ()=>projectsCubit.deleteProjectFunc(parameter:
+                        DeleteProjectParameter(projectInfoData.id.toString())
+                        ),
+                      ).toShowDialouge,
+
+                      child:   CircleAvatar(
+                        backgroundColor: context.theme.primaryColor,
+                        radius: 18,
+                        child: Icon(Icons.delete,
+                          color: context.theme.colorScheme.error,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -75,11 +99,11 @@ class ProjectCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  "Progress",
+                  Text(
+                  'progress_percentage'.tr(),
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
-                Text("${projectInfoData.progress_percentage}%"),
+                Text('${projectInfoData.progress_percentage}%'),
               ],
             ),
             const SizedBox(height: 8),
@@ -97,7 +121,7 @@ class ProjectCard extends StatelessWidget {
                 Expanded(
                   child: _InfoTile(
                     Icons.calendar_today,
-                    "Start",
+                    'start'.tr(),
                     projectInfoData.start_date,
                   ),
                 ),
@@ -105,7 +129,7 @@ class ProjectCard extends StatelessWidget {
                 Expanded(
                   child: _InfoTile(
                     Icons.event,
-                    "End",
+                    'end'.tr(),
                     projectInfoData.end_date,
                   ),
                 ),
@@ -115,27 +139,30 @@ class ProjectCard extends StatelessWidget {
             const SizedBox(height: 18),
 
             /// Contract
+        if(projectInfoData.contract_value!=null)
+          ...[
             _InfoRow(
               Icons.payments,
-              "Contract",
-              "${projectInfoData.contract_value} ${projectInfoData.currency}",
+              'contract_value'.tr(),
+              '${projectInfoData.contract_value} ${projectInfoData.currency}',
             ),
 
             const SizedBox(height: 10),
+          ],
 
             /// Location
             _InfoRow(
               Icons.location_on,
-              "Location",
-              "${projectInfoData.longitude}, ${projectInfoData.latitude}",
+              'location'.tr(),
+              '${projectInfoData.longitude}, ${projectInfoData.latitude}',
             ),
             if (projectInfoData.description != null ||
                 projectInfoData.extra_details != null)
               const Divider(height: 28),
 
             if (projectInfoData.description != null) ...[
-              const Text(
-                "Description",
+                Text(
+                'description'.tr(),
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 6),
@@ -144,8 +171,8 @@ class ProjectCard extends StatelessWidget {
 
             if (projectInfoData.extra_details != null) ...[
               const SizedBox(height: 16),
-              const Text(
-                "Extra Details",
+                Text(
+                'extra_details'.tr(),
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 6),
@@ -201,7 +228,7 @@ class _InfoRow extends StatelessWidget {
       children: [
         Icon(icon, size: 18),
         const SizedBox(width: 10),
-        Text("$title:", style: const TextStyle(fontWeight: FontWeight.w600)),
+        Text('$title:', style: const TextStyle(fontWeight: FontWeight.w600)),
         const SizedBox(width: 8),
         Expanded(child: Text(value)),
       ],

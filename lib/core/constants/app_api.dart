@@ -15,6 +15,7 @@ static const String updateProfile  =  '/api/update_profile';
 static const String createProject  =  '/api/projects';
 static const String getAllProjects  =  '/api/projects';
 static   String getProjectData(String id)  =>  '/api/projects/$id';
+static   String deleteProject(String id)  =>  '/api/projects/$id';
 
 
 }

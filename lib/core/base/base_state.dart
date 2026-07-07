@@ -7,8 +7,9 @@
 
 abstract class BaseEmit {}
 
-class Loading extends BaseEmit {
-
+class Loading<T> extends BaseEmit {
+  final T? item;
+  Loading([this.item ]);
 }
 
 class ErrorState extends BaseEmit {

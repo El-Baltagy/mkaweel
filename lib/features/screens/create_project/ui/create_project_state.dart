@@ -34,14 +34,16 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
         if(value!=null){
             _controllerName.text=value.data.name;
             _controllerOwner_name.text=value.data.owner_name;
-            _controllerContract_value.text=value.data.contract_value;
+            _controllerContract_value.text=value.data?.contract_value??"";
             _controllerStart_date.text=value.data.start_date;
             _controllerEnd_date.text=value.data.end_date;
             _controllerDescription.text=value.data.description??"";
             _controllerExtra_details.text=value.data.extra_details??"";
-            Future.delayed(const Duration(milliseconds: 600),(){
-              selectedCurrencyNotifier.value=value.data.currency;
+            if(value.data.currency!=null) {
+              Future.delayed(const Duration(milliseconds: 600),(){
+              selectedCurrencyNotifier.value=value.data.currency! ;
             });
+            }
             locationNotifier.value =  (null, LatLng(double.parse(value.data.latitude), double.parse(value.data.longitude))) ;
 
         }
