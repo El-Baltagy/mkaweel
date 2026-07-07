@@ -131,8 +131,8 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
                       CurrencyTabsWidget(
                         currencyTabNotifier: currencyTabNotifier,
                       ),
-                      16.verticalSpace,
-                      const TextInputFilter(),
+                      // 16.verticalSpace,
+                      // const TextInputFilter(),
                       16.verticalSpace,
                       BlocSelector<
                         MarketPricesCubit,
