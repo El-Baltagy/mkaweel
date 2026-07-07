@@ -76,27 +76,40 @@ class SubCatogeries extends StatelessWidget {
             ), style: AppTextStyles.font12Regular),
           ],
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Row(
-              children: [
-                Text(subCatogeryItem.origin_country , style: AppTextStyles.font12Regular.copyWith(color: AppColors.contractorGreyText)),
-                5.horizontalSpace,
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8, vertical: AppPadding.p2),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(AppSizes.s4),
+        Container(
+
+          child: Column(
+            crossAxisAlignment:  .end,
+            children: [
+              Row(
+                children: [
+                  Text(subCatogeryItem.origin_country , style: AppTextStyles.font12Regular.copyWith(color: AppColors.contractorGreyText)),
+                  5.horizontalSpace,
+                  Container(
+
+                    padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8, vertical: AppPadding.p2),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(AppSizes.s4),
+                    ),
+                     child: Text(subCatogeryItem.category?.name.toString()??"testssssss",
+
+                        overflow: .ellipsis,
+                        style: AppTextStyles.font12Regular.copyWith(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold)),
                   ),
-                  child: Text(subCatogeryItem.category?.name.toString()??"testssssss", style: AppTextStyles.font12Regular.copyWith(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold)),
-                ),
-              ],
-            ),
-            5.verticalSpace,
-            Text(subCatogeryItem.name, style: AppTextStyles.font16SemiBold),
-            Text(subCatogeryItem.unit.toString(), style: AppTextStyles.font12Regular),
-          ],
+                ],
+              ),
+              5.verticalSpace,
+              Container(
+                  constraints: BoxConstraints(
+                      maxWidth: context.width*0.55
+                  ),
+                   child: Text(subCatogeryItem.name,
+                       textAlign: .end,
+                       style: AppTextStyles.font16SemiBold)),
+              Text(subCatogeryItem.unit.toString(), style: AppTextStyles.font12Regular),
+            ],
+          ),
         ),
       ],
     ),
