@@ -6,9 +6,6 @@ import 'package:flutter/material.dart';
 abstract class ProjectsState {}
 
 class ProjectsLoaded extends ProjectsState {
-  final BaseEmit? allProjectsResState,deleteProjectResState;
-  final ProjectsState? refreshOrInit;
-  final List<String> deletingProjectIds;
 
   ProjectsLoaded({
     this.deleteProjectResState,
@@ -16,6 +13,9 @@ class ProjectsLoaded extends ProjectsState {
     this.refreshOrInit,
     this.deletingProjectIds = const [],
   });
+  final BaseEmit? allProjectsResState,deleteProjectResState;
+  final ProjectsState? refreshOrInit;
+  final List<String> deletingProjectIds;
 
   ProjectsLoaded copyWith({
     BaseEmit? deleteProjectResState,
