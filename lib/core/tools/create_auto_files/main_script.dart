@@ -80,9 +80,9 @@ Future<void> main(List<dynamic> args) async {
     );
   }
 
-  if (!args.contains('--no-build')) {
-    await makeBuildRunner();
-  }
+  // if (!args.contains('--no-build')) {
+  //   await makeBuildRunner();
+  // }
 
   print('✅ Feature structure created successfully inside lib/features/screens');
 }

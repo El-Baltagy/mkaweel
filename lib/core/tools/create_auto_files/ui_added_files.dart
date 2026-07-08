@@ -45,6 +45,7 @@ class UIAddRequiredFiles extends BaseAddRequiredFiles {
 String _getStringBlocOnly(String widgetName, String notifierClassInstant) {
   return '''import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:mkaweel/core/app/route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:${PathConstants().projectName}/core/constants/app_locator.dart';
 import 'package:${PathConstants().projectName}/features/screens/${PathConstants().name}/controller/${PathConstants().cubitFileName()}';
@@ -56,7 +57,8 @@ import 'package:${PathConstants().projectName}/features/screens/${PathConstants(
 
 @RoutePage()
 class $widgetName extends StatefulWidget implements AutoRouteWrapper{
-  const $widgetName({super.key});
+  const $widgetName({super.key, required this.args});
+  final ${widgetName.replaceAll('Page', 'RouteArgs')} args;
   // 2. Implement the wrappedRoute method
   @override
   Widget wrappedRoute(BuildContext context) {

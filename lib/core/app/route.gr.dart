@@ -15,6 +15,18 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    ProjectDetailsRoute.name: (routeData) {
+      final args = routeData.argsAs<ProjectDetailsRouteArgs>(orElse: () => const ProjectDetailsRouteArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(
+            child: ProjectDetailsPage(
+           args: args ,
+        )),
+      );
+    },
+
+
     CreateProjectRoute.name: (routeData) {
       final args = routeData.argsAs<CreateProjectRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -334,4 +346,25 @@ class WorkersRoute extends PageRouteInfo<void> {
   static const String name = 'WorkersRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [ProjectDetailsPage]
+class ProjectDetailsRoute extends PageRouteInfo<ProjectDetailsRouteArgs> {
+  ProjectDetailsRoute({
+    ProjectDetailsRouteArgs args = const ProjectDetailsRouteArgs(),
+    List<PageRouteInfo>? children,
+  }) : super(
+    ProjectDetailsRoute.name,
+    args: args,
+    initialChildren: children,
+  );
+
+  static const String name = 'ProjectDetailsRoute';
+
+  static const PageInfo<ProjectDetailsRouteArgs> page =
+  PageInfo<ProjectDetailsRouteArgs>(name);
+}
+class ProjectDetailsRouteArgs {
+  const ProjectDetailsRouteArgs( );
 }
