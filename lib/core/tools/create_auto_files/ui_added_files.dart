@@ -90,9 +90,10 @@ class _${widgetName}State extends ${widgetName}BaseState {
 
 
 abstract class  ${widgetName}BaseState extends State<$widgetName> {
-  final ${PathConstants().cubitName()} argData=${PathConstants().cubitName()}.get();
+  late final ${PathConstants().cubitName()} argData;
   @override
   void initState() {
+    argData = ${PathConstants().cubitName()}.get(context: context);
     // TODO: implement initState
 
     super.initState();

@@ -29,7 +29,7 @@ class ProjectCard extends StatelessWidget {
       elevation: 2,
       margin: const EdgeInsets.all(12),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: GestureDetector(
+      child: InkWell(
         onTap: () => context.push(ProjectDetailsRoute(
           args: const ProjectDetailsRouteArgs()
         )),

@@ -262,9 +262,10 @@ class _ProjectDetailsPageState extends ProjectDetailsPageBaseState {
 
 
 abstract class  ProjectDetailsPageBaseState extends State<ProjectDetailsPage> {
-  final ProjectsCubit argData=ProjectsCubit.get();
+  late final ProjectsCubit argData;
   @override
   void initState() {
+    argData = ProjectsCubit.get(context: context);
     // TODO: implement initState
 
     super.initState();
