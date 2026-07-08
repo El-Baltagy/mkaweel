@@ -216,3 +216,27 @@ release_to_refresh,Release to refresh,اترك يديك للتحديث
 pull_down_to_refresh,Pull down to refresh,اسحب للأسفل للتحديث
 refresh_completed,Refresh completed,اكتمل التحديث
 refreshing,Refreshing,جاري التحديث
+update_progress_title,Update Progress & Percentage,تحديث التقدم والنسبة المئوية
+progress_percentage_label,Progress Percentage (%),نسبة التقدم (%)
+status_label,Status,الحالة
+update_date_label,Update Date,تاريخ التحديث
+notes_label,Notes,الملاحظات
+notes_hint,Enter notes about the work done...,أدخل ملاحظات حول العمل المنجز...
+upload_progress_photos,Upload Progress Photos (Multiple),رفع صور التقدم (متعدد)
+choose_files,Choose Files,اختر الملفات
+no_file_chosen,No file chosen,لم يتم اختيار ملف
+photos_hint,You can select multiple photos at once.,يمكنك اختيار عدة صور في وقت واحد.
+submit_progress_update,Submit Progress Update,إرسال تحديث التقدم
+phase_information,Phase Information,معلومات المرحلة
+planned_start_date,Planned Start Date,تاريخ البدء المخطط
+planned_end_date,Planned End Date,تاريخ الانتهاء المخطط
+actual_start_date,Actual Start Date,تاريخ البدء الفعلي
+actual_end_date,Actual End Date,تاريخ الانتهاء الفعلي
+save_phase_dates,Save Phase Dates,حفظ تواريخ المرحلة
+view_updates_and_progress,View Updates & Progress,عرض التحديثات والتقدم
+phase_name_label,Phase Name,اسم المرحلة
+pending_status,Pending,قيد الانتظار
+in_progress_status,In Progress,جاري التنفيذ
+completed_status,Completed,مكتمل
+project_overview,Project Overview,نظرة عامة على المشروع
+project_construction_phases,Project Construction Phases,مراحل إنشاء المشروع

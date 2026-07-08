@@ -25,8 +25,16 @@ abstract class _$AppRouter extends RootStackRouter {
         )),
       );
     },
-
-
+    PhaseProgressRoute.name: (routeData) {
+      final args = routeData.argsAs<PhaseProgressRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(
+            child: PhaseProgressPage(
+           args: args ,
+        )),
+      );
+    },
     CreateProjectRoute.name: (routeData) {
       final args = routeData.argsAs<CreateProjectRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -352,6 +360,29 @@ class ProjectDetailsRoute extends PageRouteInfo<ProjectDetailsRouteArgs> {
 class ProjectDetailsRouteArgs {
   const ProjectDetailsRouteArgs( );
 }
+
+/// generated route for
+/// [PhaseProgressPage]
+class PhaseProgressRoute extends PageRouteInfo<PhaseProgressRouteArgs> {
+  PhaseProgressRoute({
+    required PhaseProgressRouteArgs args,
+    List<PageRouteInfo>? children,
+  }) : super(
+    PhaseProgressRoute.name,
+    args: args,
+    initialChildren: children,
+  );
+
+  static const String name = 'PhaseProgressRoute';
+
+  static const PageInfo<PhaseProgressRouteArgs> page =
+  PageInfo<PhaseProgressRouteArgs>(name);
+}
+class PhaseProgressRouteArgs {
+  const PhaseProgressRouteArgs({required this.phaseName});
+  final String phaseName;
+}
+
 ///generated route for
 /// [MainHomePage]
 class MainHomeRoute extends PageRouteInfo<MainHomeRouteArgs> {

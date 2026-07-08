@@ -16,7 +16,8 @@ import 'package:mkaweel/features/screens/splash/ui/splash_screen.dart';
 import 'package:mkaweel/features/screens/login/ui/login_screen.dart';
 import 'package:mkaweel/features/screens/onboarding/ui/onboarding_screen.dart';
 import 'package:mkaweel/features/screens/projects/ui/project_details_screen.dart';
-part  'route.gr.dart';
+import 'package:mkaweel/features/screens/projects/ui/phase_progress_screen.dart';
+part 'route.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')
 class AppRouter extends _$AppRouter {
@@ -26,9 +27,10 @@ class AppRouter extends _$AppRouter {
   List<AutoRoute> get routes => [
       AutoRoute(
         page: ProjectDetailsRoute.page,
-       ),
-
-
+      ),
+      AutoRoute(
+        page: PhaseProgressRoute.page,
+      ),
       AutoRoute(
         page: LoginRoute.page,
         guards: [AuthGuard()],
@@ -38,7 +40,7 @@ class AppRouter extends _$AppRouter {
         guards: [AuthGuard()],
       ),
       AutoRoute(
-        page: SplashRoute.page, 
+        page: SplashRoute.page,
         initial: true,
       ),
       AutoRoute(
@@ -66,15 +68,15 @@ class AuthGuard extends AutoRouteGuard {
   void onNavigation(NavigationResolver resolver, StackRouter router) {
     if (StorageHelper.isLogined) {
       // If logged in, allow navigation. If trying to go to login/onboarding/splash, redirect to MainHome (Dashboard)
-      if (resolver.route.name == LoginRoute.name || 
-          resolver.route.name == OnboardingRoute.name || 
+      if (resolver.route.name == LoginRoute.name ||
+          resolver.route.name == OnboardingRoute.name ||
           resolver.route.name == SplashRoute.name) {
-        resolver.redirect(  MainHomeRoute(args: const MainHomeRouteArgs()));
+        resolver.redirect(MainHomeRoute(args: const MainHomeRouteArgs()));
       } else {
         resolver.next();
       }
     } else {
-      if (!StorageHelper.hasViewedOnboarding&&false) {
+      if (!StorageHelper.hasViewedOnboarding && false) {
         if (resolver.route.name == OnboardingRoute.name) {
           resolver.next();
         } else {
