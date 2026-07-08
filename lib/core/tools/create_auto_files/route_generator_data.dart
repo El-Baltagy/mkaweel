@@ -104,7 +104,7 @@ class AppRouter extends _\$AppRouter {
 /// [$screenName]
 class $routeName extends PageRouteInfo<$argsName> {
   $routeName({
-    $argsName args = const $argsName(),
+   required $argsName args  ,
     List<PageRouteInfo>? children,
   }) : super(
     $routeName.name,

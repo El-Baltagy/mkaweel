@@ -42,51 +42,46 @@ class ProjectsPage extends StatefulWidget implements AutoRouteWrapper{
 class _ProjectsPageState extends ProjectsPageBaseState {
   @override
   Widget build(BuildContext context) {
-     return BlocListener<CreateProjectCubit, CreateProjectState>(
-      listener: createProjectsListener,
-      child: Semantics(
-        label: 'Projects Screen',
-        child: Scaffold(
-          backgroundColor: context.theme.scaffoldBackgroundColor,
-          appBar: AppBar(
-            backgroundColor: Theme.of(context).primaryColor,
-            title: Text('projects'.tr(), style: AppTextStyles.font18SemiBold.copyWith(color: context.theme.scaffoldBackgroundColor)),
-            centerTitle: true,
-            leading: IconButton(
-              icon:   Icon(Icons.sync, color: context.theme.scaffoldBackgroundColor),
-              onPressed: () =>projectsCubit.getAllProjectsFunc(),
-            ),
-          ),
+     return Semantics(
+       label: 'Projects Screen',
+       child: Scaffold(
+         backgroundColor: context.theme.scaffoldBackgroundColor,
+         appBar: AppBar(
+           backgroundColor: Theme.of(context).primaryColor,
+           title: Text('projects'.tr(), style: AppTextStyles.font18SemiBold.copyWith(color: context.theme.scaffoldBackgroundColor)),
+           centerTitle: true,
+           leading: IconButton(
+             icon:   Icon(Icons.sync, color: context.theme.scaffoldBackgroundColor),
+             onPressed: () =>projectsCubit.getAllProjectsFunc(),
+           ),
+         ),
 
-          body: BlocSelector<ProjectsCubit, ProjectsState, BaseEmit?>(
-  selector: (state) =>state is ProjectsLoaded ? state.allProjectsResState : null,
-  builder: (context, state) {
-    return ProjectsListWidget(
-      projectsCubit: projectsCubit,
-            state: state,
-          );
-  },
-),
-          floatingActionButtonLocation: .centerFloat,
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: context.theme.colorScheme.secondary,
+         body: BlocSelector<ProjectsCubit, ProjectsState, BaseEmit?>(
+       selector: (state) =>state is ProjectsLoaded ? state.allProjectsResState : null,
+       builder: (context, state) {
+         return ProjectsListWidget(
+     projectsCubit: projectsCubit,
+           state: state,
+         );
+       },
+     ),
+         floatingActionButtonLocation: .centerFloat,
+         floatingActionButton: FloatingActionButton(
+           backgroundColor: context.theme.colorScheme.secondary,
 
-            onPressed: () async {
-              final result = await context.push(CreateProjectRoute(args: const CreateProjectRouteArgs(null)));
-              if (result == true) {
-                await projectsCubit.getAllProjectsFunc();
-              }
-            },
-            child:   Icon(Icons.add, color: context.theme.scaffoldBackgroundColor),
-          ),
-        ),
-      ),
-    );
+           onPressed: () async {
+             final result = await context.push(CreateProjectRoute(args: const CreateProjectRouteArgs(null)));
+             if (result == true) {
+               await projectsCubit.getAllProjectsFunc();
+             }
+           },
+           child:   Icon(Icons.add, color: context.theme.scaffoldBackgroundColor),
+         ),
+       ),
+     );
   }
 
-  Future<void> createProjectsListener(BuildContext context,CreateProjectState state) async {
 
-   }
 }
 
 abstract class  ProjectsPageBaseState extends State<ProjectsPage> {

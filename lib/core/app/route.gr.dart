@@ -202,23 +202,7 @@ class LoginRoute extends PageRouteInfo<void> {
   static const PageInfo<void> page = PageInfo<void>(name);
 }
 
-///generated route for
-/// [MainHomePage]
-class MainHomeRoute extends PageRouteInfo<MainHomeRouteArgs> {
-  MainHomeRoute({
-    required MainHomeRouteArgs args,
-    List<PageRouteInfo>? children,
-  }) : super(
-    MainHomeRoute.name,
-    args: args,
-    initialChildren: children,
-  );
 
-  static const String name = 'MainHomeRoute';
-
-  static const PageInfo<MainHomeRouteArgs> page =
-  PageInfo<MainHomeRouteArgs>(name);
-}
 class MainHomeRouteArgs {
   const MainHomeRouteArgs( );
 }
@@ -352,7 +336,7 @@ class WorkersRoute extends PageRouteInfo<void> {
 /// [ProjectDetailsPage]
 class ProjectDetailsRoute extends PageRouteInfo<ProjectDetailsRouteArgs> {
   ProjectDetailsRoute({
-    ProjectDetailsRouteArgs args = const ProjectDetailsRouteArgs(),
+    required  ProjectDetailsRouteArgs args  ,
     List<PageRouteInfo>? children,
   }) : super(
     ProjectDetailsRoute.name,
@@ -367,4 +351,21 @@ class ProjectDetailsRoute extends PageRouteInfo<ProjectDetailsRouteArgs> {
 }
 class ProjectDetailsRouteArgs {
   const ProjectDetailsRouteArgs( );
+}
+///generated route for
+/// [MainHomePage]
+class MainHomeRoute extends PageRouteInfo<MainHomeRouteArgs> {
+  MainHomeRoute({
+    required MainHomeRouteArgs args,
+    List<PageRouteInfo>? children,
+  }) : super(
+    MainHomeRoute.name,
+    args: args,
+    initialChildren: children,
+  );
+
+  static const String name = 'MainHomeRoute';
+
+  static const PageInfo<MainHomeRouteArgs> page =
+  PageInfo<MainHomeRouteArgs>(name);
 }

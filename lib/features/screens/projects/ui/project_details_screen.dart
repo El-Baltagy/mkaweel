@@ -1,17 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:mkaweel/core/app/route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
 
 
-
-
-
 @RoutePage()
 class ProjectDetailsPage extends StatefulWidget implements AutoRouteWrapper{
-  const ProjectDetailsPage({super.key});
+  const ProjectDetailsPage({super.key, required this.args});
+  final ProjectDetailsRouteArgs args;
   // 2. Implement the wrappedRoute method
   @override
   Widget wrappedRoute(BuildContext context) {
@@ -29,7 +28,7 @@ class _ProjectDetailsPageState extends ProjectDetailsPageBaseState {
 
   @override
   Widget build(BuildContext context) {
-     return BlocListener<ProjectsCubit, ProjectsState>(
+    return BlocListener<ProjectsCubit, ProjectsState>(
       listener: (context, state) {
         // TODO: implement listener}
       },
@@ -58,7 +57,7 @@ class _ProjectDetailsPageState extends ProjectDetailsPageBaseState {
         ),
       ),
     );
-    
+
   }
 
   Widget _buildOverviewCard() {
