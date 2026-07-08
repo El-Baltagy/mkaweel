@@ -2,14 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
-import 'package:mkaweel/core/theming/app_colors.dart';
-import 'package:mkaweel/core/theming/app_text_styles.dart';
+ import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/features/screens/workers/controller/workers_cubit.dart';
 import 'package:mkaweel/features/screens/workers/controller/workers_state.dart';
-import 'package:mkaweel/features/screens/workers/ui/widgets/AddWorkerBottomSheet.dart';
-import 'package:mkaweel/features/screens/workers/ui/widgets/filter_wdgt.dart';
+ import 'package:mkaweel/features/screens/workers/ui/widgets/filter_wdgt.dart';
 import 'package:mkaweel/features/screens/workers/ui/widgets/summary_card.dart';
 import 'package:mkaweel/features/screens/workers/ui/widgets/workers_widgets.dart';
 import 'package:mkaweel/core/extension/context.dart';
@@ -74,7 +73,7 @@ class _WorkersPageState extends WorkersPageBaseState {
           centerTitle: true,
           leading: IconButton(
             icon:   Icon(Icons.add, color: context.theme.scaffoldBackgroundColor),
-            onPressed: () => showAddWorkerBottomSheet(context),
+            onPressed:  () => context.push(AddWorkerRoute(args: const AddWorkerRouteArgs())),
           ),
 
         ),

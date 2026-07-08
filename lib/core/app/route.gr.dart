@@ -15,6 +15,16 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    AddWorkerRoute.name: (routeData) {
+      final args = routeData.argsAs<AddWorkerRouteArgs>(orElse: () => const AddWorkerRouteArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(
+            child: AddWorkerPage(
+           args: args ,
+        )),
+      );
+    },
     ProjectDetailsRoute.name: (routeData) {
       final args = routeData.argsAs<ProjectDetailsRouteArgs>(orElse: () => const ProjectDetailsRouteArgs());
       return AutoRoutePage<dynamic>(
@@ -399,4 +409,25 @@ class MainHomeRoute extends PageRouteInfo<MainHomeRouteArgs> {
 
   static const PageInfo<MainHomeRouteArgs> page =
   PageInfo<MainHomeRouteArgs>(name);
+}
+
+/// generated route for
+/// [AddWorkerPage]
+class AddWorkerRoute extends PageRouteInfo<AddWorkerRouteArgs> {
+  AddWorkerRoute({
+   required AddWorkerRouteArgs args  ,
+    List<PageRouteInfo>? children,
+  }) : super(
+    AddWorkerRoute.name,
+    args: args,
+    initialChildren: children,
+  );
+
+  static const String name = 'AddWorkerRoute';
+
+  static const PageInfo<AddWorkerRouteArgs> page =
+  PageInfo<AddWorkerRouteArgs>(name);
+}
+class AddWorkerRouteArgs {
+  const AddWorkerRouteArgs( );
 }

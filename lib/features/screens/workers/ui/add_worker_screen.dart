@@ -1,3 +1,10 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
+import 'package:mkaweel/core/app/route.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mkaweel/core/constants/app_locator.dart';
+import 'package:mkaweel/features/screens/workers/controller/workers_cubit.dart';
+import 'package:mkaweel/features/screens/workers/controller/workers_state.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/Material.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
@@ -5,40 +12,36 @@ import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/context.dart';
 
-void showAddWorkerBottomSheet(BuildContext context) {
-  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-     backgroundColor: Colors.transparent,
-    builder: (_) => const AddWorkerBottomSheet(),
-  );
-}
 
-class AddWorkerBottomSheet extends StatefulWidget {
-  const AddWorkerBottomSheet({super.key});
+
+
+@RoutePage()
+class AddWorkerPage extends StatefulWidget implements AutoRouteWrapper{
+  const AddWorkerPage({super.key, required this.args});
+  final AddWorkerRouteArgs args;
+  // 2. Implement the wrappedRoute method
   @override
-  State<AddWorkerBottomSheet> createState() => _AddWorkerBottomSheetState();
+  Widget wrappedRoute(BuildContext context) {
+    return BlocProvider<WorkersCubit>(
+      // Use your singleton to get the Cubit instance
+      create: (context) =>WorkersCubit(AppLocator()()()),
+      child: this, // 'this' refers to the AddWorkerPage itself
+    );
+  }
+  @override
+  State<AddWorkerPage> createState() => _AddWorkerPageState();
 }
 
-class _AddWorkerBottomSheetState extends State<AddWorkerBottomSheet> {
-  final _nameController = TextEditingController();
-  final _specController = TextEditingController();
-  final _phoneController = TextEditingController();
-  final _notesController = TextEditingController();
-  DateTime? _selectedDate;
+class _AddWorkerPageState extends AddWorkerPageBaseState {
 
   @override
   Widget build(BuildContext context) {
-    return DraggableScrollableSheet(
-      initialChildSize: 0.9,
-      maxChildSize: 0.95,
-      minChildSize: 0.5,
-      builder: (_, scrollController) => Container(
-        decoration:   BoxDecoration(
-          color: context.theme.scaffoldBackgroundColor,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(AppSizes.s24)),
-        ),
-        child: Column(
+     return BlocListener<WorkersCubit, WorkersState>(
+      listener: (context, state) {
+        // TODO: implement listener}
+      },
+      child: Scaffold(
+        body: Column(
           children: [
             Container(
               margin: const EdgeInsets.only(top: AppSizes.s12),
@@ -51,7 +54,7 @@ class _AddWorkerBottomSheetState extends State<AddWorkerBottomSheet> {
             ),
             Expanded(
               child: ListView(
-                controller: scrollController,
+                // controller: scrollController,
                 padding: const EdgeInsets.all(AppPadding.p20),
                 children: [
                   Row(
@@ -100,8 +103,8 @@ class _AddWorkerBottomSheetState extends State<AddWorkerBottomSheet> {
         ),
       ),
     );
+    
   }
-
   Widget _buildLabel(String label) => Padding(
     padding: const EdgeInsets.only(bottom: AppPadding.p8),
     child: Text(label, style: AppTextStyles.font14Regular.copyWith(color: context.theme.colorScheme.tertiaryFixed), textAlign: TextAlign.right),
@@ -163,4 +166,27 @@ class _AddWorkerBottomSheetState extends State<AddWorkerBottomSheet> {
       ),
     ),
   );
+}
+
+
+abstract class  AddWorkerPageBaseState extends State<AddWorkerPage> {
+  late final WorkersCubit workersCubit;
+  final _nameController = TextEditingController();
+  final _specController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _notesController = TextEditingController();
+  DateTime? _selectedDate;
+  @override
+  void initState() {
+    workersCubit = WorkersCubit.get(context: context);
+    // TODO: implement initState
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
 }

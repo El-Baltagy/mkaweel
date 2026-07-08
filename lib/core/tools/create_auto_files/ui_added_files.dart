@@ -1,6 +1,7 @@
 import 'dart:io';
 import '../create_auto_files/path_constants.dart';
 import 'path_constants.dart';
+import '../../extension/string.dart';
 
 class UIAddRequiredFiles extends BaseAddRequiredFiles {
   UIAddRequiredFiles(  {required this.screenFileName, required this.screenName});
@@ -65,7 +66,7 @@ class $widgetName extends StatefulWidget implements AutoRouteWrapper{
     return BlocProvider<${PathConstants().cubitName()}>(
       // Use your singleton to get the Cubit instance
       create: (context) =>${PathConstants().cubitName()}(AppLocator()()()),
-      child: this, // 'this' refers to the AuthPage itself
+      child: this, // 'this' refers to the $widgetName itself
     );
   }
   @override
@@ -90,10 +91,10 @@ class _${widgetName}State extends ${widgetName}BaseState {
 
 
 abstract class  ${widgetName}BaseState extends State<$widgetName> {
-  late final ${PathConstants().cubitName()} argData;
+  late final ${PathConstants().cubitName()} ${PathConstants().cubitName().lowerCaseFirst};
   @override
   void initState() {
-    argData = ${PathConstants().cubitName()}.get(context: context);
+    ${PathConstants().cubitName().lowerCaseFirst} = ${PathConstants().cubitName()}.get(context: context);
     // TODO: implement initState
 
     super.initState();
