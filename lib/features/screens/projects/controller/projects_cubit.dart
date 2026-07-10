@@ -37,7 +37,8 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
     return super.close();
   }
 
-  Future<void> getAllProjectsFunc({NoParameter? parameter}) async {
+  Future<AllProjectsRes?> getAllProjectsFunc({NoParameter? parameter}) async {
+    AllProjectsRes? res;
     await CancelManager.runCancelableFun(getAllProjectsKeyCode, (token) async {
       await _service.getAllProjectsServ(
         RequestCallbackObserver<AllProjectsRes, NoParameter>(
@@ -46,14 +47,18 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
           cancelToken: token,
           onLoadCallback: () =>
               safeEmit(_current.copyWith(allProjectsResState: Loading())),
-          onRightCallback: (data) =>
-              safeEmit(_current.copyWith(allProjectsResState: Success(data))),
+          onRightCallback: (data) {
+            res=data;
+            safeEmit(_current.copyWith(allProjectsResState: Success(data)));
+          }
+              ,
           onLeftCallback: (failure) => safeEmit(
             _current.copyWith(allProjectsResState: ErrorState(failure)),
           ),
         ),
       );
     });
+    return res;
   }
 
 

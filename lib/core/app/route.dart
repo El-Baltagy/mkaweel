@@ -6,6 +6,7 @@ import 'package:mkaweel/features/screens/create_project/ui/create_project_screen
 import 'package:mkaweel/features/screens/market_prices/ui/market_prices_screen.dart';
 import 'package:mkaweel/features/screens/main_home/ui/main_home_screen.dart';
 import 'package:mkaweel/features/screens/settings/ui/profile_screen.dart';
+import 'package:mkaweel/features/screens/workers/data/model/all_workers/all_workers.dart';
 import 'package:mkaweel/features/screens/workers/ui/workers_sc/workers_screen.dart';
 import 'package:mkaweel/features/screens/settings/ui/settings_screen.dart';
 import 'package:mkaweel/features/screens/invoices/ui/invoices_screen.dart';
@@ -23,8 +24,7 @@ import 'package:mkaweel/features/screens/workers/ui/add_workers/add_worker_scree
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')
 class AppRouter extends _$AppRouter {
   AppRouter({super.navigatorKey});
-
-  @override
+   @override
   List<AutoRoute> get routes => [
 
       AutoRoute(

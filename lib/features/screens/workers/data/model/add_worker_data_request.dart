@@ -24,7 +24,7 @@ class AddWorkerDataRequest {
 
   final List<int> projectIds;
 
-  Future<Map<String, dynamic>> toJson() async {
+  Future<FormData> toJson() async {
     final map = <String, dynamic>{
       'name': name,
       'email': email,
@@ -34,23 +34,25 @@ class AddWorkerDataRequest {
       'phone': phone,
       'specialization': specialization,
       'role': role,
-      'project_ids[]': projectIds.map((e) => e.toString()).toList(),
+      if (avatarPath != null)
+        'avatar': await MultipartFile.fromFile(
+          avatarPath!,
+          filename: avatarPath!.split('/').last,
+        ),
     };
 
-    if (avatarPath != null) {
-      map['avatar'] = await MultipartFile.fromFile(
-        avatarPath!,
-        filename: avatarPath!.split('/').last,
-      );
-    }
-
     map.removeWhere((key, value) => value == null);
+    final FormData formData = FormData.fromMap(map);
 
-    return map;
+    for (final id in projectIds) {
+      formData.fields.add(MapEntry('project_ids[]', id.toString()));
+    }
+    return formData;
   }
 }
 
-class UIApiKeys{
-  final String uiTxt,apiValue;
-  UIApiKeys(this.uiTxt,this.apiValue) ;
+class UIApiKeys {
+  final String uiTxt, apiValue;
+
+  UIApiKeys(this.uiTxt, this.apiValue);
 }

@@ -38,10 +38,10 @@ class WorkersRepo extends BaseRepo {
   }) async {
     return handleResponse(
       onCallData: dio.postData(
-        data: FormData.fromMap(await parameter!.toJson()),
+        data:  await parameter!.toJson() ,
         uri: EndPoints.addWorker,
         cancelToken: cancelToken,
-        caller: getTag(),
+        caller: callerTag(),
       ),
       asObject: DeleteProjectRes.fromJson,
     );

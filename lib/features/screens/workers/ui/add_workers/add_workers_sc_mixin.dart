@@ -3,6 +3,7 @@ part of 'add_worker_screen.dart';
 abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
   List<UIApiKeys> pjChoices = [];
   late final WorkersCubit workersCubit;
+  late final ProjectsCubit projectsCubit;
   final _key = GlobalKey<FormState>();
   List<(GlobalKey<FormFieldState<dynamic>>, FocusNode?)> listFields =
       List.generate(5, (index) => (.new(), .new()));
@@ -20,12 +21,24 @@ abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
   final _dobController = TextEditingController();
 
   final ValueNotifier<List<int>> _projectIdsNotifier = .new([]);
-  final ValueNotifier<File?> _image = .new(null);
+  final ValueNotifier<(File?, String?)> _image = .new((null,null));
 
   @override
   void initState() {
     workersCubit = WorkersCubit.get(context: context);
+    projectsCubit = ProjectsCubit.get(context: context);
     super.initState();
+    _nameController.text=widget.args.workerItem?.name??"";
+    _emailController.text=widget.args.workerItem?.email??"";
+    _specController.text=widget.args.workerItem?.specialization??"";
+    _phoneController.text=widget.args.workerItem?.phone??"";
+    _dobController.text=widget.args.workerItem?.dob??"";
+    // _roleIndexesNotifier.value=;
+    projectsCubit.getAllProjectsFunc().then((va) {
+      _projectIdsNotifier.value=
+          (widget.args.workerItem?.projects??[])
+              .map((ee) => va!.data.map((e) => e.id).toList().indexOf(ee.id)).toList();
+    },);
   }
 
   @override
@@ -54,20 +67,23 @@ abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
   Future<void> addUpdateWorker(bool isLoading) async {
     if (isLoading) return;
     if (await _key.validateAndScroll(context, listRecorder:listFields)) {
+      AddWorkerDataRequest addWorkerDataRequest=AddWorkerDataRequest(
+        name: _nameController.text.trim(),
+        email: _emailController.text.trim(),
+        password: _pwController.text.trim(),
+        dob: _dobController.text.trim(),
+        phone: _phoneController.text.trim(),
+        specialization: _specController.text.trim(),
+        role: listChoices[_roleIndexesNotifier.value.first].apiValue,
+        avatarPath: _image.value.$1?.path,
+        projectIds: _projectIdsNotifier.value
+            .map((e) => int.parse(pjChoices[e].apiValue))
+            .toList(),
+      ) ;
+      // PrintHelper().ordinaryPrint(await addWorkerDataRequest.toJson() );
+      // return ;
       await workersCubit.addWorkerFunc(
-        parameter: AddWorkerDataRequest(
-          name: _nameController.text.trim(),
-          email: _emailController.text.trim(),
-          password: _pwController.text.trim(),
-          dob: _dobController.text.trim(),
-          phone: _phoneController.text.trim(),
-          specialization: _specController.text.trim(),
-          role: listChoices[_roleIndexesNotifier.value.first].apiValue,
-          avatarPath: _image.value?.path,
-          projectIds: _projectIdsNotifier.value
-              .map((e) => int.parse(pjChoices[e].apiValue))
-              .toList(),
-        ),
+        parameter: addWorkerDataRequest
       );
     }
   }
@@ -76,7 +92,7 @@ abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
       if(s.addWorkerState is Success<DeleteProjectRes?>){
         final x=s.addWorkerState as Success<DeleteProjectRes?>;
         if( x.data?.status=="success"){
-          context.pop(true);
+          // context.pop(true);
         }
         context.showToast( x.data?.message );
       }

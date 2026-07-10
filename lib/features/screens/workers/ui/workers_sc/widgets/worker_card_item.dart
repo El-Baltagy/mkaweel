@@ -87,7 +87,7 @@ class WorkerCardWidget extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () async {
-                  var result=await context.push(AddWorkerRoute(args:   AddWorkerRouteArgs(workerId:  worker.id)));
+                  var result=await context.push(AddWorkerRoute(args:   AddWorkerRouteArgs(workerItem:  worker )));
                   if (result == true) {
                     await workersCubit.getWorkersFunc();
                   }

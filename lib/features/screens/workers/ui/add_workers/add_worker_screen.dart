@@ -8,6 +8,7 @@ import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/extension/form_auto_scroll.dart';
+import 'package:mkaweel/core/shared/methods/print.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/dob_text_input_data.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/email_text_input_data.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/name_text_input_data.dart';
@@ -43,7 +44,7 @@ class AddWorkerPage extends StatefulWidget implements AutoRouteWrapper {
       ),
       BlocProvider<ProjectsCubit>(
         // Use your singleton to get the Cubit instance
-        create: (context) => ProjectsCubit(AppLocator()()())..getAllProjectsFunc(),
+        create: (context) => ProjectsCubit(AppLocator()()()),
       ),
 
 
@@ -55,7 +56,7 @@ class AddWorkerPage extends StatefulWidget implements AutoRouteWrapper {
 }
 
 class _AddWorkerPageState extends AddWorkerPageBaseState {
-
+ascsc(){}
   @override
   Widget build(BuildContext context) {
     return BlocListener<WorkersCubit, WorkersState>(
@@ -65,7 +66,7 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
         appBar: AppBar(
           backgroundColor: context.theme.primaryColor,
           title: Text(
-            widget.args.workerId != null
+            widget.args.workerItem != null
                 ? 'update_worker_data'.tr()
                 : 'add_worker'.tr(),
             style: AppTextStyles.font18SemiBold.copyWith(
@@ -84,6 +85,11 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
             ),
           ],
         ),
+        floatingActionButton: FloatingActionButton(onPressed: () {
+          PrintHelper().ordinaryPrint(widget.args.workerItem?.projects.map((e) => e.id).toList());
+          PrintHelper().ordinaryPrint(       (widget.args.workerItem?.projects??[])
+              .map((ee) => pjChoices! .map((e) => e.apiValue).toList().indexOf(ee.id.toString())).toList());
+        },),
         body: Form(
           key: _key,
           child: SingleChildScrollView(
