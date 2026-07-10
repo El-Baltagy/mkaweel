@@ -26,7 +26,7 @@ class WorkersCubit extends BaseCubit<WorkersState> {
 
 
    int get getWorkersKeyCode => AppConstant.getWorkersKeyCode;
-  init() async {
+  Future<void> init() async {
      // TODO: implement init
 
    }

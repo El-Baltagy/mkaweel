@@ -50,8 +50,7 @@ import 'package:mkaweel/core/app/route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:${PathConstants().projectName}/core/constants/app_locator.dart';
 import 'package:${PathConstants().projectName}/features/screens/${PathConstants().name}/controller/${PathConstants().cubitFileName()}';
-import 'package:${PathConstants().projectName}/features/screens/${PathConstants().name}/controller/${PathConstants().stateFileName()}';
-
+ 
 
 
 

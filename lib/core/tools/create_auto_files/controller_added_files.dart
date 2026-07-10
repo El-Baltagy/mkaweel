@@ -38,7 +38,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:${PathConstants().projectName}/main.dart';
 import '${PathConstants().stateFileName()}';
 import 'package:${PathConstants().projectName}/features/screens/${PathConstants().name}/service/${PathConstants().name}_service.dart';
-
+part '${PathConstants().stateFileName()}.dart';
 
 class ${PathConstants().cubitName()} extends BaseCubit<${PathConstants().stateName()}> {
    ${PathConstants().cubitName()}(this._service) : super(${PathConstants().initialStateName()}()) ;
@@ -47,11 +47,15 @@ class ${PathConstants().cubitName()} extends BaseCubit<${PathConstants().stateNa
      static ${PathConstants().cubitName()} get({BuildContext? context,bool listen=false}) =>
       BlocProvider.of(context??navigatorKey.currentContext!,listen: listen);
   
-  @override
-  init() {
-    // TODO: implement init
-   
-  }
+    // Always holds the latest combined state — used by copyWith
+   ${PathConstants().initialStateName()} get _current => state is ${PathConstants().initialStateName()}
+       ? state as ${PathConstants().initialStateName()}
+       : ${PathConstants().initialStateName()}();
+       
+    Future<void> init() async {
+     // TODO: implement init
+
+   }
   
 }
 ''';
@@ -67,13 +71,32 @@ class ${PathConstants().cubitName()} extends BaseCubit<${PathConstants().stateNa
   if (!state.existsSync()) {
     final content =
     '''
-
-import 'package:flutter/material.dart';
+part of '${PathConstants().cubitFileName()}.dart';
 
 @immutable
 abstract class ${PathConstants().stateName()} {}
 
-class ${PathConstants().initialStateName()} extends ${PathConstants().stateName()} {}
+class ${PathConstants().initialStateName()} extends ${PathConstants().stateName()} {
+
+  ${PathConstants().initialStateName()}({
+     this.allWorkersEmit,
+    this.refreshOrInit,
+   });
+  final BaseEmit? allWorkersEmit ;
+  final ${PathConstants().stateName()}? refreshOrInit;
+
+  ${PathConstants().initialStateName()} copyWith({
+    BaseEmit? allWorkersEmit,initialStateName
+    ${PathConstants().stateName()}? refreshOrInit,
+  }) {
+    return ${PathConstants().initialStateName()}(
+      refreshOrInit: refreshOrInit ?? this.refreshOrInit,
+       allWorkersEmit: allWorkersEmit ?? this.allWorkersEmit,
+     );
+  }
+}
+
+ 
 ''';
     state.writeAsStringSync(content);
     print('📄 Created state Dart file: $statePath');

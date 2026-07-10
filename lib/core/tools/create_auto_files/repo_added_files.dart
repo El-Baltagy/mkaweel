@@ -41,6 +41,7 @@ _createRepoClass(String repoPath) {
   if (!file.existsSync()) {
     final content =
         '''
+import 'package:mkaweel/core/shared/methods/print.dart';        
 import 'package:${PathConstants().projectName}/core/constants/app_api.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
