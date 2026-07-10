@@ -5,7 +5,7 @@ abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
   late final WorkersCubit workersCubit;
   final _key = GlobalKey<FormState>();
   List<(GlobalKey<FormFieldState<dynamic>>, FocusNode?)> listFields =
-      List.generate(4, (index) => (.new(), .new()));
+      List.generate(5, (index) => (.new(), .new()));
 
 
   final _nameController = TextEditingController();

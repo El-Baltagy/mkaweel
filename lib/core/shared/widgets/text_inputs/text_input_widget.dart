@@ -40,10 +40,12 @@ class _TextInputWidgetState extends State<TextInputWidget> {
       readOnly: data.readOnly,
       enabled: data.enabled,
       obscureText: isPassword ? _obscureText : data.isObscureText,
-      validator: data.enableValidation && data.field != null
-          ? data.validator
-          : null,
-      inputFormatters: data.inputFormatters,
+      validator:
+      // data.enableValidation && data.field != null
+      //     ?
+      data.validator
+          // : null
+      ,inputFormatters: data.inputFormatters,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       onTap: data.onTap,
 
