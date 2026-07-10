@@ -260,3 +260,5 @@ electrical,Electrical,الكهرباء
 confirm_password,confirm password,تأكيد كلمة المرور
 
 password_and_confirm_password_must_be_identical,password and confirm password must be identical,كلمة المرور وتأكيد كلمة المرور يجب أن تكون متطابقة
+
+the_password_must_be_at_least_6_characters,The password must be at least 6 characters,يجب أن تتكون كلمة المرور من 6 أحرف على الأقل

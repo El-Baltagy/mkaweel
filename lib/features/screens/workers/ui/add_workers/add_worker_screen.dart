@@ -197,11 +197,8 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
     return TitleWithInputField(
               'confirm_password'.tr(),
               PasswordInputData(
-                validator: (value) {
-                  if (value?.isEmpty == true) {
-                    return "can't_be_empty".tr();
-                  }
-                  if (value?.trim() !=_pwController.text.trim()) {
+                additionalValidator: (value) {
+                  if (value?.trim() != _pwController.text.trim()) {
                     return 'password_and_confirm_password_must_be_identical'.tr();
                   }
                   return null;
