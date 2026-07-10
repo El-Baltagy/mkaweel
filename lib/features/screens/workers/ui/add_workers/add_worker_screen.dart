@@ -186,7 +186,7 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
   BottomSheetSelector buildRole() {
     return BottomSheetSelector(
               field: listFields[4],
-              isMultiSelect: true,
+              isMultiSelect: false,
               title: 'role'.tr() + " / " + "access_level".tr(),
               listChoices: listChoices,
               selectedRoleNotifier: _roleIndexesNotifier,
