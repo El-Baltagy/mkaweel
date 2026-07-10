@@ -124,27 +124,31 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
                   child: BlocBuilder<WorkersCubit, WorkersState>(
                     builder: (context, state) {
                       bool isLoading = state is AllWorkersLoaded &&state.addWorkerState is Loading;
-                      return ElevatedButton(
-                        onPressed: () => addUpdateWorker(isLoading),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).primaryColor,
-                          padding: const EdgeInsets.symmetric(
-                            vertical: AppPadding.p16,
+                      return isLoading
+                          ? Center(
+                            child: CircularProgressIndicator(
+                                                   ),
+                          )
+                          :SizedBox(
+                        // height: 50,
+                        child: ElevatedButton(
+                          onPressed: () => addUpdateWorker(isLoading),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Theme.of(context).primaryColor,
+                            padding: const EdgeInsets.symmetric(
+                              vertical: AppPadding.p16,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(AppSizes.s12),
+                            ),
                           ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(AppSizes.s12),
-                          ),
-                        ),
-                        child: isLoading
-                            ? CircularProgressIndicator(
-                                color: context.theme.scaffoldBackgroundColor,
-                              )
-                            : Text(
-                                'save'.tr(),
-                                style: AppTextStyles.font16SemiBold.copyWith(
-                                  color: context.theme.scaffoldBackgroundColor,
+                          child:  Text(
+                                  'save'.tr(),
+                                  style: AppTextStyles.font16SemiBold.copyWith(
+                                    color: context.theme.scaffoldBackgroundColor,
+                                  ),
                                 ),
-                              ),
+                        ),
                       );
                     },
                   ),
@@ -229,7 +233,7 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
               EmailInputData(
                 isLabel: false,
                  field: listFields[1],
-                labelText: 'email@gmail.com'.tr(),
+                labelText: 'email@gmail.com' ,
                 controller: _emailController,
               ),
             );

@@ -22,7 +22,8 @@ class AllWorkersLoaded extends WorkersState {
   }) {
     return AllWorkersLoaded(
       refreshOrInit: refreshOrInit ?? this.refreshOrInit,
-       allWorkersEmit: allWorkersEmit ?? this.allWorkersEmit,
+      allWorkersEmit: allWorkersEmit ?? this.allWorkersEmit,
+      addWorkerState: addWorkerState ?? this.addWorkerState,
      );
   }
 }

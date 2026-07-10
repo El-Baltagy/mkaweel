@@ -68,7 +68,7 @@ extension AppRouterExtension on BuildContext {
         gravity: gravity  ,
         timeInSecForIosWeb: 3,
         backgroundColor: backgroundColor?? (isSuccess?theme.primaryColor:theme.colorScheme.error),
-        textColor: textColor?? theme.colorScheme.onPrimary,
+        textColor: textColor?? theme.scaffoldBackgroundColor,
         fontSize: 16.0);
   }
   PageRouteBuilder<dynamic> _createRoute(

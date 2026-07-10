@@ -65,13 +65,13 @@ class WorkerCardWidget extends StatelessWidget {
           ),
           const SizedBox(width: AppSizes.s12),
            Column(
+             spacing: AppSizes.s8,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(worker.name, style: AppTextStyles.font16SemiBold),
               if(worker.role!=null)
               Text(worker.role!, style: AppTextStyles.font14Regular.copyWith(color: Theme.of(context).primaryColor)),
-              const SizedBox(height: AppSizes.s8),
-              if(worker.phone!=null)
+               if(worker.phone!=null)
               GestureDetector(
                 onTap:  worker.phone!.redirectToPhoneCall ,
                 child: Row(
@@ -87,18 +87,17 @@ class WorkerCardWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: AppSizes.s4),
-              Row(
+              if(worker.dob!=null)
+               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    '${'certificate_expiry'.tr()} : ${worker.dob}',
+                    '${'date_of_birth'.tr()} : ${worker.dob}',
                     style: AppTextStyles.font12Regular,
                   ),
                 ],
               ),
-              const SizedBox(height: AppSizes.s8),
-              Container(
+               Container(
                 padding: const EdgeInsets.symmetric(horizontal: AppPadding.p12, vertical: AppPadding.p4),
                 decoration: BoxDecoration(
                   color: isActive
@@ -131,7 +130,7 @@ class WorkerCardWidget extends StatelessWidget {
               ),
               const SizedBox(height: AppSizes.s12),
               InkWell(
-                onTap: () {},
+                onTap: () => workersCubit.deleteWorkerFunc(parameter: worker.id),
                 child:   Icon(Icons.delete_outline, color: context.theme.colorScheme.secondary, size: 20),
               ),
             ],

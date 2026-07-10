@@ -78,10 +78,10 @@ abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
         if( x.data?.status=="success"){
           context.pop(true);
         }
-        context.showToast( x.data?.message,isSuccess: false);
+        context.showToast( x.data?.message );
       }
       if(s.addWorkerState is ErrorState){
-        context.showToast( '',isSuccess: false);
+        context.showToast( (s.addWorkerState as ErrorState ) .failure.message,isSuccess: false);
       }
     }
   }

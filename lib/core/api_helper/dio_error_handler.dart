@@ -53,6 +53,7 @@ abstract class DioErrorHandler {
             break;
           }
         }
+
       }
     } catch (_) {
       // response.data wasn't valid JSON
