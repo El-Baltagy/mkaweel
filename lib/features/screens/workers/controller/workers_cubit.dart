@@ -23,7 +23,7 @@ class WorkersCubit extends BaseCubit<WorkersState> {
 
 
    // Always holds the latest combined state — used by copyWith
-   AllWorkersLoaded get _current => state is AllWorkersLoaded
+   AllWorkersLoaded get current => state is AllWorkersLoaded
        ? state as AllWorkersLoaded
        : AllWorkersLoaded();
 
@@ -46,9 +46,9 @@ class WorkersCubit extends BaseCubit<WorkersState> {
           baseRequestBackType:Init(),
           parameter: parameter ,
           cancelToken: token,
-          onLoadCallback: () => safeEmit(_current.copyWith(allWorkersEmit: Loading() )),
-          onRightCallback: (data) => safeEmit(_current.copyWith(allWorkersEmit:Success(data))),
-          onLeftCallback: (failure) => safeEmit(_current.copyWith(allWorkersEmit:ErrorState(failure))),
+          onLoadCallback: () => safeEmit(current.copyWith(allWorkersEmit: Loading() )),
+          onRightCallback: (data) => safeEmit(current.copyWith(allWorkersEmit:Success(data))),
+          onLeftCallback: (failure) => safeEmit(current.copyWith(allWorkersEmit:ErrorState(failure))),
         ),
       );
     });
@@ -70,9 +70,10 @@ class WorkersCubit extends BaseCubit<WorkersState> {
         RequestCallbackObserver<DeleteProjectRes, AddWorkerDataRequest>(
            parameter: parameter,
           cancelToken: token,
-          onLoadCallback: () => safeEmit(_current.copyWith(addUpdateWorkerState: Loading())),
-          onRightCallback: (data) => safeEmit(_current.copyWith(addUpdateWorkerState: Success(data))),
-          onLeftCallback: (failure) => safeEmit(_current.copyWith(addUpdateWorkerState: ErrorState(failure))),
+          onLoadCallback: () => safeEmit( current.copyWith(
+                addUpdateWorkerState: Loading()) ..deleteWorkerState=null),
+          onRightCallback: (data) => safeEmit(current.copyWith(addUpdateWorkerState: Success(data))),
+          onLeftCallback: (failure) => safeEmit(current.copyWith(addUpdateWorkerState: ErrorState(failure))),
         ),
       );
     });
@@ -84,25 +85,26 @@ class WorkersCubit extends BaseCubit<WorkersState> {
         RequestCallbackObserver<DeleteProjectRes, DeleteProjectParameter>(
            parameter: parameter,
           cancelToken: token,
-          onLoadCallback: () => safeEmit(_current.copyWith(deleteWorkerState: Loading(),
-              deletingWorkersIds: [..._current.deletingWorkersIds, parameter.id.toString()]
+          onLoadCallback: () => safeEmit(current.copyWith(deleteWorkerState: Loading(),
+              deletingWorkersIds: [...current.deletingWorkersIds, parameter.id.toString()]
 
           )),
-           onRightCallback: (data) => safeEmit(_current.copyWith(
-            allWorkersEmit: _current.allWorkersEmit is Success<AllWorkers> ?
-            Success<AllWorkers>((_current.allWorkersEmit as Success<AllWorkers>).data!.copyWith(
-              data: (_current.allWorkersEmit as Success<AllWorkers>).data!.data.where((element) => element.id.toString() != parameter.id.toString()).toList(),
+           onRightCallback: (data) => safeEmit(current.copyWith(
+            allWorkersEmit: current.allWorkersEmit is Success<AllWorkers> ?
+            Success<AllWorkers>((current.allWorkersEmit as Success<AllWorkers>).data!.copyWith(
+              data: (current.allWorkersEmit as Success<AllWorkers>).data!.data.where((element) => element.id.toString() != parameter.id.toString()).toList(),
             ))
-                :_current.allWorkersEmit,
+                :current.allWorkersEmit,
             deleteWorkerState: Success(data),
-            deletingWorkersIds: _current.deletingWorkersIds.where((id) => id != parameter.id.toString()).toList(),
+            deletingWorkersIds: current.deletingWorkersIds.where((id) => id != parameter.id.toString()).toList(),
           )),
-          onLeftCallback: (failure) => safeEmit(_current.copyWith(deleteWorkerState: ErrorState(failure),
-            deletingWorkersIds: _current.deletingWorkersIds.where((id) => id != parameter.id.toString()).toList(),
+          onLeftCallback: (failure) => safeEmit(current.copyWith(deleteWorkerState: ErrorState(failure),
+            deletingWorkersIds: current.deletingWorkersIds.where((id) => id != parameter.id.toString()).toList(),
 
           )),
         ),
-      );
+        
+      ) ;
     });
   }
 }

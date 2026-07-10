@@ -87,7 +87,8 @@ class WorkerCardWidget extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () async {
-                  var result=await context.push(AddWorkerRoute(args:   AddWorkerRouteArgs(workerItem:  worker )));
+                  var result=await context.push(AddWorkerRoute(args:   AddWorkerRouteArgs(workerItem:  worker ,
+                   )));
                   if (result == true) {
                     await workersCubit.getWorkersFunc();
                   }
@@ -114,6 +115,8 @@ class WorkerCardWidget extends StatelessWidget {
     )
         :InkWell(
                 onTap: DeletePjDialouge(
+                    title: 'delete_worker'.tr(),
+                    subTitle:'are_you_sure_you_want_to_delete_this_worker'.tr() ,
                   onPressedDelete: () => workersCubit.deleteWorkerFunc(parameter: .new(worker.id.toString()),
                 )).toShowDialouge,
                  child:   Icon(Icons.delete_outline, color: context.theme.colorScheme.secondary, size: 20),

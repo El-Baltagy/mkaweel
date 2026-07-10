@@ -23,10 +23,13 @@ class BottomSheetSelector extends StatefulWidget {
 
 class _BottomSheetSelectorState extends State<BottomSheetSelector> {
   final TextEditingController _controller=.new();
-  void _listener(){
-    _controller.text=    widget.selectedRoleNotifier.value?.map(
-      (e) => widget.listChoices[e].uiTxt  ,
-    ).toList().join(" , ")??"";
+  void _listener() {
+    final validIndexes = widget.selectedRoleNotifier.value
+        .where((e) => e >= 0 && e < widget.listChoices.length)
+        .toList();
+    _controller.text = validIndexes
+        .map((e) => widget.listChoices[e].uiTxt)
+        .join(' , ');
   }
   @override
   void initState() {

@@ -1,4 +1,5 @@
 part of 'workers_screen.dart';
+
 abstract class WorkersPageBaseState extends State<WorkersPage> {
   late final WorkersCubit workersCubit;
 
@@ -8,24 +9,32 @@ abstract class WorkersPageBaseState extends State<WorkersPage> {
     workersCubit = WorkersCubit.get(context: context);
     loadData();
   }
+
   Future<void> loadData() async {
-    await  workersCubit.getWorkersFunc();
+    await workersCubit.getWorkersFunc();
   }
+
   @override
   void dispose() {
     super.dispose();
   }
 
-  void   listenerWorkersCubit(BuildContext c, WorkersState s){
-    if(s is AllWorkersLoaded ){
-      if(s.deleteWorkerState is Success<DeleteProjectRes?>){
-        final x=s.deleteWorkerState as Success<DeleteProjectRes?>;
-        if(ModalRoute.of(c)?.isActive==true ) {
-          context.showToast( x.data?.message );
-        }
+  void listenerWorkersCubit(BuildContext c, WorkersState s) {
+    if (s is AllWorkersLoaded) {
+      if (s.deleteWorkerState is Success<DeleteProjectRes>) {
+        final x = s.deleteWorkerState as Success<DeleteProjectRes>;
+
+        context
+            .showToast(x.data!.message)
+            .whenComplete(() => workersCubit.current.deleteWorkerState = null);
       }
-      if(s.deleteWorkerState is ErrorState){
-        context.showToast( (s.deleteWorkerState as ErrorState ) .failure.message,isSuccess: false);
+      if (s.deleteWorkerState is ErrorState) {
+        context
+            .showToast(
+              (s.deleteWorkerState as ErrorState).failure.message,
+              isSuccess: false,
+            )
+            .whenComplete(() => workersCubit.current.deleteWorkerState = null);
       }
     }
   }

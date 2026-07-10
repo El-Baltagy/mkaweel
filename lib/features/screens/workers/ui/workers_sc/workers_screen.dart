@@ -51,7 +51,8 @@ class _WorkersPageState extends WorkersPageBaseState {
           leading: IconButton(
             icon:   Icon(Icons.add, color: context.theme.scaffoldBackgroundColor),
             onPressed:  () async {
-              var result=await context.push(AddWorkerRoute(args: const AddWorkerRouteArgs(workerItem: null)));
+              var result=await context.push(AddWorkerRoute(args:   AddWorkerRouteArgs(workerItem: null,
+                   )));
               if (result == true) {
                 await workersCubit.getWorkersFunc();
               }

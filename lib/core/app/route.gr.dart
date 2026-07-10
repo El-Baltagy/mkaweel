@@ -430,8 +430,8 @@ class AddWorkerRoute extends PageRouteInfo<AddWorkerRouteArgs> {
   PageInfo<AddWorkerRouteArgs>(name);
 }
 class AddWorkerRouteArgs {
-  const AddWorkerRouteArgs( {required this.workerItem});
+  const AddWorkerRouteArgs( {required this.workerItem });
   final WorkerItem? workerItem;
-  static AddWorkerRouteArgs noArgs()=>AddWorkerRouteArgs(workerItem:null);
+   static AddWorkerRouteArgs noArgs()=>AddWorkerRouteArgs(workerItem:null );
 }
 

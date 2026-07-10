@@ -15,8 +15,6 @@ import 'package:mkaweel/core/shared/widgets/text_inputs/name_text_input_data.dar
 import 'package:mkaweel/core/shared/widgets/text_inputs/password_text_input_data.dart';
 import 'package:mkaweel/features/screens/create_project/ui/widgets/title_with_input.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
-import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
-import 'package:mkaweel/features/screens/projects/data/model/all_projects_res/all_projects_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/delete_project_res/delete_project_res.dart';
 import 'package:mkaweel/features/screens/workers/controller/workers_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -56,7 +54,7 @@ class AddWorkerPage extends StatefulWidget implements AutoRouteWrapper {
 }
 
 class _AddWorkerPageState extends AddWorkerPageBaseState {
-ascsc(){}
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<WorkersCubit, WorkersState>(
@@ -85,11 +83,7 @@ ascsc(){}
             ),
           ],
         ),
-        floatingActionButton: FloatingActionButton(onPressed: () {
-          PrintHelper().ordinaryPrint(widget.args.workerItem?.projects.map((e) => e.id).toList());
-          PrintHelper().ordinaryPrint(       (widget.args.workerItem?.projects??[])
-              .map((ee) => pjChoices! .map((e) => e.apiValue).toList().indexOf(ee.id.toString())).toList());
-        },),
+
         body: Form(
           key: _key,
           child: SingleChildScrollView(

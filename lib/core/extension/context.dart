@@ -56,7 +56,7 @@ extension AppRouterExtension on BuildContext {
 //       backgroundColor: backgroundColor  ,
 //     ),
 //   );
-  void showToast( String? message, {
+  Future<void> showToast( String? message, {
   Color? textColor,
   Color? backgroundColor,
     bool isSuccess=true,

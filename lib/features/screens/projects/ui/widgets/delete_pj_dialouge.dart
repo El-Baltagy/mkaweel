@@ -4,18 +4,18 @@ import 'package:mkaweel/main.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class DeletePjDialouge extends StatelessWidget {
-  const DeletePjDialouge({super.key, required this.onPressedDelete});
+  const DeletePjDialouge({super.key, required this.onPressedDelete, required this.title, required this.subTitle});
   final void Function()? onPressedDelete;
-
+  final String title,subTitle;
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       title: Text(
-        'delete_project'.tr(),
-        style: const TextStyle(fontWeight: FontWeight.bold),
+          title,
+         style: const TextStyle(fontWeight: FontWeight.bold),
       ),
-      content: Text('are_you_sure_you_want_to_delete_this_project'.tr()),
+       content: Text(subTitle),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),

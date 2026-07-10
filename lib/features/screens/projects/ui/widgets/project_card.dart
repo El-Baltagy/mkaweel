@@ -104,6 +104,8 @@ class ProjectCard extends StatelessWidget {
                                 )
                               : GestureDetector(
                                   onTap: DeletePjDialouge(
+                                    title: 'delete_project'.tr(),
+                                    subTitle:'are_you_sure_you_want_to_delete_this_project'.tr() ,
                                     onPressedDelete: () => projectsCubit.deleteProjectFunc(
                                       parameter: DeleteProjectParameter(projectInfoData.id.toString())
                                     ),

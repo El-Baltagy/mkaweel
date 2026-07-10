@@ -32,11 +32,12 @@ abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
     _specController.text=widget.args.workerItem?.specialization??"";
     _phoneController.text=widget.args.workerItem?.phone??"";
     _dobController.text=widget.args.workerItem?.dob??"";
-    Future.delayed(Duration(milliseconds: 500),() {
-      _roleIndexesNotifier.value=[
-        listChoices.indexWhere((element) => element.apiValue==widget.args.workerItem?.role)
-      ];
-    },);
+    Future.delayed(const Duration(milliseconds: 500), () {
+      final idx = listChoices.indexWhere(
+        (element) => element.apiValue == widget.args.workerItem?.role,
+      );
+      if (idx != -1) _roleIndexesNotifier.value = [idx];
+    });
 
   }
 
@@ -88,10 +89,9 @@ abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
       if(s.addUpdateWorkerState is Success<DeleteProjectRes?>){
         final x=s.addUpdateWorkerState as Success<DeleteProjectRes?>;
         if( x.data?.status=="success"){
-          Future.delayed(const Duration(
-            seconds: 0),() {
-            if(mounted)context.pop(true);
-            },);
+          // Future.delayed(Duration(seconds: 0),() {
+            context.pop(true);
+          // },);
         }
         context.showToast( x.data?.message );
       }

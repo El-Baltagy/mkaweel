@@ -14,7 +14,7 @@ class AllWorkersLoaded extends WorkersState {
      this.deletingWorkersIds= const [],
     this.refreshOrInit, this.addUpdateWorkerState,
    });
-  final BaseEmit? allWorkersEmit , addUpdateWorkerState, deleteWorkerState;
+    BaseEmit? allWorkersEmit , addUpdateWorkerState, deleteWorkerState;
   final WorkersState? refreshOrInit;
   final List<String> deletingWorkersIds;
   AllWorkersLoaded copyWith({
@@ -22,14 +22,16 @@ class AllWorkersLoaded extends WorkersState {
     BaseEmit? addUpdateWorkerState,
     BaseEmit? allWorkersEmit,
     WorkersState? refreshOrInit,
-      List<String>? deletingWorkersIds
+    List<String>? deletingWorkersIds,
   }) {
     return AllWorkersLoaded(
       deletingWorkersIds: deletingWorkersIds ?? this.deletingWorkersIds,
       refreshOrInit: refreshOrInit ?? this.refreshOrInit,
       allWorkersEmit: allWorkersEmit ?? this.allWorkersEmit,
-      addUpdateWorkerState: addUpdateWorkerState ?? this.addUpdateWorkerState,
-      deleteWorkerState: deleteWorkerState ?? this.deleteWorkerState,
-     );
+      // When addUpdateWorkerState changes → reset deleteWorkerState to null (and vice versa)
+      // This prevents the other screen's listener from re-firing on a stale Success state.
+      addUpdateWorkerState: addUpdateWorkerState ??  this.addUpdateWorkerState,
+       deleteWorkerState: deleteWorkerState ?? this.deleteWorkerState,
+    );
   }
 }
