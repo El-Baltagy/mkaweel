@@ -7,15 +7,15 @@ import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/context.dart';
+import 'package:mkaweel/features/screens/workers/controller/workers_cubit.dart';
 import 'package:mkaweel/features/screens/workers/data/model/all_workers/all_workers.dart';
 part   'empty_workers.dart';
 
 
 class WorkersListWidget extends StatelessWidget {
-  const WorkersListWidget({super.key, required  this.emit});
+  const WorkersListWidget({super.key, required  this.emit, required this.workersCubit});
   final BaseEmit? emit;
-  // final List<WorkerModel> workers;
-
+   final WorkersCubit workersCubit;
   @override
   Widget build(BuildContext context) {
     bool isLoading=emit is! Success<AllWorkers?>;
@@ -27,7 +27,7 @@ class WorkersListWidget extends StatelessWidget {
       padding: const EdgeInsets.all(AppPadding.p16),
       itemCount: workers.length,
       separatorBuilder: (_, __) => const SizedBox(height: AppSizes.s12),
-      itemBuilder: (context, index) => WorkerCardWidget(worker: workers[index]),
+      itemBuilder: (context, index) => WorkerCardWidget(worker: workers[index],workersCubit:workersCubit),
     );
   }
 }
@@ -35,11 +35,12 @@ class WorkersListWidget extends StatelessWidget {
 
 
 class WorkerCardWidget extends StatelessWidget {
-  const WorkerCardWidget({super.key, required this.worker});
+  const WorkerCardWidget({super.key, required this.worker, required this.workersCubit});
   final WorkerItem worker;
-
+  final WorkersCubit workersCubit;
   @override
   Widget build(BuildContext context) {
+
     bool isActive=true;
     return Container(
       padding: const EdgeInsets.all(AppPadding.p16),
@@ -120,7 +121,12 @@ class WorkerCardWidget extends StatelessWidget {
           Column(
             children: [
               InkWell(
-                onTap: () =>context.push(AddWorkerRoute(args: .new(workerId: worker.id))),
+                 onTap: () async {
+                  var result=await context.push(AddWorkerRoute(args:   AddWorkerRouteArgs(workerId:  worker.id)));
+                  if (result == true) {
+                    await workersCubit.getWorkersFunc();
+                  }
+                },
                 child: Icon(Icons.edit_outlined, color: Theme.of(context).primaryColor, size: 20),
               ),
               const SizedBox(height: AppSizes.s12),

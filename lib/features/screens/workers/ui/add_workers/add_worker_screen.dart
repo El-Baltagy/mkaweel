@@ -9,12 +9,14 @@ import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/extension/form_auto_scroll.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/dob_text_input_data.dart';
+import 'package:mkaweel/core/shared/widgets/text_inputs/email_text_input_data.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/name_text_input_data.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/password_text_input_data.dart';
 import 'package:mkaweel/features/screens/create_project/ui/widgets/title_with_input.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
 import 'package:mkaweel/features/screens/projects/data/model/all_projects_res/all_projects_res.dart';
+import 'package:mkaweel/features/screens/projects/data/model/delete_project_res/delete_project_res.dart';
 import 'package:mkaweel/features/screens/workers/controller/workers_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/Material.dart';
@@ -57,9 +59,7 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
   @override
   Widget build(BuildContext context) {
     return BlocListener<WorkersCubit, WorkersState>(
-      listener: (context, state) {
-        // TODO: implement listener}
-      },
+      listener: listenerWorkersCubit,
       child: Scaffold(
         backgroundColor: context.theme.scaffoldBackgroundColor,
         appBar: AppBar(
@@ -123,7 +123,7 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
                   width: double.infinity,
                   child: BlocBuilder<WorkersCubit, WorkersState>(
                     builder: (context, state) {
-                      bool isLoading = false;
+                      bool isLoading = state is AllWorkersLoaded &&state.addWorkerState is Loading;
                       return ElevatedButton(
                         onPressed: () => addUpdateWorker(isLoading),
                         style: ElevatedButton.styleFrom(
@@ -229,16 +229,16 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
   TitleWithInputField buildEmail() {
     return TitleWithInputField(
               'email'.tr(),
-              NameInputData(
+              EmailInputData(
                 isLabel: false,
-                widgetPrefix: const SizedBox.shrink(),
-                field: listFields[1],
+                 field: listFields[1],
                 labelText: 'email@gmail.com'.tr(),
                 controller: _emailController,
               ),
             );
   }
-
+//test@gmail.com
+  //building
   TitleWithInputField buildName() {
     return TitleWithInputField(
               'worker_name'.tr(),

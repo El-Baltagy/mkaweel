@@ -71,7 +71,20 @@ abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
       );
     }
   }
-
+  void   listenerWorkersCubit(BuildContext c, WorkersState s){
+    if(s is AllWorkersLoaded ){
+      if(s.addWorkerState is Success<DeleteProjectRes?>){
+        final x=s.addWorkerState as Success<DeleteProjectRes?>;
+        if( x.data?.status=="success"){
+          context.pop(true);
+        }
+        context.showToast( x.data?.message,isSuccess: false);
+      }
+      if(s.addWorkerState is ErrorState){
+        context.showToast( '',isSuccess: false);
+      }
+    }
+  }
   List<UIApiKeys> listChoices = [
     .new('worker'.tr(), 'Worker'),
     .new('supervisor'.tr(), 'Supervisor'),

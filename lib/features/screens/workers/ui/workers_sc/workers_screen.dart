@@ -49,7 +49,12 @@ class _WorkersPageState extends WorkersPageBaseState {
           centerTitle: true,
           leading: IconButton(
             icon:   Icon(Icons.add, color: context.theme.scaffoldBackgroundColor),
-            onPressed:  () => context.push(AddWorkerRoute(args: const AddWorkerRouteArgs(workerId: null))),
+            onPressed:  () async {
+              var result=await context.push(AddWorkerRoute(args: const AddWorkerRouteArgs(workerId: null)));
+              if (result == true) {
+                await workersCubit.getWorkersFunc();
+              }
+            } ,
           ),
 
         ),
@@ -68,7 +73,7 @@ class _WorkersPageState extends WorkersPageBaseState {
             Expanded(child: BlocSelector<WorkersCubit, WorkersState, BaseEmit?>(
   selector: (state)=> state is AllWorkersLoaded? state.allWorkersEmit  :null,
   builder: (context, state) {
-    return WorkersListWidget(emit:state);
+    return WorkersListWidget(emit:state,workersCubit:workersCubit);
   },
 )),
           ],

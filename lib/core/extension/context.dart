@@ -56,11 +56,12 @@ extension AppRouterExtension on BuildContext {
 //       backgroundColor: backgroundColor  ,
 //     ),
 //   );
-  void showToast( String message, {
+  void showToast( String? message, {
   Color? textColor,
   Color? backgroundColor,
     bool isSuccess=true,
   ToastGravity  gravity= .BOTTOM})async {
+    if(message==null)return ;
     await Fluttertoast.showToast(
         msg: message,
         toastLength: Toast.LENGTH_SHORT,
