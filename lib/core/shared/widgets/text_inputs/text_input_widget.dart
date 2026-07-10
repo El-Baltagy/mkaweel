@@ -1,25 +1,48 @@
-import 'package:flutter/Material.dart';
+import 'package:flutter/material.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
-import 'package:flutter/material.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/base_text_input_data.dart';
+import 'package:mkaweel/core/shared/widgets/text_inputs/password_text_input_data.dart';
 
-class  TextInputWidget extends StatelessWidget {
-  const  TextInputWidget({super.key, required this.data});
+class TextInputWidget extends StatefulWidget {
+  const TextInputWidget({super.key, required this.data});
 
   final BaseTextInputData data;
 
   @override
-  Widget build(BuildContext context) {
-    return data.isSingleOrMultiSelect
-        ? GestureDetector(
-      onTap: data.onTap,
-      child: AbsorbPointer(child: _buildTextFormField(data,context)),
-    )
-        : _buildTextFormField(data,context);
+  State<TextInputWidget> createState() => _TextInputWidgetState();
+}
+
+class _TextInputWidgetState extends State<TextInputWidget> {
+  late bool _obscureText;
+
+  @override
+  void initState() {
+    super.initState();
+    _obscureText = widget.data.isObscureText;
   }
-  Widget _buildTextFormField(BaseTextInputData data,BuildContext context) {
+
+  @override
+  void didUpdateWidget(covariant TextInputWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.data.isObscureText != widget.data.isObscureText) {
+      _obscureText = widget.data.isObscureText;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return widget.data.isSingleOrMultiSelect
+        ? GestureDetector(
+            onTap: widget.data.onTap,
+            child: AbsorbPointer(child: _buildTextFormField(widget.data, context)),
+          )
+        : _buildTextFormField(widget.data, context);
+  }
+
+  Widget _buildTextFormField(BaseTextInputData data, BuildContext context) {
+    final bool isPassword = data is PasswordInputData;
 
     return TextFormField(
       focusNode: data.field?.$2,
@@ -28,12 +51,12 @@ class  TextInputWidget extends StatelessWidget {
       keyboardType: data.keyboardType,
       readOnly: data.readOnly,
       enabled: data.enabled,
-      obscureText:data.isObscureText ,
+      obscureText: isPassword ? _obscureText : data.isObscureText,
       validator: data.enableValidation && data.field != null
           ? data.validator
           : null,
       inputFormatters: data.inputFormatters,
-      autovalidateMode: .onUserInteraction,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       onTap: data.onTap,
 
       decoration: InputDecoration(
@@ -55,6 +78,19 @@ class  TextInputWidget extends StatelessWidget {
             : data.icon == null
             ? null
             : Icon(data.icon, color: Theme.of(context).primaryColor),
+        suffixIcon: isPassword
+            ? IconButton(
+                icon: Icon(
+                  _obscureText ? Icons.visibility : Icons.visibility_off,
+                  color: AppColors.contractorGreyText,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _obscureText = !_obscureText;
+                  });
+                },
+              )
+            : null,
         filled: true,
         fillColor: context.theme.scaffoldBackgroundColor,
         contentPadding: const EdgeInsets.symmetric(
@@ -76,6 +112,6 @@ class  TextInputWidget extends StatelessWidget {
       ),
     );
   }
- }
+}
 
 

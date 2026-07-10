@@ -10,6 +10,7 @@ class PasswordInputData extends BaseTextInputData {
     super.field
   }) : super(
     icon: Icons.lock,
+       isObscureText: true,
        // enableObsecureText: true,
        // enableObsecureTxtToogle: true,
        labelText: labelText??'password'.tr(),
