@@ -44,4 +44,8 @@ abstract class AppConstant {
   static const String addWorkerKeyCash = 'workers_addWorker_cache';
 
   static const int addWorkerKeyCode = 8466;
+
+  static const String deleteWorkerKeyCash = 'workers_deleteWorker_cache';
+
+  static const int deleteWorkerKeyCode = 7934;
 }

@@ -1,8 +1,10 @@
+import 'package:mkaweel/core/api_helper/caller_tag.dart';
 import 'package:mkaweel/core/constants/app_constant.dart';
 import 'package:dio/dio.dart';
 import 'package:mkaweel/core/api_helper/response_handler.dart';
 import 'package:mkaweel/core/constants/app_api.dart';
 import 'package:mkaweel/core/shared/methods/print.dart';
+import 'package:mkaweel/features/screens/projects/data/model/delete_pj_parameter.dart';
 import 'package:mkaweel/features/screens/projects/data/model/delete_project_res/delete_project_res.dart';
 import 'package:mkaweel/features/screens/workers/data/model/add_worker_data_request.dart';
 import 'package:mkaweel/features/screens/workers/data/model/all_workers/all_workers.dart';
@@ -40,6 +42,20 @@ class WorkersRepo extends BaseRepo {
         uri: EndPoints.addWorker,
         cancelToken: cancelToken,
         caller: getTag(),
+      ),
+      asObject: DeleteProjectRes.fromJson,
+    );
+  }
+
+  Future<Either<Failure, DeleteProjectRes>> deleteWorkerApi(
+    DeleteProjectParameter? parameter, {
+    CancelToken? cancelToken,
+  }) async {
+    return handleResponse(
+      onCallData: dio.deleteData(
+        uri: EndPoints.deleteWorker(parameter!.id),
+        cancelToken: cancelToken,
+        caller: callerTag(),
       ),
       asObject: DeleteProjectRes.fromJson,
     );

@@ -6,6 +6,7 @@ import 'package:mkaweel/core/base/base_service.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_constant.dart';
 import 'package:mkaweel/core/shared/methods/print.dart';
+import 'package:mkaweel/features/screens/projects/data/model/delete_pj_parameter.dart';
 import 'package:mkaweel/features/screens/projects/data/model/delete_project_res/delete_project_res.dart';
 import 'package:mkaweel/features/screens/workers/data/model/add_worker_data_request.dart';
 import 'package:mkaweel/features/screens/workers/data/model/all_workers/all_workers.dart';
@@ -30,6 +31,8 @@ class WorkersCubit extends BaseCubit<WorkersState> {
    int get getWorkersKeyCode => AppConstant.getWorkersKeyCode;
     int get addWorkerKeyCode => AppConstant.addWorkerKeyCode;
 
+    int get deleteWorkerKeyCode => AppConstant.deleteWorkerKeyCode;
+
   Future<void> init() async {
      // TODO: implement init
 
@@ -53,6 +56,9 @@ class WorkersCubit extends BaseCubit<WorkersState> {
   @override
   Future<void> close() {
     // add every key in file
+    CancelManager.cancel(deleteWorkerKeyCode);
+
+    // add every key in file
     CancelManager.cancel(addWorkerKeyCode);
 
     // add every key in file
@@ -69,6 +75,35 @@ class WorkersCubit extends BaseCubit<WorkersState> {
           onLoadCallback: () => safeEmit(_current.copyWith(addWorkerState: Loading())),
           onRightCallback: (data) => safeEmit(_current.copyWith(addWorkerState: Success(data))),
           onLeftCallback: (failure) => safeEmit(_current.copyWith(addWorkerState: ErrorState(failure))),
+        ),
+      );
+    });
+  }
+
+  Future<void> deleteWorkerFunc( {required DeleteProjectParameter  parameter}) async {
+    await CancelManager.runCancelableFun(deleteWorkerKeyCode, (token) async {
+      await _service.deleteWorkerServ(
+        RequestCallbackObserver<DeleteProjectRes, DeleteProjectParameter>(
+           parameter: parameter,
+          cancelToken: token,
+          onLoadCallback: () => safeEmit(_current.copyWith(deleteWorkerState: Loading(),
+              deletingWorkersIds: [..._current.deletingWorkersIds, parameter.id.toString()]
+
+          )),
+          // onRightCallback: (data) => safeEmit(_current.copyWith(deleteWorkerState: Success(data),)),
+          onRightCallback: (data) => safeEmit(_current.copyWith(
+            allWorkersEmit: _current.allWorkersEmit is Success<AllWorkers> ?
+            Success<AllWorkers>((_current.allWorkersEmit as Success<AllWorkers>).data!.copyWith(
+              data: (_current.allWorkersEmit as Success<AllWorkers>).data!.data.where((element) => element.id.toString() != parameter.id.toString()).toList(),
+            ))
+                :_current.allWorkersEmit,
+            deleteWorkerState: Success(data),
+            deletingWorkersIds: _current.deletingWorkersIds.where((id) => id != parameter.id.toString()).toList(),
+          )),
+          onLeftCallback: (failure) => safeEmit(_current.copyWith(deleteWorkerState: ErrorState(failure),
+            deletingWorkersIds: _current.deletingWorkersIds.where((id) => id != parameter.id.toString()).toList(),
+
+          )),
         ),
       );
     });

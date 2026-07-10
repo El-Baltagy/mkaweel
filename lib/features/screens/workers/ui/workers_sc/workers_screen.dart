@@ -7,6 +7,7 @@ import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
  import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
+import 'package:mkaweel/features/screens/projects/data/model/delete_project_res/delete_project_res.dart';
 import 'package:mkaweel/features/screens/workers/controller/workers_cubit.dart';
  import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/features/screens/workers/ui/workers_sc/widgets/workers_widgets.dart';
@@ -36,7 +37,7 @@ class _WorkersPageState extends WorkersPageBaseState {
   @override
   Widget build(BuildContext context) {
     return BlocListener<WorkersCubit, WorkersState>(
-      listener: (context, state) {},
+      listener: listenerWorkersCubit,
       child: Scaffold(
         backgroundColor: context.theme.scaffoldBackgroundColor,
         appBar: AppBar(

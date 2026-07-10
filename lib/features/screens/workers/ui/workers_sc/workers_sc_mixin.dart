@@ -15,4 +15,16 @@ abstract class WorkersPageBaseState extends State<WorkersPage> {
   void dispose() {
     super.dispose();
   }
+
+  void   listenerWorkersCubit(BuildContext c, WorkersState s){
+    if(s is AllWorkersLoaded ){
+      if(s.deleteWorkerState is Success<DeleteProjectRes?>){
+        final x=s.deleteWorkerState as Success<DeleteProjectRes?>;
+         context.showToast( x.data?.message );
+      }
+      if(s.deleteWorkerState is ErrorState){
+        context.showToast( (s.deleteWorkerState as ErrorState ) .failure.message,isSuccess: false);
+      }
+    }
+  }
 }

@@ -23,4 +23,6 @@ static   String deleteProject(String id)  =>  '/api/projects/$id';
   static const String getAllDataww = '/api/getAllDataww';
 
   static const String addWorker = '/api/workers';
+
+  static   String deleteWorker (String id)  => '/api/workers/$id';
 }
