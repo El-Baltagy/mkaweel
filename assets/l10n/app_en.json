@@ -117,6 +117,7 @@
   "now": "Now",
   "owner": "Owner",
   "password": "Password",
+  "password_and_confirm_password_must_be_identical": "password and confirm password must be identical",
   "pending_status": "Pending",
   "pending_task": "Pending",
   "per_40_kg_bag": "Per 40 kg bag",

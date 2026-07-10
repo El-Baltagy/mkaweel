@@ -6,15 +6,14 @@ class PasswordInputData extends BaseTextInputData {
   PasswordInputData({
     super.controller,
     String? labelText,
+    String? Function(String?)? validator,
   super.isLabel,
     super.field
   }) : super(
     icon: Icons.lock,
        isObscureText: true,
-       // enableObsecureText: true,
-       // enableObsecureTxtToogle: true,
        labelText: labelText??'password'.tr(),
-    validator: (value) {
+    validator: validator??(value) {
       if (value?.isEmpty == true) {
         return "can't_be_empty".tr();
       }

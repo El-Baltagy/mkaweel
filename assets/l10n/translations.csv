@@ -255,6 +255,8 @@ access_level,Access Level,مستوى الوصول
 
 masonry,Masonry,البناء
 plumbing,Plumbing,السباكة
-electrical,Electrical,كهربائي
+electrical,Electrical,الكهرباء
 
 confirm_password,confirm password,تأكيد كلمة المرور
+
+password_and_confirm_password_must_be_identical,password and confirm password must be identical,كلمة المرور وتأكيد كلمة المرور يجب أن تكون متطابقة

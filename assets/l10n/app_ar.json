@@ -117,6 +117,7 @@
   "now": "الآن",
   "owner": "المالك",
   "password": "كلمة المرور",
+  "password_and_confirm_password_must_be_identical": "كلمة المرور وتأكيد كلمة المرور يجب أن تكون متطابقة",
   "pending_status": "قيد الانتظار",
   "pending_task": "معلق",
   "per_40_kg_bag": "لكل كيس 40 كغ",
