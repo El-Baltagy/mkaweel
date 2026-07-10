@@ -75,7 +75,27 @@ class DioHelper {
     );
     return res.data;
   }
-
+  Future<dynamic> putData({
+    required String uri,
+    CancelToken? cancelToken,
+    dynamic data,
+    Map<String, dynamic>? query,
+    Map<String, dynamic>? headers,
+    String? caller,
+  }) async {
+    final res = await _dio.put(
+      uri,
+      cancelToken: cancelToken,
+      data: data,
+      queryParameters: query,
+      options: Options(
+        responseType: ResponseType.plain,
+        headers: headers,
+        extra: {'caller': caller},
+      ),
+    );
+    return res.data;
+  }
   Future<dynamic> deleteData({
     required String uri,
     CancelToken? cancelToken,

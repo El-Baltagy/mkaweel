@@ -20,7 +20,9 @@ abstract class WorkersPageBaseState extends State<WorkersPage> {
     if(s is AllWorkersLoaded ){
       if(s.deleteWorkerState is Success<DeleteProjectRes?>){
         final x=s.deleteWorkerState as Success<DeleteProjectRes?>;
-         context.showToast( x.data?.message );
+        if(ModalRoute.of(c)?.isActive==true ) {
+          context.showToast( x.data?.message );
+        }
       }
       if(s.deleteWorkerState is ErrorState){
         context.showToast( (s.deleteWorkerState as ErrorState ) .failure.message,isSuccess: false);

@@ -37,8 +37,16 @@ class WorkersRepo extends BaseRepo {
     CancelToken? cancelToken,
   }) async {
     return handleResponse(
-      onCallData: dio.postData(
-        data:  await parameter!.toJson() ,
+      onCallData:
+      parameter?.workerId!=null?
+      dio.putData(
+        data:  await parameter!.toJson(),
+        uri: EndPoints.updateWorker(parameter.workerId!),
+        cancelToken: cancelToken,
+        caller: callerTag(),
+      ):
+      dio.postData(
+        data:  FormData.fromMap(await parameter!.toJson() ),
         uri: EndPoints.addWorker,
         cancelToken: cancelToken,
         caller: callerTag(),

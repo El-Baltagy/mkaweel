@@ -95,45 +95,35 @@ ascsc(){}
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(AppPadding.p20),
             child: Column(
+              spacing: AppSizes.s16,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 buildName(),
-                AppSizes.s16.verticalSpace,
 
                 buildEmail(),
-                AppSizes.s16.verticalSpace,
-
-                buildPW(),
-                AppSizes.s16.verticalSpace,
-
-                buildPWConfirm(),
-                AppSizes.s16.verticalSpace,
-
+                if(widget.args.workerItem==null)
+                ...[
+                  buildPW(),
+                   buildPWConfirm()
+                ],
                 buildRole(),
-                AppSizes.s16.verticalSpace,
 
                 buildSpecialization(),
-                AppSizes.s16.verticalSpace,
 
                 buildPhone(),
-                AppSizes.s16.verticalSpace,
 
                 buildDOB(context),
-                AppSizes.s16.verticalSpace,
 
-                buildPJBlocPSelector(),
-                AppSizes.s16.verticalSpace,
 
-                AppSizes.s24.verticalSpace,
-                SizedBox(
+                 Container(
+                  margin: const .only(top:AppSizes.s10 ),
                   width: double.infinity,
                   child: BlocBuilder<WorkersCubit, WorkersState>(
                     builder: (context, state) {
-                      bool isLoading = state is AllWorkersLoaded &&state.addWorkerState is Loading;
+                      bool isLoading = state is AllWorkersLoaded &&state.addUpdateWorkerState is Loading;
                       return isLoading
-                          ? Center(
-                            child: CircularProgressIndicator(
-                                                   ),
+                          ? const Center(
+                            child: CircularProgressIndicator(  ),
                           )
                           :SizedBox(
                         // height: 50,
@@ -188,7 +178,7 @@ ascsc(){}
                 validator: (v) => null,
                 labelText: "${['masonry', 'plumbing', 'electrical'].map((e) =>
                     e.tr()).join(' ,')}...",
-                controller: .new(),
+                controller: _specController,
               ),
             );
   }
@@ -284,24 +274,7 @@ ascsc(){}
             );
   }
 
-  BlocSelector<ProjectsCubit, ProjectsState, BaseEmit?> buildPJBlocPSelector() {
-    return BlocSelector<ProjectsCubit, ProjectsState, BaseEmit?>(
-              selector: (state)=>state is ProjectsLoaded?state .allProjectsResState:null,
 
-              builder: (context, state) {
-                bool isLoading=state is! Success<AllProjectsRes?> ;
-                pjChoices=(isLoading?null: state.data?.data.map((e) =>
-                    UIApiKeys(e.name, e.id.toString())
-                ).toList())??[];
-                return BottomSheetSelector(
-                  isMultiSelect: true,
-                  title: "projects".tr(),
-                  listChoices: pjChoices,
-                  selectedRoleNotifier: _projectIdsNotifier,
-                );
-              },
-            );
-  }
 }
 
 

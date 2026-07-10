@@ -4,16 +4,18 @@ class AddWorkerDataRequest {
   AddWorkerDataRequest({
     required this.name,
     required this.email,
+    required this.workerId,
     required this.password,
     required this.dob,
     required this.phone,
     required this.specialization,
     required this.role,
     required this.avatarPath,
-    required this.projectIds,
-  });
+   });
 
-  final String? name,
+  final String?
+  workerId,
+  name,
       email,
       password,
       dob,
@@ -22,9 +24,8 @@ class AddWorkerDataRequest {
       role,
       avatarPath;
 
-  final List<int> projectIds;
 
-  Future<FormData> toJson() async {
+  Future<Map<String,dynamic>> toJson() async {
     final map = <String, dynamic>{
       'name': name,
       'email': email,
@@ -41,13 +42,10 @@ class AddWorkerDataRequest {
         ),
     };
 
-    map.removeWhere((key, value) => value == null);
-    final FormData formData = FormData.fromMap(map);
+    map.removeWhere((key, value) => [null,''].contains( value )    );
 
-    for (final id in projectIds) {
-      formData.fields.add(MapEntry('project_ids[]', id.toString()));
-    }
-    return formData;
+
+    return map;
   }
 }
 

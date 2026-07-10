@@ -12,14 +12,14 @@ class AllWorkersLoaded extends WorkersState {
      this.deleteWorkerState,
      this.allWorkersEmit,
      this.deletingWorkersIds= const [],
-    this.refreshOrInit, this.addWorkerState,
+    this.refreshOrInit, this.addUpdateWorkerState,
    });
-  final BaseEmit? allWorkersEmit , addWorkerState, deleteWorkerState;
+  final BaseEmit? allWorkersEmit , addUpdateWorkerState, deleteWorkerState;
   final WorkersState? refreshOrInit;
   final List<String> deletingWorkersIds;
   AllWorkersLoaded copyWith({
     BaseEmit? deleteWorkerState,
-    BaseEmit? addWorkerState,
+    BaseEmit? addUpdateWorkerState,
     BaseEmit? allWorkersEmit,
     WorkersState? refreshOrInit,
       List<String>? deletingWorkersIds
@@ -28,7 +28,7 @@ class AllWorkersLoaded extends WorkersState {
       deletingWorkersIds: deletingWorkersIds ?? this.deletingWorkersIds,
       refreshOrInit: refreshOrInit ?? this.refreshOrInit,
       allWorkersEmit: allWorkersEmit ?? this.allWorkersEmit,
-      addWorkerState: addWorkerState ?? this.addWorkerState,
+      addUpdateWorkerState: addUpdateWorkerState ?? this.addUpdateWorkerState,
       deleteWorkerState: deleteWorkerState ?? this.deleteWorkerState,
      );
   }

@@ -61,20 +61,18 @@ class WorkersCubit extends BaseCubit<WorkersState> {
     // add every key in file
     CancelManager.cancel(addWorkerKeyCode);
 
-    // add every key in file
-    CancelManager.cancel(getWorkersKeyCode);
     return super.close();
   }
 
-  Future<void> addWorkerFunc( {AddWorkerDataRequest? parameter}) async {
+  Future<void> addUpdateWorkerFunc( {AddWorkerDataRequest? parameter}) async {
     await CancelManager.runCancelableFun(addWorkerKeyCode, (token) async {
       await _service.addWorkerServ(
         RequestCallbackObserver<DeleteProjectRes, AddWorkerDataRequest>(
            parameter: parameter,
           cancelToken: token,
-          onLoadCallback: () => safeEmit(_current.copyWith(addWorkerState: Loading())),
-          onRightCallback: (data) => safeEmit(_current.copyWith(addWorkerState: Success(data))),
-          onLeftCallback: (failure) => safeEmit(_current.copyWith(addWorkerState: ErrorState(failure))),
+          onLoadCallback: () => safeEmit(_current.copyWith(addUpdateWorkerState: Loading())),
+          onRightCallback: (data) => safeEmit(_current.copyWith(addUpdateWorkerState: Success(data))),
+          onLeftCallback: (failure) => safeEmit(_current.copyWith(addUpdateWorkerState: ErrorState(failure))),
         ),
       );
     });
@@ -90,8 +88,7 @@ class WorkersCubit extends BaseCubit<WorkersState> {
               deletingWorkersIds: [..._current.deletingWorkersIds, parameter.id.toString()]
 
           )),
-          // onRightCallback: (data) => safeEmit(_current.copyWith(deleteWorkerState: Success(data),)),
-          onRightCallback: (data) => safeEmit(_current.copyWith(
+           onRightCallback: (data) => safeEmit(_current.copyWith(
             allWorkersEmit: _current.allWorkersEmit is Success<AllWorkers> ?
             Success<AllWorkers>((_current.allWorkersEmit as Success<AllWorkers>).data!.copyWith(
               data: (_current.allWorkersEmit as Success<AllWorkers>).data!.data.where((element) => element.id.toString() != parameter.id.toString()).toList(),
