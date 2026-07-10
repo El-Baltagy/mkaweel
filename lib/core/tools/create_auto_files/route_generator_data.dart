@@ -81,7 +81,7 @@ class AppRouter extends _\$AppRouter {
     
     String pagesMapEntry = '''
     $routeName.name: (routeData) {
-      final args = routeData.argsAs<$argsName>(orElse: () => const $argsName());
+      final args = routeData.argsAs<$argsName>(orElse: () =>   $argsName.noArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: WrappedRoute(
@@ -119,6 +119,7 @@ class $routeName extends PageRouteInfo<$argsName> {
 }
 class $argsName {
   const $argsName( );
+   static $argsName noArgs()=>$argsName();
 }
 ''';
     

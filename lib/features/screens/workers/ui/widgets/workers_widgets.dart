@@ -1,12 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/base/base_state.dart';
+import 'package:mkaweel/core/extension/string.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/features/screens/workers/data/model/all_workers/all_workers.dart';
-
+part   'empty_workers.dart';
 
 
 class WorkersListWidget extends StatelessWidget {
@@ -30,32 +32,7 @@ class WorkersListWidget extends StatelessWidget {
   }
 }
 
-class EmptyWorkersWidget extends StatelessWidget {
-  const EmptyWorkersWidget({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.group_outlined, size: 80, color: Colors.grey.shade400),
-          const SizedBox(height: AppSizes.s16),
-          Text(
-            'no_workers'.tr(),
-            style: AppTextStyles.font18SemiBold.copyWith(color: Colors.grey.shade500),
-          ),
-          const SizedBox(height: AppSizes.s8),
-          Text(
-            'press_to_add_worker'.tr(),
-            style: AppTextStyles.font14Regular,
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class WorkerCardWidget extends StatelessWidget {
   const WorkerCardWidget({super.key, required this.worker});
@@ -94,22 +71,27 @@ class WorkerCardWidget extends StatelessWidget {
               Text(worker.role!, style: AppTextStyles.font14Regular.copyWith(color: Theme.of(context).primaryColor)),
               const SizedBox(height: AppSizes.s8),
               if(worker.phone!=null)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  const Icon(Icons.phone_outlined, size: 16, color: AppColors.contractorGreyText),
-                  const SizedBox(width: AppSizes.s4),
+              GestureDetector(
+                onTap:  worker.phone!.redirectToPhoneCall ,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    const Icon(Icons.phone_outlined, size: 16, color: AppColors.contractorGreyText),
+                    const SizedBox(width: AppSizes.s4),
+                    Text(worker.phone!, style: AppTextStyles.font14Regular.copyWith(
+                      decoration: .underline,
+                      color: AppColors.blue
+                    )),
 
-                  Text(worker.phone!, style: AppTextStyles.font14Regular),
-
-                ],
+                  ],
+                ),
               ),
               const SizedBox(height: AppSizes.s4),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    '${'certificate_expiry_label'.tr()} ${worker.dob}',
+                    '${'certificate_expiry'.tr()} : ${worker.dob}',
                     style: AppTextStyles.font12Regular,
                   ),
                 ],
@@ -138,7 +120,7 @@ class WorkerCardWidget extends StatelessWidget {
           Column(
             children: [
               InkWell(
-                onTap: () {},
+                onTap: () =>context.push(AddWorkerRoute(args: .new(workerId: worker.id))),
                 child: Icon(Icons.edit_outlined, color: Theme.of(context).primaryColor, size: 20),
               ),
               const SizedBox(height: AppSizes.s12),

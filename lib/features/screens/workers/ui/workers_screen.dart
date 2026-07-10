@@ -48,7 +48,7 @@ class _WorkersPageState extends WorkersPageBaseState {
           centerTitle: true,
           leading: IconButton(
             icon:   Icon(Icons.add, color: context.theme.scaffoldBackgroundColor),
-            onPressed:  () => context.push(AddWorkerRoute(args: const AddWorkerRouteArgs())),
+            onPressed:  () => context.push(AddWorkerRoute(args: const AddWorkerRouteArgs(workerId: null))),
           ),
 
         ),

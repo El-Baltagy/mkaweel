@@ -70,13 +70,12 @@ add_worker,Add Worker,إضافة عامل
 worker_name,Worker Name ,اسم العامل
 full_name,Full Name,الاسم الكامل
 specialization,Specialization,التخصص
-certificate_expiry,Certificate / Residency Expiry,انتهاء الشهادة / الإقامة
+certificate_expiry, Residency Expiry,انتهاء الإقامة
 notes,Notes,ملاحظات
 worker_notes_hint,Any notes about the worker...,أي ملاحظات عن العامل...
 save,Save,حفظ
 cancel,Cancel,إلغاء
 supervisor,Supervisor,مشرف
-certificate_expiry_label,Certificate Expiry:,انتهاء الشهادة:
 settings_title,Settings,الإعدادات
 dark_mode,Dark Mode,الوضع الليلي
 dark_mode_subtitle,Enable / Disable Dark Mode,تفعيل/إلغاء الوضع الليلي
@@ -240,3 +239,6 @@ in_progress_status,In Progress,جاري التنفيذ
 completed_status,Completed,مكتمل
 project_overview,Project Overview,نظرة عامة على المشروع
 project_construction_phases,Project Construction Phases,مراحل إنشاء المشروع
+
+update_worker_data,update worker data,تحديث بيانات العامل
+add_worker,add worker,إضافة عامل

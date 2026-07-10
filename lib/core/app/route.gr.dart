@@ -17,7 +17,7 @@ abstract class _$AppRouter extends RootStackRouter {
   final Map<String, PageFactory> pagesMap = {
 
     AddWorkerRoute.name: (routeData) {
-      final args = routeData.argsAs<AddWorkerRouteArgs>(orElse: () => const AddWorkerRouteArgs());
+      final args = routeData.argsAs<AddWorkerRouteArgs>(orElse: () =>   AddWorkerRouteArgs.noArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: WrappedRoute(
@@ -430,6 +430,8 @@ class AddWorkerRoute extends PageRouteInfo<AddWorkerRouteArgs> {
   PageInfo<AddWorkerRouteArgs>(name);
 }
 class AddWorkerRouteArgs {
-  const AddWorkerRouteArgs( );
+  const AddWorkerRouteArgs( {required this.workerId});
+  final int? workerId;
+  static AddWorkerRouteArgs noArgs()=>AddWorkerRouteArgs(workerId:null);
 }
 

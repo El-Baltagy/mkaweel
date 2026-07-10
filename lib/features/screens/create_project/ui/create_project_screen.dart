@@ -22,6 +22,7 @@ import 'package:mkaweel/features/screens/create_project/data/model/create_projec
 import 'package:mkaweel/features/screens/create_project/ui/widgets/currency_selector_widget.dart';
 import 'package:mkaweel/features/screens/create_project/ui/widgets/location_selection.dart';
 import 'package:mkaweel/features/screens/create_project/ui/widgets/start_end_date.dart';
+import 'package:mkaweel/features/screens/create_project/ui/widgets/title_with_input.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 part 'create_project_state.dart';
@@ -88,7 +89,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildTextField(
+                    TitleWithInputField(
                       'project_name'.tr(),
                       NameInputData(
                         isLabel: false,
@@ -100,7 +101,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                     ),
 
                     20.verticalSpace,
-                    _buildTextField(
+                    TitleWithInputField(
                       'project_owner'.tr(),
                       NameInputData(
                         isLabel: false,
@@ -118,7 +119,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                     ),
 
                     20.verticalSpace,
-                    _buildTextField(
+                    TitleWithInputField(
                       '${'contract_value'.tr()} (\$)',
                       NameInputData(
                         isLabel: false,
@@ -157,7 +158,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                     LoccationSelection(locationNotifier: locationNotifier),
 
                     20.verticalSpace,
-                    _buildTextField(
+                    TitleWithInputField(
                       'description'.tr(),
                       NameInputData(
                         isLabel: false,
@@ -171,7 +172,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                     ),
 
                     20.verticalSpace,
-                    _buildTextField(
+                    TitleWithInputField(
                       'additional_data'.tr() + " / " + 'notes'.tr(),
                       NameInputData(
                         isLabel: false,
@@ -229,19 +230,5 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
     );
   }
 
-  Widget _buildTextField(String mainLabel, BaseTextInputData data) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          mainLabel,
-          style: AppTextStyles.font14Regular.copyWith(
-            color: context.theme.colorScheme.tertiaryFixed,
-          ),
-        ),
-        10.verticalSpace,
-        TextInputWidget(data: data),
-      ],
-    );
-  }
+
 }
