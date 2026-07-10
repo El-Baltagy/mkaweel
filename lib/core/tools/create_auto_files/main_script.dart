@@ -73,6 +73,7 @@ Future<void> main(List<dynamic> args) async {
     UIAddRequiredFiles(
       screenFileName: PathConstants().screenFileName(x),
       screenName: PathConstants().screenName(x),
+      secondaryName: x,
     ).makeRequiredFiles('ui');
     await addAutoRoute(
       PathConstants().routeName(x),
