@@ -29,6 +29,7 @@ Future<void> addCubitFiles(String folder) async {
   if (!file.existsSync()) {
     final contentt =
     '''
+    import 'package:mkaweel/core/shared/methods/print.dart';
     import 'package:${PathConstants().projectName}/core/constants/app_constant.dart';
  import 'package:${PathConstants().projectName}/core/base/base_state.dart';
  import 'package:${PathConstants().projectName}/core/base/base_service.dart';   

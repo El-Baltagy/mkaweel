@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import '../create_auto_files/path_constants.dart';
 import 'components/function_script_helpers.dart';
+import 'components/function_constants_added.dart';
 import 'components/function_repo_added.dart';
 import 'components/function_service_added.dart';
 import 'components/function_controller_added.dart';
@@ -67,11 +68,12 @@ Future<void> main(List<dynamic> args) async {
 
   print('📝 Adding "$functionName" to all layers of "$featureName"...');
 
-  // 1. AppConstant
+  // 1. AppConstant & AppAPI
   final keyCodeName = '${functionName}KeyCode';
   final cacheKeyName = '${functionName}KeyCash';
   await registerConstant(cacheKeyName, '${featureName}_${functionName}_cache');
   await registerIntConstant(keyCodeName, '${featureName}_$functionName'.hashCode % 10000);
+  await registerApiEndpoint(functionName);
 
   // 2. Repo
   await addFunctionToRepo(

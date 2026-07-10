@@ -36,4 +36,8 @@ abstract class AppConstant {
   static const int getWorkersKeyCode = 263;
   static const String getAllDataKeyCash = 'make_bus_getAllData_cache';
   static const int getAllDataKeyCode = 9170;
+  static const String getAllDatacvKeyCash = 'make_bus_getAllDatacv_cache';
+  static const int getAllDatacvKeyCode = 8130;
+  static const String getAllDatawwKeyCash = 'make_bus_getAllDataww_cache';
+  static const int getAllDatawwKeyCode = 4751;
 }

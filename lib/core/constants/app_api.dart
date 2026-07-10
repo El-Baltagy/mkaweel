@@ -18,4 +18,7 @@ static   String getProjectData(String id)  =>  '/api/projects/$id';
 static   String deleteProject(String id)  =>  '/api/projects/$id';
 
   static const String getAllWorkers    =  '/api/workers';
+  static const String getAllData = '/api/getAllData';
+  static const String getAllDatacv = '/api/getAllDatacv';
+  static const String getAllDataww = '/api/getAllDataww';
 }

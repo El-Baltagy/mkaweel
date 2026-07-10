@@ -1,28 +1,6 @@
 import 'dart:io';
 import '../../create_auto_files/path_constants.dart';
 
-Future<void> registerConstant(String name, String value) async {
-  final file = File('lib/core/constants/app_constant.dart');
-  if (!file.existsSync()) return;
-  final content = await file.readAsString();
-  if (content.contains('static const String $name')) return;
-  final lastBrace = content.lastIndexOf('}');
-  if (lastBrace == -1) return;
-  final updated = content.substring(0, lastBrace) + '  static const String $name = \'$value\';\n' + content.substring(lastBrace);
-  await file.writeAsString(updated);
-}
-
-Future<void> registerIntConstant(String name, int value) async {
-  final file = File('lib/core/constants/app_constant.dart');
-  if (!file.existsSync()) return;
-  final content = await file.readAsString();
-  if (content.contains('static const int $name')) return;
-  final lastBrace = content.lastIndexOf('}');
-  if (lastBrace == -1) return;
-  final updated = content.substring(0, lastBrace) + '  static const int $name = $value;\n' + content.substring(lastBrace);
-  await file.writeAsString(updated);
-}
-
 Future<void> injectIntoClass({required String filePath, required String className, required String displayName, required String injection, required String checkDuplicate}) async {
   final file = File(filePath);
   final content = await file.readAsString();
@@ -67,3 +45,5 @@ Future<void> injectImport({required String filePath, required String importLine,
 String toSnakeCase(String input) {
   return input.replaceAllMapped(RegExp(r'(?<!^)([A-Z])'), (Match m) => '_${m.group(0)}').toLowerCase();
 }
+
+

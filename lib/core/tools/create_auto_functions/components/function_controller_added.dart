@@ -20,9 +20,6 @@ Future<void> addFunctionToController({
 
   // 2. Update Cubit File
   await injectImport(filePath: cubitPath, importLine: "import 'package:${p.projectName}/core/api_helper/cancel/cancel_manager.dart';");
-  await injectImport(filePath: cubitPath, importLine: "import 'package:${p.projectName}/features/screens/$featureName/controller/${p.stateFileName()}';");
-  await injectImport(filePath: cubitPath, importLine: "import 'package:${p.projectName}/features/screens/$featureName/data/model/$snakeMethod/$snakeMethod.dart';");
-  await injectImport(filePath: cubitPath, importLine: "import 'package:${p.projectName}/features/screens/$featureName/data/model/$snakeMethod/${snakeMethod}_req_param.dart';");
 
   // Inject KeyCode getter before init()
   await _injectBeforeInit(
@@ -37,11 +34,11 @@ Future<void> addFunctionToController({
     className: p.cubitName(),
     displayName: 'cubit',
     injection: '''
-  Future<void> ${functionName}Func({$paramType? parameter}) async {
+  Future<void> ${functionName}Func(BaseRequestBackType baseRequestBackType,{$paramType? parameter}) async {
     await CancelManager.runCancelableFun($keyCodeName, (token) async {
       await _service.${functionName}Serv(
         RequestCallbackObserver<$returnType, $paramType>(
-          baseRequestBackType: Reload(),
+          baseRequestBackType: baseRequestBackType ,
           parameter: parameter,
           cancelToken: token,
           onLoadCallback: () => safeEmit(_current.copyWith($stateVarName: Loading())),
@@ -114,12 +111,13 @@ Future<void> _injectBeforeInit({required String filePath, required String inject
   final file = File(filePath);
   String content = await file.readAsString();
   if (content.contains(checkDuplicate)) return;
-  final initIndex = content.indexOf('init()');
-  if (initIndex == -1) return;
-  // Find the @override before init or just before init()
-  final overrideMatch = RegExp(r'@override\s+init\(\)').firstMatch(content);
-  final targetIndex = overrideMatch?.start ?? initIndex;
-  final updated = content.substring(0, targetIndex) + '$injection\n  ' + content.substring(targetIndex);
+  
+  // Find the start of the init() declaration, including optional annotations and return types
+  final initMatch = RegExp(r'(?:@override\s+)?(?:Future<void>\s+)?init\(\)').firstMatch(content);
+  if (initMatch == null) return;
+  
+  final targetIndex = initMatch.start;
+  final updated = content.substring(0, targetIndex) + '$injection\n\n  ' + content.substring(targetIndex);
   await file.writeAsString(updated);
 }
 
