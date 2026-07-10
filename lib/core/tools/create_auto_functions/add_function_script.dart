@@ -143,11 +143,11 @@ class ${returnType}State extends ${p.stateName()} {
     className: p.cubitName(),
     displayName: 'cubit',
     injection: '''
-  Future<void> ${toPascalLowerCase(functionName)+'Func'}(RequestTypeBackV2 requestType, {$paramType? parameter}) async {
+  Future<void> ${toPascalLowerCase(functionName)+'Func'}(BaseRequestBackType requestType, {$paramType? parameter}) async {
     await CancelManager.runCancelableFun($keyCodeName, (token) async {
       await _service.${toPascalLowerCase(functionName)+'Serv'}(
         RequestCallbackObserver<$returnType, $paramType>(
-          baseRequestBackType: requestType.toRequestType(),
+          baseRequestBackType: requestType,
           parameter: parameter ,
           cancelToken: token,
           onLoadCallback: () => safeEmit(${returnType}State(Loading())),
