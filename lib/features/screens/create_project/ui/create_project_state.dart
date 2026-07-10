@@ -42,7 +42,10 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
               selectedCurrencyNotifier.value=[_listStringCurrencies.indexWhere((e) => e==value.data.currency)] ;
             });
             }
-            locationNotifier.value =  (null, LatLng(double.parse(value.data.latitude), double.parse(value.data.longitude))) ;
+            if(value.data.latitude!=null&&value.data.longitude!=null){
+              locationNotifier.value =  (null, LatLng(double.parse(value.data.latitude!), double.parse(value.data.longitude!))) ;
+
+            }
 
         }
        var addressModel= await LocationService().reverseGeocode(locationNotifier.value.$2 );

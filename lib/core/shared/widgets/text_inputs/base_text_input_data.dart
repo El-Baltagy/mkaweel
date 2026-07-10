@@ -13,11 +13,11 @@ abstract class BaseTextInputData {
     this.validator,
     this.inputFormatters,
     this.widgetPrefix,
-    this.obscureText = false,
-    this.enabled = true,
+     this.enabled = true,
     this.enableValidation = true,
     this.isSingleOrMultiSelect = false,
-    this.isLabel = true,
+    this.isObscureText = false,
+     this.isLabel = true,
     this.fontSize,
     this.fontWeight,
   });
@@ -25,7 +25,7 @@ abstract class BaseTextInputData {
   final TextEditingController? controller;
   final (GlobalKey<FormFieldState<dynamic>>, FocusNode?)? field;
   final TextInputType keyboardType;
-  final bool readOnly,isSingleOrMultiSelect, enableValidation,enabled, obscureText,isLabel;
+  final bool readOnly,isSingleOrMultiSelect, isObscureText,enableValidation,enabled,  isLabel;
 
   final IconData? icon;
 

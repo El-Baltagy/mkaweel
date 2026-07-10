@@ -19,9 +19,10 @@ class _LocationRowState extends State<_LocationRow> {
   }
 
   Future<void> _fetchLocation() async {
+    if(widget.projectInfoData.latitude==null||widget.projectInfoData.longitude==null )return ;
     final value = await LocationService().reverseGeocode(
-        LatLng(double.parse(widget.projectInfoData.latitude),
-            double.parse(widget.projectInfoData.longitude)));
+        LatLng(double.parse(widget.projectInfoData.latitude!),
+            double.parse(widget.projectInfoData.longitude!)));
 
     if (mounted) {
       setState(() {
