@@ -1,13 +1,11 @@
 part of 'add_worker_screen.dart';
+
 abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
-  List<UIApiKeys>pjChoices=[];
+  List<UIApiKeys> pjChoices = [];
   late final WorkersCubit workersCubit;
   final _key = GlobalKey<FormState>();
-  (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field1 = (.new(), .new());
-  (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field2 = (.new(), .new());
-  (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field3 = (.new(), .new());
-  (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field4 = (.new(), .new());
-  (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field5 = (.new(), .new());
+  List<(GlobalKey<FormFieldState<dynamic>>, FocusNode?)> listFields =
+      List.generate(4, (index) => (.new(), .new()));
 
 
   final _nameController = TextEditingController();
@@ -15,15 +13,14 @@ abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
   final _pwController = TextEditingController();
   final _pwConfirmController = TextEditingController();
 
-  final ValueNotifier<List<int>>_roleIndexesNotifier = .new([]);
+  final ValueNotifier<List<int>> _roleIndexesNotifier = .new([]);
 
   final _specController = TextEditingController();
   final _phoneController = TextEditingController();
   final _dobController = TextEditingController();
 
-  final ValueNotifier<List<int>>_projectIdsNotifier = .new([]);
-  final ValueNotifier<File?>_image = .new(null);
-
+  final ValueNotifier<List<int>> _projectIdsNotifier = .new([]);
+  final ValueNotifier<File?> _image = .new(null);
 
   @override
   void initState() {
@@ -34,12 +31,9 @@ abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
   @override
   void dispose() {
     // TODO: implement dispose
-    field1.$2?.dispose();
-    field2.$2?.dispose();
-    field3.$2?.dispose();
-    field4.$2?.dispose();
-    field5.$2?.dispose();
-
+    listFields.forEach((element) {
+      element.$2?.dispose();
+    });
     _nameController.dispose();
     _emailController.dispose();
     _pwController.dispose();
@@ -59,7 +53,7 @@ abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
 
   Future<void> addUpdateWorker(bool isLoading) async {
     if (isLoading) return;
-    if (await _key.validateAndScroll(context, listRecorder: [field1, field2])) {
+    if (await _key.validateAndScroll(context, listRecorder:listFields)) {
       await workersCubit.addWorkerFunc(
         parameter: AddWorkerDataRequest(
           name: _nameController.text.trim(),
@@ -68,18 +62,19 @@ abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
           dob: _dobController.text.trim(),
           phone: _phoneController.text.trim(),
           specialization: _specController.text.trim(),
-          role: listChoices[_roleIndexesNotifier.value.first].apiValue  ,
+          role: listChoices[_roleIndexesNotifier.value.first].apiValue,
           avatarPath: _image.value?.path,
-          projectIds: _projectIdsNotifier.value.map((e) =>int.parse(pjChoices[e].apiValue)).toList(),
+          projectIds: _projectIdsNotifier.value
+              .map((e) => int.parse(pjChoices[e].apiValue))
+              .toList(),
         ),
       );
     }
   }
 
   List<UIApiKeys> listChoices = [
-        .new('worker'.tr(), 'Worker'),
-        .new('supervisor'.tr(), 'Supervisor'),
-        .new(
-        'site_manager'.tr() + ' / ' + 'admin'.tr(), 'Site Manager / Admin'),
+    .new('worker'.tr(), 'Worker'),
+    .new('supervisor'.tr(), 'Supervisor'),
+    .new('site_manager'.tr() + ' / ' + 'admin'.tr(), 'Site Manager / Admin'),
   ];
 }

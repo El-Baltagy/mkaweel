@@ -186,7 +186,7 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
 
   BottomSheetSelector buildRole() {
     return BottomSheetSelector(
-              field: field5,
+              field: listFields[4],
               isMultiSelect: true,
               title: 'role'.tr() + " / " + "access_level".tr(),
               listChoices: listChoices,
@@ -208,7 +208,7 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
                   return null;
                 },
                 isLabel: false,
-                field: field4,
+                field: listFields[3],
                 labelText: '*************',
                 controller: _pwConfirmController,
               ),
@@ -220,7 +220,7 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
               'password'.tr(),
               PasswordInputData(
                 isLabel: false,
-                field: field3,
+                field: listFields[2],
                 labelText: '*************',
                 controller: _pwController,
               ),
@@ -233,7 +233,7 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
               NameInputData(
                 isLabel: false,
                 widgetPrefix: const SizedBox.shrink(),
-                field: field2,
+                field: listFields[1],
                 labelText: 'email@gmail.com'.tr(),
                 controller: _emailController,
               ),
@@ -246,7 +246,7 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
               NameInputData(
                 isLabel: false,
                 widgetPrefix: const SizedBox.shrink(),
-                field: field1,
+                field: listFields[0],
                 labelText: 'full_name'.tr(),
                 controller: _nameController,
               ),
