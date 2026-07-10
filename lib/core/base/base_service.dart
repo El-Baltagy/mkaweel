@@ -9,7 +9,7 @@ abstract class BaseService{
 }
 class RequestCallbackObserver<T, P> {
   RequestCallbackObserver({
-    required this.baseRequestBackType,
+      this.baseRequestBackType,
       this.parameter,
     required this.onLoadCallback,
     required this.onRightCallback,
@@ -17,7 +17,7 @@ class RequestCallbackObserver<T, P> {
     this.cancelToken,
   });
 
-  final BaseRequestBackType baseRequestBackType;
+  final BaseRequestBackType? baseRequestBackType;
   final P? parameter;
   final void Function() onLoadCallback;
   final void Function(T? data) onRightCallback;
@@ -33,7 +33,7 @@ extension RequestHandler<T, P> on RequestCallbackObserver<T, P> {
     Future<void> Function()? clearLocal,
     T Function(T oldData, T newData)? combinePagination, // <--- 1. ADD THIS
   }) async {
-    final type = baseRequestBackType;
+    final BaseRequestBackType type = baseRequestBackType??Reload();
 
      if (type is Init) {
       if (fetchLocal != null) {

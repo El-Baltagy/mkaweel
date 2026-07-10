@@ -6,6 +6,8 @@ import 'package:mkaweel/core/base/base_service.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_constant.dart';
 import 'package:mkaweel/core/shared/methods/print.dart';
+import 'package:mkaweel/features/screens/projects/data/model/delete_project_res/delete_project_res.dart';
+import 'package:mkaweel/features/screens/workers/data/model/add_worker_data_request.dart';
 import 'package:mkaweel/features/screens/workers/data/model/all_workers/all_workers.dart';
 import 'package:mkaweel/main.dart';
  import 'package:mkaweel/features/screens/workers/service/workers_service.dart';
@@ -26,6 +28,8 @@ class WorkersCubit extends BaseCubit<WorkersState> {
 
 
    int get getWorkersKeyCode => AppConstant.getWorkersKeyCode;
+    int get addWorkerKeyCode => AppConstant.addWorkerKeyCode;
+
   Future<void> init() async {
      // TODO: implement init
 
@@ -49,7 +53,24 @@ class WorkersCubit extends BaseCubit<WorkersState> {
   @override
   Future<void> close() {
     // add every key in file
+    CancelManager.cancel(addWorkerKeyCode);
+
+    // add every key in file
     CancelManager.cancel(getWorkersKeyCode);
     return super.close();
+  }
+
+  Future<void> addWorkerFunc( {AddWorkerDataRequest? parameter}) async {
+    await CancelManager.runCancelableFun(addWorkerKeyCode, (token) async {
+      await _service.addWorkerServ(
+        RequestCallbackObserver<DeleteProjectRes, AddWorkerDataRequest>(
+           parameter: parameter,
+          cancelToken: token,
+          onLoadCallback: () => safeEmit(_current.copyWith(addWorkerState: Loading())),
+          onRightCallback: (data) => safeEmit(_current.copyWith(addWorkerState: Success(data))),
+          onLeftCallback: (failure) => safeEmit(_current.copyWith(addWorkerState: ErrorState(failure))),
+        ),
+      );
+    });
   }
 }

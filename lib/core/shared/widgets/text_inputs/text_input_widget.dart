@@ -35,7 +35,7 @@ class TextInputWidget extends StatelessWidget {
     readOnly: data.readOnly,
     enabled: data.enabled,
     obscureText: data.obscureText,
-    validator:data.enableValidation? data.validator:null,
+    validator:data.enableValidation&&data.field!=null? data.validator:null,
     inputFormatters: data.inputFormatters,
     autovalidateMode: .onUserInteraction,
     onTap: data.onTap,

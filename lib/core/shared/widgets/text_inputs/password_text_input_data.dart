@@ -5,12 +5,13 @@ import 'package:flutter/Material.dart';
 class PasswordInputData extends BaseTextInputData {
   PasswordInputData({
     super.controller,
-    super.isLabel,
+    String? labelText,
+  super.isLabel,
     super.field
   }) : super(
     icon: Icons.lock,
       obscureText: true,
-      labelText: 'password'.tr(),
+      labelText: labelText??'password'.tr(),
     validator: (value) {
       if (value?.isEmpty == true) {
         return "can't_be_empty".tr();

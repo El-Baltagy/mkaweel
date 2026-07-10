@@ -10,12 +10,13 @@ class AllWorkersLoaded extends WorkersState {
 
   AllWorkersLoaded({
      this.allWorkersEmit,
-    this.refreshOrInit,
+    this.refreshOrInit, this.addWorkerState,
    });
-  final BaseEmit? allWorkersEmit ;
+  final BaseEmit? allWorkersEmit , addWorkerState;
   final WorkersState? refreshOrInit;
 
   AllWorkersLoaded copyWith({
+    BaseEmit? addWorkerState,
     BaseEmit? allWorkersEmit,
     WorkersState? refreshOrInit,
   }) {

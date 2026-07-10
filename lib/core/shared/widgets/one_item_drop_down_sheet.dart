@@ -13,11 +13,12 @@ class OneItemDropBottomSheetItem extends StatelessWidget {
     required this.isSelected,
       this.style,
     this.showOptionBesideRadioSelect = true,
+    this.isRadio = true,
   });
 
   final void Function()? onTap;
   final String title;
-  final bool isLastItem, isSelected, showOptionBesideRadioSelect;
+  final bool isLastItem, isRadio,isSelected, showOptionBesideRadioSelect;
   final TextStyle? style;
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,10 @@ class OneItemDropBottomSheetItem extends StatelessWidget {
                 crossAxisAlignment: .start,
                 children: [
                   15.horizontalSpace,
-                  CustomSelectedCircle(isSelected: isSelected),
+
+                  CustomSelectedCircleAndSquare(isSelected: isSelected,
+                  isRadio: isRadio,
+                  ),
                   if (showOptionBesideRadioSelect)
                     15.horizontalSpace
                   else

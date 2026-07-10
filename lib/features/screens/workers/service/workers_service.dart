@@ -1,8 +1,11 @@
+import 'package:mkaweel/core/constants/app_typedef.dart';
 
  import 'package:mkaweel/core/constants/app_constant.dart';
 import 'package:mkaweel/core/base/base_service.dart';
 import 'package:mkaweel/core/base/base_local_repo.dart';
 import 'package:mkaweel/core/shared/methods/print.dart';
+import 'package:mkaweel/features/screens/projects/data/model/delete_project_res/delete_project_res.dart';
+import 'package:mkaweel/features/screens/workers/data/model/add_worker_data_request.dart';
 import 'package:mkaweel/features/screens/workers/data/model/all_workers/all_workers.dart';
 import 'package:mkaweel/features/screens/workers/data/repo/remote/workers_repo.dart';
 
@@ -31,6 +34,17 @@ class WorkersService extends BaseService {
       //   }
       // },
       // clearLocal: () => _localRepo.clearData(cacheKey),
+    );
+  }
+
+  Future<void> addWorkerServ(
+    RequestCallbackObserver<DeleteProjectRes, AddWorkerDataRequest> requestInfo,
+  ) {
+     return requestInfo.handleRequest(
+      fetchFromClient: (token) => _remoteRepo.addWorkerApi(
+        requestInfo.parameter,
+        cancelToken: token,
+      )
     );
   }
 }

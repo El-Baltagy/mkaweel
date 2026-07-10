@@ -5,11 +5,9 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
   final _key = GlobalKey<FormState>();
   (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field1 = (.new(), .new());
   (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field2 = (.new(), .new());
+   (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field4 = (.new(), .new());
   (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field3 = (.new(), .new());
-  (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field4 = (.new(), .new());
-  (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field5 = (.new(), .new());
-  (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field6 = (.new(), .new());
-  (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field7 = (.new(), .new());
+   (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field5 = (.new(), .new());
 
   final TextEditingController _controllerName = .new();
   final TextEditingController _controllerOwner_name = .new();
@@ -19,7 +17,7 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
   final TextEditingController _controllerDescription = .new();
   final TextEditingController _controllerExtra_details = .new();
   final ValueNotifier<(String?, LatLng?)> locationNotifier = .new((null, null));
-  final ValueNotifier<String> selectedCurrencyNotifier = .new('');
+  final ValueNotifier<List<int>> selectedCurrencyNotifier = .new([]);
   late final ValueNotifier<bool> isLoadingNotifier  ;
 
   @override
@@ -41,7 +39,7 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
             _controllerExtra_details.text=value.data.extra_details??"";
             if(value.data.currency!=null) {
               Future.delayed(const Duration(milliseconds: 600),(){
-              selectedCurrencyNotifier.value=value.data.currency! ;
+              selectedCurrencyNotifier.value=[_listStringCurrencies.indexWhere((e) => e==value.data.currency)] ;
             });
             }
             locationNotifier.value =  (null, LatLng(double.parse(value.data.latitude), double.parse(value.data.longitude))) ;
@@ -68,11 +66,9 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
     // TODO: implement dispose
     field1.$2?.dispose();
     field2.$2?.dispose();
+     field4.$2?.dispose();
     field3.$2?.dispose();
-    field4.$2?.dispose();
     field5.$2?.dispose();
-    field6.$2?.dispose();
-    field7.$2?.dispose();
 
     _controllerName.dispose();
     _controllerOwner_name.dispose();
@@ -117,7 +113,8 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
           end_date: _controllerEnd_date.text,
           description: _controllerDescription.text,
           extra_details: _controllerExtra_details.text,
-          currency: selectedCurrencyNotifier.value,
+          currency:
+          selectedCurrencyNotifier.value.map((e) => _listStringCurrencies[e]).toList().join(','),
           latitude: locationNotifier.value.$2!.lat.toString(),
           longitude: locationNotifier.value.$2!.lng.toString(),
         ),

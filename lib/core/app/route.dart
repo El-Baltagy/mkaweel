@@ -6,7 +6,7 @@ import 'package:mkaweel/features/screens/create_project/ui/create_project_screen
 import 'package:mkaweel/features/screens/market_prices/ui/market_prices_screen.dart';
 import 'package:mkaweel/features/screens/main_home/ui/main_home_screen.dart';
 import 'package:mkaweel/features/screens/settings/ui/profile_screen.dart';
-import 'package:mkaweel/features/screens/workers/ui/workers_screen.dart';
+import 'package:mkaweel/features/screens/workers/ui/workers_sc/workers_screen.dart';
 import 'package:mkaweel/features/screens/settings/ui/settings_screen.dart';
 import 'package:mkaweel/features/screens/invoices/ui/invoices_screen.dart';
 import 'package:mkaweel/features/screens/performance/ui/performance_screen.dart';
@@ -17,7 +17,7 @@ import 'package:mkaweel/features/screens/login/ui/login_screen.dart';
 import 'package:mkaweel/features/screens/onboarding/ui/onboarding_screen.dart';
 import 'package:mkaweel/features/screens/projects/ui/project_details_screen.dart';
 import 'package:mkaweel/features/screens/projects/ui/phase_progress_screen.dart';
-import 'package:mkaweel/features/screens/workers/ui/add_worker_screen.dart';
+import 'package:mkaweel/features/screens/workers/ui/add_workers/add_worker_screen.dart';
  part 'route.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')

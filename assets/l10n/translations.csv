@@ -242,3 +242,19 @@ project_construction_phases,Project Construction Phases,مراحل إنشاء ا
 
 update_worker_data,update worker data,تحديث بيانات العامل
 add_worker,add worker,إضافة عامل
+
+you_can_choose_multi_choices,you can choose multi choices,يمكنك اختيار خيارات متعددة
+worker,worker,عامل
+admin,admin,مسؤل
+supervisor,supervisor,مشرف
+site_manager,Site Manager,مدير الموقع
+
+role,role,دور
+
+access_level,Access Level,مستوى الوصول
+
+masonry,Masonry,البناء
+plumbing,Plumbing,السباكة
+electrical,Electrical,كهربائي
+
+confirm_password,confirm password,تأكيد كلمة المرور

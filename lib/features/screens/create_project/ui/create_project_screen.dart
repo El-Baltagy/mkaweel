@@ -9,9 +9,7 @@ import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/form_auto_scroll.dart';
 import 'package:mkaweel/core/shared/methods/location_Service.dart';
-import 'package:mkaweel/core/shared/widgets/text_inputs/base_text_input_data.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/name_text_input_data.dart';
-import 'package:mkaweel/core/shared/widgets/text_inputs/text_input_widget.dart';
 import 'package:mkaweel/features/screens/create_project/controller/create_project_cubit.dart';
 import 'package:mkaweel/features/screens/create_project/controller/create_project_state.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
@@ -19,10 +17,11 @@ import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/features/screens/create_project/data/model/create_project_parameters.dart';
 import 'package:mkaweel/features/screens/create_project/data/model/create_project_res/create_project_res.dart';
-import 'package:mkaweel/features/screens/create_project/ui/widgets/currency_selector_widget.dart';
 import 'package:mkaweel/features/screens/create_project/ui/widgets/location_selection.dart';
 import 'package:mkaweel/features/screens/create_project/ui/widgets/start_end_date.dart';
 import 'package:mkaweel/features/screens/create_project/ui/widgets/title_with_input.dart';
+import 'package:mkaweel/features/screens/workers/data/model/add_worker_data_request.dart';
+import 'package:mkaweel/features/screens/workers/ui/add_workers/widgets/drop_down_role_selector.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 part 'create_project_state.dart';
@@ -113,17 +112,21 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                     ),
 
                     20.verticalSpace,
-                    CurrencySelectorWidget(
-                      listStringCurrencies: _listStringCurrencies,
-                      selectedCurrencyNotifier: selectedCurrencyNotifier,
+                    BottomSheetSelector(
+                      field: field5,
+                      title:  'currency'.tr(),
+                      isMultiSelect: false,
+                      listChoices: _listStringCurrencies.map((e) => UIApiKeys(e, e)).toList(),
+                      selectedRoleNotifier: selectedCurrencyNotifier,
                     ),
+
 
                     20.verticalSpace,
                     TitleWithInputField(
                       '${'contract_value'.tr()} (\$)',
                       NameInputData(
                         isLabel: false,
-                        widgetPrefix: const SizedBox.shrink(),
+                         widgetPrefix: const SizedBox.shrink(),
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly,
                           TextInputFormatter.withFunction((oldValue, newValue) {
@@ -140,8 +143,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                             return newValue;
                           }),
                         ],
-                        field: field3,
-                        labelText: '50000',
+                         labelText: '50000',
                         controller: _controllerContract_value,
                       ),
                     ),
@@ -150,7 +152,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                     StartEndDates(
                       controllerE: _controllerEnd_date,
                       controllerS: _controllerStart_date,
-                      fieldE: field5,
+                      fieldE: field3,
                       fieldS: field4,
                     ),
 
@@ -163,8 +165,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                       NameInputData(
                         isLabel: false,
                         widgetPrefix: const SizedBox.shrink(),
-                        field: field6,
-                        validator: (v) => null,
+                         validator: (v) => null,
                         labelText:
                         'enter_project_scope_and_description'.tr() + "...",
                         controller: _controllerDescription,
@@ -177,8 +178,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                       NameInputData(
                         isLabel: false,
                         widgetPrefix: const SizedBox.shrink(),
-                        field: field7,
-                        validator: (v) => null,
+                         validator: (v) => null,
                         labelText:
                         'any_additional_details_or_requirements'.tr() + "...",
                         controller: _controllerExtra_details,

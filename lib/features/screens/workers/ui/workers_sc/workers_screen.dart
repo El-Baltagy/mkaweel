@@ -8,9 +8,10 @@ import 'package:mkaweel/core/constants/app_locator.dart';
  import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/features/screens/workers/controller/workers_cubit.dart';
-import 'package:mkaweel/features/screens/workers/ui/widgets/workers_widgets.dart';
-import 'package:mkaweel/core/extension/context.dart';
+ import 'package:mkaweel/core/extension/context.dart';
+import 'package:mkaweel/features/screens/workers/ui/workers_sc/widgets/workers_widgets.dart';
 
+part   'workers_sc_mixin.dart';
 @RoutePage()
 class WorkersPage extends StatefulWidget implements AutoRouteWrapper {
   const WorkersPage({super.key});
@@ -74,23 +75,5 @@ class _WorkersPageState extends WorkersPageBaseState {
         ),
       ),
     );
-  }
-}
-
-abstract class WorkersPageBaseState extends State<WorkersPage> {
-  late final WorkersCubit workersCubit;
-
-  @override
-  void initState() {
-    super.initState();
-    workersCubit = WorkersCubit.get(context: context);
-    loadData();
-  }
-Future<void> loadData() async {
-  await  workersCubit.getWorkersFunc();
-}
-  @override
-  void dispose() {
-    super.dispose();
   }
 }
