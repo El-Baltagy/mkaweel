@@ -34,4 +34,6 @@ abstract class AppConstant {
   static const int deleteProjectKeyCode = 133;
   static const String getWorkersKeyCash = 'workers_getWorkers_cache';
   static const int getWorkersKeyCode = 263;
+  static const String getAllDataKeyCash = 'make_bus_getAllData_cache';
+  static const int getAllDataKeyCode = 9170;
 }

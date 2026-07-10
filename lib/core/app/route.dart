@@ -18,6 +18,7 @@ import 'package:mkaweel/features/screens/onboarding/ui/onboarding_screen.dart';
 import 'package:mkaweel/features/screens/projects/ui/project_details_screen.dart';
 import 'package:mkaweel/features/screens/projects/ui/phase_progress_screen.dart';
 import 'package:mkaweel/features/screens/workers/ui/add_worker_screen.dart';
+import 'package:mkaweel/features/screens/make_bus/ui/make_bus/make_bus_screen.dart';
 part 'route.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')
@@ -26,6 +27,10 @@ class AppRouter extends _$AppRouter {
 
   @override
   List<AutoRoute> get routes => [
+      AutoRoute(
+        page: MakeBusRoute.page,
+        // initial: true,
+      ),
       AutoRoute(
         page: AddWorkerRoute.page,
         // initial: true,

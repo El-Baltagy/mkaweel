@@ -15,6 +15,16 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    MakeBusRoute.name: (routeData) {
+      final args = routeData.argsAs<MakeBusRouteArgs>(orElse: () => const MakeBusRouteArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(
+            child: MakeBusPage(
+           args: args ,
+        )),
+      );
+    },
     AddWorkerRoute.name: (routeData) {
       final args = routeData.argsAs<AddWorkerRouteArgs>(orElse: () => const AddWorkerRouteArgs());
       return AutoRoutePage<dynamic>(
@@ -430,4 +440,25 @@ class AddWorkerRoute extends PageRouteInfo<AddWorkerRouteArgs> {
 }
 class AddWorkerRouteArgs {
   const AddWorkerRouteArgs( );
+}
+
+/// generated route for
+/// [MakeBusPage]
+class MakeBusRoute extends PageRouteInfo<MakeBusRouteArgs> {
+  MakeBusRoute({
+   required MakeBusRouteArgs args  ,
+    List<PageRouteInfo>? children,
+  }) : super(
+    MakeBusRoute.name,
+    args: args,
+    initialChildren: children,
+  );
+
+  static const String name = 'MakeBusRoute';
+
+  static const PageInfo<MakeBusRouteArgs> page =
+  PageInfo<MakeBusRouteArgs>(name);
+}
+class MakeBusRouteArgs {
+  const MakeBusRouteArgs( );
 }
