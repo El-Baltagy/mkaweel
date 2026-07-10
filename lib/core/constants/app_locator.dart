@@ -1,7 +1,4 @@
 
-import 'package:mkaweel/features/screens/make_bus/data/repo/remote/make_bus_repo.dart';
-import 'package:mkaweel/features/screens/make_bus/service/make_bus_service.dart';
-import 'package:mkaweel/features/screens/make_bus/controller/make_bus_cubit.dart';
 import 'package:mkaweel/features/screens/login/data/repo/remote/login_repo.dart';
 import 'package:mkaweel/features/screens/login/service/login_service.dart';
 import 'package:mkaweel/features/screens/login/controller/login_cubit.dart';
@@ -55,11 +52,6 @@ class AppLocator {
   GetIt call() => _sl;
 
   void init(){
-    ///..................make_bus.................///
-    _sl.registerLazySingleton(() => MakeBusRepo(_sl()));
-    _sl.registerLazySingleton(() => MakeBusService(_sl(), _sl()));
-    _sl.registerFactory(() => MakeBusCubit(_sl()));
-
 
     ///..................login.................///
     _sl.registerLazySingleton(() => LoginRepo(_sl()));
