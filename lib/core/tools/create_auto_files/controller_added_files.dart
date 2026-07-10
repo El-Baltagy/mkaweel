@@ -36,9 +36,8 @@ import 'package:${PathConstants().projectName}/core/base/base_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:${PathConstants().projectName}/main.dart';
-import '${PathConstants().stateFileName()}';
 import 'package:${PathConstants().projectName}/features/screens/${PathConstants().name}/service/${PathConstants().name}_service.dart';
-part '${PathConstants().stateFileName()}.dart';
+part '${PathConstants().stateFileName()}';
 
 class ${PathConstants().cubitName()} extends BaseCubit<${PathConstants().stateName()}> {
    ${PathConstants().cubitName()}(this._service) : super(${PathConstants().initialStateName()}()) ;
@@ -71,7 +70,7 @@ class ${PathConstants().cubitName()} extends BaseCubit<${PathConstants().stateNa
   if (!state.existsSync()) {
     final content =
     '''
-part of '${PathConstants().cubitFileName()}.dart';
+part of '${PathConstants().cubitFileName()}';
 
 @immutable
 abstract class ${PathConstants().stateName()} {}
@@ -86,7 +85,7 @@ class ${PathConstants().initialStateName()} extends ${PathConstants().stateName(
   final ${PathConstants().stateName()}? refreshOrInit;
 
   ${PathConstants().initialStateName()} copyWith({
-    BaseEmit? allWorkersEmit,initialStateName
+    BaseEmit? allWorkersEmit, 
     ${PathConstants().stateName()}? refreshOrInit,
   }) {
     return ${PathConstants().initialStateName()}(

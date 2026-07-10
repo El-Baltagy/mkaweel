@@ -53,13 +53,13 @@ class UIAddRequiredFiles extends BaseAddRequiredFiles {
 
 String _getScreenContent(String widgetName, String notifierClassInstant, String secondaryName) {
   final mixinFileName = '${secondaryName}_screen_mixin.dart';
-  return '''import 'package:auto_route/auto_route.dart';
+  return '''import 'package:${PathConstants().projectName}/core/app/route.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:${PathConstants().projectName}/core/constants/app_locator.dart';
 import 'package:${PathConstants().projectName}/features/screens/${PathConstants().name}/controller/${PathConstants().cubitFileName()}';
-import 'package:${PathConstants().projectName}/features/screens/${PathConstants().name}/controller/${PathConstants().stateFileName()}';
-
+ 
 part '$mixinFileName';
 
 @RoutePage()

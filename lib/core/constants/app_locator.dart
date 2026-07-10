@@ -1,7 +1,4 @@
 
-import 'package:mkaweel/features/screens/makeCar/data/repo/remote/makeCar_repo.dart';
-import 'package:mkaweel/features/screens/makeCar/service/makeCar_service.dart';
-import 'package:mkaweel/features/screens/makeCar/controller/makeCar_cubit.dart';
 import 'package:mkaweel/features/screens/login/data/repo/remote/login_repo.dart';
 import 'package:mkaweel/features/screens/login/service/login_service.dart';
 import 'package:mkaweel/features/screens/login/controller/login_cubit.dart';
@@ -55,11 +52,6 @@ class AppLocator {
   GetIt call() => _sl;
 
   void init(){
-    ///..................makeCar.................///
-    _sl.registerLazySingleton(() => MakecarRepo(_sl()));
-    _sl.registerLazySingleton(() => MakecarService(_sl(), _sl()));
-    _sl.registerFactory(() => MakecarCubit(_sl()));
-
 
     ///..................login.................///
     _sl.registerLazySingleton(() => LoginRepo(_sl()));
