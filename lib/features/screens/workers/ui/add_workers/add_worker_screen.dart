@@ -86,72 +86,71 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
         ),
         body: Form(
           key: _key,
-          child: ListView(
+          child: SingleChildScrollView(
             padding: const EdgeInsets.all(AppPadding.p20),
-            children: [
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                buildName(),
+                AppSizes.s16.verticalSpace,
 
-              buildName(),
-              AppSizes.s16.verticalSpace,
+                buildEmail(),
+                AppSizes.s16.verticalSpace,
 
-              buildEmail(),
-              AppSizes.s16.verticalSpace,
+                buildPW(),
+                AppSizes.s16.verticalSpace,
 
-              buildPW(),
-              AppSizes.s16.verticalSpace,
+                buildPWConfirm(),
+                AppSizes.s16.verticalSpace,
 
-              buildPWConfirm(),
-              AppSizes.s16.verticalSpace,
+                buildRole(),
+                AppSizes.s16.verticalSpace,
 
-              buildRole(),
-              AppSizes.s16.verticalSpace,
+                buildSpecialization(),
+                AppSizes.s16.verticalSpace,
 
-              buildSpecialization(),
-              AppSizes.s16.verticalSpace,
+                buildPhone(),
+                AppSizes.s16.verticalSpace,
 
-               buildPhone(),
-              AppSizes.s16.verticalSpace,
+                buildDOB(context),
+                AppSizes.s16.verticalSpace,
 
-              buildDOB(context),
-              AppSizes.s16.verticalSpace,
+                buildPJBlocPSelector(),
+                AppSizes.s16.verticalSpace,
 
-              buildPJBlocPSelector(),
-              AppSizes.s16.verticalSpace,
-
-
-              AppSizes.s24.verticalSpace,
-              SizedBox(
-                width: double.infinity,
-                child: BlocBuilder<WorkersCubit, WorkersState>(
-                  builder: (context, state) {
-                    bool isLoading = false;
-                    return ElevatedButton(
-                      onPressed: () => addUpdateWorker(isLoading),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme
-                            .of(context)
-                            .primaryColor,
-                        padding: const EdgeInsets.symmetric(
-                          vertical: AppPadding.p16,
+                AppSizes.s24.verticalSpace,
+                SizedBox(
+                  width: double.infinity,
+                  child: BlocBuilder<WorkersCubit, WorkersState>(
+                    builder: (context, state) {
+                      bool isLoading = false;
+                      return ElevatedButton(
+                        onPressed: () => addUpdateWorker(isLoading),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Theme.of(context).primaryColor,
+                          padding: const EdgeInsets.symmetric(
+                            vertical: AppPadding.p16,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(AppSizes.s12),
+                          ),
                         ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(AppSizes.s12),
-                        ),
-                      ),
-                      child: isLoading
-                          ? CircularProgressIndicator(
-                        color: context.theme.scaffoldBackgroundColor,
-                      )
-                          : Text(
-                        'save'.tr(),
-                        style: AppTextStyles.font16SemiBold.copyWith(
-                          color: context.theme.scaffoldBackgroundColor,
-                        ),
-                      ),
-                    );
-                  },
+                        child: isLoading
+                            ? CircularProgressIndicator(
+                                color: context.theme.scaffoldBackgroundColor,
+                              )
+                            : Text(
+                                'save'.tr(),
+                                style: AppTextStyles.font16SemiBold.copyWith(
+                                  color: context.theme.scaffoldBackgroundColor,
+                                ),
+                              ),
+                      );
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -260,13 +259,12 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
                 fontSize: 13,
                 labelText: 'mm/dd/yyyy',
                 onTap: () async {
-                  DateTime _initialDate = DateTime.now();
-                  final date = await showDatePicker(
+                   final date = await showDatePicker(
                     context: context,
-                    initialDate: DateTime(1950),
-                    firstDate: _initialDate,
+                    initialDate: DateTime.now() ,
+                    firstDate: DateTime(1950),
 
-                    lastDate: _initialDate,
+                    lastDate: DateTime.now(),
                   );
                   if (date != null) {
                     _dobController.text =
