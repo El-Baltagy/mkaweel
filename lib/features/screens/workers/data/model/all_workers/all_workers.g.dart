@@ -26,12 +26,12 @@ _$WorkerItemImpl _$$WorkerItemImplFromJson(Map<String, dynamic> json) =>
     _$WorkerItemImpl(
       id: (json['id'] as num).toInt(),
       name: json['name'] as String,
-      email: json['email'] as String,
-      dob: json['dob'] as String,
-      phone: json['phone'] as String,
-      specialization: json['specialization'] as String,
-      role: json['role'] as String,
-      avatar: json['avatar'] as String,
+      email: json['email'] as String?,
+      dob: json['dob'] as String?,
+      phone: json['phone'] as String?,
+      specialization: json['specialization'] as String?,
+      role: json['role'] as String?,
+      avatar: json['avatar'] as String?,
       projects: (json['projects'] as List<dynamic>)
           .map((e) => ProjectItem.fromJson(e as Map<String, dynamic>))
           .toList(),

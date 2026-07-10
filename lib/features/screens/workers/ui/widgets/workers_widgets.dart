@@ -90,14 +90,17 @@ class WorkerCardWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(worker.name, style: AppTextStyles.font16SemiBold),
-              Text(worker.role, style: AppTextStyles.font14Regular.copyWith(color: Theme.of(context).primaryColor)),
+              if(worker.role!=null)
+              Text(worker.role!, style: AppTextStyles.font14Regular.copyWith(color: Theme.of(context).primaryColor)),
               const SizedBox(height: AppSizes.s8),
+              if(worker.phone!=null)
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   const Icon(Icons.phone_outlined, size: 16, color: AppColors.contractorGreyText),
                   const SizedBox(width: AppSizes.s4),
-                  Text(worker.phone, style: AppTextStyles.font14Regular),
+
+                  Text(worker.phone!, style: AppTextStyles.font14Regular),
 
                 ],
               ),
