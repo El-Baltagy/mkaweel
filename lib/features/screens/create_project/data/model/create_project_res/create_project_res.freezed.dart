@@ -194,8 +194,8 @@ mixin _$ProjectInfoData {
   String get owner_name => throw _privateConstructorUsedError;
   String get start_date => throw _privateConstructorUsedError;
   String get end_date => throw _privateConstructorUsedError;
-  String get latitude => throw _privateConstructorUsedError;
-  String get longitude => throw _privateConstructorUsedError;
+  String? get latitude => throw _privateConstructorUsedError;
+  String? get longitude => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   String? get extra_details => throw _privateConstructorUsedError;
   String? get contract_value => throw _privateConstructorUsedError;
@@ -224,8 +224,8 @@ abstract class $ProjectInfoDataCopyWith<$Res> {
       String owner_name,
       String start_date,
       String end_date,
-      String latitude,
-      String longitude,
+      String? latitude,
+      String? longitude,
       String? description,
       String? extra_details,
       String? contract_value,
@@ -254,8 +254,8 @@ class _$ProjectInfoDataCopyWithImpl<$Res, $Val extends ProjectInfoData>
     Object? owner_name = null,
     Object? start_date = null,
     Object? end_date = null,
-    Object? latitude = null,
-    Object? longitude = null,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
     Object? description = freezed,
     Object? extra_details = freezed,
     Object? contract_value = freezed,
@@ -286,14 +286,14 @@ class _$ProjectInfoDataCopyWithImpl<$Res, $Val extends ProjectInfoData>
           ? _value.end_date
           : end_date // ignore: cast_nullable_to_non_nullable
               as String,
-      latitude: null == latitude
+      latitude: freezed == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
-              as String,
-      longitude: null == longitude
+              as String?,
+      longitude: freezed == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -344,8 +344,8 @@ abstract class _$$ProjectInfoDataImplCopyWith<$Res>
       String owner_name,
       String start_date,
       String end_date,
-      String latitude,
-      String longitude,
+      String? latitude,
+      String? longitude,
       String? description,
       String? extra_details,
       String? contract_value,
@@ -372,8 +372,8 @@ class __$$ProjectInfoDataImplCopyWithImpl<$Res>
     Object? owner_name = null,
     Object? start_date = null,
     Object? end_date = null,
-    Object? latitude = null,
-    Object? longitude = null,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
     Object? description = freezed,
     Object? extra_details = freezed,
     Object? contract_value = freezed,
@@ -404,14 +404,14 @@ class __$$ProjectInfoDataImplCopyWithImpl<$Res>
           ? _value.end_date
           : end_date // ignore: cast_nullable_to_non_nullable
               as String,
-      latitude: null == latitude
+      latitude: freezed == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
-              as String,
-      longitude: null == longitude
+              as String?,
+      longitude: freezed == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -484,9 +484,9 @@ class _$ProjectInfoDataImpl extends _ProjectInfoData {
   @override
   final String end_date;
   @override
-  final String latitude;
+  final String? latitude;
   @override
-  final String longitude;
+  final String? longitude;
   @override
   final String? description;
   @override
@@ -534,8 +534,8 @@ abstract class _ProjectInfoData extends ProjectInfoData {
       required final String owner_name,
       required final String start_date,
       required final String end_date,
-      required final String latitude,
-      required final String longitude,
+      required final String? latitude,
+      required final String? longitude,
       required final String? description,
       required final String? extra_details,
       required final String? contract_value,
@@ -560,9 +560,9 @@ abstract class _ProjectInfoData extends ProjectInfoData {
   @override
   String get end_date;
   @override
-  String get latitude;
+  String? get latitude;
   @override
-  String get longitude;
+  String? get longitude;
   @override
   String? get description;
   @override
