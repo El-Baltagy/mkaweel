@@ -15,21 +15,9 @@ class TextInputWidget extends StatefulWidget {
 }
 
 class _TextInputWidgetState extends State<TextInputWidget> {
-  late bool _obscureText;
+  late bool _obscureText=widget.data.isObscureText;
 
-  @override
-  void initState() {
-    super.initState();
-    _obscureText = widget.data.isObscureText;
-  }
 
-  @override
-  void didUpdateWidget(covariant TextInputWidget oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.data.isObscureText != widget.data.isObscureText) {
-      _obscureText = widget.data.isObscureText;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
