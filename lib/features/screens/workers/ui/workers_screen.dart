@@ -3,13 +3,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/app/route.dart';
+import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
  import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/features/screens/workers/controller/workers_cubit.dart';
-import 'package:mkaweel/features/screens/workers/controller/workers_state.dart';
- import 'package:mkaweel/features/screens/workers/ui/widgets/filter_wdgt.dart';
-import 'package:mkaweel/features/screens/workers/ui/widgets/summary_card.dart';
 import 'package:mkaweel/features/screens/workers/ui/widgets/workers_widgets.dart';
 import 'package:mkaweel/core/extension/context.dart';
 
@@ -30,32 +28,9 @@ class WorkersPage extends StatefulWidget implements AutoRouteWrapper {
 }
 
 class _WorkersPageState extends WorkersPageBaseState {
-  String _selectedFilter = 'all_workers';
 
-  // Mock data
-  final List<WorkerModel> _allWorkers = const [
-    WorkerModel(
-      name: 'سيلبسيليليب',
-      role: 'مشرف',
-      phone: '5523454943',
-      certExpiry: '19/05/2026',
-      isActive: true,
-    ),
-  ];
-
-  List<WorkerModel> get _filteredWorkers {
-    switch (_selectedFilter) {
-      case 'active':
-        return _allWorkers.where((w) => w.isActive).toList();
-      case 'inactive':
-        return _allWorkers.where((w) => !w.isActive).toList();
-      default:
-        return _allWorkers;
-    }
-  }
-
-  int get _activeCount => _allWorkers.where((w) => w.isActive).length;
-  int get _inactiveCount => _allWorkers.where((w) => !w.isActive).length;
+  int get _activeCount => 1;
+  int get _inactiveCount => 0;
 
   @override
   Widget build(BuildContext context) {
@@ -79,17 +54,22 @@ class _WorkersPageState extends WorkersPageBaseState {
         ),
         body: Column(
           children: [
-            WorkersSummaryWidget(
-              activeCount: _activeCount,
-              inactiveCount: _inactiveCount,
-            ),
+            // WorkersSummaryWidget(
+            //   activeCount: _activeCount,
+            //   inactiveCount: _inactiveCount,
+            // ),
             // if(false)
-            WorkersFilterWidget(
-              selectedFilter: _selectedFilter,
-              onFilterChanged: (f) => setState(() => _selectedFilter = f),
-            ),
+            // WorkersFilterWidget(
+            //   selectedFilter: _selectedFilter,
+            //   onFilterChanged: (f) => setState(() => _selectedFilter = f),
+            // ),
             const SizedBox(height: AppSizes.s12),
-            Expanded(child: WorkersListWidget(workers: _filteredWorkers)),
+            Expanded(child: BlocSelector<WorkersCubit, WorkersState, BaseEmit?>(
+  selector: (state)=> state is AllWorkersLoaded? state.allWorkersEmit  :null,
+  builder: (context, state) {
+    return WorkersListWidget(emit:state);
+  },
+)),
           ],
         ),
       ),
@@ -98,14 +78,17 @@ class _WorkersPageState extends WorkersPageBaseState {
 }
 
 abstract class WorkersPageBaseState extends State<WorkersPage> {
-  late final WorkersCubit argData;
+  late final WorkersCubit workersCubit;
 
   @override
   void initState() {
     super.initState();
-    argData = WorkersCubit.get(context: context);
+    workersCubit = WorkersCubit.get(context: context);
+    loadData();
   }
-
+Future<void> loadData() async {
+  await  workersCubit.getWorkersFunc();
+}
   @override
   void dispose() {
     super.dispose();

@@ -1,33 +1,26 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/context.dart';
+import 'package:mkaweel/features/screens/workers/data/model/all_workers/all_workers.dart';
 
-class WorkerModel {
 
-  const WorkerModel({
-    required this.name,
-    required this.role,
-    required this.phone,
-    required this.certExpiry,
-    required this.isActive,
-  });
-  final String name;
-  final String role;
-  final String phone;
-  final String certExpiry;
-  final bool isActive;
-}
 
 class WorkersListWidget extends StatelessWidget {
-  const WorkersListWidget({super.key, required this.workers});
-  final List<WorkerModel> workers;
+  const WorkersListWidget({super.key, required  this.emit});
+  final BaseEmit? emit;
+  // final List<WorkerModel> workers;
 
   @override
   Widget build(BuildContext context) {
-    if (workers.isEmpty) return const EmptyWorkersWidget();
+    bool isLoading=emit is! Success<AllWorkers?>;
+    if (isLoading) return const Center(child: CircularProgressIndicator());
+
+    final workers = (emit as Success<AllWorkers?>).data?.data ?? [];
+     if (workers.isEmpty) return const EmptyWorkersWidget();
     return ListView.separated(
       padding: const EdgeInsets.all(AppPadding.p16),
       itemCount: workers.length,
@@ -66,10 +59,11 @@ class EmptyWorkersWidget extends StatelessWidget {
 
 class WorkerCardWidget extends StatelessWidget {
   const WorkerCardWidget({super.key, required this.worker});
-  final WorkerModel worker;
+  final WorkerItem worker;
 
   @override
   Widget build(BuildContext context) {
+    bool isActive=true;
     return Container(
       padding: const EdgeInsets.all(AppPadding.p16),
       decoration: BoxDecoration(
@@ -112,7 +106,7 @@ class WorkerCardWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    '${'certificate_expiry_label'.tr()} ${worker.certExpiry}',
+                    '${'certificate_expiry_label'.tr()} ${worker.dob}',
                     style: AppTextStyles.font12Regular,
                   ),
                 ],
@@ -121,15 +115,15 @@ class WorkerCardWidget extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: AppPadding.p12, vertical: AppPadding.p4),
                 decoration: BoxDecoration(
-                  color: worker.isActive
+                  color: isActive
                       ? AppColors.contractorGreen.withOpacity(0.15)
                       : Colors.grey.withOpacity(0.15),
                   borderRadius: BorderRadius.circular(AppSizes.s20),
                 ),
                 child: Text(
-                  worker.isActive ? 'active'.tr() : 'inactive'.tr(),
+                  isActive ? 'active'.tr() : 'inactive'.tr(),
                   style: AppTextStyles.font12Regular.copyWith(
-                    color: worker.isActive ? AppColors.contractorGreen : AppColors.contractorGreyText,
+                    color: isActive? AppColors.contractorGreen : AppColors.contractorGreyText,
                     fontWeight: FontWeight.w600,
                   ),
                 ),

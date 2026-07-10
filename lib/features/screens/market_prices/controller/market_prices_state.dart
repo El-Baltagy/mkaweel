@@ -8,8 +8,6 @@ abstract class MarketPricesState {}
 /// Single combined state — both slices are always present together.
 /// This prevents one request's emission from wiping the other's data.
 class MarketPricesLoaded extends MarketPricesState {
-  final BaseEmit? categoriesEmit,subCategoriesEmit,exchangeRateState;
-  final MarketPricesState? refreshOrInit;
 
     MarketPricesLoaded({
     this.exchangeRateState,
@@ -17,6 +15,8 @@ class MarketPricesLoaded extends MarketPricesState {
     this.refreshOrInit,
     this.subCategoriesEmit,
   });
+  final BaseEmit? categoriesEmit,subCategoriesEmit,exchangeRateState;
+  final MarketPricesState? refreshOrInit;
 
   MarketPricesLoaded copyWith({
     BaseEmit? categoriesEmit,
