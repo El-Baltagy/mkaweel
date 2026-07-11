@@ -14,17 +14,18 @@ abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
   final _pwController = TextEditingController();
   final _pwConfirmController = TextEditingController();
 
-  final ValueNotifier<List<int>> _roleIndexesNotifier = .new([]);
-
   final _specController = TextEditingController();
   final _phoneController = TextEditingController();
   final _dobController = TextEditingController();
 
+  final ValueNotifier<List<int>> _roleIndexesNotifier = .new([]);
+  final ValueNotifier<List<int>> _projectIdsNotifier = .new([]);
+
    final ValueNotifier<String >  avatarNotifier = .new("");
   @override
   void initState() {
-    workersCubit = WorkersCubit.get(context: context);
-    projectsCubit = ProjectsCubit.get(context: context);
+    workersCubit = widget.args.workersCubit!;
+    projectsCubit =  widget.args.projectsCubit!;
     super.initState();
     _nameController.text=widget.args.workerItem?.name??"";
     _emailController.text=widget.args.workerItem?.email??"";
@@ -32,6 +33,9 @@ abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
     _phoneController.text=widget.args.workerItem?.phone??"";
     _dobController.text=widget.args.workerItem?.dob??"";
     avatarNotifier.value=widget.args.workerItem?.avatar??"";
+    _projectIdsNotifier.value=
+        (widget.args.workerItem?.projects??[])
+            .map((ee) => va!.data.map((e) => e.id).toList().indexOf(ee.id)).toList();
     Future.delayed(const Duration(milliseconds: 500), () {
       final idx = listChoices.indexWhere(
         (element) => element.apiValue == widget.args.workerItem?.role,

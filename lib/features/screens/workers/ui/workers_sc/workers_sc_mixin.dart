@@ -2,17 +2,16 @@ part of 'workers_screen.dart';
 
 abstract class WorkersPageBaseState extends State<WorkersPage> {
   late final WorkersCubit workersCubit;
+  late final ProjectsCubit projectsCubit;
 
   @override
   void initState() {
     super.initState();
     workersCubit = WorkersCubit.get(context: context);
-    loadData();
+    projectsCubit = ProjectsCubit.get(context: context);
+
   }
 
-  Future<void> loadData() async {
-    await workersCubit.getWorkersFunc();
-  }
 
   @override
   void dispose() {

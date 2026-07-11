@@ -16,6 +16,8 @@ import 'package:mkaweel/core/shared/widgets/text_inputs/password_text_input_data
 import 'package:mkaweel/core/shared/widgets/text_inputs/phone_text_input_data.dart';
 import 'package:mkaweel/features/screens/create_project/ui/widgets/title_with_input.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
+import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
+import 'package:mkaweel/features/screens/projects/data/model/all_projects_res/all_projects_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/delete_project_res/delete_project_res.dart';
 import 'package:mkaweel/features/screens/settings/ui/widgets/image_chnager.dart';
 import 'package:mkaweel/features/screens/workers/controller/workers_cubit.dart';
@@ -37,18 +39,14 @@ class AddWorkerPage extends StatefulWidget implements AutoRouteWrapper {
   // 2. Implement the wrappedRoute method
   @override
   Widget wrappedRoute(BuildContext context) {
-    return MultiBlocProvider(providers: [
-      BlocProvider<WorkersCubit>(
-        // Use your singleton to get the Cubit instance
-        create: (context) => WorkersCubit(AppLocator()()()),
-      ),
-      BlocProvider<ProjectsCubit>(
-        // Use your singleton to get the Cubit instance
-        create: (context) => ProjectsCubit(AppLocator()()()),
-      ),
+     return BlocProvider.value(
+value: args.projectsCubit!,
+  child: BlocProvider.value(
+    value:args.workersCubit! ,
+     child: this,
+    ),
+);
 
-
-    ], child: this);
   }
 
   @override
@@ -116,7 +114,8 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
                 buildPhone(),
 
                 buildDOB(context),
-
+                
+                buildPJBlocPSelector(),
 
                  Container(
                   margin: const .only(top:AppSizes.s10 ),
@@ -159,7 +158,24 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
       ),
     );
   }
+  Widget buildPJBlocPSelector() {
+    return BlocSelector<ProjectsCubit, ProjectsState, BaseEmit?>(
+      selector: (state)=>state is ProjectsLoaded?state .allProjectsResState:null,
 
+      builder: (context, state) {
+        bool isLoading=state is! Success<AllProjectsRes?> ;
+        pjChoices=(isLoading?null: state.data?.data.map((e) =>
+            UIApiKeys(e.name, e.id.toString())
+        ).toList())??[];
+        return BottomSheetSelector(
+          isMultiSelect: true,
+          title: "projects".tr(),
+          listChoices: pjChoices,
+          selectedRoleNotifier: _projectIdsNotifier,
+        );
+      },
+    );
+  }
   TitleWithInputField buildPhone() {
     return TitleWithInputField(
               'phone_number'.tr(),

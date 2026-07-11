@@ -7,6 +7,7 @@ import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
  import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
+import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/data/model/delete_project_res/delete_project_res.dart';
 import 'package:mkaweel/features/screens/workers/controller/workers_cubit.dart';
  import 'package:mkaweel/core/extension/context.dart';
@@ -19,10 +20,17 @@ class WorkersPage extends StatefulWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    return BlocProvider<WorkersCubit>(
-      create: (context) => WorkersCubit(AppLocator()()()),
-      child: this,
-    );
+
+    return MultiBlocProvider(providers: [
+      BlocProvider<WorkersCubit>(
+         create: (context) => WorkersCubit(AppLocator()()())..getWorkersFunc(),
+      ),
+      BlocProvider<ProjectsCubit>(
+         create: (context) => ProjectsCubit(AppLocator()()())..getAllProjectsFunc(),
+      ),
+
+    ], child: this);
+
   }
 
   @override
@@ -31,8 +39,7 @@ class WorkersPage extends StatefulWidget implements AutoRouteWrapper {
 
 class _WorkersPageState extends WorkersPageBaseState {
 
-  int get _activeCount => 1;
-  int get _inactiveCount => 0;
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +59,8 @@ class _WorkersPageState extends WorkersPageBaseState {
             icon:   Icon(Icons.add, color: context.theme.scaffoldBackgroundColor),
             onPressed:  () async {
               var result=await context.push(AddWorkerRoute(args:   AddWorkerRouteArgs(workerItem: null,
+                  projectsCubit: projectsCubit,
+                workersCubit: workersCubit
                    )));
               if (result == true) {
                 await workersCubit.getWorkersFunc();
@@ -75,7 +84,9 @@ class _WorkersPageState extends WorkersPageBaseState {
             Expanded(child: BlocSelector<WorkersCubit, WorkersState, BaseEmit?>(
   selector: (state)=> state is AllWorkersLoaded? state.allWorkersEmit  :null,
   builder: (context, state) {
-    return WorkersListWidget(emit:state,workersCubit:workersCubit);
+    return WorkersListWidget(emit:state,workersCubit:workersCubit,
+    projectsCubit: projectsCubit,
+    );
   },
 )),
           ],

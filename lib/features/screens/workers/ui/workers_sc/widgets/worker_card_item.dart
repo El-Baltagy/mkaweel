@@ -1,9 +1,10 @@
 part of 'workers_widgets.dart';
 
 class WorkerCardWidget extends StatelessWidget {
-  const WorkerCardWidget({super.key, required this.worker, required this.workersCubit});
+  const WorkerCardWidget({super.key, required this.worker, required this.workersCubit, required this.projectsCubit});
   final WorkerItem worker;
   final WorkersCubit workersCubit;
+  final ProjectsCubit projectsCubit;
   @override
   Widget build(BuildContext context) {
 
@@ -88,6 +89,8 @@ class WorkerCardWidget extends StatelessWidget {
               InkWell(
                 onTap: () async {
                   var result=await context.push(AddWorkerRoute(args:   AddWorkerRouteArgs(workerItem:  worker ,
+                    workersCubit:workersCubit ,
+                    projectsCubit: projectsCubit
                    )));
                   if (result == true) {
                     await workersCubit.getWorkersFunc();
