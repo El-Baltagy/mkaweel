@@ -159,22 +159,28 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
     );
   }
   Widget buildPJBlocPSelector() {
-    return BlocSelector<ProjectsCubit, ProjectsState, BaseEmit?>(
-      selector: (state)=>state is ProjectsLoaded?state .allProjectsResState:null,
-
-      builder: (context, state) {
-        bool isLoading=state is! Success<AllProjectsRes?> ;
-        pjChoices=(isLoading?null: state.data?.data.map((e) =>
-            UIApiKeys(e.name, e.id.toString())
-        ).toList())??[];
-        return BottomSheetSelector(
-          isMultiSelect: true,
-          title: "projects".tr(),
-          listChoices: pjChoices,
-          selectedRoleNotifier: _projectIdsNotifier,
-        );
-      },
+    return BottomSheetSelector(
+      isMultiSelect: true,
+      title: "projects".tr(),
+      listChoices: pjChoices,
+      selectedRoleNotifier: _projectIdsNotifier,
     );
+    // return BlocSelector<ProjectsCubit, ProjectsState, BaseEmit?>(
+    //   selector: (state)=>state is ProjectsLoaded?state .allProjectsResState:null,
+    //
+    //   builder: (context, state) {
+    //     bool isLoading=state is! Success<AllProjectsRes?> ;
+    //     pjChoices=(isLoading?null: state.data?.data.map((e) =>
+    //         UIApiKeys(e.name, e.id.toString())
+    //     ).toList())??[];
+    //     return BottomSheetSelector(
+    //       isMultiSelect: true,
+    //       title: "projects".tr(),
+    //       listChoices: pjChoices,
+    //       selectedRoleNotifier: _projectIdsNotifier,
+    //     );
+    //   },
+    // );
   }
   TitleWithInputField buildPhone() {
     return TitleWithInputField(

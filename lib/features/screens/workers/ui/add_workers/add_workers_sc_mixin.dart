@@ -1,7 +1,7 @@
 part of 'add_worker_screen.dart';
 
 abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
-  List<UIApiKeys> pjChoices = [];
+  late final List<UIApiKeys> pjChoices  ;
   late final WorkersCubit workersCubit;
   late final ProjectsCubit projectsCubit;
   final _key = GlobalKey<FormState>();
@@ -24,8 +24,13 @@ abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
    final ValueNotifier<String >  avatarNotifier = .new("");
   @override
   void initState() {
+
     workersCubit = widget.args.workersCubit!;
     projectsCubit =  widget.args.projectsCubit!;
+    pjChoices=(projectsCubit.current.allProjectsResState is! Success<AllProjectsRes?> ?null: (
+        projectsCubit.current.allProjectsResState as Success<AllProjectsRes?>
+    ).data?.data.map((e) => UIApiKeys(e.name, e.id.toString())
+    ).toList())??[];
     super.initState();
     _nameController.text=widget.args.workerItem?.name??"";
     _emailController.text=widget.args.workerItem?.email??"";
@@ -33,14 +38,18 @@ abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
     _phoneController.text=widget.args.workerItem?.phone??"";
     _dobController.text=widget.args.workerItem?.dob??"";
     avatarNotifier.value=widget.args.workerItem?.avatar??"";
-    _projectIdsNotifier.value=
-        (widget.args.workerItem?.projects??[])
-            .map((ee) => va!.data.map((e) => e.id).toList().indexOf(ee.id)).toList();
+
     Future.delayed(const Duration(milliseconds: 500), () {
       final idx = listChoices.indexWhere(
         (element) => element.apiValue == widget.args.workerItem?.role,
       );
       if (idx != -1) _roleIndexesNotifier.value = [idx];
+      if(pjChoices.isNotEmpty){
+        _projectIdsNotifier.value=
+            (widget.args.workerItem?.projects??[])
+                .map((ee) =>pjChoices.map((e) => e.apiValue).toList().indexOf(ee.id.toString())).toList();
+      }
+
     });
 
   }

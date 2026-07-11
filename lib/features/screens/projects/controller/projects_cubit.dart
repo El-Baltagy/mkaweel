@@ -18,7 +18,7 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
   ProjectsCubit(this._service) : super(ProjectsLoaded());
   final ProjectsService _service;
 
-  ProjectsLoaded get _current =>
+  ProjectsLoaded get current =>
       state is ProjectsLoaded ? state as ProjectsLoaded : ProjectsLoaded();
 
   static ProjectsCubit get({BuildContext? context, bool listen = false}) =>
@@ -46,14 +46,14 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
           parameter: parameter,
           cancelToken: token,
           onLoadCallback: () =>
-              safeEmit(_current.copyWith(allProjectsResState: Loading())),
+              safeEmit(current.copyWith(allProjectsResState: Loading())),
           onRightCallback: (data) {
             res=data;
-            safeEmit(_current.copyWith(allProjectsResState: Success(data)));
+            safeEmit(current.copyWith(allProjectsResState: Success(data)));
           }
               ,
           onLeftCallback: (failure) => safeEmit(
-            _current.copyWith(allProjectsResState: ErrorState(failure)),
+            current.copyWith(allProjectsResState: ErrorState(failure)),
           ),
         ),
       );
@@ -69,22 +69,22 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
       RequestCallbackObserver<DeleteProjectRes, DeleteProjectParameter>(
         baseRequestBackType: Reload(),
         parameter: parameter ,
-        onLoadCallback: () => safeEmit(_current.copyWith(
+        onLoadCallback: () => safeEmit(current.copyWith(
           deleteProjectResState: Loading<String>(parameter.id.toString()),
-          deletingProjectIds: [..._current.deletingProjectIds, parameter.id.toString()]
+          deletingProjectIds: [...current.deletingProjectIds, parameter.id.toString()]
         )),
-        onRightCallback: (data) => safeEmit(_current.copyWith(
-            allProjectsResState: _current.allProjectsResState is Success<AllProjectsRes> ?
-            Success<AllProjectsRes>((_current.allProjectsResState as Success<AllProjectsRes>).data!.copyWith(
-              data: (_current.allProjectsResState as Success<AllProjectsRes>).data!.data.where((element) => element.id.toString() != parameter.id.toString()).toList(),
+        onRightCallback: (data) => safeEmit(current.copyWith(
+            allProjectsResState: current.allProjectsResState is Success<AllProjectsRes> ?
+            Success<AllProjectsRes>((current.allProjectsResState as Success<AllProjectsRes>).data!.copyWith(
+              data: (current.allProjectsResState as Success<AllProjectsRes>).data!.data.where((element) => element.id.toString() != parameter.id.toString()).toList(),
             ))
-            :_current.allProjectsResState,
+            :current.allProjectsResState,
             deleteProjectResState: Success(data),
-            deletingProjectIds: _current.deletingProjectIds.where((id) => id != parameter.id.toString()).toList(),
+            deletingProjectIds: current.deletingProjectIds.where((id) => id != parameter.id.toString()).toList(),
         )),
-        onLeftCallback: (failure) => safeEmit(_current.copyWith(
+        onLeftCallback: (failure) => safeEmit(current.copyWith(
           deleteProjectResState: ErrorState(failure),
-          deletingProjectIds: _current.deletingProjectIds.where((id) => id != parameter.id.toString()).toList(),
+          deletingProjectIds: current.deletingProjectIds.where((id) => id != parameter.id.toString()).toList(),
         )),
       ),
     );
