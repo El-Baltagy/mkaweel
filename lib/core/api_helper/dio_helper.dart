@@ -3,6 +3,8 @@ import 'package:mkaweel/core/api_helper/interceptor/auth_interceptor.dart';
 import 'package:mkaweel/core/api_helper/interceptor/logger_interceptor.dart';
 import 'package:mkaweel/core/api_helper/interceptor/retry_interceptor.dart';
 import 'package:mkaweel/core/constants/app_api.dart';
+import 'package:mkaweel/core/constants/app_constant.dart';
+import 'package:mkaweel/core/storage/hive_storage.dart';
 import 'package:mkaweel/core/storage/storage_helper.dart';
 
 class DioHelper {
@@ -45,11 +47,7 @@ class DioHelper {
       uri,
       cancelToken: cancelToken,
       queryParameters: query,
-      options: Options(
-        responseType: ResponseType.plain,
-        headers: headers,
-        extra: {'caller': caller},
-      ),
+      options: options(headers, caller),
     );
     return res.data;
   }
@@ -67,11 +65,7 @@ class DioHelper {
       cancelToken: cancelToken,
       data: data,
       queryParameters: query,
-      options: Options(
-        responseType: ResponseType.plain,
-        headers: headers,
-        extra: {'caller': caller},
-      ),
+      options: options(headers, caller),
     );
     return res.data;
   }
@@ -88,13 +82,19 @@ class DioHelper {
       cancelToken: cancelToken,
       data: data,
       queryParameters: query,
-      options: Options(
-        responseType: ResponseType.plain,
-        headers: headers,
-        extra: {'caller': caller},
-      ),
+      options: options(headers, caller),
     );
     return res.data;
+  }
+
+  Options options(Map<String, dynamic>? headers, String? caller) {
+     final Map<String, dynamic>  _headers = headers??{} ;
+    _headers.addAll( {"lang":HiveStorage().readData(AppConstant.langCode)??'en'} );
+    return Options(
+      responseType:  .plain,
+      headers:_headers,
+      extra: {'caller': caller},
+    );
   }
   Future<dynamic> deleteData({
     required String uri,
@@ -109,11 +109,7 @@ class DioHelper {
       cancelToken: cancelToken,
       data: data,
       queryParameters: query,
-      options: Options(
-        responseType: ResponseType.plain,
-        headers: headers,
-        extra: {'caller': caller},
-      ),
+      options: options(headers, caller),
     );
     return res.data;
   }

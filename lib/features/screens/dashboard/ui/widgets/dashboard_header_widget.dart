@@ -1,5 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:mkaweel/core/constants/app_constant.dart';
+import 'package:mkaweel/core/shared/methods/date_helper.dart';
+import 'package:mkaweel/core/storage/hive_storage.dart';
 import 'package:mkaweel/core/storage/storage_helper.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
@@ -28,10 +31,10 @@ class DashboardHeaderWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'sunday_may_31'.tr(),
+                DateTimeHelper.formatDateTimeFromString(DateTime.now().toString(),DateFormat('dd MMM , EEE ',HiveStorage().readData(AppConstant.langCode)??'en')),
                 style: AppTextStyles.font14Regular.copyWith(color: context.theme.scaffoldBackgroundColor.withOpacity(0.8)),
               ),
-                Icon(Icons.notifications_none, color: context.theme.scaffoldBackgroundColor),
+
             ],
           ),
           5.verticalSpace,
@@ -39,17 +42,17 @@ class DashboardHeaderWidget extends StatelessWidget {
             'hello'.tr()+" ${StorageHelper.userData.name}",
             style: AppTextStyles.font24Bold.copyWith(color: context.theme.scaffoldBackgroundColor),
           ),
-          20.verticalSpace,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildStatItem(context,'0', 'active_project'.tr()),
-              _buildDivider(context),
-              _buildStatItem(context,'0', 'completed'.tr()),
-              _buildDivider(context),
-              _buildStatItem(context,'0', 'todays_tasks'.tr()),
-            ],
-          ),
+          // 20.verticalSpace,
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //   children: [
+          //     _buildStatItem(context,'0', 'active_project'.tr()),
+          //     _buildDivider(context),
+          //     _buildStatItem(context,'0', 'completed'.tr()),
+          //     _buildDivider(context),
+          //     _buildStatItem(context,'0', 'todays_tasks'.tr()),
+          //   ],
+          // ),
         ],
       ),
     );

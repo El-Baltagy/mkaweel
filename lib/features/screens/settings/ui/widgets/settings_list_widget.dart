@@ -29,54 +29,6 @@ class _SettingsListWidgetState extends State<SettingsListWidget> {
       padding: const EdgeInsets.all(AppPadding.p16),
       child: Column(
         children: [
-          // Dark Mode Card
-          if(false)
-          BlocBuilder<ThemeCubit, ThemeMode>(
-            builder: (context, themeMode) {
-              final isDark = themeMode == ThemeMode.dark;
-              return Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).cardTheme.color ?? context.theme.scaffoldBackgroundColor,
-                  borderRadius: BorderRadius.circular(AppSizes.s12),
-                  border: Border.all(
-                    color: Theme.of(context).dividerTheme.color ?? context.theme.canvasColor,
-                  ),
-                ),
-                child: ListTile(
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: AppPadding.p16,
-                    vertical: AppPadding.p8,
-                  ),
-                  leading: Switch(
-                    value: isDark,
-                    onChanged: (v) => context.read<ThemeCubit>().toggleTheme(v),
-                    activeThumbColor: Theme.of(context).primaryColor,
-                  ),
-                  title: Text(
-                    'dark_mode'.tr(),
-                    style: AppTextStyles.font16SemiBold,
-                    textAlign: TextAlign.right,
-                  ),
-                  subtitle: Text(
-                    'dark_mode_subtitle'.tr(),
-                    style: AppTextStyles.font12Regular,
-                    textAlign: TextAlign.right,
-                  ),
-                  trailing: Container(
-                    padding: const EdgeInsets.all(AppPadding.p8),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                      borderRadius: BorderRadius.circular(AppSizes.s8),
-                    ),
-                    child: Icon(
-                      isDark ? Icons.nights_stay_outlined : Icons.wb_sunny_outlined,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
           const SizedBox(height: AppSizes.s12),
           // Info items
           Container(

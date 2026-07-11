@@ -19,48 +19,16 @@ abstract class DateTimeHelper{
   }
 
 
-
-
-
-// static   Duration convertDurationToSMH(Duration duration) {
-//
-//   return Duration(
-//       hours: duration.inHours,
-//       minutes: duration.inMinutes,
-//       seconds:duration.inSeconds );
-//
-// }
-
-// static   DateTime convertStringToDateTime(String dateTimeString,{String replacer='.'  }) {
-//   if (dateTimeString=="null") {
-//     return DateTime.now().subtract(Duration(days: 2));
-//   }
-//   final List<String> dateParts = dateTimeString.split(replacer);
-//   final int day = int.parse(dateParts[0]);
-//   final int month = int.parse(dateParts[1]);
-//   final int year = int.parse(dateParts[2]);
-//   return DateTime(year, month, day);
-//   /// for example convert this string (“30.04.2024”) into DateTime: 2024-04-30 00:00:00.000
-// }
-
-// static String dateTimeNow({String? locale}) {
-//
-//   return DateFormat('dd.MM.yyyy',locale??'en').format(DateTime.now());
-// }
-
-// static bool checkDateIsTodayDate(DateTime dateToCheck) {
-//   DateTime today = DateTime.now();
-//
-//   return (DateTime(today.year, today.month, today.day) ==
-//       DateTime(dateToCheck.year, dateToCheck.month, dateToCheck.day)) ;
-//   /// return true if this input (dateToCheck) is today date
-// }
-
-// static String convertTimestampToMessageDate(DateTime date) =>
-//     ///Suppose you call this method with the input DateTime(2023, 6, 1, 14, 30) (which represents June 1, 2023, at 2:30 PM). It would return
-// ///the formatted date string "Thu 01 Jun 2023 02:30 PM" (assuming the language/locale is set appropriately).
-// DateFormat(
-//   'EEE dd MMM  yyy  hh:mm a',
-//
-// ).format(date);
+  //Format	 Output
+// DateFormat('yyyy-MM-dd')	2026-07-12
+// DateFormat('dd-MM-yyyy')	12-07-2026
+// DateFormat('MM/dd/yyyy')	07/12/2026
+// DateFormat('dd/MM/yyyy')	12/07/2026
+// DateFormat('yyyy/MM/dd')	2026/07/12
+// DateFormat('dd MMM yyyy')	12 Jul 2026
+// DateFormat('MMMM dd, yyyy')	July 12, 2026
+// DateFormat('EEE, dd MMM')	Sun, 12 Jul
+// DateFormat('EEEE')	Sunday
+// DateFormat('MMM')	Jul
+// DateFormat('MMMM')	July
 }
