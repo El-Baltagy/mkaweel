@@ -8,9 +8,6 @@ import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/form_auto_scroll.dart';
-import 'package:mkaweel/core/shared/methods/image_picker.dart';
-import 'package:mkaweel/core/shared/methods/print.dart';
-import 'package:mkaweel/core/shared/widgets/dialouge_choose_image.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/dob_text_input_data.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/email_text_input_data.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/name_text_input_data.dart';
@@ -27,6 +24,7 @@ import 'package:mkaweel/features/screens/settings/controller/settings_cubit.dart
 import 'package:mkaweel/features/screens/settings/controller/settings_state.dart';
 import 'package:mkaweel/features/screens/settings/data/model/update_profile_parameters.dart';
 import 'package:mkaweel/features/screens/settings/data/model/update_profile_res/update_profile_res.dart';
+import 'package:mkaweel/features/screens/settings/ui/widgets/image_chnager.dart';
 
 @RoutePage()
 class ProfileScreen extends StatefulWidget  implements AutoRouteWrapper{
@@ -70,62 +68,7 @@ class _ProfileScreenState extends ProfilePageBaseState {
           child: Column(
              children: [
               24.verticalSpace,
-               Stack(
-                alignment: Alignment.bottomRight,
-                children: [
-                  ValueListenableBuilder(valueListenable:_avatarNotifier , builder: (context, value, child) {
-
-                    Widget? widgetImg;
-                    if (value.isNotEmpty) {
-                      if(value.startsWith('http')){
-                        widgetImg = Image.network(value,
-                          fit: BoxFit.cover,
-                          width: 100,
-                          height: 100,
-                          errorBuilder: (context, error, stackTrace) => Icon(Icons.person, size: 50, color: Theme.of(context).primaryColor),
-                        );
-                      }else{
-                        widgetImg = Image.file(File(value),
-                          fit: BoxFit.cover,
-                          width: 100,
-                          height: 100,
-                        );
-                      }
-
-                    }else{
-                      widgetImg =Icon(Icons.person, size: 50, color: Theme.of(context).primaryColor);
-                    }
-                    return ClipRRect(
-                     borderRadius: .circular(120),
-                      child: Container(
-                        color: context.theme.canvasColor,
-                        width: 100,
-                        height: 100 ,
-                        child: widgetImg,
-
-                      ),
-                    );
-                  },),
-                  GestureDetector(
-                    onTap: ()=>DialougeChooseImage(
-                      chooseCameraData: ('from_camera'.tr(),()=>pickImage(.camera)),
-                      chooseGalleryData: ('from_gallery'.tr(),()=>pickImage(.gallery)),
-                    ).toShowDialougePick(context),
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      child: Icon(
-                        Icons.camera_alt,
-                        color: context.theme.scaffoldBackgroundColor,
-                        size: 20,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+               ImageChange(avatarNotifier: _avatarNotifier),
 
               32.verticalSpace,
               _buildTextField(
@@ -246,6 +189,8 @@ class _ProfileScreenState extends ProfilePageBaseState {
 
 
 }
+
+
 abstract class ProfilePageBaseState extends State<ProfileScreen> {
   final _key = GlobalKey<FormState>();
   (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field1 = (.new(), .new());
@@ -288,13 +233,6 @@ abstract class ProfilePageBaseState extends State<ProfileScreen> {
     }
   }
 
-  void pickImage(ImageSource source){
-    ImagePickerInfo.pickImage(source).then((value) {
-      if(value!=null){
-        _avatarNotifier.value=value.path;
-      }
-    },);
-  }
 
    Future<void> updateProfile(BuildContext context) async{
     if(

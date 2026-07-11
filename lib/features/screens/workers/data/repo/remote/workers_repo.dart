@@ -40,7 +40,8 @@ class WorkersRepo extends BaseRepo {
       onCallData:
       parameter?.workerId!=null?
       dio.putData(
-        data:  await parameter!.toJson(),
+        data: FormData.fromMap(await parameter!.toJson() ),
+        // data:  await parameter!.toJson(),
         uri: EndPoints.updateWorker(parameter.workerId!),
         cancelToken: cancelToken,
         caller: callerTag(),

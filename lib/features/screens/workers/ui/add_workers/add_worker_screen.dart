@@ -13,9 +13,11 @@ import 'package:mkaweel/core/shared/widgets/text_inputs/dob_text_input_data.dart
 import 'package:mkaweel/core/shared/widgets/text_inputs/email_text_input_data.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/name_text_input_data.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/password_text_input_data.dart';
+import 'package:mkaweel/core/shared/widgets/text_inputs/phone_text_input_data.dart';
 import 'package:mkaweel/features/screens/create_project/ui/widgets/title_with_input.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/data/model/delete_project_res/delete_project_res.dart';
+import 'package:mkaweel/features/screens/settings/ui/widgets/image_chnager.dart';
 import 'package:mkaweel/features/screens/workers/controller/workers_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/Material.dart';
@@ -90,8 +92,15 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
             padding: const EdgeInsets.all(AppPadding.p20),
             child: Column(
               spacing: AppSizes.s16,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment:  .start,
               children: [
+
+                Center(
+                  child: ImageChange(
+                    avatarNotifier: avatarNotifier,
+                  ),
+                ),
+
                 buildName(),
 
                 buildEmail(),
@@ -154,11 +163,9 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
   TitleWithInputField buildPhone() {
     return TitleWithInputField(
               'phone_number'.tr(),
-              NameInputData(
+              PhoneInputData(
                 isLabel: false,
-                widgetPrefix: const SizedBox.shrink(),
-                labelText: '+966 5x xxx xxxx',
-                controller: _phoneController,
+                 controller: _phoneController,
               ),
             );
   }

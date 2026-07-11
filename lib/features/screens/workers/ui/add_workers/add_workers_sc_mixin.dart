@@ -20,8 +20,7 @@ abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
   final _phoneController = TextEditingController();
   final _dobController = TextEditingController();
 
-   final ValueNotifier<(File?, String?)> _image = .new((null,null));
-
+   final ValueNotifier<String >  avatarNotifier = .new("");
   @override
   void initState() {
     workersCubit = WorkersCubit.get(context: context);
@@ -32,6 +31,7 @@ abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
     _specController.text=widget.args.workerItem?.specialization??"";
     _phoneController.text=widget.args.workerItem?.phone??"";
     _dobController.text=widget.args.workerItem?.dob??"";
+    avatarNotifier.value=widget.args.workerItem?.avatar??"";
     Future.delayed(const Duration(milliseconds: 500), () {
       final idx = listChoices.indexWhere(
         (element) => element.apiValue == widget.args.workerItem?.role,
@@ -44,9 +44,9 @@ abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
   @override
   void dispose() {
     // TODO: implement dispose
-    listFields.forEach((element) {
+    for (var element in listFields) {
       element.$2?.dispose();
-    });
+    }
     _nameController.dispose();
     _emailController.dispose();
     _pwController.dispose();
@@ -58,7 +58,7 @@ abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
     _phoneController.dispose();
     _dobController.dispose();
 
-     _image.dispose();
+    avatarNotifier.dispose();
 
     super.dispose();
   }
@@ -75,7 +75,7 @@ abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
         phone: _phoneController.text.trim(),
         specialization: _specController.text.trim(),
         role: listChoices[_roleIndexesNotifier.value.first].apiValue,
-        avatarPath: _image.value.$1?.path
+        avatarPath: ['https',null,''].contains(avatarNotifier.value ) ?null:avatarNotifier.value
       ) ;
       PrintHelper().ordinaryPrint(await addWorkerDataRequest.toJson() );
       // return ;
@@ -89,10 +89,8 @@ abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
       if(s.addUpdateWorkerState is Success<DeleteProjectRes?>){
         final x=s.addUpdateWorkerState as Success<DeleteProjectRes?>;
         if( x.data?.status=="success"){
-          // Future.delayed(Duration(seconds: 0),() {
-            context.pop(true);
-          // },);
-        }
+             context.pop(true);
+         }
         context.showToast( x.data?.message );
       }
       if(s.addUpdateWorkerState is ErrorState){
