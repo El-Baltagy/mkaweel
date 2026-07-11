@@ -24,16 +24,16 @@ abstract class WorkersPageBaseState extends State<WorkersPage> {
         final x = s.deleteWorkerState as Success<DeleteProjectRes>;
 
         context
-            .showToast(x.data!.message)
-            .whenComplete(() => workersCubit.current.deleteWorkerState = null);
+            .showToast(x.data!.message);
+            // .whenComplete(() => workersCubit.current.deleteWorkerState = null)
       }
       if (s.deleteWorkerState is ErrorState) {
         context
             .showToast(
               (s.deleteWorkerState as ErrorState).failure.message,
               isSuccess: false,
-            )
-            .whenComplete(() => workersCubit.current.deleteWorkerState = null);
+            );
+            // .whenComplete(() => workersCubit.current.deleteWorkerState = null)
       }
     }
   }

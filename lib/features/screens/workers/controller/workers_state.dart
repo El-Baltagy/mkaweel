@@ -30,8 +30,8 @@ class AllWorkersLoaded extends WorkersState {
       allWorkersEmit: allWorkersEmit ?? this.allWorkersEmit,
       // When addUpdateWorkerState changes → reset deleteWorkerState to null (and vice versa)
       // This prevents the other screen's listener from re-firing on a stale Success state.
-      addUpdateWorkerState: addUpdateWorkerState ??  this.addUpdateWorkerState,
-       deleteWorkerState: deleteWorkerState ?? this.deleteWorkerState,
+      addUpdateWorkerState: addUpdateWorkerState ??  (deleteWorkerState != null?null:this.addUpdateWorkerState),
+       deleteWorkerState: deleteWorkerState ??    (addUpdateWorkerState != null?null:this.deleteWorkerState)  ,
     );
   }
 }

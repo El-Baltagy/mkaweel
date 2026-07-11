@@ -11,6 +11,7 @@ class AddWorkerDataRequest {
     required this.specialization,
     required this.role,
     required this.avatarPath,
+    required this.projectIds,
    });
 
   final String?
@@ -23,9 +24,30 @@ class AddWorkerDataRequest {
       specialization,
       role,
       avatarPath;
+  final List<int> projectIds;
+ //  Future<Map<String, dynamic>> toJsn() async {
+ //    final map = <String, dynamic>{
+ //      'name': name,
+ //      'email': email,
+ //      'password': password,
+ //      'password_confirmation': password,
+ //      'dob': dob,
+ //      'phone': phone,
+ //      'specialization': specialization,
+ //      'role': role,
+ //      if (avatarPath != null)
+ //        'avatar': await MultipartFile.fromFile(
+ //          avatarPath!,
+ //          filename: avatarPath!.split('/').last,
+ //        ),
+ //    };
+ //
+ //    map.removeWhere((key, value) => [null,''].contains( value )    );
+ // return map;
+ //  }
 
 
-  Future<Map<String,dynamic>> toJson() async {
+  Future<FormData> toJson() async {
     final map = <String, dynamic>{
       'name': name,
       'email': email,
@@ -43,9 +65,13 @@ class AddWorkerDataRequest {
     };
 
     map.removeWhere((key, value) => [null,''].contains( value )    );
+    final FormData formData = FormData.fromMap(map);
 
+    for (final id in projectIds) {
+      formData.fields.add(MapEntry('project_ids[]', id.toString()));
+    }
 
-    return map;
+    return formData;
   }
 }
 

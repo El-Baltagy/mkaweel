@@ -8,6 +8,8 @@ import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/extension/form_auto_scroll.dart';
+import 'package:mkaweel/core/extension/form_data.dart';
+import 'package:mkaweel/core/extension/list.dart';
 import 'package:mkaweel/core/shared/methods/print.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/dob_text_input_data.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/email_text_input_data.dart';
@@ -160,27 +162,13 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
   }
   Widget buildPJBlocPSelector() {
     return BottomSheetSelector(
+      field:listFields[5] ,
       isMultiSelect: true,
       title: "projects".tr(),
       listChoices: pjChoices,
       selectedRoleNotifier: _projectIdsNotifier,
     );
-    // return BlocSelector<ProjectsCubit, ProjectsState, BaseEmit?>(
-    //   selector: (state)=>state is ProjectsLoaded?state .allProjectsResState:null,
-    //
-    //   builder: (context, state) {
-    //     bool isLoading=state is! Success<AllProjectsRes?> ;
-    //     pjChoices=(isLoading?null: state.data?.data.map((e) =>
-    //         UIApiKeys(e.name, e.id.toString())
-    //     ).toList())??[];
-    //     return BottomSheetSelector(
-    //       isMultiSelect: true,
-    //       title: "projects".tr(),
-    //       listChoices: pjChoices,
-    //       selectedRoleNotifier: _projectIdsNotifier,
-    //     );
-    //   },
-    // );
+
   }
   TitleWithInputField buildPhone() {
     return TitleWithInputField(
