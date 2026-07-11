@@ -45,16 +45,14 @@ class _DashboardPageState extends DashboardPageBaseState {
           backgroundColor: context.theme.scaffoldBackgroundColor,
            floatingActionButton: kDebugMode?InkWell(
              onTap: () async {
-               // context.showToast(
-               //    " data.message"
-               // );
-               // return ;
-               // await HWSecureSaver.save(AppConstant.tokenKeyCash,  "144");
                var token=await HWSecureSaver.get(AppConstant.tokenKeyCash );
               debugPrint(token);
              },
              child: Text("test token"),
            ):null,
+           appBar: AppBar(
+             toolbarHeight: 5,
+           ),
            body: SafeArea(
             bottom: false,
             child: SingleChildScrollView(

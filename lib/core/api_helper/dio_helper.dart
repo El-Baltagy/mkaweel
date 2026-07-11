@@ -8,110 +8,161 @@ import 'package:mkaweel/core/storage/hive_storage.dart';
 import 'package:mkaweel/core/storage/storage_helper.dart';
 
 class DioHelper {
-  late Dio _dio;
-  Dio get dio => _dio;
-
-
-  DioHelper call() {
+  DioHelper._() {
     _dio = Dio(
       BaseOptions(
-
         baseUrl: EndPoints.baseUrl,
         connectTimeout: const Duration(seconds: 30),
         receiveTimeout: const Duration(seconds: 30),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          // 'X-App-Flavor': AppFlavorConfig.instance.flavor.name,
+        headers: const {
+          Headers.acceptHeader: 'application/json',
+          Headers.contentTypeHeader: 'application/json',
         },
       ),
     );
 
     _dio.interceptors.addAll([
       LoggerInterceptor(),
-      AuthInterceptor(dio: _dio, getAccessToken: () async => await StorageHelper.getToken, refreshToken: () async => null),
-      RetryInterceptor(dio: _dio, maxRetries: 3),
+      AuthInterceptor(
+        dio: _dio,
+        getAccessToken: () async => await StorageHelper.getToken,
+        refreshToken: () async => null,
+      ),
+      RetryInterceptor(
+        dio: _dio,
+        maxRetries: 3,
+      ),
     ]);
-
-    return this;
   }
 
-  Future<dynamic> getData({
+  static final DioHelper instance = DioHelper._();
+
+  late final Dio _dio;
+
+  Dio get client => _dio;
+
+  Future<T> getData<T>({
     required String uri,
-    CancelToken? cancelToken,
     Map<String, dynamic>? query,
     Map<String, dynamic>? headers,
-    String? caller,
-  }) async {
-    final res = await _dio.get(
-      uri,
-      cancelToken: cancelToken,
-      queryParameters: query,
-      options: options(headers, caller),
-    );
-    return res.data;
-  }
-
-  Future<dynamic> postData({
-    required String uri,
     CancelToken? cancelToken,
+    String? caller,
+  }) => _request<T>(
+        method: 'GET',
+        uri: uri,
+        query: query,
+        headers: headers,
+        cancelToken: cancelToken,
+        caller: caller,
+      );
+
+  Future<T> postData<T>({
+    required String uri,
     dynamic data,
     Map<String, dynamic>? query,
     Map<String, dynamic>? headers,
-    String? caller,
-  }) async {
-    final res = await _dio.post(
-      uri,
-      cancelToken: cancelToken,
-      data: data,
-      queryParameters: query,
-      options: options(headers, caller),
-    );
-    return res.data;
-  }
-  Future<dynamic> putData({
-    required String uri,
     CancelToken? cancelToken,
+    String? caller,
+  }) => _request<T>(
+        method: 'POST',
+        uri: uri,
+        data: data,
+        query: query,
+        headers: headers,
+        cancelToken: cancelToken,
+        caller: caller,
+      );
+
+  Future<T> putData<T>({
+    required String uri,
     dynamic data,
     Map<String, dynamic>? query,
     Map<String, dynamic>? headers,
+    CancelToken? cancelToken,
+    String? caller,
+  }) => _request<T>(
+        method: 'PUT',
+        uri: uri,
+        data: data,
+        query: query,
+        headers: headers,
+        cancelToken: cancelToken,
+        caller: caller,
+      );
+
+  Future<T> patchData<T>({
+    required String uri,
+    dynamic data,
+    Map<String, dynamic>? query,
+    Map<String, dynamic>? headers,
+    CancelToken? cancelToken,
+    String? caller,
+  }) => _request<T>(
+        method: 'PATCH',
+        uri: uri,
+        data: data,
+        query: query,
+        headers: headers,
+        cancelToken: cancelToken,
+        caller: caller,
+      );
+
+  Future<T> deleteData<T>({
+    required String uri,
+    dynamic data,
+    Map<String, dynamic>? query,
+    Map<String, dynamic>? headers,
+    CancelToken? cancelToken,
+    String? caller,
+  }) => _request<T>(
+        method: 'DELETE',
+        uri: uri,
+        data: data,
+        query: query,
+        headers: headers,
+        cancelToken: cancelToken,
+        caller: caller,
+      );
+
+  Future<T> _request<T>({
+    required String method,
+    required String uri,
+    dynamic data,
+    Map<String, dynamic>? query,
+    Map<String, dynamic>? headers,
+    CancelToken? cancelToken,
     String? caller,
   }) async {
-    final res = await _dio.put(
+    final response = await _dio.request<T>(
       uri,
-      cancelToken: cancelToken,
       data: data,
       queryParameters: query,
-      options: options(headers, caller),
+      cancelToken: cancelToken,
+      options: _options(
+        method: method,
+        headers: headers,
+        caller: caller,
+      ),
     );
-    return res.data;
+
+    return response.data as T;
   }
 
-  Options options(Map<String, dynamic>? headers, String? caller) {
-     final Map<String, dynamic>  _headers = headers??{} ;
-    _headers.addAll( {"lang":HiveStorage().readData(AppConstant.langCode)??'en'} );
+  Options _options({
+    required String method,
+    Map<String, dynamic>? headers,
+    String? caller,
+  }) {
     return Options(
+      method: method,
       responseType:  .plain,
-      headers:_headers,
-      extra: {'caller': caller},
+      headers: {
+        'lang': HiveStorage().readData(AppConstant.langCode) ?? 'en',
+        ...?headers,
+      },
+      extra: {
+        'caller': caller,
+      },
     );
   }
-  Future<dynamic> deleteData({
-    required String uri,
-    CancelToken? cancelToken,
-    dynamic data,
-    Map<String, dynamic>? query,
-    Map<String, dynamic>? headers,
-    String? caller,
-  }) async {
-    final res = await _dio.delete(
-      uri,
-      cancelToken: cancelToken,
-      data: data,
-      queryParameters: query,
-      options: options(headers, caller),
-    );
-    return res.data;
-  }
-
 }
