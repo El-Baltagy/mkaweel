@@ -27,14 +27,16 @@ class MarketPricesService extends BaseService {
         cancelToken: token,
       ),
       fetchLocal: () async {
-
-        final (String, Map<String, dynamic>)? json = await _localRepo.readData(cacheKey);
-        return json == null ? null : CatogeriesRes.fromJson(json);
+        final tuple = await _localRepo.readData(cacheKey);
+        if (tuple == null) return null;
+        if (tuple.$1 == _localRepo.sessionId) {
+          return CatogeriesRes.fromJson(tuple.$2);
+        }
+        return null;
       },
       saveLocal: (old, newData) async {
         if (newData != null) {
-          PrintHelper().ordinaryPrint("................saving\n${newData.toJson()}");
-          await _localRepo.saveData(cacheKey, newData.toJson());
+           await _localRepo.saveData(cacheKey, randomKey: _localRepo.sessionId ?? '', savedData: newData.toJson());
         }
       },
       clearLocal: () => _localRepo.clearData(cacheKey),
@@ -74,12 +76,13 @@ class MarketPricesService extends BaseService {
         cancelToken: token,
       ),
       fetchLocal: () async {
-        final json = await _localRepo.readData(cacheKey);
-        return json == null ? null : ExchangeRate.fromJson(json);
+        final tuple = await _localRepo.readData(cacheKey);
+        if (tuple == null) return null;
+        return ExchangeRate.fromJson(tuple.$2);
       },
       saveLocal: (old, newData) async {
         if (newData != null) {
-          await _localRepo.saveData(cacheKey, newData.toJson());
+          await _localRepo.saveData(cacheKey, randomKey: _localRepo.sessionId ?? '', savedData: newData.toJson());
         }
       },
       clearLocal: () => _localRepo.clearData(cacheKey),

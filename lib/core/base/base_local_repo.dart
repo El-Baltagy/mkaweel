@@ -1,11 +1,9 @@
 import 'dart:convert';
 import 'package:mkaweel/core/storage/hive_storage.dart';
 
-  class BaseLocalRepo {
-    String? sessionId;
-   factory BaseLocalRepo(){
-
-   };
+class BaseLocalRepo {
+  final String? sessionId;
+  BaseLocalRepo({this.sessionId});
   /// Persist a map to local storage.
   Future<void> saveData(String key,{required String randomKey,required Map<String, dynamic> savedData}) async {
     try {
@@ -31,7 +29,7 @@ import 'package:mkaweel/core/storage/hive_storage.dart';
     try {
       //
       final data =  await HiveStorage().readData(key);
-       return  data==null?null: (data["random_key"],data["data"],);
+       return  data==null?null: (data["random_key"],data["data"]as Map<String, dynamic>);
 
 
     } catch (e) {
