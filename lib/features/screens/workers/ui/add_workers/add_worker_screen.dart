@@ -16,7 +16,7 @@ import 'package:mkaweel/core/shared/widgets/text_inputs/email_text_input_data.da
 import 'package:mkaweel/core/shared/widgets/text_inputs/name_text_input_data.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/password_text_input_data.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/phone_text_input_data.dart';
-import 'package:mkaweel/features/screens/create_project/ui/widgets/title_with_input.dart';
+import 'package:mkaweel/features/screens/add_edit_task_project/ui/add_edit_pj/widgets/title_with_input.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
 import 'package:mkaweel/features/screens/projects/data/model/all_projects_res/all_projects_res.dart';

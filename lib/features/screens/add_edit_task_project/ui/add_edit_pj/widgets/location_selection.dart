@@ -11,7 +11,7 @@ import 'package:mkaweel/core/shared/widgets/text_inputs/text_input_widget.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
-import 'package:mkaweel/features/screens/create_project/data/model/address_model.dart';
+import 'package:mkaweel/features/screens/add_edit_task_project/data/model/address_model.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class LatLng {

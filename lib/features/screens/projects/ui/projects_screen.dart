@@ -6,16 +6,13 @@ import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
-import 'package:mkaweel/features/screens/create_project/controller/create_project_cubit.dart';
-import 'package:mkaweel/features/screens/create_project/controller/create_project_state.dart';
-import 'package:mkaweel/features/screens/create_project/data/model/create_project_res/create_project_res.dart';
+import 'package:mkaweel/features/screens/add_edit_task_project/controller/create_project_cubit.dart';
+import 'package:mkaweel/features/screens/add_edit_task_project/controller/create_project_state.dart';
+import 'package:mkaweel/features/screens/add_edit_task_project/data/model/create_project_res/create_project_res.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
-import 'package:mkaweel/core/theming/app_colors.dart';
-import 'package:mkaweel/core/theming/app_text_styles.dart';
-import 'package:mkaweel/features/screens/projects/ui/widgets/empty_projects_widget.dart';
-import 'package:mkaweel/features/screens/projects/ui/widgets/project_card.dart';
-import 'package:mkaweel/features/screens/projects/ui/widgets/projects_list.dart';
+ import 'package:mkaweel/core/theming/app_text_styles.dart';
+ import 'package:mkaweel/features/screens/projects/ui/widgets/projects_list.dart';
 
 @RoutePage()
 class ProjectsPage extends StatefulWidget implements AutoRouteWrapper{

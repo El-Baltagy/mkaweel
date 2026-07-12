@@ -10,16 +10,16 @@ import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/form_auto_scroll.dart';
 import 'package:mkaweel/core/shared/methods/location_Service.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/name_text_input_data.dart';
-import 'package:mkaweel/features/screens/create_project/controller/create_project_cubit.dart';
-import 'package:mkaweel/features/screens/create_project/controller/create_project_state.dart';
+import 'package:mkaweel/features/screens/add_edit_task_project/controller/create_project_cubit.dart';
+import 'package:mkaweel/features/screens/add_edit_task_project/controller/create_project_state.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
-import 'package:mkaweel/features/screens/create_project/data/model/create_project_parameters.dart';
-import 'package:mkaweel/features/screens/create_project/data/model/create_project_res/create_project_res.dart';
-import 'package:mkaweel/features/screens/create_project/ui/widgets/location_selection.dart';
-import 'package:mkaweel/features/screens/create_project/ui/widgets/start_end_date.dart';
-import 'package:mkaweel/features/screens/create_project/ui/widgets/title_with_input.dart';
+import 'package:mkaweel/features/screens/add_edit_task_project/data/model/create_project_parameters.dart';
+import 'package:mkaweel/features/screens/add_edit_task_project/data/model/create_project_res/create_project_res.dart';
+import 'package:mkaweel/features/screens/add_edit_task_project/ui/add_edit_pj/widgets/location_selection.dart';
+import 'package:mkaweel/features/screens/add_edit_task_project/ui/add_edit_pj/widgets/start_end_date.dart';
+import 'package:mkaweel/features/screens/add_edit_task_project/ui/add_edit_pj/widgets/title_with_input.dart';
 import 'package:mkaweel/features/screens/workers/data/model/add_worker_data_request.dart';
 import 'package:mkaweel/features/screens/workers/ui/add_workers/widgets/drop_down_role_selector.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -208,7 +208,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                             )
                                 : Text(
                               widget.args.projectId == null
-                                  ? 'create_project'.tr()
+                                  ? 'add_edit_task_project'.tr()
                                   : 'save'.tr(),
                               style: AppTextStyles.font16SemiBold.copyWith(
                                 color:

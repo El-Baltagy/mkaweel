@@ -1,6 +1,6 @@
 import 'package:flutter/Material.dart';
 import 'package:mkaweel/core/base/base_state.dart';
-import 'package:mkaweel/features/screens/create_project/data/model/create_project_res/create_project_res.dart';
+import 'package:mkaweel/features/screens/add_edit_task_project/data/model/create_project_res/create_project_res.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/data/model/all_projects_res/all_projects_res.dart';
 import 'package:mkaweel/features/screens/projects/ui/widgets/empty_projects_widget.dart';
