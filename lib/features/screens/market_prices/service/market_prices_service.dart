@@ -17,7 +17,7 @@ class MarketPricesService extends BaseService {
   final MarketPricesRepo _remoteRepo;
   final BaseLocalRepo _localRepo;
 
-  Future<void> getcatogeriesServ(
+  Future<void> getCatogeriesServ(
     RequestCallbackObserver<CatogeriesRes, NoParameter> requestInfo,
   ) {
     const cacheKey = AppConstant.getCatogeriesKeyCash;
@@ -27,7 +27,8 @@ class MarketPricesService extends BaseService {
         cancelToken: token,
       ),
       fetchLocal: () async {
-        final json = await _localRepo.readData(cacheKey);
+
+        final (String, Map<String, dynamic>)? json = await _localRepo.readData(cacheKey);
         return json == null ? null : CatogeriesRes.fromJson(json);
       },
       saveLocal: (old, newData) async {

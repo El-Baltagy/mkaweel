@@ -52,7 +52,7 @@ class MarketPricesCubit extends BaseCubit<MarketPricesState> {
 
   Future<void> getCatogeriesFunc(BaseRequestBackType requestType) async {
     await CancelManager.runCancelableFun(getCatogeriesKeyCode, (token) async {
-      await _service.getcatogeriesServ(
+      await _service.getCatogeriesServ(
         RequestCallbackObserver<CatogeriesRes, NoParameter>(
           baseRequestBackType: requestType ,
           cancelToken: token,
