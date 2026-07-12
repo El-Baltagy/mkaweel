@@ -14,11 +14,11 @@ import 'package:mkaweel/features/screens/add_edit_task_project/controller/create
 import 'package:mkaweel/features/screens/add_edit_task_project/service/create_project_service.dart';
 
 
-class CreateProjectCubit extends BaseCubit<CreateProjectState> {
-   CreateProjectCubit(this._service) : super(CreateProjectInitial()) ;
+class AddEditProjectTaskCubit extends BaseCubit<AddEditProjectTaskState> {
+   AddEditProjectTaskCubit(this._service) : super(CreateProjectInitial()) ;
   final CreateProjectService _service;
   
-     static CreateProjectCubit get({BuildContext? context,bool listen=false}) =>
+     static AddEditProjectTaskCubit get({BuildContext? context,bool listen=false}) =>
       BlocProvider.of(context??navigatorKey.currentContext!,listen: listen);
   
    int get createProjectKeyCode => AppConstant.CreateProjectKeyCode;

@@ -1,6 +1,6 @@
 part  of 'create_project_screen.dart';
 abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
-  late final CreateProjectCubit createProjectCubit;
+  late final AddEditProjectTaskCubit createProjectCubit;
 
   final _key = GlobalKey<FormState>();
   (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field1 = (.new(), .new());
@@ -24,7 +24,7 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
   void initState() {
     isLoadingNotifier = .new(widget.args.projectId!=null );
     super.initState();
-    createProjectCubit = CreateProjectCubit.get(context: context);
+    createProjectCubit = AddEditProjectTaskCubit.get(context: context);
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async{
       if(widget.args.projectId==null)return ;
@@ -125,7 +125,7 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
     }
   }
 
-  void createProjectLisener(BuildContext context,CreateProjectState state) {
+  void createProjectLisener(BuildContext context,AddEditProjectTaskState state) {
     if (state is CreateProjectResState) {
       if(state.baseEmit  is Success<CreateProjectRes>) {
         final CreateProjectRes data=(state.baseEmit as Success<CreateProjectRes>).data!;

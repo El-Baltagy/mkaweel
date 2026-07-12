@@ -15,6 +15,16 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    CreateTaskRoute.name: (routeData) {
+      final args = routeData.argsAs<CreateTaskRouteArgs>(orElse: () =>   CreateTaskRouteArgs.noArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(
+            child: CreateTaskPage(
+           args: args ,
+        )),
+      );
+    },
 
     AddWorkerRoute.name: (routeData) {
       final args = routeData.argsAs<AddWorkerRouteArgs>(orElse: () =>   AddWorkerRouteArgs.noArgs());
@@ -138,6 +148,28 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
   };
+}
+
+/// generated route for
+/// [CreateTaskPage]
+class CreateTaskRoute extends PageRouteInfo<CreateTaskRouteArgs> {
+  CreateTaskRoute({
+   required CreateTaskRouteArgs args  ,
+    List<PageRouteInfo>? children,
+  }) : super(
+    CreateTaskRoute.name,
+    args: args,
+    initialChildren: children,
+  );
+
+  static const String name = 'CreateTaskRoute';
+
+  static const PageInfo<CreateTaskRouteArgs> page =
+  PageInfo<CreateTaskRouteArgs>(name);
+}
+class CreateTaskRouteArgs {
+  const CreateTaskRouteArgs( );
+   static CreateTaskRouteArgs noArgs()=>CreateTaskRouteArgs();
 }
 
 /// generated route for

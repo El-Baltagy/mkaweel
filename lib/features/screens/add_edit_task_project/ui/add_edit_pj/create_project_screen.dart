@@ -35,8 +35,8 @@ class CreateProjectPage extends StatefulWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    return BlocProvider<CreateProjectCubit>(
-      create: (context) => CreateProjectCubit(AppLocator()()()),
+    return BlocProvider<AddEditProjectTaskCubit>(
+      create: (context) => AddEditProjectTaskCubit(AppLocator()()()),
       child: this,
     );
   }
@@ -48,7 +48,7 @@ class CreateProjectPage extends StatefulWidget implements AutoRouteWrapper {
 class _CreateProjectPageState extends CreateProjectPageBaseState {
   @override
   Widget build(BuildContext context) {
-    return BlocListener<CreateProjectCubit, CreateProjectState>(
+    return BlocListener<AddEditProjectTaskCubit, AddEditProjectTaskState>(
       listener: createProjectLisener,
       child: Semantics(
         label: 'Create Project Screen',
@@ -189,7 +189,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                     SizedBox(
                       width: double.infinity,
                       height: AppSizes.s48,
-                      child: BlocBuilder<CreateProjectCubit, CreateProjectState>(
+                      child: BlocBuilder<AddEditProjectTaskCubit, AddEditProjectTaskState>(
                         builder: (context, state) {
                           bool isLoading =
                               state is CreateProjectResState &&

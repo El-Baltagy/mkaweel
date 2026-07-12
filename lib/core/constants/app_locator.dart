@@ -86,7 +86,7 @@ class AppLocator {
     ///..................add_edit_task_project.................///
     _sl.registerLazySingleton(() => CreateProjectRepo(_sl()));
     _sl.registerLazySingleton(() => CreateProjectService(_sl(), _sl()));
-    _sl.registerFactory(() => CreateProjectCubit(_sl()));
+    _sl.registerFactory(() => AddEditProjectTaskCubit(_sl()));
 
     ///..................projects.................///
     _sl.registerLazySingleton(() => ProjectsRepo(_sl()));

@@ -25,8 +25,8 @@ class ProjectsPage extends StatefulWidget implements AutoRouteWrapper{
         BlocProvider<ProjectsCubit>(
           create: (context) => ProjectsCubit(AppLocator()()()),
         ),
-        BlocProvider<CreateProjectCubit>(
-          create: (context) => CreateProjectCubit(AppLocator()()()),
+        BlocProvider<AddEditProjectTaskCubit>(
+          create: (context) => AddEditProjectTaskCubit(AppLocator()()()),
         ),
       ], child: this,);
 
