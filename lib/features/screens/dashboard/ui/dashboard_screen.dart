@@ -61,6 +61,8 @@ class _DashboardPageState extends DashboardPageBaseState {
 
                   const DashboardHeaderWidget(),
                   20.verticalSpace,
+                  const TodayTasksWidget(),
+                  20.verticalSpace,
                   const QuickToolsWidget(),
                  ],
               ),
