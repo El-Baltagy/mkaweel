@@ -6,10 +6,7 @@ import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
-import 'package:mkaweel/features/screens/add_edit_task_project/controller/create_project_cubit.dart';
-import 'package:mkaweel/features/screens/add_edit_task_project/controller/create_project_state.dart';
-import 'package:mkaweel/features/screens/add_edit_task_project/data/model/create_project_res/create_project_res.dart';
-import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
+ import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
  import 'package:mkaweel/core/theming/app_text_styles.dart';
  import 'package:mkaweel/features/screens/projects/ui/widgets/projects_list.dart';
@@ -24,10 +21,7 @@ class ProjectsPage extends StatefulWidget implements AutoRouteWrapper{
       providers: [
         BlocProvider<ProjectsCubit>(
           create: (context) => ProjectsCubit(AppLocator()()()),
-        ),
-        BlocProvider<AddEditProjectTaskCubit>(
-          create: (context) => AddEditProjectTaskCubit(AppLocator()()()),
-        ),
+        )
       ], child: this,);
 
   }

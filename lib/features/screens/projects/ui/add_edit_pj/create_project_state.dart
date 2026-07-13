@@ -1,6 +1,6 @@
 part  of 'create_project_screen.dart';
 abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
-  late final AddEditProjectTaskCubit createProjectCubit;
+  late final ProjectsCubit projectsCubit;
 
   final _key = GlobalKey<FormState>();
   (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field1 = (.new(), .new());
@@ -24,11 +24,11 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
   void initState() {
     isLoadingNotifier = .new(widget.args.projectId!=null );
     super.initState();
-    createProjectCubit = AddEditProjectTaskCubit.get(context: context);
+    projectsCubit = ProjectsCubit.get(context: context);
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async{
       if(widget.args.projectId==null)return ;
-     await createProjectCubit.getProjectDataFunc(parameter:.new(widget.args.projectId!)).then((value) async {
+     await projectsCubit.getProjectDataFunc(parameter:.new(widget.args.projectId!)).then((value) async {
         if(value!=null){
             _controllerName.text=value.data.name;
             _controllerOwner_name.text=value.data.owner_name;
@@ -107,7 +107,7 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
       //   longitude: locationNotifier.value.$2!.lng.toString(),
       // ).toJsonBody().toString());
       // return;
-      await createProjectCubit.createProjectFunc(
+      await projectsCubit.createProjectFunc(
         parameter: CreateProjectParameters(
           name: _controllerName.text,
           owner_name: _controllerOwner_name.text,
@@ -124,18 +124,17 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
       );
     }
   }
-
-  void createProjectLisener(BuildContext context,AddEditProjectTaskState state) {
-    if (state is CreateProjectResState) {
-      if(state.baseEmit  is Success<CreateProjectRes>) {
-        final CreateProjectRes data=(state.baseEmit as Success<CreateProjectRes>).data!;
+   void createProjectLisener(BuildContext context,ProjectsState state) {
+    if (state is ProjectsLoaded) {
+      if(state.createProjectResState  is Success<CreateProjectRes>) {
+        final CreateProjectRes data=(state.createProjectResState as Success<CreateProjectRes>).data!;
         context.showToast(
             data.message
         );
         context.pop(true);
       }else{
-        if(state.baseEmit  is ErrorState ) {
-          final ErrorState  data= state.baseEmit  as ErrorState;
+        if(state.createProjectResState  is ErrorState ) {
+          final ErrorState  data= state.createProjectResState  as ErrorState;
           context.showToast(
               data.failure.message,
               isSuccess: false

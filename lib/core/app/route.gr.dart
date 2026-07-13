@@ -26,16 +26,7 @@ abstract class _$AppRouter extends RootStackRouter {
         )),
       );
     },
-    CreateTaskRoute.name: (routeData) {
-      final args = routeData.argsAs<CreateTaskRouteArgs>(orElse: () =>   CreateTaskRouteArgs.noArgs());
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(
-            child: CreateTaskPage(
-           args: args ,
-        )),
-      );
-    },
+
 
     AddWorkerRoute.name: (routeData) {
       final args = routeData.argsAs<AddWorkerRouteArgs>(orElse: () =>   AddWorkerRouteArgs.noArgs());

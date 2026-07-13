@@ -1,3 +1,5 @@
+import 'package:mkaweel/features/screens/projects/data/model/create_project_parameters.dart';
+import 'package:mkaweel/features/screens/projects/data/model/create_project_res/create_project_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/delete_pj_parameter.dart';
 import 'package:mkaweel/core/shared/methods/print.dart';
 import 'package:mkaweel/features/screens/projects/data/model/all_projects_res/all_projects_res.dart';
@@ -5,6 +7,7 @@ import 'package:mkaweel/core/constants/app_constant.dart';
 import 'package:mkaweel/core/base/base_service.dart';
 import 'package:mkaweel/core/base/base_local_repo.dart';
 import 'package:mkaweel/features/screens/projects/data/model/delete_project_res/delete_project_res.dart';
+import 'package:mkaweel/features/screens/projects/data/model/get_project_data_parameter.dart';
 import 'package:mkaweel/features/screens/projects/data/repo/remote/projects_repo.dart';
 
 class ProjectsService extends BaseService {
@@ -32,6 +35,29 @@ class ProjectsService extends BaseService {
         requestInfo.parameter,
         cancelToken: token,
       )
+    );
+  }
+
+
+  Future<void> createProjectServ(
+      RequestCallbackObserver<CreateProjectRes, CreateProjectParameters> requestInfo,
+      ) {
+    return requestInfo.handleRequest(
+        fetchFromClient: (token) => _remoteRepo.createprojectApi(
+          requestInfo.parameter,
+          cancelToken: token,
+        )
+    );
+  }
+
+  Future<void> getProjectDataServ(
+      RequestCallbackObserver<CreateProjectRes, GetProjectDataParameter> requestInfo,
+      ) {
+    return requestInfo.handleRequest(
+        fetchFromClient: (token) => _remoteRepo.getProjectDataApi(
+          requestInfo.parameter,
+          cancelToken: token,
+        )
     );
   }
 }

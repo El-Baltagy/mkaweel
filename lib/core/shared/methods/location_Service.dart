@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:mkaweel/core/shared/methods/print.dart';
-import 'package:mkaweel/features/screens/add_edit_task_project/data/model/address_model.dart';
-import 'package:mkaweel/features/screens/add_edit_task_project/ui/add_edit_pj/widgets/location_selection.dart';
+import 'package:mkaweel/features/screens/projects/data/model/address_model.dart';
+import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/location_selection.dart';
 
 class LocationService {
   LocationService._();

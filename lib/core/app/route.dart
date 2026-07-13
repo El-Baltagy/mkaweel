@@ -2,12 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:mkaweel/core/storage/storage_helper.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/dashboard_screen.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
+import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/create_project_screen.dart';
 import 'package:mkaweel/features/screens/projects/ui/projects_screen.dart';
-import 'package:mkaweel/features/screens/add_edit_task_project/ui/add_edit_pj/create_project_screen.dart';
-import 'package:mkaweel/features/screens/market_prices/ui/market_prices_screen.dart';
+ import 'package:mkaweel/features/screens/market_prices/ui/market_prices_screen.dart';
 import 'package:mkaweel/features/screens/main_home/ui/main_home_screen.dart';
-import 'package:mkaweel/features/screens/settings/ui/profile_screen.dart';
-import 'package:mkaweel/features/screens/workers/controller/workers_cubit.dart';
+ import 'package:mkaweel/features/screens/workers/controller/workers_cubit.dart';
 import 'package:mkaweel/features/screens/workers/data/model/all_workers/all_workers.dart';
 import 'package:mkaweel/features/screens/workers/ui/workers_sc/workers_screen.dart';
 import 'package:mkaweel/features/screens/settings/ui/settings_screen.dart';
@@ -19,10 +18,9 @@ import 'package:mkaweel/features/screens/onboarding/ui/onboarding_screen.dart';
 import 'package:mkaweel/features/screens/projects/ui/project_details_screen.dart';
 import 'package:mkaweel/features/screens/projects/ui/phase_progress_screen.dart';
 import 'package:mkaweel/features/screens/workers/ui/add_workers/add_worker_screen.dart';
-import 'package:mkaweel/features/screens/add_edit_task_project/ui/create_task/create_task_screen.dart';
- import 'package:mkaweel/features/screens/Tasks/ui/Tasks/Tasks_screen.dart';
+  import 'package:mkaweel/features/screens/Tasks/ui/Tasks/Tasks_screen.dart';
  part 'route.gr.dart';
-
+ 
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')
 class AppRouter extends _$AppRouter {
   AppRouter({super.navigatorKey});

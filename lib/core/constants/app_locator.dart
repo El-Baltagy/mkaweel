@@ -23,10 +23,7 @@ import 'package:mkaweel/features/screens/main_home/controller/main_home_cubit.da
 import 'package:mkaweel/features/screens/market_prices/data/repo/remote/market_prices_repo.dart';
 import 'package:mkaweel/features/screens/market_prices/service/market_prices_service.dart';
 import 'package:mkaweel/features/screens/market_prices/controller/market_prices_cubit.dart';
-import 'package:mkaweel/features/screens/add_edit_task_project/data/repo/remote/create_project_repo.dart';
-import 'package:mkaweel/features/screens/add_edit_task_project/service/create_project_service.dart';
-import 'package:mkaweel/features/screens/add_edit_task_project/controller/create_project_cubit.dart';
-import 'package:mkaweel/features/screens/projects/data/repo/remote/projects_repo.dart';
+ import 'package:mkaweel/features/screens/projects/data/repo/remote/projects_repo.dart';
 import 'package:mkaweel/features/screens/projects/service/projects_service.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/dashboard/data/repo/remote/dashboard_repo.dart';
@@ -75,10 +72,6 @@ class AppLocator {
     _sl.registerLazySingleton(() => MarketPricesService(_sl(), _sl()));
     _sl.registerFactory(() => MarketPricesCubit(_sl()));
 
-    ///..................add_edit_task_project.................///
-    _sl.registerLazySingleton(() => CreateProjectRepo(_sl()));
-    _sl.registerLazySingleton(() => CreateProjectService(_sl(), _sl()));
-    _sl.registerFactory(() => AddEditProjectTaskCubit(_sl()));
 
     ///..................projects.................///
     _sl.registerLazySingleton(() => ProjectsRepo(_sl()));

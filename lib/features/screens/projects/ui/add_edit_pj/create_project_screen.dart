@@ -10,16 +10,16 @@ import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/form_auto_scroll.dart';
 import 'package:mkaweel/core/shared/methods/location_Service.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/name_text_input_data.dart';
-import 'package:mkaweel/features/screens/add_edit_task_project/controller/create_project_cubit.dart';
-import 'package:mkaweel/features/screens/add_edit_task_project/controller/create_project_state.dart';
-import 'package:mkaweel/core/theming/app_text_styles.dart';
+  import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
-import 'package:mkaweel/features/screens/add_edit_task_project/data/model/create_project_parameters.dart';
-import 'package:mkaweel/features/screens/add_edit_task_project/data/model/create_project_res/create_project_res.dart';
-import 'package:mkaweel/features/screens/add_edit_task_project/ui/add_edit_pj/widgets/location_selection.dart';
-import 'package:mkaweel/features/screens/add_edit_task_project/ui/add_edit_pj/widgets/start_end_date.dart';
-import 'package:mkaweel/features/screens/add_edit_task_project/ui/add_edit_pj/widgets/title_with_input.dart';
+import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
+import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
+import 'package:mkaweel/features/screens/projects/data/model/create_project_parameters.dart';
+import 'package:mkaweel/features/screens/projects/data/model/create_project_res/create_project_res.dart';
+import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/location_selection.dart';
+import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/start_end_date.dart';
+import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/title_with_input.dart';
 import 'package:mkaweel/features/screens/workers/data/model/add_worker_data_request.dart';
 import 'package:mkaweel/features/screens/workers/ui/add_workers/widgets/drop_down_role_selector.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -35,8 +35,8 @@ class CreateProjectPage extends StatefulWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    return BlocProvider<AddEditProjectTaskCubit>(
-      create: (context) => AddEditProjectTaskCubit(AppLocator()()()),
+    return BlocProvider<ProjectsCubit>(
+      create: (context) => ProjectsCubit(AppLocator()()()),
       child: this,
     );
   }
@@ -48,7 +48,7 @@ class CreateProjectPage extends StatefulWidget implements AutoRouteWrapper {
 class _CreateProjectPageState extends CreateProjectPageBaseState {
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AddEditProjectTaskCubit, AddEditProjectTaskState>(
+    return BlocListener<ProjectsCubit, ProjectsState>(
       listener: createProjectLisener,
       child: Semantics(
         label: 'Create Project Screen',
@@ -189,11 +189,11 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                     SizedBox(
                       width: double.infinity,
                       height: AppSizes.s48,
-                      child: BlocBuilder<AddEditProjectTaskCubit, AddEditProjectTaskState>(
+                      child: BlocBuilder<ProjectsCubit, ProjectsState>(
                         builder: (context, state) {
                           bool isLoading =
-                              state is CreateProjectResState &&
-                                  state.baseEmit is Loading;
+                              state is ProjectsLoaded &&
+                                  state.createProjectResState is Loading;
                           return ElevatedButton(
                             onPressed: () => createProject(isLoading),
                             style: ElevatedButton.styleFrom(
