@@ -29,7 +29,7 @@ class BaseLocalRepo {
     try {
       //
       final data =  await HiveStorage().readData(key);
-       return  data==null?null: (data["random_key"],data["data"]as Map<String, dynamic>);
+       return  data==null?null: (data["random_key"] as String,data["data"]as Map<String, dynamic>);
 
 
     } catch (e) {

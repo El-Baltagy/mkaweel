@@ -43,7 +43,7 @@ class MarketPricesService extends BaseService {
     );
   }
 
-  Future<void> getsubcatogeriesServ(
+  Future<void> getSubCatogeriesServ(
     RequestCallbackObserver<SubCatogeriesData, SubCatogeriesInput> requestInfo
   ) {
     // const cacheKey = AppConstant.getSubCatogeriesKeyCash;
@@ -53,6 +53,7 @@ class MarketPricesService extends BaseService {
         cancelToken: token,
       ),
       fetchLocal: () async {
+
         return requestInfo.baseRequestBackType is PaginationInfo?
         (requestInfo.baseRequestBackType as PaginationInfo<SubCatogeriesData>).oldDataToCombine:null;
        },
@@ -66,7 +67,7 @@ class MarketPricesService extends BaseService {
     );
   }
 
-  Future<void> getexchagngerateServ(
+  Future<void> getExchangeRateServ(
     RequestCallbackObserver<ExchangeRate, NoParameter> requestInfo,
   ) {
     const cacheKey = AppConstant.getExchagngeRateKeyCash;
@@ -77,8 +78,8 @@ class MarketPricesService extends BaseService {
       ),
       fetchLocal: () async {
         final tuple = await _localRepo.readData(cacheKey);
-        if (tuple == null) return null;
-        return ExchangeRate.fromJson(tuple.$2);
+        if ( tuple?.$1 != (_localRepo.sessionId??'')) return null;
+        return ExchangeRate.fromJson(tuple!.$2);
       },
       saveLocal: (old, newData) async {
         if (newData != null) {

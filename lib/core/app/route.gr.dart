@@ -77,12 +77,7 @@ abstract class _$AppRouter extends RootStackRouter {
         child: WrappedRoute(child: const GanttChartPage()),
       );
     },
-    InvoicesRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(child: const InvoicesPage()),
-      );
-    },
+
     LoginRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -111,12 +106,7 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const OnboardingPage(),
       );
     },
-    PerformanceRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(child: const PerformancePage()),
-      );
-    },
+
     ProjectsRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -225,19 +215,6 @@ class GanttChartRoute extends PageRouteInfo<void> {
   static const PageInfo<void> page = PageInfo<void>(name);
 }
 
-/// generated route for
-/// [InvoicesPage]
-class InvoicesRoute extends PageRouteInfo<void> {
-  const InvoicesRoute({List<PageRouteInfo>? children})
-      : super(
-          InvoicesRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'InvoicesRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
 
 /// generated route for
 /// [LoginPage]

@@ -17,6 +17,7 @@ abstract class StorageHelper{
   static  bool  get hasViewedOnboarding =>HiveStorage().readData(AppConstant.onboardingKeyCash)!=null;
   static User get userData {
     final data = HiveStorage().readData(AppConstant.userKeyCash);
-    return User.fromJson(data is Map ? Map<String, dynamic>.from(data) : data);
+    return User.fromJson(data is Map ? Map.from(data)['data']: data);
+    // return User.fromJson(data is Map ? Map<String, dynamic>.from(data) : data);
   }
 }

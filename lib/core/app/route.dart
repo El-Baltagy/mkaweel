@@ -11,9 +11,7 @@ import 'package:mkaweel/features/screens/workers/controller/workers_cubit.dart';
 import 'package:mkaweel/features/screens/workers/data/model/all_workers/all_workers.dart';
 import 'package:mkaweel/features/screens/workers/ui/workers_sc/workers_screen.dart';
 import 'package:mkaweel/features/screens/settings/ui/settings_screen.dart';
-import 'package:mkaweel/features/screens/invoices/ui/invoices_screen.dart';
-import 'package:mkaweel/features/screens/performance/ui/performance_screen.dart';
-import 'package:mkaweel/features/screens/gantt_chart/ui/gantt_chart_screen.dart';
+ import 'package:mkaweel/features/screens/gantt_chart/ui/gantt_chart_screen.dart';
 import 'package:mkaweel/features/screens/waste_calculator/ui/waste_calculator_screen.dart';
 import 'package:mkaweel/features/screens/splash/ui/splash_screen.dart';
 import 'package:mkaweel/features/screens/login/ui/login_screen.dart';
@@ -65,8 +63,7 @@ class AppRouter extends _$AppRouter {
       ),
       AutoRoute(page: CreateProjectRoute.page),
       AutoRoute(page: CreateTaskRoute.page),
-      AutoRoute(page: InvoicesRoute.page),
-      AutoRoute(page: PerformanceRoute.page),
+       AutoRoute(page: PerformanceRoute.page),
       AutoRoute(page: GanttChartRoute.page),
       AutoRoute(page: WasteCalculatorRoute.page),
       AutoRoute(page: ProfileScreenPageRoute.page),

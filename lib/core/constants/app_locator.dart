@@ -1,16 +1,9 @@
-
 import 'package:mkaweel/features/screens/login/data/repo/remote/login_repo.dart';
 import 'package:mkaweel/features/screens/login/service/login_service.dart';
 import 'package:mkaweel/features/screens/login/controller/login_cubit.dart';
 import 'package:mkaweel/features/screens/waste_calculator/data/repo/remote/waste_calculator_repo.dart';
 import 'package:mkaweel/features/screens/waste_calculator/service/waste_calculator_service.dart';
 import 'package:mkaweel/features/screens/waste_calculator/controller/waste_calculator_cubit.dart';
-import 'package:mkaweel/features/screens/performance/data/repo/remote/performance_repo.dart';
-import 'package:mkaweel/features/screens/performance/service/performance_service.dart';
-import 'package:mkaweel/features/screens/performance/controller/performance_cubit.dart';
-import 'package:mkaweel/features/screens/invoices/data/repo/remote/invoices_repo.dart';
-import 'package:mkaweel/features/screens/invoices/service/invoices_service.dart';
-import 'package:mkaweel/features/screens/invoices/controller/invoices_cubit.dart';
 import 'package:mkaweel/features/screens/gantt_chart/data/repo/remote/gantt_chart_repo.dart';
 import 'package:mkaweel/features/screens/gantt_chart/service/gantt_chart_service.dart';
 import 'package:mkaweel/features/screens/gantt_chart/controller/gantt_chart_cubit.dart';
@@ -40,19 +33,18 @@ import 'package:mkaweel/core/api_helper/dio_helper.dart';
 import 'package:mkaweel/core/base/base_local_repo.dart';
 import 'package:mkaweel/core/theming/theme_cubit.dart';
 
-
-
-
 class AppLocator {
   factory AppLocator() => _instance;
+
   AppLocator._();
+
   static final AppLocator _instance = AppLocator._();
 
   final _sl = GetIt.instance;
+
   GetIt call() => _sl;
 
-  void init(){
-
+  void init() {
     ///..................login.................///
     _sl.registerLazySingleton(() => LoginRepo(_sl()));
     _sl.registerLazySingleton(() => LoginService(_sl(), _sl()));
@@ -62,16 +54,6 @@ class AppLocator {
     _sl.registerLazySingleton(() => WasteCalculatorRepo(_sl()));
     _sl.registerLazySingleton(() => WasteCalculatorService(_sl(), _sl()));
     _sl.registerFactory(() => WasteCalculatorCubit(_sl()));
-
-    ///..................performance.................///
-    _sl.registerLazySingleton(() => PerformanceRepo(_sl()));
-    _sl.registerLazySingleton(() => PerformanceService(_sl(), _sl()));
-    _sl.registerFactory(() => PerformanceCubit(_sl()));
-
-    ///..................invoices.................///
-    _sl.registerLazySingleton(() => InvoicesRepo(_sl()));
-    _sl.registerLazySingleton(() => InvoicesService(_sl(), _sl()));
-    _sl.registerFactory(() => InvoicesCubit(_sl()));
 
     ///..................gantt_chart.................///
     _sl.registerLazySingleton(() => GanttChartRepo(_sl()));
@@ -113,16 +95,13 @@ class AppLocator {
     _sl.registerLazySingleton(() => MainHomeService(_sl(), _sl()));
     _sl.registerFactory(() => MainHomeCubit(_sl()));
 
-
     // ── Global Services ──────────────────────────────────────────────────────
-    _sl.registerLazySingleton<BaseLocalRepo>(BaseLocalRepo.new);
-    _sl.registerLazySingleton<DioHelper>(() => DioHelper.instance );
+    _sl.registerLazySingleton<BaseLocalRepo>(
+      () => BaseLocalRepo(
+        sessionId: DateTime.now().millisecondsSinceEpoch.toString(),
+      ),
+    );
+    _sl.registerLazySingleton<DioHelper>(() => DioHelper.instance);
     _sl.registerLazySingleton<ThemeCubit>(ThemeCubit.new);
-
   }
 }
-
-
-
-
-

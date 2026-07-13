@@ -22,8 +22,9 @@ class SubCatogeries extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SubCatogeriesData? data;
-    if (emit is Success<SubCatogeriesData>) data = (emit! as Success<SubCatogeriesData>).data;
-    else if (emit is Loading<SubCatogeriesData>) data = (emit! as Loading<SubCatogeriesData>).item;
+    if (emit is Success<SubCatogeriesData>) {
+      data = (emit! as Success<SubCatogeriesData>).data;
+    } else if (emit is Loading<SubCatogeriesData>) data = (emit! as Loading<SubCatogeriesData>).item;
 
     bool isInitialLoading = data == null;
 
@@ -76,40 +77,37 @@ class SubCatogeries extends StatelessWidget {
             ), style: AppTextStyles.font12Regular),
           ],
         ),
-        Container(
+        Column(
+          crossAxisAlignment:  .end,
+          children: [
+            Row(
+              children: [
+                Text(subCatogeryItem.origin_country , style: AppTextStyles.font12Regular.copyWith(color: AppColors.contractorGreyText)),
+                5.horizontalSpace,
+                Container(
 
-          child: Column(
-            crossAxisAlignment:  .end,
-            children: [
-              Row(
-                children: [
-                  Text(subCatogeryItem.origin_country , style: AppTextStyles.font12Regular.copyWith(color: AppColors.contractorGreyText)),
-                  5.horizontalSpace,
-                  Container(
-
-                    padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8, vertical: AppPadding.p2),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(AppSizes.s4),
-                    ),
-                     child: Text(subCatogeryItem.category?.name.toString()??"testssssss",
-
-                        overflow: .ellipsis,
-                        style: AppTextStyles.font12Regular.copyWith(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold)),
+                  padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8, vertical: AppPadding.p2),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(AppSizes.s4),
                   ),
-                ],
-              ),
-              5.verticalSpace,
-              Container(
-                  constraints: BoxConstraints(
-                      maxWidth: context.width*0.55
-                  ),
-                   child: Text(subCatogeryItem.name,
-                       textAlign: .end,
-                       style: AppTextStyles.font16SemiBold)),
-              Text(subCatogeryItem.unit.toString(), style: AppTextStyles.font12Regular),
-            ],
-          ),
+                   child: Text(subCatogeryItem.category?.name.toString()??"testssssss",
+
+                      overflow: .ellipsis,
+                      style: AppTextStyles.font12Regular.copyWith(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold)),
+                ),
+              ],
+            ),
+            5.verticalSpace,
+            Container(
+                constraints: BoxConstraints(
+                    maxWidth: context.width*0.55
+                ),
+                 child: Text(subCatogeryItem.name,
+                     textAlign: .end,
+                     style: AppTextStyles.font16SemiBold)),
+            Text(subCatogeryItem.unit.toString(), style: AppTextStyles.font12Regular),
+          ],
         ),
       ],
     ),

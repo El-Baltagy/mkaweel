@@ -48,7 +48,7 @@ class SettingsService extends BaseService {
        saveLocal: (old, newData) async {
          if (newData?.status=='success'  ) {
            PrintHelper().ordinaryPrint("..................................cc saved");
-           await _localRepo.saveData(AppConstant.userKeyCash, newData!.data.user.toJson());
+           await _localRepo.saveData(AppConstant.userKeyCash,randomKey: _localRepo.sessionId ?? '',savedData:  newData!.data.user.toJson());
           }
        },
     );

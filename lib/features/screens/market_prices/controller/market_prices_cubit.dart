@@ -72,7 +72,7 @@ class MarketPricesCubit extends BaseCubit<MarketPricesState> {
     required SubCatogeriesInput parameter,
   }) async {
 
-      await _service.getsubcatogeriesServ(
+      await _service.getSubCatogeriesServ(
         RequestCallbackObserver<SubCatogeriesData, SubCatogeriesInput>(
           baseRequestBackType: requestType,
            parameter: parameter ,
@@ -98,7 +98,7 @@ class MarketPricesCubit extends BaseCubit<MarketPricesState> {
     await CancelManager.runCancelableFun(getExchagngeRateKeyCode, (
       token,
     ) async {
-      await _service.getexchagngerateServ(
+      await _service.getExchangeRateServ(
         RequestCallbackObserver<ExchangeRate, NoParameter>(
           baseRequestBackType: requestType ,
            parameter: parameter,
