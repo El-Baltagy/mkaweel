@@ -1,0 +1,34 @@
+import 'package:flutter/Material.dart';
+import 'package:mkaweel/core/extension/context.dart';
+import 'package:mkaweel/core/theming/app_text_styles.dart';
+
+class CustomAppBar extends StatelessWidget implements PreferredSize {
+  const CustomAppBar({
+    super.key,
+    this.title,
+    this.leading,
+  });
+
+  final Widget? leading;
+  final String? title;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      backgroundColor: Theme.of(context).primaryColor,
+      title:title==null?null: Text(
+          title!, style: AppTextStyles.font18SemiBold.copyWith(color: context.theme.scaffoldBackgroundColor)),
+      centerTitle: true,
+      leading:leading  ,
+    );
+  }
+
+
+  @override
+  // TODO: implement preferredSize
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+
+  @override
+  // TODO: implement child
+  Widget get child => throw UnimplementedError();
+}

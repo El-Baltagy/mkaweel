@@ -39,7 +39,7 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     ProjectDetailsRoute.name: (routeData) {
-      final args = routeData.argsAs<ProjectDetailsRouteArgs>(orElse: () => const ProjectDetailsRouteArgs());
+      final args = routeData.argsAs<ProjectDetailsRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: WrappedRoute(
@@ -380,7 +380,10 @@ class ProjectDetailsRoute extends PageRouteInfo<ProjectDetailsRouteArgs> {
   PageInfo<ProjectDetailsRouteArgs>(name);
 }
 class ProjectDetailsRouteArgs {
-  const ProjectDetailsRouteArgs( );
+  const ProjectDetailsRouteArgs(
+  {required this .projectsCubit}
+      );
+  final ProjectsCubit projectsCubit;
 }
 
 /// generated route for

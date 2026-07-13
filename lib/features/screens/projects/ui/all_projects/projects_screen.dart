@@ -7,6 +7,7 @@ import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
+import 'package:mkaweel/core/shared/widgets/app_bar.dart';
  import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
  import 'package:mkaweel/core/theming/app_text_styles.dart';
@@ -38,14 +39,11 @@ class _ProjectsPageState extends ProjectsPageBaseState {
        label: 'Projects Screen',
        child: Scaffold(
          backgroundColor: context.theme.scaffoldBackgroundColor,
-         appBar: AppBar(
-           backgroundColor: Theme.of(context).primaryColor,
-           title: Text('projects'.tr(), style: AppTextStyles.font18SemiBold.copyWith(color: context.theme.scaffoldBackgroundColor)),
-           centerTitle: true,
-           leading: IconButton(
-             icon:   Icon(Icons.sync, color: context.theme.scaffoldBackgroundColor),
-             onPressed: () =>projectsCubit.getAllProjectsFunc(Reload()),
-           ),
+         appBar: CustomAppBar(leading: IconButton(
+           icon:   Icon(Icons.sync, color: context.theme.scaffoldBackgroundColor),
+           onPressed: () =>projectsCubit.getAllProjectsFunc(Reload()),
+         ),
+         title:  'projects'.tr(),
          ),
 
          body: BlocSelector<ProjectsCubit, ProjectsState, BaseEmit?>(

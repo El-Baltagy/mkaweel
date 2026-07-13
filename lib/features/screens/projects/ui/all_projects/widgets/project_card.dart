@@ -32,7 +32,9 @@ class ProjectCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: InkWell(
         onTap: () => context.push(ProjectDetailsRoute(
-          args: const ProjectDetailsRouteArgs()
+          args:   ProjectDetailsRouteArgs(
+            projectsCubit: projectsCubit
+          )
         )),
         child: Padding(
           padding: const EdgeInsets.all(16),
