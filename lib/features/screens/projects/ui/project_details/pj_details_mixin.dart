@@ -13,7 +13,9 @@ abstract class ProjectDetailsPageBaseState extends State<ProjectDetailsPage> {
     super.dispose();
   }
 
-
+  void listener(BuildContext context, ProjectsState state) {
+    // TODO: implement listener
+  }
   /// Static phase data — will be replaced with API data in future.
       List<Map<String, String>>  phases = [
     {

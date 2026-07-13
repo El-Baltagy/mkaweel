@@ -33,7 +33,8 @@ class ProjectCard extends StatelessWidget {
       child: InkWell(
         onTap: () => context.push(ProjectDetailsRoute(
           args:   ProjectDetailsRouteArgs(
-            projectsCubit: projectsCubit
+            projectsCubit: projectsCubit,
+            projectInfoData: projectInfoData
           )
         )),
         child: Padding(
