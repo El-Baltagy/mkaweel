@@ -1,3 +1,7 @@
+
+import 'package:mkaweel/features/screens/Tasks/data/repo/remote/Tasks_repo.dart';
+import 'package:mkaweel/features/screens/Tasks/service/Tasks_service.dart';
+import 'package:mkaweel/features/screens/Tasks/controller/Tasks_cubit.dart';
 import 'package:mkaweel/features/screens/login/data/repo/remote/login_repo.dart';
 import 'package:mkaweel/features/screens/login/service/login_service.dart';
 import 'package:mkaweel/features/screens/login/controller/login_cubit.dart';
@@ -44,7 +48,13 @@ class AppLocator {
 
   GetIt call() => _sl;
 
-  void init() {
+  void init(){
+
+    ///..................Tasks.................///
+    _sl.registerLazySingleton(() => TasksRepo(_sl()));
+    _sl.registerLazySingleton(() => TasksService(_sl(), _sl()));
+    _sl.registerFactory(() => TasksCubit(_sl()));
+
     ///..................login.................///
     _sl.registerLazySingleton(() => LoginRepo(_sl()));
     _sl.registerLazySingleton(() => LoginService(_sl(), _sl()));

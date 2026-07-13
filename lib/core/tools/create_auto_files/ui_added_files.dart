@@ -1,8 +1,7 @@
 import 'dart:io';
 import '../create_auto_files/path_constants.dart';
 import 'path_constants.dart';
-import '../../extension/string.dart';
-
+import 'path_constants.dart';
 class UIAddRequiredFiles extends BaseAddRequiredFiles {
   UIAddRequiredFiles({required this.screenFileName, required this.screenName, required this.secondaryName});
 
@@ -102,11 +101,11 @@ String _getMixinContent(String widgetName, String secondaryName) {
   return '''part of '$screenFileName';
 
 abstract class ${widgetName}BaseState extends State<$widgetName> {
-  late final ${PathConstants().cubitName()} ${PathConstants().cubitName().lowerCaseFirst};
+  late final ${PathConstants().cubitName()} ${PathConstants().tolowerCasTheFirstCharachter(PathConstants().cubitName())};
 
   @override
   void initState() {
-    ${PathConstants().cubitName().lowerCaseFirst} = ${PathConstants().cubitName()}.get(context: context);
+    ${PathConstants().tolowerCasTheFirstCharachter(PathConstants().cubitName())} = ${PathConstants().cubitName()}.get(context: context);
     // TODO: implement initState
     super.initState();
   }

@@ -20,6 +20,7 @@ import 'package:mkaweel/features/screens/projects/ui/project_details_screen.dart
 import 'package:mkaweel/features/screens/projects/ui/phase_progress_screen.dart';
 import 'package:mkaweel/features/screens/workers/ui/add_workers/add_worker_screen.dart';
 import 'package:mkaweel/features/screens/add_edit_task_project/ui/create_task/create_task_screen.dart';
+ import 'package:mkaweel/features/screens/Tasks/ui/Tasks/Tasks_screen.dart';
  part 'route.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')
@@ -27,6 +28,11 @@ class AppRouter extends _$AppRouter {
   AppRouter({super.navigatorKey});
    @override
   List<AutoRoute> get routes => [
+
+      AutoRoute(
+        page: TasksRoute.page,
+        // initial: true,
+      ),
 
       AutoRoute(
         page: AddWorkerRoute.page,

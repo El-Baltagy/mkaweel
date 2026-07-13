@@ -15,6 +15,17 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+
+    TasksRoute.name: (routeData) {
+      final args = routeData.argsAs<TasksRouteArgs>(orElse: () =>   TasksRouteArgs.noArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(
+            child: TasksPage(
+           args: args ,
+        )),
+      );
+    },
     CreateTaskRoute.name: (routeData) {
       final args = routeData.argsAs<CreateTaskRouteArgs>(orElse: () =>   CreateTaskRouteArgs.noArgs());
       return AutoRoutePage<dynamic>(
@@ -446,3 +457,47 @@ class AddWorkerRouteArgs {
    static AddWorkerRouteArgs noArgs()=>AddWorkerRouteArgs(workerItem:null,projectsCubit:null,workersCubit:null );
 }
 
+
+/// generated route for
+/// [TasksPage]
+class TasksRoute extends PageRouteInfo<TasksRouteArgs> {
+  TasksRoute({
+   required TasksRouteArgs args  ,
+    List<PageRouteInfo>? children,
+  }) : super(
+    TasksRoute.name,
+    args: args,
+    initialChildren: children,
+  );
+
+  static const String name = 'TasksRoute';
+
+  static const PageInfo<TasksRouteArgs> page =
+  PageInfo<TasksRouteArgs>(name);
+}
+class TasksRouteArgs {
+  const TasksRouteArgs( );
+   static TasksRouteArgs noArgs()=>TasksRouteArgs();
+}
+
+/// generated route for
+/// [TasksvPage]
+class TasksvRoute extends PageRouteInfo<TasksvRouteArgs> {
+  TasksvRoute({
+   required TasksvRouteArgs args  ,
+    List<PageRouteInfo>? children,
+  }) : super(
+    TasksvRoute.name,
+    args: args,
+    initialChildren: children,
+  );
+
+  static const String name = 'TasksvRoute';
+
+  static const PageInfo<TasksvRouteArgs> page =
+  PageInfo<TasksvRouteArgs>(name);
+}
+class TasksvRouteArgs {
+  const TasksvRouteArgs( );
+   static TasksvRouteArgs noArgs()=>TasksvRouteArgs();
+}
