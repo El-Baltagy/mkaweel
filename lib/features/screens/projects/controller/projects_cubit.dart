@@ -13,6 +13,7 @@ import 'package:mkaweel/features/screens/projects/data/model/create_project_res/
 import 'package:mkaweel/features/screens/projects/data/model/delete_pj_parameter.dart';
 import 'package:mkaweel/features/screens/projects/data/model/delete_project_res/delete_project_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/get_project_data_parameter.dart';
+import 'package:mkaweel/features/screens/projects/data/model/project_phases_res/project_phases_res.dart';
 import 'package:mkaweel/main.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
 import 'package:mkaweel/features/screens/projects/service/projects_service.dart';
@@ -30,12 +31,17 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
   int get createProjectKeyCode => AppConstant.CreateProjectKeyCode;
   int get getAllProjectsKeyCode => AppConstant.getAllProjectsKeyCode;
 
-   init() async {
+     int get getProjectPhasesKeyCode => AppConstant.getProjectPhasesKeyCode;
+
+  init() async {
     // TODO: implement init
   }
 
   @override
   Future<void> close() {
+    // add every key in file
+    CancelManager.cancel(getProjectPhasesKeyCode);
+
     // add every key in file
     CancelManager.cancel(getAllProjectsKeyCode);
     CancelManager.cancel(createProjectKeyCode);
@@ -122,6 +128,24 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
       ),
     );
     return res;
+   }
 
+
+
+  Future<void> getProjectPhasesFunc( {GetProjectDataParameter? parameter}) async {
+    await CancelManager.runCancelableFun(getProjectPhasesKeyCode, (token) async {
+      await _service.getProjectPhasesServ(
+        RequestCallbackObserver<ProjectPhasesRes, GetProjectDataParameter>(
+          baseRequestBackType: Reload() ,
+          parameter: parameter,
+          cancelToken: token,
+          onLoadCallback: () => safeEmit(current.copyWith(getProjectPhasesState: Loading())),
+          onRightCallback: (data) => safeEmit(current.copyWith(getProjectPhasesState: Success(data))),
+          onLeftCallback: (failure) => safeEmit(current.copyWith(getProjectPhasesState: ErrorState(failure))),
+        ),
+      );
+    });
   }
 }
+//dart run lib/core/tools/create_auto_functions/add_function_script.dart
+//projects getProjectPhases ProjectPhasesRes GetProjectDataParameter

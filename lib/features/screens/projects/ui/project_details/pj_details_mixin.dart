@@ -6,6 +6,7 @@ abstract class ProjectDetailsPageBaseState extends State<ProjectDetailsPage> {
   void initState() {
     projectsCubit = widget.args.projectsCubit;
     super.initState();
+    projectsCubit.getProjectPhasesFunc(parameter: .new(  widget.args.projectInfoData.id.toString()));
   }
 
   @override
@@ -16,39 +17,5 @@ abstract class ProjectDetailsPageBaseState extends State<ProjectDetailsPage> {
   void listener(BuildContext context, ProjectsState state) {
     // TODO: implement listener
   }
-  /// Static phase data — will be replaced with API data in future.
-      List<Map<String, String>>  phases = [
-    {
-      'title': 'Site Preparation',
-      'subtitle': 'Site handover, fencing, and temporary utilities se...',
-    },
-    {
-      'title': 'Excavation and Ground Preparation',
-      'subtitle': 'Excavation, grading, and soil preparation',
-    },
-    {
-      'title': 'Foundation Works',
-      'subtitle': 'Blinding concrete, footings, grade beams, waterpro...',
-    },
-    {
-      'title': 'Concrete Structural Works',
-      'subtitle': 'Columns, beams, slabs, and staircases',
-    },
-    {
-      'title': 'Masonry Works',
-      'subtitle': 'Internal and external walls and partitions',
-    },
-    {
-      'title': 'Plastering Works',
-      'subtitle': 'Internal and external plastering',
-    },
-    {
-      'title': 'Waterproofing Works',
-      'subtitle': 'Waterproofing for roofs, bathrooms, and water tank...',
-    },
-    {
-      'title': 'Flooring and Ceiling Works',
-      'subtitle': 'Tiles, marble, and suspended ceilings',
-    },
-  ];
+
 }

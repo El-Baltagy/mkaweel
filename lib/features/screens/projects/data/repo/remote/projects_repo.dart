@@ -14,6 +14,7 @@ import 'package:mkaweel/features/screens/projects/data/model/create_project_res/
 import 'package:mkaweel/features/screens/projects/data/model/delete_pj_parameter.dart';
 import 'package:mkaweel/features/screens/projects/data/model/delete_project_res/delete_project_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/get_project_data_parameter.dart';
+import 'package:mkaweel/features/screens/projects/data/model/project_phases_res/project_phases_res.dart';
 
 class ProjectsRepo extends BaseRepo {
   ProjectsRepo(this.dio);
@@ -68,6 +69,20 @@ class ProjectsRepo extends BaseRepo {
         cancelToken: cancelToken,
       ),
       asObject: CreateProjectRes.fromJson,
+    );
+  }
+
+  Future<Either<Failure, ProjectPhasesRes>> getProjectPhasesApi(
+    GetProjectDataParameter? parameter, {
+    CancelToken? cancelToken,
+  }) async {
+    return handleResponse(
+      onCallData: dio.getData(
+        uri: EndPoints.getProjectPhases(parameter!.projectId),
+        cancelToken: cancelToken,
+        caller: getTag(),
+      ),
+      asObject: ProjectPhasesRes.fromJson,
     );
   }
 }

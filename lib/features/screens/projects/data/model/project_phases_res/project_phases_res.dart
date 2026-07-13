@@ -3,31 +3,47 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:equatable/equatable.dart';
 
 part 'project_phases_res.freezed.dart';
+
 part 'project_phases_res.g.dart';
 
 @freezed
 class ProjectPhasesRes with _$ProjectPhasesRes, EquatableMixin {
   const ProjectPhasesRes._();
+
   const factory ProjectPhasesRes({
     required String status,
     required String message,
     required List<ProjectphaseItem> data,
   }) = _ProjectPhasesRes;
 
-  factory ProjectPhasesRes.fromJson(Map<String, dynamic> json) => _$ProjectPhasesResFromJson(json);
+  factory ProjectPhasesRes.fromJson(Map<String, dynamic> json) =>
+      _$ProjectPhasesResFromJson(json);
 
   @override
-  List<Object?> get props => [
-    status,
-    message,
-    data,
-  ];
-
+  List<Object?> get props => [status, message, data];
 }
 
 @freezed
 class ProjectphaseItem with _$ProjectphaseItem, EquatableMixin {
+  static ProjectphaseItem getEmptyItem  = const .new(
+    id: 1,
+    project_id: 2,
+    phase_id: 3,
+    name: 'name',
+    description: 'description',
+    planned_start_date: 'planned_start_date',
+    planned_end_date: 'planned_end_date',
+    actual_start_date: 'actual_start_date',
+    actual_end_date: 'actual_end_date',
+    progress_percentage: 0,
+    status: 'status',
+    notes: 'notes',
+    created_at: 'created_at',
+    updated_at: 'updated_at',
+  );
+
   const ProjectphaseItem._();
+
   const factory ProjectphaseItem({
     required int id,
     required int project_id,
@@ -45,7 +61,8 @@ class ProjectphaseItem with _$ProjectphaseItem, EquatableMixin {
     required String updated_at,
   }) = _ProjectphaseItem;
 
-  factory ProjectphaseItem.fromJson(Map<String, dynamic> json) => _$ProjectphaseItemFromJson(json);
+  factory ProjectphaseItem.fromJson(Map<String, dynamic> json) =>
+      _$ProjectphaseItemFromJson(json);
 
   @override
   List<Object?> get props => [
@@ -64,6 +81,4 @@ class ProjectphaseItem with _$ProjectphaseItem, EquatableMixin {
     created_at,
     updated_at,
   ];
-
 }
-

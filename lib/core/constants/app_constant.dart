@@ -48,4 +48,8 @@ abstract class AppConstant {
   static const String deleteWorkerKeyCash = 'workers_deleteWorker_cache';
 
   static const int deleteWorkerKeyCode = 7934;
+
+  static const String getProjectPhasesKeyCash = 'projects_getProjectPhases_cache';
+
+  static const int getProjectPhasesKeyCode = 2765;
 }
