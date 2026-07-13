@@ -95,8 +95,8 @@ class _MarketPricesPageState extends MarketPricesPageBaseState {
                   );
                   refreshController.loadComplete();
                 },
-                 enablePullUp:
-                     (pagination != null &&
+                enablePullUp:
+                    (pagination != null &&
                     pagination.current_page < pagination.last_page),
                 footer: CustomFooter(
                   height: 50,

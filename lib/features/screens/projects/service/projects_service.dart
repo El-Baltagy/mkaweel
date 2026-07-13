@@ -19,11 +19,26 @@ class ProjectsService extends BaseService {
   Future<void> getAllProjectsServ(
     RequestCallbackObserver<AllProjectsRes, NoParameter> requestInfo,
   ) {
+    const cacheKey = AppConstant.getAllProjectsKeyCash;
      return requestInfo.handleRequest(
       fetchFromClient: (token) => _remoteRepo.getAllprojectsApi(
         requestInfo.parameter,
         cancelToken: token,
       ),
+       fetchLocal: () async {
+         final tuple = await _localRepo.readData(cacheKey);
+
+         if (tuple?.$1['pr'] == _localRepo.primarySessionId&&tuple?.$1['sec'] == _localRepo.secondarySessionId) {
+           return  .fromJson(tuple!.$2);
+         }
+         return null;
+       },
+       saveLocal: (old, newData) async {
+         if (newData != null) {
+           await _localRepo.saveData(cacheKey,   savedData: newData.toJson());
+         }
+       },
+       clearLocal: () => _localRepo.clearData(cacheKey),
      );
   }
 

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mkaweel/core/base/base_local_repo.dart';
 import 'package:mkaweel/core/constants/app_constant.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
@@ -45,8 +46,9 @@ class _DashboardPageState extends DashboardPageBaseState {
           backgroundColor: context.theme.scaffoldBackgroundColor,
            floatingActionButton: kDebugMode?InkWell(
              onTap: () async {
-               var token=await HWSecureSaver.get(AppConstant.tokenKeyCash );
-              debugPrint(token);
+               BaseLocalRepo.testPrint ( );
+               BaseLocalRepo.setSessionId (  'secondarySession');
+               BaseLocalRepo.testPrint ( );
              },
              child: Text("test token"),
            ):null,

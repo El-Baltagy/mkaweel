@@ -70,12 +70,12 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
     );
 
   }
-  Future<AllProjectsRes?> getAllProjectsFunc({NoParameter? parameter}) async {
+  Future<AllProjectsRes?> getAllProjectsFunc(BaseRequestBackType? baseRequestBackType,{NoParameter? parameter}) async {
     AllProjectsRes? res;
     await CancelManager.runCancelableFun(getAllProjectsKeyCode, (token) async {
       await _service.getAllProjectsServ(
         RequestCallbackObserver<AllProjectsRes, NoParameter>(
-          baseRequestBackType: Reload(),
+          baseRequestBackType:baseRequestBackType,
           parameter: parameter,
           cancelToken: token,
           onLoadCallback: () =>

@@ -28,15 +28,15 @@ class MarketPricesService extends BaseService {
       ),
       fetchLocal: () async {
         final tuple = await _localRepo.readData(cacheKey);
-        if (tuple == null) return null;
-        if (tuple.$1 == _localRepo.sessionId) {
-          return CatogeriesRes.fromJson(tuple.$2);
+
+        if (tuple?.$1['pr'] == _localRepo.primarySessionId) {
+          return CatogeriesRes.fromJson(tuple!.$2);
         }
         return null;
       },
       saveLocal: (old, newData) async {
         if (newData != null) {
-           await _localRepo.saveData(cacheKey, randomKey: _localRepo.sessionId ?? '', savedData: newData.toJson());
+           await _localRepo.saveData(cacheKey,   savedData: newData.toJson());
         }
       },
       clearLocal: () => _localRepo.clearData(cacheKey),
@@ -46,8 +46,7 @@ class MarketPricesService extends BaseService {
   Future<void> getSubCatogeriesServ(
     RequestCallbackObserver<SubCatogeriesData, SubCatogeriesInput> requestInfo
   ) {
-    // const cacheKey = AppConstant.getSubCatogeriesKeyCash;
-    return requestInfo.handleRequest(
+     return requestInfo.handleRequest(
       fetchFromClient: (token) => _remoteRepo.getsubcatogeriesApi(
         requestInfo.parameter,
         cancelToken: token,
@@ -78,12 +77,15 @@ class MarketPricesService extends BaseService {
       ),
       fetchLocal: () async {
         final tuple = await _localRepo.readData(cacheKey);
-        if ( tuple?.$1 != (_localRepo.sessionId??'')) return null;
-        return ExchangeRate.fromJson(tuple!.$2);
+        if ( tuple?.$1['pr'] ==  _localRepo.primarySessionId ) {
+          return ExchangeRate.fromJson(tuple!.$2);
+        }
+
+        return null;
       },
       saveLocal: (old, newData) async {
         if (newData != null) {
-          await _localRepo.saveData(cacheKey, randomKey: _localRepo.sessionId ?? '', savedData: newData.toJson());
+          await _localRepo.saveData(cacheKey,  savedData: newData.toJson());
         }
       },
       clearLocal: () => _localRepo.clearData(cacheKey),

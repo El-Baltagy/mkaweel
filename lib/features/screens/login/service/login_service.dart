@@ -24,7 +24,8 @@ class LoginService extends BaseService {
       ),
       saveLocal: (old, newData) async {
         if (newData?.status=='success'  ) {
-          await _localRepo.saveData(AppConstant.userKeyCash,randomKey: _localRepo.sessionId ?? '',savedData:  newData!.data.user.toJson());
+          BaseLocalRepo.setSessionId(( DateTime.now().millisecondsSinceEpoch+1111).toString());
+          await _localRepo.saveData(AppConstant.userKeyCash ,savedData:  newData!.data.user.toJson());
           await HWSecureSaver.save(AppConstant.tokenKeyCash,  newData .data.token.toString());
         }
       },

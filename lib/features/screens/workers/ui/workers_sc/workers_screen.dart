@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/app/route.dart';
+import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
  import 'package:mkaweel/core/theming/app_text_styles.dart';
@@ -26,7 +27,7 @@ class WorkersPage extends StatefulWidget implements AutoRouteWrapper {
          create: (context) => WorkersCubit(AppLocator()()())..getWorkersFunc(),
       ),
       BlocProvider<ProjectsCubit>(
-         create: (context) => ProjectsCubit(AppLocator()()())..getAllProjectsFunc(),
+         create: (context) => ProjectsCubit(AppLocator()()())..getAllProjectsFunc(Init()),
       ),
 
     ], child: this);

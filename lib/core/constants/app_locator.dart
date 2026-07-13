@@ -101,8 +101,9 @@ class AppLocator {
     // ── Global Services ──────────────────────────────────────────────────────
     _sl.registerLazySingleton<BaseLocalRepo>(
       () => BaseLocalRepo(
-        sessionId: DateTime.now().millisecondsSinceEpoch.toString(),
-      ),
+        primarySessionId: DateTime.now().millisecondsSinceEpoch.toString(),
+        secondarySessionId:( DateTime.now().millisecondsSinceEpoch+1111).toString(),
+       ),
     );
     _sl.registerLazySingleton<DioHelper>(() => DioHelper.instance);
     _sl.registerLazySingleton<ThemeCubit>(ThemeCubit.new);

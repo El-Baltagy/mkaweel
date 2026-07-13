@@ -1,16 +1,41 @@
-import 'dart:convert';
 import 'package:mkaweel/core/storage/hive_storage.dart';
 
 class BaseLocalRepo {
-  final String? sessionId;
-  BaseLocalRepo({this.sessionId});
+  String  primarySessionId,secondarySessionId;
+
+  BaseLocalRepo._()
+      : primarySessionId = '',
+        secondarySessionId = '';
+
+  static final BaseLocalRepo _instance = BaseLocalRepo._();
+
+  factory BaseLocalRepo({    String?  primarySessionId,required  String secondarySessionId}) {
+       if(primarySessionId!=null){
+         _instance.primarySessionId = primarySessionId;
+       }
+       _instance.secondarySessionId = secondarySessionId;
+
+     return _instance;
+  }
+
+  static void setSessionId(String secondarySessionId) {
+    _instance.secondarySessionId = secondarySessionId;
+    print(secondarySessionId);
+   }
+  static void testPrint( ) {
+     print('primary session id is ${ _instance.primarySessionId}');
+    print('secondary session id is ${ _instance.secondarySessionId}');
+  }
   /// Persist a map to local storage.
-  Future<void> saveData(String key,{required String randomKey,required Map<String, dynamic> savedData}) async {
+  Future<void> saveData(String key, {required Map<String, dynamic> savedData}) async {
     try {
-       await HiveStorage().writeData(key, {
-         "random_key":randomKey,
-         "data":savedData,
-       });
+      await HiveStorage().writeData(key, {
+        "keys": {
+          "pr": primarySessionId,
+          "sec": secondarySessionId,
+        },
+        "data": savedData,
+      });
     } catch (e) {
       // Log error or handle as needed
     }
@@ -25,18 +50,14 @@ class BaseLocalRepo {
   }
 
   /// Read data from local storage by key and return as Map.
-  Future<(String , Map<String, dynamic>)? > readData(String key) async {
+  Future<(Map<String, dynamic>, Map<String, dynamic>)?> readData(String key) async {
     try {
-      //
-      final data =  await HiveStorage().readData(key);
-       return  data==null?null: (data["random_key"] as String,data["data"]as Map<String, dynamic>);
-
-
+      final data = await HiveStorage().readData(key);
+      return data == null
+          ? null
+          : (data["keys"] as Map<String, dynamic>, data["data"] as Map<String, dynamic>);
     } catch (e) {
       return null;
     }
   }
-
 }
-
-

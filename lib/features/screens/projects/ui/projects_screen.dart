@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/app/route.dart';
+import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
@@ -43,7 +44,7 @@ class _ProjectsPageState extends ProjectsPageBaseState {
            centerTitle: true,
            leading: IconButton(
              icon:   Icon(Icons.sync, color: context.theme.scaffoldBackgroundColor),
-             onPressed: () =>projectsCubit.getAllProjectsFunc(),
+             onPressed: () =>projectsCubit.getAllProjectsFunc(Reload()),
            ),
          ),
 
@@ -63,7 +64,7 @@ class _ProjectsPageState extends ProjectsPageBaseState {
            onPressed: () async {
              final result = await context.push(CreateProjectRoute(args: const CreateProjectRouteArgs(null)));
              if (result == true) {
-               await projectsCubit.getAllProjectsFunc();
+               await projectsCubit.getAllProjectsFunc(Reload());
              }
            },
            child:   Icon(Icons.add, color: context.theme.scaffoldBackgroundColor),
@@ -82,7 +83,7 @@ abstract class  ProjectsPageBaseState extends State<ProjectsPage> {
   void initState() {
     super.initState();
     projectsCubit = ProjectsCubit.get(context: context);
-    projectsCubit.getAllProjectsFunc();
+    projectsCubit.getAllProjectsFunc(Init());
   }
 
   @override

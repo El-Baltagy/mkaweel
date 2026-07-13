@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mkaweel/core/app/route.dart';
+import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/shared/methods/location_Service.dart';
@@ -74,7 +75,7 @@ class ProjectCard extends StatelessWidget {
                         onTap: () async {
                           final result = await context.push(CreateProjectRoute(args: CreateProjectRouteArgs('${projectInfoData.id}')));
                           if (result == true) {
-                            await projectsCubit.getAllProjectsFunc();
+                            await projectsCubit.getAllProjectsFunc(Reload());
                           }
                         },
                         child: CircleAvatar(
