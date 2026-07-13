@@ -11,8 +11,8 @@ import 'package:mkaweel/features/screens/projects/data/model/delete_pj_parameter
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
 import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/location_selection.dart';
- import 'package:mkaweel/features/screens/projects/ui/widgets/delete_pj_dialouge.dart';
-import 'package:skeletonizer/skeletonizer.dart';
+import 'package:mkaweel/features/screens/projects/ui/all_projects/widgets/delete_pj_dialouge.dart';
+ import 'package:skeletonizer/skeletonizer.dart';
 part   'info_row.dart';
 part   'location_row.dart';
 

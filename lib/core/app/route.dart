@@ -3,7 +3,7 @@ import 'package:mkaweel/core/storage/storage_helper.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/dashboard_screen.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/create_project_screen.dart';
-import 'package:mkaweel/features/screens/projects/ui/projects_screen.dart';
+import 'package:mkaweel/features/screens/projects/ui/all_projects/projects_screen.dart';
  import 'package:mkaweel/features/screens/market_prices/ui/market_prices_screen.dart';
 import 'package:mkaweel/features/screens/main_home/ui/main_home_screen.dart';
  import 'package:mkaweel/features/screens/workers/controller/workers_cubit.dart';
@@ -15,12 +15,12 @@ import 'package:mkaweel/features/screens/waste_calculator/ui/waste_calculator_sc
 import 'package:mkaweel/features/screens/splash/ui/splash_screen.dart';
 import 'package:mkaweel/features/screens/login/ui/login_screen.dart';
 import 'package:mkaweel/features/screens/onboarding/ui/onboarding_screen.dart';
-import 'package:mkaweel/features/screens/projects/ui/project_details_screen.dart';
-import 'package:mkaweel/features/screens/projects/ui/phase_progress_screen.dart';
+import 'package:mkaweel/features/screens/projects/ui/project_details/project_details_screen.dart';
+import 'package:mkaweel/features/screens/projects/ui/project_phases/phase_progress_screen.dart';
 import 'package:mkaweel/features/screens/workers/ui/add_workers/add_worker_screen.dart';
   import 'package:mkaweel/features/screens/Tasks/ui/Tasks/Tasks_screen.dart';
  part 'route.gr.dart';
- 
+
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')
 class AppRouter extends _$AppRouter {
   AppRouter({super.navigatorKey});

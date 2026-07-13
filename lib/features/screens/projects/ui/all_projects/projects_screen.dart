@@ -10,7 +10,7 @@ import 'package:mkaweel/core/extension/context.dart';
  import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
  import 'package:mkaweel/core/theming/app_text_styles.dart';
- import 'package:mkaweel/features/screens/projects/ui/widgets/projects_list.dart';
+import 'package:mkaweel/features/screens/projects/ui/all_projects/widgets/projects_list.dart';
 
 @RoutePage()
 class ProjectsPage extends StatefulWidget implements AutoRouteWrapper{
