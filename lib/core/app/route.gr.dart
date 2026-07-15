@@ -15,12 +15,12 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
-    SuppliersRoute.name: (routeData) {
-      final args = routeData.argsAs<SuppliersRouteArgs>(orElse: () =>   SuppliersRouteArgs.noArgs());
+    SuppliersInfoRoute.name: (routeData) {
+      final args = routeData.argsAs<SuppliersInfoRouteArgs>(orElse: () =>   SuppliersInfoRouteArgs.noArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: WrappedRoute(
-            child: SuppliersPage(
+            child: SuppliersInfoPage(
            args: args ,
         )),
       );
@@ -434,24 +434,26 @@ class WasteCalculatorRouteArgs {
  }
 
 
+
+
 /// generated route for
-/// [SuppliersPage]
-class SuppliersRoute extends PageRouteInfo<SuppliersRouteArgs> {
-  SuppliersRoute({
-   required SuppliersRouteArgs args  ,
+/// [SuppliersInfoPage]
+class SuppliersInfoRoute extends PageRouteInfo<SuppliersInfoRouteArgs> {
+  SuppliersInfoRoute({
+   required SuppliersInfoRouteArgs args  ,
     List<PageRouteInfo>? children,
   }) : super(
-    SuppliersRoute.name,
+    SuppliersInfoRoute.name,
     args: args,
     initialChildren: children,
   );
 
-  static const String name = 'SuppliersRoute';
+  static const String name = 'SuppliersInfoRoute';
 
-  static const PageInfo<SuppliersRouteArgs> page =
-  PageInfo<SuppliersRouteArgs>(name);
+  static const PageInfo<SuppliersInfoRouteArgs> page =
+  PageInfo<SuppliersInfoRouteArgs>(name);
 }
-class SuppliersRouteArgs {
-  const SuppliersRouteArgs( );
-   static SuppliersRouteArgs noArgs()=>SuppliersRouteArgs();
+class SuppliersInfoRouteArgs {
+  const SuppliersInfoRouteArgs( );
+   static SuppliersInfoRouteArgs noArgs()=>SuppliersInfoRouteArgs();
 }

@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:mkaweel/core/storage/storage_helper.dart';
 import 'package:mkaweel/features/screens/dashboard/controller/dashboard_cubit.dart';
-import 'package:mkaweel/features/screens/dashboard/ui/Suppliers/Suppliers_screen.dart';
-import 'package:mkaweel/features/screens/dashboard/ui/dashboard_screen.dart';
+ import 'package:mkaweel/features/screens/dashboard/ui/dashboard_screen.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/ghant_chart/gantt_chart_screen.dart';
+import 'package:mkaweel/features/screens/dashboard/ui/suppliers_info/suppliers_info_screen.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/waste_calculator/waste_calculator_screen.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/data/model/create_project_res/create_project_res.dart';
@@ -30,7 +30,7 @@ class AppRouter extends _$AppRouter {
    @override
   List<AutoRoute> get routes => [
       AutoRoute(
-        page: SuppliersRoute.page,
+        page: SuppliersInfoRoute.page,
         // initial: true,
       ),
 

@@ -1,6 +1,6 @@
-part of 'suppliers_screen.dart';
+part of 'suppliers_info_screen.dart';
 
-abstract class SuppliersPageBaseState extends State<SuppliersPage> {
+abstract class SuppliersInfoPageBaseState extends State<SuppliersInfoPage> {
   late final DashboardCubit dashboardCubit;
 
   @override

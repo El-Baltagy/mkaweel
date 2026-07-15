@@ -6,12 +6,12 @@ import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/features/screens/dashboard/controller/dashboard_cubit.dart';
 import 'package:mkaweel/features/screens/dashboard/controller/dashboard_state.dart';
  
-part 'suppliers_screen_mixin.dart';
+part 'suppliers_info_screen_mixin.dart';
 
 @RoutePage()
-class SuppliersPage extends StatefulWidget implements AutoRouteWrapper {
-  const SuppliersPage({super.key, required this.args});
-  final SuppliersRouteArgs args;
+class SuppliersInfoPage extends StatefulWidget implements AutoRouteWrapper {
+  const SuppliersInfoPage({super.key, required this.args});
+  final SuppliersInfoRouteArgs args;
 
   @override
   Widget wrappedRoute(BuildContext context) {
@@ -22,10 +22,10 @@ class SuppliersPage extends StatefulWidget implements AutoRouteWrapper {
   }
 
   @override
-  State<SuppliersPage> createState() => _SuppliersPageState();
+  State<SuppliersInfoPage> createState() => _SuppliersInfoPageState();
 }
 
-class _SuppliersPageState extends SuppliersPageBaseState {
+class _SuppliersInfoPageState extends SuppliersInfoPageBaseState {
   @override
   Widget build(BuildContext context) {
     return BlocListener<DashboardCubit, DashboardState>(
