@@ -11,7 +11,7 @@ class UIAddRequiredFiles extends BaseAddRequiredFiles {
   makeRequiredFiles(String folder) async {
     super.makeRequiredFiles(folder);
 
-    // 1. Create a named subfolder inside ui/ e.g. ui/project_details/
+    // 1. Create a named subfolder inside waste_calculator/ e.g. waste_calculator/project_details/
     final screenDir = Directory(
       '${PathConstants().folderPath(folder)}/$secondaryName',
     );

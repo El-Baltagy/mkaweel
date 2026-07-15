@@ -85,7 +85,7 @@ class PathConstants {
   String initialStateName() => '${toPascalCase(name)}Loaded';
 
 
-  ///..............ui.........///
+  ///..............waste_calculator.........///
 
   final String screenSuffixTxt = "Page";
 

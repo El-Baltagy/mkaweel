@@ -2,35 +2,37 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
+import 'package:mkaweel/features/screens/dashboard/controller/dashboard_cubit.dart';
+import 'package:mkaweel/features/screens/dashboard/controller/dashboard_state.dart';
+import 'package:mkaweel/features/screens/dashboard/data/model/waste_calc_paremeter.dart';
+import 'package:mkaweel/features/screens/dashboard/ui/waste_calculator/widgets/waste_data_entry_widget.dart';
+import 'package:mkaweel/features/screens/dashboard/ui/waste_calculator/widgets/waste_header_widget.dart';
+import 'package:mkaweel/features/screens/dashboard/ui/waste_calculator/widgets/waste_materials_grid_widget.dart';
+import 'package:mkaweel/features/screens/dashboard/ui/waste_calculator/widgets/waste_result_widget.dart';
 import 'package:mkaweel/features/screens/market_prices/controller/market_prices_cubit.dart';
 import 'package:mkaweel/features/screens/market_prices/controller/market_prices_state.dart';
 import 'package:mkaweel/features/screens/market_prices/data/model/sub_catogeries_data/sub_catogeries_data.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/currency_tabs_widget.dart';
-import 'package:mkaweel/features/screens/waste_calculator/controller/waste_calculator_cubit.dart';
-import 'package:mkaweel/core/constants/app_locator.dart';
-import 'package:mkaweel/features/screens/waste_calculator/data/model/waste_calc_paremeter.dart';
-import 'package:mkaweel/features/screens/waste_calculator/ui/widgets/waste_data_entry_widget.dart';
-import 'package:mkaweel/features/screens/waste_calculator/ui/widgets/waste_header_widget.dart';
-import 'package:mkaweel/features/screens/waste_calculator/ui/widgets/waste_materials_grid_widget.dart';
-import 'package:mkaweel/features/screens/waste_calculator/ui/widgets/waste_result_widget.dart';
+ import 'package:mkaweel/core/constants/app_locator.dart';
 
 @RoutePage()
 class WasteCalculatorPage extends StatefulWidget implements AutoRouteWrapper {
-  const WasteCalculatorPage({super.key});
-
+  const WasteCalculatorPage({super.key, required this.args});
+  final WasteCalculatorRouteArgs args;
   @override
   Widget wrappedRoute(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<WasteCalculatorCubit>(
-          create: (context) => WasteCalculatorCubit(AppLocator()()()),
-        ),
+        BlocProvider.value(
+            value:args.dashboardCubit
+        ) ,
         BlocProvider<MarketPricesCubit>(
           create: (context) => MarketPricesCubit(AppLocator()()()),
         ),
@@ -98,8 +100,8 @@ class _WasteCalculatorPageState extends WasteCalculatorPageBaseState {
 
                   ),
                   24.verticalSpace,
-                  BlocSelector<WasteCalculatorCubit, WasteCalculatorState, BaseEmit?>(
-                    selector: (state)=>state is WasteCalculatorLoaded?state.wasteCalcEmit:null,
+                  BlocSelector<DashboardCubit, DashboardState, BaseEmit?>(
+                    selector: (state)=>state is DashboardLoaded?state.wasteCalcEmit:null,
                     builder: (context, state) {
                       return WasteResultWidget(
                         onCalculate:onCalculate ,
@@ -118,8 +120,8 @@ class _WasteCalculatorPageState extends WasteCalculatorPageBaseState {
 }
 
 abstract class WasteCalculatorPageBaseState extends State<WasteCalculatorPage> {
-  late final WasteCalculatorCubit wasteCalculatorCubit;
-  late final MarketPricesCubit marketPriceCubit;
+   late final DashboardCubit dashboardCubit;
+   late final MarketPricesCubit marketPriceCubit;
   final ValueNotifier<SubCatogeryItem?> selectedSubCatNotifier = .new(null);
   final ScrollController scrollController = .new();
   final TextEditingController controller = .new(text: '0');
@@ -127,8 +129,8 @@ abstract class WasteCalculatorPageBaseState extends State<WasteCalculatorPage> {
   @override
   void initState() {
     super.initState();
-    wasteCalculatorCubit = WasteCalculatorCubit.get(context: context);
-    marketPriceCubit = MarketPricesCubit.get(context: context);
+     marketPriceCubit = MarketPricesCubit.get(context: context);
+    dashboardCubit = DashboardCubit.get(context: context);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       await marketPriceCubit.getSubCatogeriesFunc(
         Init(),
@@ -197,7 +199,7 @@ abstract class WasteCalculatorPageBaseState extends State<WasteCalculatorPage> {
         );
         return;
       }
-      wasteCalculatorCubit.calculateWastePercentageFunc(
+      dashboardCubit.calculateWastePercentageFunc(
         parameter: .new(
           items: [
             MaterialItem(

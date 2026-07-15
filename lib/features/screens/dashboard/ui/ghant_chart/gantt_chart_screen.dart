@@ -6,11 +6,10 @@ import 'package:mkaweel/core/extension/context.dart';
  import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
-import 'package:mkaweel/features/screens/gantt_chart/controller/gantt_chart_cubit.dart';
- import 'package:mkaweel/core/constants/app_locator.dart';
-import 'package:mkaweel/features/screens/gantt_chart/ui/widgets/gantt_actions_widget.dart';
-import 'package:mkaweel/features/screens/gantt_chart/ui/widgets/gantt_empty_state_widget.dart';
-import 'package:mkaweel/features/screens/gantt_chart/ui/widgets/gantt_project_header_widget.dart';
+import 'package:mkaweel/features/screens/dashboard/ui/ghant_chart/widgets/gantt_actions_widget.dart';
+import 'package:mkaweel/features/screens/dashboard/ui/ghant_chart/widgets/gantt_empty_state_widget.dart';
+import 'package:mkaweel/features/screens/dashboard/ui/ghant_chart/widgets/gantt_project_header_widget.dart';
+  import 'package:mkaweel/core/constants/app_locator.dart';
 
 @RoutePage()
 class GanttChartPage extends StatefulWidget implements AutoRouteWrapper {
@@ -18,10 +17,7 @@ class GanttChartPage extends StatefulWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    return BlocProvider<GanttChartCubit>(
-      create: (context) => GanttChartCubit(AppLocator()()()),
-      child: this,
-    );
+   return this;
   }
 
   @override
@@ -55,21 +51,18 @@ class _GanttChartPageState extends GanttChartPageBaseState {
           ],
         ),
         body: SafeArea(
-          child: BlocListener<GanttChartCubit, GanttChartState>(
-            listener: (context, state) {},
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  const GanttProjectHeaderWidget(),
-                  16.verticalSpace,
-                  const GanttEmptyStateWidget(),
-                  24.verticalSpace,
-                  const GanttActionsWidget(),
-                ],
-              ),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                const GanttProjectHeaderWidget(),
+                16.verticalSpace,
+                const GanttEmptyStateWidget(),
+                24.verticalSpace,
+                const GanttActionsWidget(),
+              ],
             ),
-          ),
+          )
         ),
       ),
     );
@@ -77,13 +70,11 @@ class _GanttChartPageState extends GanttChartPageBaseState {
 }
 
 abstract class GanttChartPageBaseState extends State<GanttChartPage> {
-  late final GanttChartCubit argData;
 
   @override
   void initState() {
     super.initState();
-    argData = GanttChartCubit.get(context: context);
-  }
+   }
 
   @override
   void dispose() {

@@ -52,7 +52,10 @@ class ProjectsRepo extends BaseRepo {
     return handleResponse(
       onCallData: dio.postData(
         data: parameter?.toJsonBody(),
-        uri: EndPoints.createProject,
+        uri:
+        parameter!.projectId !=null?
+        EndPoints. updateProject(parameter.projectId!):
+        EndPoints.createProject,
         cancelToken: cancelToken,
       ),
       asObject: CreateProjectRes.fromJson,

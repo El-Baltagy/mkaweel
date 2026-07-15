@@ -1,6 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:mkaweel/core/storage/storage_helper.dart';
+import 'package:mkaweel/features/screens/dashboard/controller/dashboard_cubit.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/dashboard_screen.dart';
+import 'package:mkaweel/features/screens/dashboard/ui/ghant_chart/gantt_chart_screen.dart';
+import 'package:mkaweel/features/screens/dashboard/ui/waste_calculator/waste_calculator_screen.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/data/model/create_project_res/create_project_res.dart';
 import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/create_project_screen.dart';
@@ -11,9 +14,7 @@ import 'package:mkaweel/features/screens/main_home/ui/main_home_screen.dart';
 import 'package:mkaweel/features/screens/workers/data/model/all_workers/all_workers.dart';
 import 'package:mkaweel/features/screens/workers/ui/workers_sc/workers_screen.dart';
 import 'package:mkaweel/features/screens/settings/ui/settings_screen.dart';
- import 'package:mkaweel/features/screens/gantt_chart/ui/gantt_chart_screen.dart';
-import 'package:mkaweel/features/screens/waste_calculator/ui/waste_calculator_screen.dart';
-import 'package:mkaweel/features/screens/splash/ui/splash_screen.dart';
+ import 'package:mkaweel/features/screens/splash/ui/splash_screen.dart';
 import 'package:mkaweel/features/screens/login/ui/login_screen.dart';
 import 'package:mkaweel/features/screens/onboarding/ui/onboarding_screen.dart';
 import 'package:mkaweel/features/screens/projects/ui/project_details/project_details_screen.dart';
@@ -22,7 +23,8 @@ import 'package:mkaweel/features/screens/workers/ui/add_workers/add_worker_scree
   import 'package:mkaweel/features/screens/Tasks/ui/Tasks/Tasks_screen.dart';
  part 'route.gr.dart';
 
-@AutoRouterConfig(replaceInRouteName: 'Page,Route')
+
+ @AutoRouterConfig(replaceInRouteName: 'Page,Route')
 class AppRouter extends _$AppRouter {
   AppRouter({super.navigatorKey});
    @override

@@ -1,4 +1,5 @@
 class CreateProjectParameters {
+
   CreateProjectParameters({
     required this.name,
     required this.owner_name,
@@ -10,6 +11,7 @@ class CreateProjectParameters {
     required this.currency,
     required this.extra_details,
     required this.description,
+    required this.projectId,
   });
 Map<String,dynamic >toJsonBody()=>{
   'name':name,
@@ -33,5 +35,5 @@ Map<String,dynamic >toJsonBody()=>{
       longitude,
       contract_value,
       currency;
-  final String? extra_details, description;
+  final String? extra_details,projectId, description;
 }

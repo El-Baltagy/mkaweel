@@ -49,7 +49,7 @@ class AppRouter extends _\$AppRouter {
     return;
   }
 
-  String importStr = "import 'package:${PathConstants().projectName}/features/screens/${PathConstants().name}/ui/${screenFileName.replaceAll('_screen.dart', '')}/$screenFileName';";
+  String importStr = "import 'package:${PathConstants().projectName}/features/screens/${PathConstants().name}/waste_calculator/${screenFileName.replaceAll('_screen.dart', '')}/$screenFileName';";
   if (!content.contains(importStr)) {
     updatedText = updatedText.replaceFirst(
       "part",

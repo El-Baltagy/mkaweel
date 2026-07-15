@@ -9,6 +9,7 @@ import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
 
 import 'package:mkaweel/core/app/route.dart';
+import 'package:mkaweel/features/screens/dashboard/controller/dashboard_cubit.dart';
 
 class ItemGridData {
   ItemGridData({
@@ -16,6 +17,7 @@ class ItemGridData {
      required this.icon,
     required this.bgColor,
     required this.iconColor,
+
       this.onTap,
       this.routeNavigation,
 });
@@ -24,11 +26,12 @@ class ItemGridData {
   final Color bgColor, iconColor;
   final VoidCallback? onTap;
   final PageRouteInfo<dynamic>? routeNavigation;
+
 }
 
 class QuickToolsWidget extends StatelessWidget {
-  const QuickToolsWidget({super.key});
-
+  const QuickToolsWidget({super.key, required this.dashboardCubit });
+  final DashboardCubit   dashboardCubit;
   @override
   Widget build(BuildContext context) {
 
@@ -36,7 +39,10 @@ class QuickToolsWidget extends StatelessWidget {
       ItemGridData(label: 'gantt_chart'.tr(), icon: Icons.format_list_bulleted,
           bgColor: Colors.indigo.shade100, iconColor: Colors.indigo,routeNavigation: const GanttChartRoute()),
       ItemGridData(label: 'waste_calculator'.tr(), icon: Icons.calculate_outlined,
-          bgColor: Colors.orange.shade100, iconColor: Colors.orange,routeNavigation: const WasteCalculatorRoute()),
+          bgColor: Colors.orange.shade100, iconColor: Colors.orange,routeNavigation:
+          WasteCalculatorRoute(
+            args: WasteCalculatorRouteArgs(dashboardCubit),
+          )),
       ItemGridData(label: 'weather'.tr(), icon: Icons.cloud_outlined,
           bgColor: Colors.blue.shade100, iconColor: Colors.blue ),
       ItemGridData(label: 'attendance_registration'.tr(), icon: Icons.how_to_reg,

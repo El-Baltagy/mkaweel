@@ -16,15 +16,17 @@ abstract class EndPoints {
   static const String deleteAccount = '/api/delete_user';
   static const String updateProfile = '/api/update_profile';
 
-  static const String createProject = '/api/projects';
+
   static const String getAllProjects = '/api/projects';
+  static const String createProject = '/api/projects';
+  static   String updateProject (String id) => '/api/projects/$id/update';
    static String getProjectData(String id) => '/api/projects/$id';
    static String deleteProject(String id) => '/api/projects/$id';
 
   static const String addWorker = '/api/workers';
   static const String getAllWorkers = '/api/workers';
    static String deleteWorker(String id) => '/api/workers/$id';
-   static String updateWorker(String id) => '/api/workers/$id';
+   static String updateWorker(String id) => '/api/workers/$id/update';
 
   static   String getProjectPhases(String id) => '/api/projects/$id/phases';
 }

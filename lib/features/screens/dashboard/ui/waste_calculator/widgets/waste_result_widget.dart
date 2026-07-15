@@ -5,7 +5,7 @@ import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/extension/context.dart';
-import 'package:mkaweel/features/screens/waste_calculator/data/model/waste_calc_res/waste_calc_res.dart';
+import 'package:mkaweel/features/screens/dashboard/data/model/waste_calc_res/waste_calc_res.dart';
 
 class WasteResultWidget extends StatelessWidget {
 

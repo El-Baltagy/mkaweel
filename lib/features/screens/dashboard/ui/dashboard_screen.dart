@@ -65,7 +65,10 @@ class _DashboardPageState extends DashboardPageBaseState {
                   20.verticalSpace,
                   const TodayTasksWidget(),
                   20.verticalSpace,
-                  const QuickToolsWidget(),
+                    QuickToolsWidget(
+                    dashboardCubit: dashboardCubit
+
+                  ),
 
                  ],
               ),
@@ -78,11 +81,11 @@ class _DashboardPageState extends DashboardPageBaseState {
 }
 
 abstract class  DashboardPageBaseState extends State<DashboardPage> {
-  late final DashboardCubit argData;
+  late final DashboardCubit dashboardCubit;
   
   @override
   void initState() {
-    argData = DashboardCubit.get(context: context);
+    dashboardCubit = DashboardCubit.get(context: context);
     super.initState();
   }
 

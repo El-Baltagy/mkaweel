@@ -25,6 +25,14 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
 
+    WasteCalculatorRoute.name: (routeData) {
+      final args = routeData.argsAs<WasteCalculatorRouteArgs>(   );
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: WasteCalculatorPage(args: args)),
+      );
+    },
+
     AddWorkerRoute.name: (routeData) {
       final args = routeData.argsAs<AddWorkerRouteArgs>(
         orElse: () => AddWorkerRouteArgs.noArgs(),
@@ -112,12 +120,7 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const SplashPage(),
       );
     },
-    WasteCalculatorRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(child: const WasteCalculatorPage()),
-      );
-    },
+
     WorkersRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -271,16 +274,6 @@ class SplashRoute extends PageRouteInfo<void> {
   static const PageInfo<void> page = PageInfo<void>(name);
 }
 
-/// generated route for
-/// [WasteCalculatorPage]
-class WasteCalculatorRoute extends PageRouteInfo<void> {
-  const WasteCalculatorRoute({List<PageRouteInfo>? children})
-    : super(WasteCalculatorRoute.name, initialChildren: children);
-
-  static const String name = 'WasteCalculatorRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
 
 /// generated route for
 /// [ProfileScreenPage]
@@ -410,19 +403,21 @@ class TasksRouteArgs {
   static TasksRouteArgs noArgs() => TasksRouteArgs();
 }
 
+
+
+
 /// generated route for
 /// [TasksvPage]
-class TasksvRoute extends PageRouteInfo<TasksvRouteArgs> {
-  TasksvRoute({required TasksvRouteArgs args, List<PageRouteInfo>? children})
-    : super(TasksvRoute.name, args: args, initialChildren: children);
+class WasteCalculatorRoute extends PageRouteInfo<WasteCalculatorRouteArgs> {
+  WasteCalculatorRoute({required WasteCalculatorRouteArgs args, List<PageRouteInfo>? children})
+    : super(WasteCalculatorRoute.name, args: args, initialChildren: children);
 
-  static const String name = 'TasksvRoute';
+  static const String name = 'WasteCalculatorRoute';
 
-  static const PageInfo<TasksvRouteArgs> page = PageInfo<TasksvRouteArgs>(name);
+  static const PageInfo<WasteCalculatorRouteArgs> page = PageInfo<WasteCalculatorRouteArgs>(name);
 }
 
-class TasksvRouteArgs {
-  const TasksvRouteArgs();
-
-  static TasksvRouteArgs noArgs() => TasksvRouteArgs();
-}
+class WasteCalculatorRouteArgs {
+  const WasteCalculatorRouteArgs(this.dashboardCubit);
+  final DashboardCubit dashboardCubit;
+ }
