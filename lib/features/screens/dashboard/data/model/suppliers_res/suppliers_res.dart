@@ -27,6 +27,16 @@ class SuppliersRes with _$SuppliersRes, EquatableMixin {
 
 @freezed
 class DataItem with _$DataItem, EquatableMixin {
+  static const DataItem emptyItem = DataItem(id: 144,
+      name: 'ccc',
+      company_name: 'wasdwd',
+      phone: '01021223141',
+      mobile: 'wdacascww',
+      email: 'wasdaw',
+      address: 'ccccccccc',
+      tax_number: 'ascae2',
+      notes: 'actbs',
+      status: 'ccccccccc');
   const DataItem._();
   const factory DataItem({
     required int id,

@@ -48,6 +48,7 @@ class QuickToolsWidget extends StatelessWidget {
       ItemGridData(label: 'attendance_registration'.tr(), icon: Icons.how_to_reg,
           bgColor: Colors.teal.shade100, iconColor: Colors.teal ),
       ItemGridData(label: 'suppliers'.tr(), icon: Icons.inventory_2_outlined,
+          routeNavigation: SuppliersInfoRoute(args: SuppliersInfoRouteArgs()),
           bgColor: Colors.green.shade100, iconColor: Colors.green )
 
     ];

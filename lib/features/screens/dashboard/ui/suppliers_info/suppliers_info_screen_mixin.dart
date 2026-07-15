@@ -8,6 +8,8 @@ abstract class SuppliersInfoPageBaseState extends State<SuppliersInfoPage> {
     dashboardCubit = DashboardCubit.get(context: context);
     // TODO: implement initState
     super.initState();
+    // dashboardCubit.getSuppliersFunc(Reload());
+    dashboardCubit.getSuppliersFunc(Init());
   }
 
   @override

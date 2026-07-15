@@ -172,7 +172,7 @@ date_of_birth,date of birth,تاريخ الميلاد
 personal_profile,personal profile,الملف الشخصي
 update_your_personal_profile,update your personal profile,تحديث ملفك الشخصي
  name,name,الاسم
-phone,phone,الهاتف
+phone,Phone,الهاتف
 date_of_birth,date of birth,تاريخ الميلاد
  from_gallery,from gallery,من المعرض
 from_camera,from camera,من الكاميرا
@@ -265,3 +265,12 @@ the_password_must_be_at_least_6_characters,The password must be at least 6 chara
 
 delete_worker,delete worker,حذف العامل
 are_you_sure_you_want_to_delete_this_worker,are you sure you want to delete this worker,هل أنت متأكد أنك تريد حذف هذا العامل
+
+tax_number,Tax number,الرقم الضريبي
+address,Address,العنوان
+show_less_details,show less details,عرض تفاصيل أقل
+show_more_details,show more details,إظهار المزيد من التفاصيل
+active,Active,نشيط
+not_active,Not active,غير نشط
+
+supplier_details,Supplier details,تفاصيل المورد

@@ -29,4 +29,6 @@ abstract class EndPoints {
    static String updateWorker(String id) => '/api/workers/$id/update';
 
   static   String getProjectPhases(String id) => '/api/projects/$id/phases';
+
+  static const String getSuppliers = '/api/suppliers';
 }
