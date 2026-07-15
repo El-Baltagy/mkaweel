@@ -74,7 +74,7 @@ Future<void> main(List<String> args) async {
       screenFileName: PathConstants().screenFileName(x),
       screenName: PathConstants().screenName(x),
       secondaryName: x,
-    ).makeRequiredFiles('waste_calculator');
+    ).makeRequiredFiles('ui');
     await addAutoRoute(
       PathConstants().routeName(x),
       PathConstants().screenFileName(x),

@@ -16,7 +16,7 @@ abstract class _$AppRouter extends RootStackRouter {
   @override
   final Map<String, PageFactory> pagesMap = {
     SuppliersRoute.name: (routeData) {
-      final args = routeData.argsAs<SuppliersRouteArgs>( ;
+      final args = routeData.argsAs<SuppliersRouteArgs>(orElse: () =>   SuppliersRouteArgs.noArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: WrappedRoute(
@@ -25,6 +25,7 @@ abstract class _$AppRouter extends RootStackRouter {
         )),
       );
     },
+
     TasksRoute.name: (routeData) {
       final args = routeData.argsAs<TasksRouteArgs>(
         orElse: () => TasksRouteArgs.noArgs(),
@@ -431,6 +432,7 @@ class WasteCalculatorRouteArgs {
   const WasteCalculatorRouteArgs(this.dashboardCubit);
   final DashboardCubit dashboardCubit;
  }
+
 
 /// generated route for
 /// [SuppliersPage]
