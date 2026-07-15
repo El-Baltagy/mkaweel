@@ -7,20 +7,21 @@ import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/title_w
 class StartEndDates extends StatelessWidget {
   const StartEndDates({
     super.key,
-    required this.fieldS,
-    required this.fieldE,
+      this.fieldS,
+      this.fieldE,
     required this. controllerS,
     required this. controllerE,
+    required this.titleS, required this.titleE,
   })  ;
 
-  final (GlobalKey<FormFieldState<dynamic>>, FocusNode?) fieldS,fieldE;
+  final (GlobalKey<FormFieldState<dynamic>>, FocusNode?)? fieldS,fieldE;
   final TextEditingController  controllerS, controllerE;
-
+  final String titleS,titleE;
   @override
   Widget build(BuildContext context) {
-    final List<(String,TextEditingController,(GlobalKey<FormFieldState<dynamic>>, FocusNode?))>_list=[
-      ( 'start_date'.tr(), controllerS, fieldS ),
-      ( 'end_date'.tr(), controllerE, fieldE ),
+    final List<(String,TextEditingController,(GlobalKey<FormFieldState<dynamic>>, FocusNode?)?)>_list=[
+      (titleS , controllerS, fieldS ),
+      ( titleE , controllerE, fieldE ),
     ];
     return Row(
       crossAxisAlignment:  .start,

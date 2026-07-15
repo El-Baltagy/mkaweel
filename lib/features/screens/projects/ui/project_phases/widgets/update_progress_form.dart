@@ -1,54 +1,5 @@
 part of '../phase_progress_screen.dart';
 
-class _UpdateProgressForm extends StatelessWidget {
-  const _UpdateProgressForm();
-
-  @override
-  Widget build(BuildContext context) {
-    return Semantics(
-      label: 'update_progress_title'.tr(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'update_progress_title'.tr(),
-            style: AppTextStyles.font18SemiBold,
-          ),
-          AppPadding.p16.verticalSpace,
-
-          // Progress Percentage field
-          _ProgressPercentageField(),
-
-          AppPadding.p12.verticalSpace,
-
-          // Status dropdown
-          _StatusDropdownField(),
-
-          AppPadding.p12.verticalSpace,
-
-          // Update Date field
-          _UpdateDateField(),
-
-          AppPadding.p12.verticalSpace,
-
-          // Notes field
-          _NotesField(),
-
-          AppPadding.p12.verticalSpace,
-
-          // Upload Photos
-          _UploadPhotosSection(),
-
-          AppPadding.p20.verticalSpace,
-
-          // Submit button
-          _SubmitProgressButton(),
-        ],
-      ),
-    );
-  }
-}
-
 class _ProgressPercentageField extends StatelessWidget {
   const _ProgressPercentageField();
 
@@ -363,35 +314,4 @@ class _UploadPhotosSection extends StatelessWidget {
   }
 }
 
-class _SubmitProgressButton extends StatelessWidget {
-  const _SubmitProgressButton();
 
-  @override
-  Widget build(BuildContext context) {
-    return Semantics(
-      label: 'submit_progress_update'.tr(),
-      button: true,
-      child: SizedBox(
-        width: double.infinity,
-        height: AppSizes.s48,
-        child: ElevatedButton(
-          onPressed: () {
-            // TODO: submit progress update
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.primaryLightColor,
-            foregroundColor: AppColors.lightBackground,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(AppSizes.s8),
-            ),
-          ),
-          child: Text(
-            'submit_progress_update'.tr(),
-            style: AppTextStyles.font16SemiBold
-                .copyWith(color: AppColors.lightBackground),
-          ),
-        ),
-      ),
-    );
-  }
-}

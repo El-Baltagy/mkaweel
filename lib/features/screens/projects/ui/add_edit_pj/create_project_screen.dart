@@ -154,7 +154,9 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                       controllerS: _controllerStart_date,
                       fieldE: field3,
                       fieldS: field4,
-                    ),
+                      titleE: 'end_date'.tr(),
+                      titleS: 'start_date'.tr(),
+                     ),
 
                     20.verticalSpace,
                     LoccationSelection(locationNotifier: locationNotifier),

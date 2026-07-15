@@ -71,11 +71,9 @@ class _PhaseCard extends StatelessWidget {
                 height: AppSizes.s48,
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    // AppRouterExtension(context).router.push(
-                    //   PhaseProgressRoute(
-                    //     args: PhaseProgressRouteArgs(phaseName: phase['title']!),
-                    //   ),
-                    // );
+                  context.push(  PhaseProgressRoute(
+                    args: PhaseProgressRouteArgs(phaseName:projectPhaseItem.name),
+                  ));
                   },
                   icon: const Icon(
                     Icons.remove_red_eye_outlined,

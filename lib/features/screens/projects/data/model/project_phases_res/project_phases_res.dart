@@ -25,21 +25,21 @@ class ProjectPhasesRes with _$ProjectPhasesRes, EquatableMixin {
 
 @freezed
 class ProjectphaseItem with _$ProjectphaseItem, EquatableMixin {
-  static ProjectphaseItem getEmptyItem  = const .new(
+  static ProjectphaseItem getEmptyItem  =   .new(
     id: 1,
     project_id: 2,
     phase_id: 3,
     name: 'name',
     description: 'description',
-    planned_start_date: 'planned_start_date',
-    planned_end_date: 'planned_end_date',
-    actual_start_date: 'actual_start_date',
-    actual_end_date: 'actual_end_date',
+    planned_start_date: DateTime.now().toString(),
+    planned_end_date: DateTime.now().toString(),
+    actual_start_date: DateTime.now().toString(),
+    actual_end_date: DateTime.now().toString(),
     progress_percentage: 0,
     status: 'status',
     notes: 'notes',
-    created_at: 'created_at',
-    updated_at: 'updated_at',
+    created_at: DateTime.now().toString(),
+    updated_at: DateTime.now().toString(),
   );
 
   const ProjectphaseItem._();
