@@ -15,6 +15,16 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    SuppliersRoute.name: (routeData) {
+      final args = routeData.argsAs<SuppliersRouteArgs>( ;
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(
+            child: SuppliersPage(
+           args: args ,
+        )),
+      );
+    },
     TasksRoute.name: (routeData) {
       final args = routeData.argsAs<TasksRouteArgs>(
         orElse: () => TasksRouteArgs.noArgs(),
@@ -421,3 +431,25 @@ class WasteCalculatorRouteArgs {
   const WasteCalculatorRouteArgs(this.dashboardCubit);
   final DashboardCubit dashboardCubit;
  }
+
+/// generated route for
+/// [SuppliersPage]
+class SuppliersRoute extends PageRouteInfo<SuppliersRouteArgs> {
+  SuppliersRoute({
+   required SuppliersRouteArgs args  ,
+    List<PageRouteInfo>? children,
+  }) : super(
+    SuppliersRoute.name,
+    args: args,
+    initialChildren: children,
+  );
+
+  static const String name = 'SuppliersRoute';
+
+  static const PageInfo<SuppliersRouteArgs> page =
+  PageInfo<SuppliersRouteArgs>(name);
+}
+class SuppliersRouteArgs {
+  const SuppliersRouteArgs( );
+   static SuppliersRouteArgs noArgs()=>SuppliersRouteArgs();
+}
