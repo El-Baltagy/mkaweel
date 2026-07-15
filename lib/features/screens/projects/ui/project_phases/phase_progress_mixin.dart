@@ -10,13 +10,15 @@ abstract class PhaseProgressPageBaseState extends State<PhaseProgressPage> {
   final TextEditingController _controllerPE = TextEditingController();
   final TextEditingController _controllerAS = TextEditingController();
   final TextEditingController _controllerAE = TextEditingController();
+  final ValueNotifier<double>   progressValue=.new(0.0);
   List<(GlobalKey<FormFieldState<dynamic>>, FocusNode?)>listFiels =
-  List.generate(5, (index) => (.new(), .new()));
+  List.generate(1, (index) => (.new(), .new()));
 
   @override
   void initState() {
     projectsCubit = ProjectsCubit.get(context: context);
     super.initState();
+    _updateDateController.text=DateTimeHelper.convertDateIntoCustomString(DateTime.now());
   }
 
 
@@ -29,6 +31,7 @@ abstract class PhaseProgressPageBaseState extends State<PhaseProgressPage> {
     _controllerAS.dispose();
     _controllerAE.dispose();
     _updateDateController.dispose();
+    progressValue.dispose();
     for (var element in listFiels) {
       element.$2?.dispose();
     }

@@ -6,6 +6,7 @@ import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/extension/form_auto_scroll.dart';
+import 'package:mkaweel/core/shared/methods/date_helper.dart';
 import 'package:mkaweel/core/shared/widgets/app_bar.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/dob_text_input_data.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/name_text_input_data.dart';
@@ -54,83 +55,79 @@ class _PhaseProgressPageState extends PhaseProgressPageBaseState {
 
         body: SingleChildScrollView(
             padding: const EdgeInsets.all(AppPadding.p16),
-            child: _buildCard(Semantics(
-              label: 'update_progress_title'.tr(),
-              child: Form(
-                key: _key,
-                child: Column(
-                  spacing: AppPadding.p12,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Progress Percentage field
-                    _ProgressPercentageField(),//listFiels[0]
-                    TitleWithInputField(
-                      'update_date_label'.tr(),
-                        DOPInputData(
-                          // labelText: ,
-                          field: listFiels[1],
-                          onTap: () async {
-                            final date = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(1900),
-                              lastDate: DateTime.now(),
-                            );
-                            if (date != null) {
-                              setState(() {
-                                _updateDateController.text = "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
-                              });
-                            }
+            child: _buildCard(
+                Form(
+              key: _key,
+              child: Column(
+                spacing: AppPadding.p18,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Progress Percentage field
+                  _ProgressPercentageField(
+                      progressValue
+                  ),
+                  TitleWithInputField(
+                    'update_date_label'.tr(),
+                      DOPInputData(
+                         field: listFiels[0],
+                        onTap: () async {
+                          final date = await showDatePicker(
+                            context: context,
+                            initialDate:_updateDateController.text.isEmpty? DateTime.now():DateTime.parse(_updateDateController.text),
+                            firstDate: DateTime(1900),
+                            lastDate: DateTime.now(),
+                          );
+                          if (date != null) {
+                            setState(() {
+                              _updateDateController.text =DateTimeHelper.convertDateIntoCustomString(date);
 
-                          },
-                          controller: _updateDateController,
-                        )
+                            });
+                          }
+
+                        },
+                        controller: _updateDateController,
+                      )
+                  ),
+                   StartEndDates(
+                    controllerE: _controllerPE,
+                    controllerS: _controllerPS,
+                    // fieldS:listFiels[1],
+                    // fieldE:listFiels[2],
+                    titleS: 'planned_start_date'.tr(),
+                    titleE: 'planned_end_date'.tr(),
+                  ),
+
+                  StartEndDates(
+                    controllerE: _controllerAE,
+                    controllerS: _controllerAS,
+                    titleS: 'actual_start_date'.tr(),
+                    titleE: 'actual_end_date'.tr(),
+                    // fieldS:listFiels[3],
+                    // fieldE:listFiels[4],
+                  ),
+                  // Upload Photos
+                  const _UploadPhotosSection(),
+                  TitleWithInputField(
+                    'notes_label'.tr(),
+                    NameInputData(
+                      isLabel: false,
+                      maxLines:3 ,
+                      widgetPrefix: const SizedBox.shrink(),
+                      validator: (v) => null,
+                      labelText:
+                      'notes_hint'.tr() + "...",
+                      controller: _controllerDesc,
                     ),
-                    // Notes field
-                    //notes_hint notes_label
-                    TitleWithInputField(
-                      'notes_label'.tr(),
-                      NameInputData(
-                        isLabel: false,
-
-                        widgetPrefix: const SizedBox.shrink(),
-                        validator: (v) => null,
-                        labelText:
-                        'notes_hint'.tr() + "...",
-                        controller: _controllerDesc,
-                      ),
+                  ),
+                  // Submit button submit_progress_update
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: _SavePhaseDatesButton(
+                      'submit_progress_update'.tr(),
+                           updateAction
                     ),
-
-                    StartEndDates(
-                      controllerE: _controllerPE,
-                      controllerS: _controllerPS,
-                      // fieldS:listFiels[1],
-                      // fieldE:listFiels[2],
-                      titleS: 'planned_start_date'.tr(),
-                      titleE: 'planned_end_date'.tr(),
-                    ),
-
-                    StartEndDates(
-                      controllerE: _controllerAE,
-                      controllerS: _controllerAS,
-                      titleS: 'actual_start_date'.tr(),
-                      titleE: 'actual_end_date'.tr(),
-                      // fieldS:listFiels[3],
-                      // fieldE:listFiels[4],
-                    ),
-                    // Upload Photos
-                    const _UploadPhotosSection(),
-
-                    // Submit button submit_progress_update
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: _SavePhaseDatesButton(
-                        'submit_progress_update'.tr(),
-                             updateAction
-                      ),
-                    )
-                  ],
-                ),
+                  )
+                ],
               ),
             ))
         ),

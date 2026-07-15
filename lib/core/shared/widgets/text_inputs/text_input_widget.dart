@@ -48,7 +48,7 @@ class _TextInputWidgetState extends State<TextInputWidget> {
       ,inputFormatters: data.inputFormatters,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       onTap: data.onTap,
-
+      maxLines:data.maxLines ,
       decoration: InputDecoration(
         hintStyle: TextStyle(
           color: AppColors.contractorGreyText,

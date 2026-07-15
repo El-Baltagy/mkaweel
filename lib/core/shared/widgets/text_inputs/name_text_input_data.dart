@@ -12,8 +12,10 @@ class NameInputData extends BaseTextInputData {
     IconData? icon,
     String? Function(String?)? validator,
     super.inputFormatters,
+    super.maxLines,
     super.field
   }) : super(
+
     icon: icon?? Icons.person,
       labelText:labelText?? 'name'.tr(),
     validator:validator?? (value) {

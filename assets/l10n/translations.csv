@@ -216,7 +216,7 @@ pull_down_to_refresh,Pull down to refresh,اسحب للأسفل للتحديث
 refresh_completed,Refresh completed,اكتمل التحديث
 refreshing,Refreshing,جاري التحديث
 update_progress_title,Update Progress & Percentage,تحديث التقدم والنسبة المئوية
-progress_percentage_label,Progress Percentage (%),نسبة التقدم (%)
+progress_percentage_label,Progress Percentage,نسبة التقدم
 status_label,Status,الحالة
 update_date_label,Update Date,تاريخ التحديث
 notes_label,Notes,الملاحظات

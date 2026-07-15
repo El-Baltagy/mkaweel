@@ -19,6 +19,7 @@ abstract class BaseTextInputData {
     this.isObscureText = false,
      this.isLabel = true,
     this.fontSize,
+    this.maxLines=1,
     this.fontWeight,
   });
 
@@ -28,6 +29,7 @@ abstract class BaseTextInputData {
   final bool readOnly,isSingleOrMultiSelect, isObscureText,enableValidation,enabled,  isLabel;
 
   final IconData? icon;
+  final int  maxLines;
 
   final String?   labelText;
   final Widget?   widgetPrefix;
