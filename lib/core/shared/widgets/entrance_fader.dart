@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 
-class EntranceFader extends StatefulWidget {
-  const EntranceFader({
-    super.key,
-    required this.child,
+class EntranceFader extends StatelessWidget {
+  const EntranceFader({super.key,
     this.onAnimationEnded,
     this.dx=-32,
     this.dy=0,
     this.delay = const Duration(milliseconds: 200),
     this.duration = const Duration(milliseconds: 500),
-    this.enableAnimation=true,
-  });
-  /// Child to be animated on entrance
+
+
+    required this.child, required this.enableAnimation, });
   final Widget child;
   final void Function()? onAnimationEnded;
 
@@ -23,14 +21,48 @@ class EntranceFader extends StatefulWidget {
 
   final bool enableAnimation;
   final double dx,dy;
-
   @override
-  EntranceFaderState createState() {
-    return EntranceFaderState();
+  Widget build(BuildContext context) {
+    return enableAnimation?
+    _EntranceFader(
+      onAnimationEnded: onAnimationEnded,
+      delay: delay,
+      duration: duration,
+      dx: dx,
+      dy: dy,
+      child: child,
+    )
+        : child;
   }
 }
 
-class EntranceFaderState extends State<EntranceFader>
+
+
+class _EntranceFader extends StatefulWidget {
+  const _EntranceFader({
+    required this.child,
+    required this.onAnimationEnded, required this.delay, required this.duration,
+      required this.dx, required this.dy
+   });
+  /// Child to be animated on entrance
+  final Widget child;
+  final void Function()? onAnimationEnded;
+
+  /// Delay after which the animation will start
+  final Duration delay;
+
+  /// Duration of entrance animation
+  final Duration duration;
+
+   final double dx,dy;
+
+  @override
+  _EntranceFaderState createState() {
+    return _EntranceFaderState();
+  }
+}
+
+class _EntranceFaderState extends State<_EntranceFader>
     with SingleTickerProviderStateMixin {
   AnimationController? _controller;
   Animation? _dxAnimation, _dyAnimation;
@@ -66,7 +98,7 @@ class EntranceFaderState extends State<EntranceFader>
 
   @override
   Widget build(BuildContext context) {
-    return widget.enableAnimation?AnimatedBuilder(
+    return  AnimatedBuilder(
       animation: _controller!,
       builder: (context, child) => Opacity(
         opacity: _controller!.value,
@@ -75,6 +107,6 @@ class EntranceFaderState extends State<EntranceFader>
           child: widget.child,
         ),
       ),
-    ): widget.child;
+    );
   }
 }

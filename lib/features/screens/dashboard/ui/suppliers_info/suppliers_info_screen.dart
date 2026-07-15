@@ -10,6 +10,7 @@ import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/shared/widgets/app_bar.dart';
+import 'package:mkaweel/core/shared/widgets/entrance_fader.dart';
 import 'package:mkaweel/features/screens/dashboard/controller/dashboard_cubit.dart';
 import 'package:mkaweel/features/screens/dashboard/controller/dashboard_state.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/suppliers_res/suppliers_res.dart';
@@ -60,9 +61,29 @@ class _SuppliersInfoPageState extends SuppliersInfoPageBaseState {
             child: BlocSelector<DashboardCubit, DashboardState, BaseEmit?>(
               selector: (state)=>state is DashboardLoaded?state.getSuppliersState:null,
               builder: (context, state) {
-                return SuppliersList(
-                    emit: state
+                 bool isLoading =  state is! Success<SuppliersRes>;
+                final List<DataItem> data =
+                    (isLoading
+                        ? List.generate(4, (index) => DataItem.emptyItem)
+                        :  state .data?.data) ??  [];
+
+                return EntranceFader(
+                  enableAnimation: !isLoading,
+                  dx: context.isLTR? -32:32,
+                  child: Column(
+                    children: List.generate(
+                        data.length,
+                            (index) =>Skeletonizer(
+                          enabled: isLoading,
+                          child: Supplier(data: data[index],
+                            selectedIdNotifier: selectedIdNotifier,
+                            isLoading: isLoading,
+                          ),
+                        )
+                    ),
+                  ),
                 );
+
               },
             ),
           ),

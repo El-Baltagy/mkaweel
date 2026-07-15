@@ -1,40 +1,5 @@
 part of '../suppliers_info_screen.dart';
 
-class SuppliersList extends StatefulWidget {
-  const SuppliersList({super.key, required this.emit});
-
-  final BaseEmit? emit;
-
-  @override
-  State<SuppliersList> createState() => _SuppliersListState();
-}
-
-class _SuppliersListState extends State<SuppliersList> {
-  final ValueNotifier<int> selectedIdNotifier   =.new(-1) ;
-  @override
-  Widget build(BuildContext context) {
-    bool isLoading = widget.emit is! Success<SuppliersRes>;
-    final List<DataItem> data =
-        (isLoading
-            ? List.generate(4, (index) => DataItem.emptyItem)
-            : (widget.emit as Success<SuppliersRes>).data?.data) ??
-        [];
-
-
-    return Column(
-      children: List.generate(
-          data.length,
-        (index) =>Skeletonizer(
-          enabled: isLoading,
-          child: Supplier(data: data[index],
-          selectedIdNotifier: selectedIdNotifier,
-            isLoading: isLoading,
-          ),
-        )
-      ),
-    );
-  }
-}
 
 class Supplier extends StatelessWidget {
   const Supplier({

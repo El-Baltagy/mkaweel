@@ -2,7 +2,7 @@ part of 'suppliers_info_screen.dart';
 
 abstract class SuppliersInfoPageBaseState extends State<SuppliersInfoPage> {
   late final DashboardCubit dashboardCubit;
-
+  final ValueNotifier<int> selectedIdNotifier   =.new(-1) ;
   @override
   void initState() {
     dashboardCubit = DashboardCubit.get(context: context);
@@ -15,6 +15,7 @@ abstract class SuppliersInfoPageBaseState extends State<SuppliersInfoPage> {
   @override
   void dispose() {
     // TODO: implement dispose
+    selectedIdNotifier.dispose();
     super.dispose();
   }
 }

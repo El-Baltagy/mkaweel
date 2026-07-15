@@ -270,7 +270,7 @@ tax_number,Tax number,الرقم الضريبي
 address,Address,العنوان
 show_less_details,show less details,عرض تفاصيل أقل
 show_more_details,show more details,إظهار المزيد من التفاصيل
-active,Active,نشيط
+active,Active,نشط
 not_active,Not active,غير نشط
 
 supplier_details,Supplier details,تفاصيل المورد
