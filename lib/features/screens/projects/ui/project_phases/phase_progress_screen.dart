@@ -7,6 +7,7 @@ import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/extension/form_auto_scroll.dart';
 import 'package:mkaweel/core/shared/widgets/app_bar.dart';
+import 'package:mkaweel/core/shared/widgets/text_inputs/dob_text_input_data.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/name_text_input_data.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
@@ -62,18 +63,40 @@ class _PhaseProgressPageState extends PhaseProgressPageBaseState {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Progress Percentage field
-                    _ProgressPercentageField(),
+                    _ProgressPercentageField(),//listFiels[0]
+                    TitleWithInputField(
+                      'update_date_label'.tr(),
+                        DOPInputData(
+                          // labelText: ,
+                          field: listFiels[1],
+                          onTap: () async {
+                            final date = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(1900),
+                              lastDate: DateTime.now(),
+                            );
+                            if (date != null) {
+                              setState(() {
+                                _updateDateController.text = "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
+                              });
+                            }
 
+                          },
+                          controller: _updateDateController,
+                        )
+                    ),
                     // Notes field
                     //notes_hint notes_label
                     TitleWithInputField(
-                      'notes_hint'.tr(),
+                      'notes_label'.tr(),
                       NameInputData(
                         isLabel: false,
+
                         widgetPrefix: const SizedBox.shrink(),
                         validator: (v) => null,
                         labelText:
-                        'notes_label'.tr() + "...",
+                        'notes_hint'.tr() + "...",
                         controller: _controllerDesc,
                       ),
                     ),

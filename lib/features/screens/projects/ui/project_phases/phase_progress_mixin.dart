@@ -4,6 +4,7 @@ abstract class PhaseProgressPageBaseState extends State<PhaseProgressPage> {
   PhaseProgressRouteArgs get args => widget.args;
   late final ProjectsCubit projectsCubit;
   final _key = GlobalKey<FormState>();
+  final TextEditingController _updateDateController = TextEditingController();
   final TextEditingController _controllerDesc = TextEditingController();
   final TextEditingController _controllerPS = TextEditingController();
   final TextEditingController _controllerPE = TextEditingController();
@@ -27,6 +28,7 @@ abstract class PhaseProgressPageBaseState extends State<PhaseProgressPage> {
     _controllerPE.dispose();
     _controllerAS.dispose();
     _controllerAE.dispose();
+    _updateDateController.dispose();
     for (var element in listFiels) {
       element.$2?.dispose();
     }

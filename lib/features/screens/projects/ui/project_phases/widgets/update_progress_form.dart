@@ -5,54 +5,51 @@ class _ProgressPercentageField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Semantics(
-      label: 'progress_percentage_label'.tr(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Text(
-                'progress_percentage_label'.tr(),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Text(
+              'progress_percentage_label'.tr(),
+              style: AppTextStyles.font14Regular
+                  .copyWith(color: AppColors.lightTextPrimary),
+            ),
+            const SizedBox(width: AppSizes.s4),
+            Text('*',
                 style: AppTextStyles.font14Regular
-                    .copyWith(color: AppColors.lightTextPrimary),
-              ),
-              const SizedBox(width: AppSizes.s4),
-              Text('*',
-                  style: AppTextStyles.font14Regular
-                      .copyWith(color: AppColors.secondryLightColor)),
-            ],
-          ),
-          AppPadding.p8.verticalSpace,
-          TextFormField(
-            keyboardType:
-                const TextInputType.numberWithOptions(decimal: true),
-            initialValue: '0.00',
-            style: AppTextStyles.font16SemiBold,
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: AppPadding.p16,
-                vertical: AppPadding.p14,
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(AppSizes.s8),
-                borderSide:
-                    const BorderSide(color: AppColors.lightBorder),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(AppSizes.s8),
-                borderSide:
-                    const BorderSide(color: AppColors.lightBorder),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(AppSizes.s8),
-                borderSide:
-                    const BorderSide(color: AppColors.primaryLightColor, width: AppSizes.s2),
-              ),
+                    .copyWith(color: AppColors.secondryLightColor)),
+          ],
+        ),
+        AppPadding.p8.verticalSpace,
+        TextFormField(
+          keyboardType:
+              const TextInputType.numberWithOptions(decimal: true),
+          initialValue: '0.00',
+          style: AppTextStyles.font16SemiBold,
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: AppPadding.p16,
+              vertical: AppPadding.p14,
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(AppSizes.s8),
+              borderSide:
+                  const BorderSide(color: AppColors.lightBorder),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(AppSizes.s8),
+              borderSide:
+                  const BorderSide(color: AppColors.lightBorder),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(AppSizes.s8),
+              borderSide:
+                  const BorderSide(color: AppColors.primaryLightColor, width: AppSizes.s2),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
