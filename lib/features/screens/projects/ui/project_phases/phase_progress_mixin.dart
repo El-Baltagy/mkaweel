@@ -1,0 +1,46 @@
+part of 'phase_progress_screen.dart';
+abstract class PhaseProgressPageBaseState extends State<PhaseProgressPage> {
+  /// Convenient getter for the route arguments passed to this page.
+  PhaseProgressRouteArgs get args => widget.args;
+  late final ProjectsCubit projectsCubit;
+  final _key = GlobalKey<FormState>();
+  final TextEditingController _controllerDesc = TextEditingController();
+  final TextEditingController _controllerPS = TextEditingController();
+  final TextEditingController _controllerPE = TextEditingController();
+  final TextEditingController _controllerAS = TextEditingController();
+  final TextEditingController _controllerAE = TextEditingController();
+  List<(GlobalKey<FormFieldState<dynamic>>, FocusNode?)>listFiels =
+  List.generate(5, (index) => (.new(), .new()));
+
+  @override
+  void initState() {
+    projectsCubit = ProjectsCubit.get(context: context);
+    super.initState();
+  }
+
+
+
+  @override
+  void dispose() {
+    _controllerDesc.dispose();
+    _controllerPS.dispose();
+    _controllerPE.dispose();
+    _controllerAS.dispose();
+    _controllerAE.dispose();
+    for (var element in listFiels) {
+      element.$2?.dispose();
+    }
+
+    super.dispose();
+  }
+  void listener(BuildContext context,ProjectsState state) {
+    // TODO: implement listener
+  }
+
+  updateAction () async {
+  if (await _key.validateAndScroll(context, listRecorder: listFiels)) {
+
+  }
+}
+}
+

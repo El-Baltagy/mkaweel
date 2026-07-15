@@ -201,52 +201,7 @@ class _UpdateDateField extends StatelessWidget {
   }
 }
 
-class _NotesField extends StatelessWidget {
-  const _NotesField();
 
-  @override
-  Widget build(BuildContext context) {
-    return Semantics(
-      label: 'notes_label'.tr(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'notes_label'.tr(),
-            style: AppTextStyles.font14Regular
-                .copyWith(color: AppColors.lightTextPrimary),
-          ),
-          AppPadding.p8.verticalSpace,
-          TextFormField(
-            maxLines: 4,
-            style: AppTextStyles.font14Regular
-                .copyWith(color: AppColors.lightTextPrimary),
-            decoration: InputDecoration(
-              hintText: 'notes_hint'.tr(),
-              hintStyle: AppTextStyles.font14Regular,
-              contentPadding: const EdgeInsets.all(AppPadding.p16),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(AppSizes.s8),
-                borderSide:
-                    const BorderSide(color: AppColors.lightBorder),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(AppSizes.s8),
-                borderSide:
-                    const BorderSide(color: AppColors.lightBorder),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(AppSizes.s8),
-                borderSide: const BorderSide(
-                    color: AppColors.primaryLightColor, width: AppSizes.s2),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class _UploadPhotosSection extends StatelessWidget {
   const _UploadPhotosSection();
