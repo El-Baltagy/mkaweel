@@ -19,6 +19,7 @@ abstract class BaseTextInputData {
     this.isObscureText = false,
      this.isLabel = true,
     this.fontSize,
+    this.contentPadding,
     this.maxLines=1,
     this.fontWeight,
   });
@@ -30,7 +31,7 @@ abstract class BaseTextInputData {
 
   final IconData? icon;
   final int  maxLines;
-
+  final EdgeInsetsGeometry? contentPadding;
   final String?   labelText;
   final Widget?   widgetPrefix;
 

@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/Material.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/dob_text_input_data.dart';
+import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/title_with_input.dart';
 
 class StartEndDates extends StatelessWidget {
@@ -30,7 +31,11 @@ class StartEndDates extends StatelessWidget {
         child: TitleWithInputField(
           _list[index].$1,
           DOPInputData(
-            fontSize: 13,
+            contentPadding: .symmetric(
+              horizontal: AppPadding.p8,
+              vertical: AppPadding.p12,
+            ),
+            fontSize: 12,
             labelText:'mm/dd/yyyy',
             field: _list[index].$3,
             onTap: () async {

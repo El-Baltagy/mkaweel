@@ -18,8 +18,9 @@ abstract class DateTimeHelper{
     /// for example convert this string date (“2024-03-15 14:30:00”) into Formatted Date: 2024/03/15 14:30
   }
 
-  static String convertDateIntoCustomString(DateTime  date){
-     return "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
+  static String? convertDateIntoCustomString(DateTime?  date){
+
+     return date==null?null: "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
 
   }
 

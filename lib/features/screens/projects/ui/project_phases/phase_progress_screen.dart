@@ -7,6 +7,7 @@ import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/extension/form_auto_scroll.dart';
 import 'package:mkaweel/core/shared/methods/date_helper.dart';
+import 'package:mkaweel/core/shared/methods/print.dart';
 import 'package:mkaweel/core/shared/widgets/app_bar.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/dob_text_input_data.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/name_text_input_data.dart';
@@ -58,7 +59,7 @@ class _PhaseProgressPageState extends PhaseProgressPageBaseState {
       child: Scaffold(
         backgroundColor: context.theme.scaffoldBackgroundColor,
         appBar: CustomAppBar(
-          title: args.phaseName,
+          title: args.projectPhaseItem.name,
         ),
 
         body: SingleChildScrollView(
@@ -81,13 +82,13 @@ class _PhaseProgressPageState extends PhaseProgressPageBaseState {
                         onTap: () async {
                           final date = await showDatePicker(
                             context: context,
-                            initialDate:_updateDateController.text.isEmpty? DateTime.now():DateTime.parse(_updateDateController.text),
+                            initialDate:_updateDateController.text.trim().isEmpty? DateTime.now():DateTime.parse(_updateDateController.text),
                             firstDate: DateTime(1900),
                             lastDate: DateTime.now(),
                           );
                           if (date != null) {
                             setState(() {
-                              _updateDateController.text =DateTimeHelper.convertDateIntoCustomString(date);
+                              _updateDateController.text =DateTimeHelper.convertDateIntoCustomString(date)!;
 
                             });
                           }

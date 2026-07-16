@@ -209,12 +209,15 @@ class _UploadPhotosSectionState extends State<_UploadPhotosSection> {
       ),
     ).toShowDialougePick(context);
   }
-  Future<void> _pick(ImageSource source,List<File>  images) async {
+  Future<void> _pick(ImageSource source, List<File> images) async {
     final file = await ImagePickerInfo.pickImage(source, cropped: false);
     if (file != null &&
-        mounted &&
-         images.map((e) => e.path).toList().contains(file.path)==false
+        mounted
+        // &&
+        //  images.map((e) => e.path).toList().contains(file.path)==false
      ) {
+      PrintHelper().ordinaryPrint(images.map((e) => e.path).toList());
+      PrintHelper().ordinaryPrint(file.path);
       widget.imagesListNotifier.value = List.of(widget.imagesListNotifier.value)
         ..add(file);
     }

@@ -344,9 +344,8 @@ class PhaseProgressRoute extends PageRouteInfo<PhaseProgressRouteArgs> {
 }
 
 class PhaseProgressRouteArgs {
-  const PhaseProgressRouteArgs({required this.phaseName});
-
-  final String phaseName;
+  const PhaseProgressRouteArgs({required this.projectPhaseItem });
+ final ProjectphaseItem   projectPhaseItem;
 }
 
 ///generated route for

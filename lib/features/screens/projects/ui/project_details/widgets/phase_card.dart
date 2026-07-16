@@ -72,7 +72,7 @@ class _PhaseCard extends StatelessWidget {
                 child: ElevatedButton.icon(
                   onPressed: () {
                   context.push(  PhaseProgressRoute(
-                    args: PhaseProgressRouteArgs(phaseName:projectPhaseItem.name),
+                    args: PhaseProgressRouteArgs(projectPhaseItem:projectPhaseItem ),
                   ));
                   },
                   icon: const Icon(

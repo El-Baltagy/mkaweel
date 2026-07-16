@@ -9,6 +9,7 @@ class DOPInputData extends BaseTextInputData {
     super.onTap,
     super.fontSize,
     super.fontWeight,
+    super.contentPadding,
     String? labelText,
       super.field
   }) : super(

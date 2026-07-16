@@ -83,7 +83,7 @@ class _TextInputWidgetState extends State<TextInputWidget> {
             : null,
         filled: true,
         fillColor: context.theme.scaffoldBackgroundColor,
-        contentPadding: const EdgeInsets.symmetric(
+        contentPadding: data.contentPadding??const EdgeInsets.symmetric(
           horizontal: AppPadding.p16,
           vertical: AppPadding.p12,
         ),
