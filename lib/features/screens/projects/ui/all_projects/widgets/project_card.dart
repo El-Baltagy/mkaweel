@@ -5,6 +5,7 @@ import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/shared/methods/location_Service.dart';
+import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/data/model/create_project_res/create_project_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/delete_pj_parameter.dart';
@@ -81,12 +82,9 @@ class ProjectCard extends StatelessWidget {
                             await projectsCubit.getAllProjectsFunc(Reload());
                           }
                         },
-                        child: CircleAvatar(
-                            backgroundColor: context.theme.primaryColor,
-                            radius: 18,
-                            child:   Icon(Icons.edit,
-                            color: context.theme.scaffoldBackgroundColor,
-                            )),
+                        child:   Icon(Icons.edit,
+                          color: context.theme.primaryColor,
+                        ),
                       ),
                       10.horizontalSpace,
                       BlocBuilder<ProjectsCubit, ProjectsState>(
@@ -114,14 +112,10 @@ class ProjectCard extends StatelessWidget {
                                       parameter: DeleteProjectParameter(projectInfoData.id.toString())
                                     ),
                                   ).toShowDialouge,
-                                  child: CircleAvatar(
-                                    backgroundColor: context.theme.primaryColor,
-                                    radius: 18,
-                                    child: Icon(
-                                      Icons.delete,
-                                      color: context.theme.colorScheme.secondary,
-                                    ),
-                                  ),
+                                  child: Icon(
+                                    Icons.delete,
+                                    color: context.theme.colorScheme.secondary,
+                                  )
                                 );
                         },
                       ),
@@ -148,6 +142,10 @@ class ProjectCard extends StatelessWidget {
                 value: projectInfoData.progress_percentage / 100,
                 borderRadius: BorderRadius.circular(10),
                 minHeight: 8,
+                backgroundColor: AppColors.lightBorder,
+                valueColor: const AlwaysStoppedAnimation<Color>(
+                  AppColors.primaryLightColor,
+                ),
               ),
 
               const SizedBox(height: 20),

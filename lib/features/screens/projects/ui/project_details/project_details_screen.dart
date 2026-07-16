@@ -59,7 +59,7 @@ class _ProjectDetailsPageState extends ProjectDetailsPageBaseState {
             final List<ProjectphaseItem> list = isLoading
                 ? List.generate(5, (index) => ProjectphaseItem.getEmptyItem)
                 :  state .data?.data ?? [];
-
+// return SizedBox.shrink();
             return ListView.separated(
               padding: const EdgeInsets.all(
                 AppPadding.p16,
