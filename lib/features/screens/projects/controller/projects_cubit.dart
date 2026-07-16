@@ -160,9 +160,28 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
            parameter: parameter,
           cancelToken: token,
           onLoadCallback: () => safeEmit( current.copyWith(updatePhaseState: Loading())),
-          onRightCallback: (data) => safeEmit( current.copyWith(
-              getProjectPhasesState: ,
-              updatePhaseState: Success(data))),
+          onRightCallback: (data) {
+            var newGetProjectPhasesState = current.getProjectPhasesState;
+            PrintHelper().ordinaryPrint('.sssssssssssssssssssssssssssssssccc');
+
+            if ( newGetProjectPhasesState is Success<ProjectPhasesRes> && parameter != null) {
+              PrintHelper().ordinaryPrint('................wascccccccccccccc');
+              final oldData = newGetProjectPhasesState.data;
+              PrintHelper().ordinaryPrint('oldData is \n $oldData');
+              final updatedList = (oldData?.data.map((e) {
+                if (e.id == parameter.phaseId) {
+                  return data !.data.first;
+                }
+                return e;
+              }).toList())??[];
+              newGetProjectPhasesState = Success(oldData?.copyWith(data: updatedList));
+            }
+
+            safeEmit(current.copyWith(
+              getProjectPhasesState: newGetProjectPhasesState,
+              updatePhaseState: Success(data),
+            ));
+          },
           onLeftCallback: (failure) => safeEmit( current.copyWith(updatePhaseState: ErrorState(failure))),
         ),
       );

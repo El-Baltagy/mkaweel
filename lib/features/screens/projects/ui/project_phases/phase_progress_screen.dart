@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/double.dart';
@@ -17,6 +18,7 @@ import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
 import 'package:mkaweel/core/app/route.dart';
+import 'package:mkaweel/features/screens/projects/data/model/project_phases_res/project_phases_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/update_phase_parameter.dart';
 import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/start_end_date.dart';
 import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/title_with_input.dart';
@@ -24,14 +26,19 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:mkaweel/core/shared/methods/image_picker.dart';
 import 'package:mkaweel/core/shared/widgets/dialouge_choose_image.dart';
+import 'package:mkaweel/features/screens/projects/ui/project_details/widgets/progress_text.dart';
+
 part 'phase_progress_mixin.dart';
+
 part 'widgets/update_progress_form.dart';
+
 part 'widgets/update_photo_section.dart';
+
 part 'widgets/save_button.dart';
 
 part 'widgets/full_screen_preview.dart';
-part 'widgets/thumbnail_image.dart';
 
+part 'widgets/thumbnail_image.dart';
 
 @RoutePage()
 class PhaseProgressPage extends StatefulWidget implements AutoRouteWrapper {
@@ -41,10 +48,7 @@ class PhaseProgressPage extends StatefulWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    return BlocProvider<ProjectsCubit>(
-      create: (context) => ProjectsCubit(AppLocator()()()),
-      child: this,
-    );
+    return BlocProvider.value(value: args.projectsCubit, child: this);
   }
 
   @override
@@ -52,53 +56,53 @@ class PhaseProgressPage extends StatefulWidget implements AutoRouteWrapper {
 }
 
 class _PhaseProgressPageState extends PhaseProgressPageBaseState {
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<ProjectsCubit, ProjectsState>(
       listener: listener,
       child: Scaffold(
         backgroundColor: context.theme.scaffoldBackgroundColor,
-        appBar: CustomAppBar(
-          title: args.projectPhaseItem.name,
-        ),
+        appBar: CustomAppBar(title: args.projectPhaseItem.name),
 
         body: SingleChildScrollView(
-            padding: const EdgeInsets.all(AppPadding.p16),
-            child: _buildCard(
-                Form(
+          padding: const EdgeInsets.all(AppPadding.p16),
+          child: _buildCard(
+            Form(
               key: _key,
               child: Column(
                 spacing: AppPadding.p18,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Progress Percentage field
-                  _ProgressPercentageField(
-                      progressValue
-                  ),
+                  _ProgressPercentageField(progressValue),
                   TitleWithInputField(
                     'update_date_label'.tr(),
-                      DOPInputData(
-                         field: listFiels[0],
-                        onTap: () async {
-                          final date = await showDatePicker(
-                            context: context,
-                            initialDate:_updateDateController.text.trim().isEmpty? DateTime.now():DateTime.parse(_updateDateController.text),
-                            firstDate: DateTime(1900),
-                            lastDate: DateTime.now(),
-                          );
-                          if (date != null) {
-                            setState(() {
-                              _updateDateController.text =DateTimeHelper.convertDateIntoCustomString(date)!;
-
-                            });
-                          }
-
-                        },
-                        controller: _updateDateController,
-                      )
+                    DOPInputData(
+                      field: listFiels[0],
+                      onTap: () async {
+                        final date = await showDatePicker(
+                          context: context,
+                          initialDate: _updateDateController.text
+                              .trim()
+                              .isEmpty
+                              ? DateTime.now()
+                              : DateTime.parse(_updateDateController.text),
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime.now(),
+                        );
+                        if (date != null) {
+                          setState(() {
+                            _updateDateController.text =
+                            DateTimeHelper.convertDateIntoCustomString(
+                              date,
+                            )!;
+                          });
+                        }
+                      },
+                      controller: _updateDateController,
+                    ),
                   ),
-                   StartEndDates(
+                  StartEndDates(
                     controllerE: _controllerPE,
                     controllerS: _controllerPS,
                     // fieldS:listFiels[1],
@@ -115,38 +119,42 @@ class _PhaseProgressPageState extends PhaseProgressPageBaseState {
                     // fieldS:listFiels[3],
                     // fieldE:listFiels[4],
                   ),
-                     _UploadPhotosSection(
-                         imagesListNotifier
-                   ),
+                  _UploadPhotosSection(imagesListNotifier),
                   TitleWithInputField(
                     'notes_label'.tr(),
                     NameInputData(
                       isLabel: false,
-                      maxLines:3 ,
+                      maxLines: 3,
                       widgetPrefix: const SizedBox.shrink(),
                       validator: (v) => null,
-                      labelText:
-                      'notes_hint'.tr() + "...",
+                      labelText: 'notes_hint'.tr() + "...",
                       controller: _controllerDesc,
                     ),
                   ),
                   // Submit button submit_progress_update
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
-                    child: _SavePhaseDatesButton(
-                      'submit_progress_update'.tr(),
-                           updateAction
-                    ),
-                  )
+                    child:
+                    BlocBuilder<ProjectsCubit, ProjectsState>(
+                      builder: (context, state) {
+                        bool isLoading = state is ProjectsLoaded &&state.updatePhaseState is Loading;
+
+                        return _SavePhaseDatesButton(
+                          'submit_progress_update'.tr(),
+                          updateAction,
+                          isLoading: isLoading,
+                        );
+                      },
+                    )
+                  ),
                 ],
               ),
-            ))
+            ),
+          ),
         ),
       ),
     );
   }
-
-
 
   /// Wraps content in a white rounded card consistent with app design.
   Widget _buildCard(Widget child) {
@@ -168,5 +176,4 @@ class _PhaseProgressPageState extends PhaseProgressPageBaseState {
       child: child,
     );
   }
-
 }

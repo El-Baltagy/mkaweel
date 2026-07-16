@@ -53,7 +53,23 @@ abstract class PhaseProgressPageBaseState extends State<PhaseProgressPage> {
   }
 
   void listener(BuildContext context, ProjectsState state) {
-    // TODO: implement listener
+    if (state is ProjectsLoaded) {
+      if(state.updatePhaseState  is Success<ProjectPhasesRes>) {
+        final ProjectPhasesRes data=(state.updatePhaseState as Success<ProjectPhasesRes>).data!;
+        context.showToast(
+            data.message
+        );
+         context.pop( );
+      }else{
+        if(state.updatePhaseState  is ErrorState ) {
+          final ErrorState  data= state.updatePhaseState  as ErrorState;
+          context.showToast(
+              data.failure.message,
+              isSuccess: false
+          );
+        }
+      }
+    }
   }
 
   updateAction() async {

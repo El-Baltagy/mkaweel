@@ -6,17 +6,7 @@ class _ProgressPercentageField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(valueListenable:progressValue , builder: (context, value, child) {
-      String   _statusKey (){
-        if (value == 0) return 'pending_status';
-        if (value >= 100) return 'completed_status';
-        return 'in_progress_status';
-      }
-      //
-      Color   statusColor (){
-        if (value == 0) return AppColors.lightTextPrimary;
-        if (value >= 100) return Colors.green;
-        return AppColors.primaryLightColor;
-      }
+
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -71,22 +61,7 @@ class _ProgressPercentageField extends StatelessWidget {
               ),
               const SizedBox(width: AppSizes.s8),
               // ── Percentage + status badge ────────────────────────
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppPadding.p8,
-                  vertical: 3,
-                ),
-                decoration: BoxDecoration(
-                  color: statusColor().withOpacity(0.12),
-                  borderRadius: BorderRadius.circular(AppSizes.s4),
-                  border: Border.all(color: statusColor().withOpacity(0.4)),
-                ),
-                child: Text(
-                  _statusKey().tr(),
-                  style: AppTextStyles.font12Regular
-                      .copyWith(color: statusColor()),
-                ),
-              ),
+              ProgressTitle(value:value)
             ],
           ),
         ],

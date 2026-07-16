@@ -1,11 +1,12 @@
 part of '../project_details_screen.dart';
 
 class _PhaseCard extends StatelessWidget {
-  const _PhaseCard({required this.isLoading, required this.projectPhaseItem});
+  const _PhaseCard({required this.isLoading, required this.projectPhaseItem, required this.projectsCubit});
 
   final bool isLoading;
 
   final ProjectphaseItem projectPhaseItem;
+  final ProjectsCubit projectsCubit;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +61,7 @@ class _PhaseCard extends StatelessWidget {
             ),
             AppPadding.p12.verticalSpace,
 
-            buildRowProgress(context),
+            ProgressRow(projectPhaseItem: projectPhaseItem, isCompleted: projectPhaseItem.progress_percentage == 100),
             AppPadding.p16.verticalSpace,
             // Navigation button → PhaseProgress screen
             Semantics(
@@ -72,7 +73,9 @@ class _PhaseCard extends StatelessWidget {
                 child: ElevatedButton.icon(
                   onPressed: () {
                   context.push(  PhaseProgressRoute(
-                    args: PhaseProgressRouteArgs(projectPhaseItem:projectPhaseItem ),
+                    args: PhaseProgressRouteArgs(projectPhaseItem:projectPhaseItem,
+                    projectsCubit: projectsCubit
+                    ),
                   ));
                   },
                   icon: const Icon(
@@ -99,63 +102,7 @@ class _PhaseCard extends StatelessWidget {
     );
   }
 
-  Row buildRowProgress(BuildContext context) {
-    bool isCompleted = projectPhaseItem.progress_percentage == 100;
-    return Row(
-      children: [
-        Text('progress_percentage'.tr(), style: AppTextStyles.font12Regular),
-        AppPadding.p8.horizontalSpace,
-        Expanded(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(AppSizes.s4),
-            child:   LinearProgressIndicator(
-              value:(projectPhaseItem.progress_percentage /100).toDouble() ,
-               backgroundColor: AppColors.lightBorder,
-              valueColor: const AlwaysStoppedAnimation<Color>(
-                AppColors.primaryLightColor,
-              ),
-              minHeight: AppSizes.s8,
-            ),
-          ),
-        ),
 
-        AppPadding.p8.horizontalSpace,
-        Text(
-          '${projectPhaseItem.progress_percentage} %',
-          style: AppTextStyles.font12Regular.copyWith(
-            fontWeight: FontWeight.bold,
-            color: AppColors.lightTextPrimary,
-          ),
-        ),
-
-        AppPadding.p12.horizontalSpace,
-        Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppPadding.p8,
-            vertical: AppPadding.p4,
-          ),
-          decoration: BoxDecoration(
-            color: isCompleted?
-            context.theme.primaryColor:
-            AppColors.lightSurface,
-            borderRadius: BorderRadius.circular(AppSizes.s4),
-            border: Border.all(color: AppColors.lightBorder),
-          ),
-          child: Text(
-            isCompleted
-                ? 'completed_status'.tr()
-                : 'pending_status'.tr(),
-            style: AppTextStyles.font12Regular.copyWith(
-              color:
-              isCompleted?
-              context.theme.scaffoldBackgroundColor    :
-              AppColors.contractorGreyText,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
 
   Widget buildColumn(String title, String? date1, String? date2) {
     if (date1 == null || date2 == null) return const SizedBox.shrink();

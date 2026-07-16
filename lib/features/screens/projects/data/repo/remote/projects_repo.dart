@@ -100,6 +100,7 @@ class ProjectsRepo extends BaseRepo {
         uri: EndPoints.updatePhase(parameter!.phaseId.toString()),
         cancelToken: cancelToken,
         caller: callerTag(),
+        data:await parameter.toFormData(parameter)
       ),
       asObject: (map) => ProjectPhasesRes(
         status: map['status']as String,

@@ -16,6 +16,7 @@ import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart
 import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
 import 'package:mkaweel/features/screens/projects/data/model/create_project_res/create_project_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/project_phases_res/project_phases_res.dart';
+import 'package:mkaweel/features/screens/projects/ui/project_details/widgets/progress_text.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 part 'widgets/phase_card.dart';
@@ -66,6 +67,7 @@ class _ProjectDetailsPageState extends ProjectDetailsPageBaseState {
               itemCount: list.length,
               separatorBuilder: (_, __) => AppPadding.p12.verticalSpace,
               itemBuilder: (context, index) => _PhaseCard(
+                projectsCubit: projectsCubit,
                 isLoading: isLoading,
                 projectPhaseItem: list[index],
               ),
