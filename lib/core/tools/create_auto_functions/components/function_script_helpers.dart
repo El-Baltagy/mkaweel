@@ -15,16 +15,16 @@ Future<void> injectIntoClass({required String filePath, required String classNam
   print('✅ [$displayName] injected "$checkDuplicate"');
 }
 
-Future<void> appendToEndOfFile({required String filePath, required String displayName, required String injection, required String checkDuplicate}) async {
-  final file = File(filePath);
-  final content = await file.readAsString();
-  if (content.contains(checkDuplicate)) {
-    print('⚠️  [$displayName] "$checkDuplicate" already exists — skipped.');
-    return;
-  }
-  final updated = content.trim() + '\n\n$injection\n';
-  await file.writeAsString(updated);
-}
+// Future<void> appendToEndOfFile({required String filePath, required String displayName, required String injection, required String checkDuplicate}) async {
+//   final file = File(filePath);
+//   final content = await file.readAsString();
+//   if (content.contains(checkDuplicate)) {
+//     print('⚠️  [$displayName] "$checkDuplicate" already exists — skipped.');
+//     return;
+//   }
+//   final updated = content.trim() + '\n\n$injection\n';
+//   await file.writeAsString(updated);
+// }
 
 Future<void> injectImport({required String filePath, required String importLine, bool optional = false}) async {
   final file = File(filePath);

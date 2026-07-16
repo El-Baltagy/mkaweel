@@ -8,6 +8,7 @@ import 'package:mkaweel/core/api_helper/response_handler.dart';
 import 'package:mkaweel/core/base/base_remote_repo.dart';
 import 'package:mkaweel/core/constants/app_api.dart';
 import 'package:mkaweel/core/shared/methods/print.dart';
+import 'package:mkaweel/features/screens/dashboard/data/model/statistics_res/statistics_res.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/suppliers_res/suppliers_res.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/waste_calc_paremeter.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/waste_calc_res/waste_calc_res.dart';
@@ -52,7 +53,7 @@ class DashboardRepo extends BaseRepo {
       onCallData: dio.getData(
         uri: EndPoints.getStatistics,
         cancelToken: cancelToken,
-        caller: getTag(),
+        caller: callerTag(),
       ),
       asObject: StatisticsRes.fromJson,
     );

@@ -19,7 +19,7 @@ class TodayTasksWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-                Text('todays_tasks'.tr(), style: AppTextStyles.font16SemiBold),
+                Text('tasks'.tr(), style: AppTextStyles.font16SemiBold),
               Text(
                 'show_all'.tr(),
                 style: AppTextStyles.font14Regular.copyWith(color: Theme.of(context).primaryColor),

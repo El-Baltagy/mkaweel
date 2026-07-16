@@ -25,6 +25,13 @@ class StatisticsRes with _$StatisticsRes, EquatableMixin {
 
 @freezed
 class StatisticData with _$StatisticData, EquatableMixin {
+  static const StatisticData empty = StatisticData (
+    completed_projects:22 ,
+    completed_tasks: 22,
+    total_projects: 22,
+    total_tasks: 22,
+    total_workers: 22,
+  );
   const StatisticData._();
   const factory StatisticData({
     required int total_projects,

@@ -2,28 +2,36 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:mkaweel/core/base/base_local_repo.dart';
- import 'package:mkaweel/core/constants/app_locator.dart';
+import 'package:mkaweel/core/base/base_state.dart';
+import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
-  import 'package:mkaweel/features/screens/dashboard/controller/dashboard_cubit.dart';
+import 'package:mkaweel/features/screens/Tasks/controller/Tasks_cubit.dart';
+import 'package:mkaweel/features/screens/dashboard/controller/dashboard_cubit.dart';
 import 'package:mkaweel/features/screens/dashboard/controller/dashboard_state.dart';
- import 'package:mkaweel/features/screens/dashboard/ui/widgets/dashboard_header_widget.dart';
+import 'package:mkaweel/features/screens/dashboard/ui/widgets/dashboard_header_widget.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/widgets/stats_cards_widget.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/widgets/today_tasks_widget.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/widgets/quick_tools_widget.dart';
 
 @RoutePage()
-class DashboardPage extends StatefulWidget implements AutoRouteWrapper{
+class DashboardPage extends StatefulWidget implements AutoRouteWrapper {
   const DashboardPage({super.key});
-  
+
   @override
   Widget wrappedRoute(BuildContext context) {
-    return BlocProvider<DashboardCubit>(
-      create: (context) =>DashboardCubit(AppLocator()()()),
-      child: this,
-    );
+    return MultiBlocProvider(providers:[
+      BlocProvider<TasksCubit>(
+        create: (context) => TasksCubit(AppLocator()()()),
+      ),
+      BlocProvider<DashboardCubit>(
+        create: (context) => DashboardCubit(AppLocator()()()),
+      ),
+    ] , child: this);
+
   }
-  
+
   @override
   State<DashboardPage> createState() => _DashboardPageState();
 }
@@ -31,38 +39,43 @@ class DashboardPage extends StatefulWidget implements AutoRouteWrapper{
 class _DashboardPageState extends DashboardPageBaseState {
   @override
   Widget build(BuildContext context) {
-     return BlocListener<DashboardCubit, DashboardState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+    return BlocListener<DashboardCubit, DashboardState>(
+      listener: listener,
       child: Semantics(
         label: 'Dashboard Screen',
         child: Scaffold(
           backgroundColor: context.theme.scaffoldBackgroundColor,
-           floatingActionButton: kDebugMode?InkWell(
-             onTap: () async {
-               BaseLocalRepo.testPrint ( );
-               BaseLocalRepo.setSessionId (  'secondarySession');
-               BaseLocalRepo.testPrint ( );
-             },
-             child: Text("test token"),
-           ):null,
-           appBar: AppBar(
-             toolbarHeight: 5,
-           ),
-           body: SafeArea(
+          // floatingActionButton: kDebugMode ? InkWell(
+          //   onTap: () async {
+          //     BaseLocalRepo.testPrint();
+          //     BaseLocalRepo.setSessionId('secondarySession');
+          //     BaseLocalRepo.testPrint();
+          //   },
+          //   child: Text("test token"),
+          // ) : null,
+          appBar: AppBar(
+            toolbarHeight: 5,
+          ),
+          body: SafeArea(
             bottom: false,
             child: SingleChildScrollView(
               child: Column(
                 spacing: 20,
                 children: [
-                   const DashboardHeaderWidget(),
-                   const StatsCardsWidget(),
-                   const TodayTasksWidget(),
-                     QuickToolsWidget(
-                    dashboardCubit: dashboardCubit
-                   ),
-                  ],
+                  BlocSelector<DashboardCubit, DashboardState, BaseEmit?>(
+                    selector: (state)  =>state is DashboardLoaded ? state.getStatisticsState : null ,
+                    builder: (context, state) {
+                      return DashboardHeaderWidget(
+                        state: state,
+                      );
+                    },
+                  ),
+                  // const StatsCardsWidget(),
+                  const TodayTasksWidget(),
+                  QuickToolsWidget(
+                      dashboardCubit: dashboardCubit
+                  ),
+                ],
               ),
             ),
           ),
@@ -70,19 +83,28 @@ class _DashboardPageState extends DashboardPageBaseState {
       ),
     );
   }
+
+
 }
 
-abstract class  DashboardPageBaseState extends State<DashboardPage> {
+abstract class DashboardPageBaseState extends State<DashboardPage> {
   late final DashboardCubit dashboardCubit;
-  
+  late final TasksCubit tasksCubit;
+
   @override
   void initState() {
     dashboardCubit = DashboardCubit.get(context: context);
+    tasksCubit = TasksCubit.get(context: context);
     super.initState();
+    dashboardCubit.getStatisticsFunc(Init());
   }
 
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void listener(context, state) {
+    // TODO: implement listener
   }
 }

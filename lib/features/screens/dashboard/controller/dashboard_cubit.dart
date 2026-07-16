@@ -6,6 +6,7 @@ import 'package:mkaweel/core/base/base_service.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_constant.dart';
 import 'package:mkaweel/core/shared/methods/print.dart';
+import 'package:mkaweel/features/screens/dashboard/data/model/statistics_res/statistics_res.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/suppliers_res/suppliers_res.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/waste_calc_paremeter.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/waste_calc_res/waste_calc_res.dart';
@@ -87,17 +88,14 @@ class DashboardCubit extends BaseCubit<DashboardState> {
   }
 
   Future<void> getStatisticsFunc(BaseRequestBackType baseRequestBackType,{NoParameter? parameter}) async {
-    await CancelManager.runCancelableFun(getStatisticsKeyCode, (token) async {
-      await _service.getStatisticsServ(
+       await _service.getStatisticsServ(
         RequestCallbackObserver<StatisticsRes, NoParameter>(
           baseRequestBackType: baseRequestBackType ,
           parameter: parameter,
-          cancelToken: token,
-          onLoadCallback: () => safeEmit(_current.copyWith(getStatisticsState: Loading())),
+           onLoadCallback: () => safeEmit(_current.copyWith(getStatisticsState: Loading())),
           onRightCallback: (data) => safeEmit(_current.copyWith(getStatisticsState: Success(data))),
           onLeftCallback: (failure) => safeEmit(_current.copyWith(getStatisticsState: ErrorState(failure))),
         ),
       );
-    });
-  }
+   }
 }

@@ -10,8 +10,7 @@ Future<void> addFunctionToRepo({
 }) async {
   final p = PathConstants();
   final String snakeMethod = toSnakeCase(functionName);
-
-  await injectImport(filePath: repoPath, importLine: "import 'package:${p.projectName}/core/constants/app_constant.dart';");
+   await injectImport(filePath: repoPath, importLine: "import 'package:${p.projectName}/core/constants/app_constant.dart';");
   await injectImport(filePath: repoPath, importLine: "import 'package:dartz/dartz.dart';");
   await injectImport(filePath: repoPath, importLine: "import 'package:${p.projectName}/core/api_helper/dio_error_handler.dart';");
   // await injectImport(filePath: repoPath, importLine: "import 'package:${p.projectName}/features/screens/$featureName/data/model/$snakeMethod/$snakeMethod.dart';");
@@ -30,7 +29,7 @@ Future<void> addFunctionToRepo({
       onCallData: dio.getData(
         uri: EndPoints.$functionName,
         cancelToken: cancelToken,
-        caller: getTag(),
+        caller: callerTag(),
       ),
       asObject: $returnType.fromJson,
     );

@@ -32,12 +32,16 @@ Future<void> addFunctionToService({
         cancelToken: token,
       ),
       fetchLocal: () async {
-        final json = await _localRepo.readData(cacheKey);
-        return json == null ? null : $returnType.fromJson(json);
+        final tuple = await _localRepo.readData(cacheKey);
+
+        if (tuple?.\$1['pr'] == _localRepo.primarySessionId) {
+          return StatisticsRes.fromJson(tuple!.\$2);
+        }
+        return null; 
       },
       saveLocal: (old, newData) async {
         if (newData != null) {
-          await _localRepo.saveData(cacheKey, newData.toJson());
+          await _localRepo.saveData(cacheKey,savedData: newData.toJson());
         }
       },
       clearLocal: () => _localRepo.clearData(cacheKey),

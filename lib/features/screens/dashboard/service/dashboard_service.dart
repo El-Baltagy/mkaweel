@@ -3,6 +3,7 @@ import 'package:mkaweel/core/constants/app_constant.dart';
 import 'package:mkaweel/core/base/base_service.dart';
 import 'package:mkaweel/core/base/base_local_repo.dart';
 import 'package:mkaweel/core/shared/methods/print.dart';
+import 'package:mkaweel/features/screens/dashboard/data/model/statistics_res/statistics_res.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/suppliers_res/suppliers_res.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/waste_calc_paremeter.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/waste_calc_res/waste_calc_res.dart';
@@ -63,12 +64,16 @@ class DashboardService extends BaseService {
         cancelToken: token,
       ),
       fetchLocal: () async {
-        final json = await _localRepo.readData(cacheKey);
-        return json == null ? null : StatisticsRes.fromJson(json);
+        final tuple = await _localRepo.readData(cacheKey);
+
+        if (tuple?.$1['pr'] == _localRepo.primarySessionId&&tuple?.$1['sec'] == _localRepo.secondarySessionId) {
+          return StatisticsRes.fromJson(tuple!.$2);
+        }
+        return null;
       },
       saveLocal: (old, newData) async {
         if (newData != null) {
-          await _localRepo.saveData(cacheKey, newData.toJson());
+          await _localRepo.saveData(cacheKey,  savedData:newData.toJson());
         }
       },
       clearLocal: () => _localRepo.clearData(cacheKey),
