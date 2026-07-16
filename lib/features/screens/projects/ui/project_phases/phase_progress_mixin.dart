@@ -13,7 +13,7 @@ abstract class PhaseProgressPageBaseState extends State<PhaseProgressPage> {
   final ValueNotifier<double>   progressValue=.new(0.0);
   List<(GlobalKey<FormFieldState<dynamic>>, FocusNode?)>listFiels =
   List.generate(1, (index) => (.new(), .new()));
-
+  ValueNotifier<List<File>> imagesListNotifier=.new([]);
   @override
   void initState() {
     projectsCubit = ProjectsCubit.get(context: context);
@@ -31,6 +31,7 @@ abstract class PhaseProgressPageBaseState extends State<PhaseProgressPage> {
     _controllerAS.dispose();
     _controllerAE.dispose();
     _updateDateController.dispose();
+    imagesListNotifier.dispose();
     progressValue.dispose();
     for (var element in listFiels) {
       element.$2?.dispose();

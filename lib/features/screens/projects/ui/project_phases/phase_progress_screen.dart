@@ -18,10 +18,18 @@ import 'package:mkaweel/features/screens/projects/controller/projects_state.dart
 import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/start_end_date.dart';
 import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/title_with_input.dart';
-
-part 'widgets/update_progress_form.dart';
-part 'widgets/save_button.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
+import 'package:mkaweel/core/shared/methods/image_picker.dart';
+import 'package:mkaweel/core/shared/widgets/dialouge_choose_image.dart';
 part 'phase_progress_mixin.dart';
+part 'widgets/update_progress_form.dart';
+part 'widgets/update_photo_section.dart';
+part 'widgets/save_button.dart';
+
+part 'widgets/full_screen_preview.dart';
+part 'widgets/thumbnail_image.dart';
+
 
 @RoutePage()
 class PhaseProgressPage extends StatefulWidget implements AutoRouteWrapper {
@@ -105,8 +113,9 @@ class _PhaseProgressPageState extends PhaseProgressPageBaseState {
                     // fieldS:listFiels[3],
                     // fieldE:listFiels[4],
                   ),
-                  // Upload Photos
-                  const _UploadPhotosSection(),
+                     _UploadPhotosSection(
+                         imagesListNotifier
+                   ),
                   TitleWithInputField(
                     'notes_label'.tr(),
                     NameInputData(
