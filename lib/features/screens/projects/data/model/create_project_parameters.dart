@@ -12,27 +12,32 @@ class CreateProjectParameters {
     required this.extra_details,
     required this.description,
     required this.projectId,
+    required this.location,
   });
-Map<String,dynamic >toJsonBody()=>{
-  'name':name,
-  'owner_name':owner_name,
-  'start_date':start_date,
-  'end_date':end_date,
-  'latitude':latitude,
-  'longitude':longitude,
-  'contract_value':contract_value,
-  'currency':currency,
-  if(extra_details!=null)
-  'extra_details':extra_details,
-  if(description!=null)
-  'description':description,
-};
+Map<String,dynamic >toJsonBody(){
+  final Map<String,dynamic > map={
+    'name':name,
+    'owner_name':owner_name,
+    'start_date':start_date,
+    'end_date':end_date,
+    'latitude':latitude,
+    'longitude':longitude,
+    'location':location,
+    'contract_value':contract_value,
+    'currency':currency,
+    'extra_details':extra_details,
+    'description':description,
+  };
+  map.removeWhere((key, value) => (value??'').toString().trim().isEmpty);
+  return map;
+}
   final String name,
       owner_name,
       start_date,
       end_date,
       latitude,
       longitude,
+      location,
       contract_value,
       currency;
   final String? extra_details,projectId, description;

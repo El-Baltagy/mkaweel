@@ -119,8 +119,10 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
           extra_details: _controllerExtra_details.text,
           currency:
           selectedCurrencyNotifier.value.map((e) => _listStringCurrencies[e]).toList().join(','),
-          latitude: locationNotifier.value.$2!.lat.toString(),
-          longitude: locationNotifier.value.$2!.lng.toString(),
+          latitude: locationNotifier.value.$2?.lat.toString()??'',
+          longitude: locationNotifier.value.$2?.lng.toString()??'',
+          location: locationNotifier.value.$1??'',
+
         ),
       );
     }
