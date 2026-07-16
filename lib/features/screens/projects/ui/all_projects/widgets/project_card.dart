@@ -76,7 +76,7 @@ class ProjectCard extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () async {
-                          final result = await context.push(CreateProjectRoute(args: CreateProjectRouteArgs('${projectInfoData.id}')));
+                          final result = await context.push(CreateProjectRoute(args: CreateProjectRouteArgs('${projectInfoData.id}',projectsCubit)));
                           if (result == true) {
                             await projectsCubit.getAllProjectsFunc(Reload());
                           }

@@ -177,9 +177,10 @@ class CreateProjectRoute extends PageRouteInfo<CreateProjectRouteArgs> {
 }
 
 class CreateProjectRouteArgs {
-  const CreateProjectRouteArgs(this.projectId);
+  const CreateProjectRouteArgs(this.projectId,this.projectsCubit);
 
   final String? projectId;
+  final ProjectsCubit   projectsCubit;
 }
 
 /// generated route for

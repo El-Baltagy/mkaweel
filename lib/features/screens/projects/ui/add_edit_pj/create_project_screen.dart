@@ -35,6 +35,9 @@ class CreateProjectPage extends StatefulWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) {
+    return BlocProvider.value(value: args.projectsCubit,
+    child: this,
+    );
     return BlocProvider<ProjectsCubit>(
       create: (context) => ProjectsCubit(AppLocator()()()),
       child: this,

@@ -60,7 +60,7 @@ class _ProjectsPageState extends ProjectsPageBaseState {
            backgroundColor: context.theme.colorScheme.secondary,
 
            onPressed: () async {
-             final result = await context.push(CreateProjectRoute(args: const CreateProjectRouteArgs(null)));
+             final result = await context.push(CreateProjectRoute(args:   CreateProjectRouteArgs(null,projectsCubit)));
              if (result == true) {
                await projectsCubit.getAllProjectsFunc(Reload());
              }
