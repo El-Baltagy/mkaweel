@@ -1,4 +1,5 @@
 
+import 'package:mkaweel/core/api_helper/caller_tag.dart';
 import 'package:mkaweel/core/constants/app_constant.dart';
 import 'package:dio/dio.dart';
 import 'package:mkaweel/core/api_helper/response_handler.dart';
@@ -15,6 +16,7 @@ import 'package:mkaweel/features/screens/projects/data/model/delete_pj_parameter
 import 'package:mkaweel/features/screens/projects/data/model/delete_project_res/delete_project_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/get_project_data_parameter.dart';
 import 'package:mkaweel/features/screens/projects/data/model/project_phases_res/project_phases_res.dart';
+import 'package:mkaweel/features/screens/projects/data/model/update_phase_parameter.dart';
 
 class ProjectsRepo extends BaseRepo {
   ProjectsRepo(this.dio);
@@ -83,9 +85,27 @@ class ProjectsRepo extends BaseRepo {
       onCallData: dio.getData(
         uri: EndPoints.getProjectPhases(parameter!.projectId),
         cancelToken: cancelToken,
-        caller: getTag(),
+        caller: callerTag(),
       ),
       asObject: ProjectPhasesRes.fromJson,
+    );
+  }
+
+  Future<Either<Failure, ProjectPhasesRes>> updatePhaseApi(
+    UpdateProjectPhaseRequest? parameter, {
+    CancelToken? cancelToken,
+  }) async {
+    return handleResponse(
+      onCallData: dio.postData(
+        uri: EndPoints.updatePhase(parameter!.phaseId.toString()),
+        cancelToken: cancelToken,
+        caller: callerTag(),
+      ),
+      asObject: (map) => ProjectPhasesRes(
+        status: map['status']as String,
+        message: map['message']as String,
+        data: [ProjectphaseItem.fromJson(map['data']as Map<String, dynamic> )],
+      ),
     );
   }
 }

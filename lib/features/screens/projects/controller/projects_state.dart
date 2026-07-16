@@ -8,6 +8,7 @@ abstract class ProjectsState {}
 class ProjectsLoaded extends ProjectsState {
 
   ProjectsLoaded({
+    this.updatePhaseState,
     this.getProjectPhasesState,
     this.deleteProjectResState,
     this.allProjectsResState,
@@ -15,11 +16,12 @@ class ProjectsLoaded extends ProjectsState {
     this.refreshOrInit,
     this.deletingProjectIds = const [],
   });
-  final BaseEmit? allProjectsResState,deleteProjectResState,createProjectResState, getProjectPhasesState;
+  final BaseEmit? allProjectsResState,deleteProjectResState,createProjectResState, getProjectPhasesState, updatePhaseState;
   final ProjectsState? refreshOrInit;
   final List<String> deletingProjectIds;
 
   ProjectsLoaded copyWith({
+    BaseEmit? updatePhaseState,
     BaseEmit? getProjectPhasesState,
     BaseEmit? deleteProjectResState,
     BaseEmit? allProjectsResState,
@@ -28,6 +30,7 @@ class ProjectsLoaded extends ProjectsState {
     List<String>? deletingProjectIds,
   }) {
     return ProjectsLoaded(
+      updatePhaseState: updatePhaseState ?? this.updatePhaseState,
       getProjectPhasesState: getProjectPhasesState ?? this.getProjectPhasesState,
       refreshOrInit: refreshOrInit ?? this.refreshOrInit,
         allProjectsResState: allProjectsResState ?? this.allProjectsResState,

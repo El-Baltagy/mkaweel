@@ -10,6 +10,7 @@ import 'package:mkaweel/core/base/base_local_repo.dart';
 import 'package:mkaweel/features/screens/projects/data/model/delete_project_res/delete_project_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/get_project_data_parameter.dart';
 import 'package:mkaweel/features/screens/projects/data/model/project_phases_res/project_phases_res.dart';
+import 'package:mkaweel/features/screens/projects/data/model/update_phase_parameter.dart';
 import 'package:mkaweel/features/screens/projects/data/repo/remote/projects_repo.dart';
 
 class ProjectsService extends BaseService {
@@ -86,6 +87,17 @@ class ProjectsService extends BaseService {
         requestInfo.parameter,
         cancelToken: token,
       )
+    );
+  }
+
+  Future<void> updatePhaseServ(
+    RequestCallbackObserver<ProjectPhasesRes, UpdateProjectPhaseRequest> requestInfo,
+  ) {
+     return requestInfo.handleRequest(
+      fetchFromClient: (token) => _remoteRepo.updatePhaseApi(
+        requestInfo.parameter,
+        cancelToken: token,
+      ),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:mkaweel/core/api_helper/caller_tag.dart';
 import 'package:mkaweel/features/screens/market_prices/data/model/exchange_rate/exchange_rate.dart';
  import 'package:dio/dio.dart';
 import 'package:mkaweel/core/api_helper/response_handler.dart';
@@ -24,7 +25,7 @@ class MarketPricesRepo extends BaseRepo {
        onCallData: dio.getData(
         uri: EndPoints.getCatogeries,
         cancelToken: cancelToken,
-        caller: getTag(),
+        caller: callerTag(),
       ),
       asObject: CatogeriesRes.fromJson,
     );
@@ -41,7 +42,7 @@ class MarketPricesRepo extends BaseRepo {
             ? EndPoints.getAllSubCatogeries
             : EndPoints.getSubCatogeriesById(parameter.id),
         cancelToken: cancelToken,
-        caller: getTag(),
+        caller: callerTag(),
       ),
       asObject: SubCatogeriesData.fromJson,
     );

@@ -1,4 +1,5 @@
 part of 'phase_progress_screen.dart';
+
 abstract class PhaseProgressPageBaseState extends State<PhaseProgressPage> {
   /// Convenient getter for the route arguments passed to this page.
   PhaseProgressRouteArgs get args => widget.args;
@@ -10,30 +11,29 @@ abstract class PhaseProgressPageBaseState extends State<PhaseProgressPage> {
   final TextEditingController _controllerPE = TextEditingController();
   final TextEditingController _controllerAS = TextEditingController();
   final TextEditingController _controllerAE = TextEditingController();
-  final ValueNotifier<double>   progressValue=.new(0.0);
+  final ValueNotifier<double> progressValue = .new(0.0);
 
-  List<(GlobalKey<FormFieldState<dynamic>>, FocusNode?)>listFiels =
-  List.generate(1, (index) => (.new(), .new()));
+  List<(GlobalKey<FormFieldState<dynamic>>, FocusNode?)> listFiels =
+      List.generate(1, (index) => (.new(), .new()));
 
-  ValueNotifier<List<File>> imagesListNotifier=.new([]);
+  ValueNotifier<List<File>> imagesListNotifier = .new([]);
+
   @override
   void initState() {
     projectsCubit = ProjectsCubit.get(context: context);
     super.initState();
-    _updateDateController.text=DateTimeHelper.convertDateIntoCustomString(DateTime.now())!;
+    _updateDateController.text = DateTimeHelper.convertDateIntoCustomString(
+      DateTime.now(),
+    )!;
 
+    _controllerDesc.text = args.projectPhaseItem.notes ?? '';
+    progressValue.value = args.projectPhaseItem.progress_percentage.toDouble();
 
-    _controllerDesc.text=args.projectPhaseItem.notes??'';
-    progressValue.value=args.projectPhaseItem.progress_percentage.toDouble() ;
-
-    _controllerPS.text=args.projectPhaseItem.planned_start_date??'';
-    _controllerPE.text=args.projectPhaseItem.planned_end_date??'';
-    _controllerAS.text=args.projectPhaseItem.actual_start_date??'';
-    _controllerAE.text=args.projectPhaseItem.actual_end_date??'';
-
+    _controllerPS.text = args.projectPhaseItem.planned_start_date ?? '';
+    _controllerPE.text = args.projectPhaseItem.planned_end_date ?? '';
+    _controllerAS.text = args.projectPhaseItem.actual_start_date ?? '';
+    _controllerAE.text = args.projectPhaseItem.actual_end_date ?? '';
   }
-
-
 
   @override
   void dispose() {
@@ -51,14 +51,30 @@ abstract class PhaseProgressPageBaseState extends State<PhaseProgressPage> {
 
     super.dispose();
   }
-  void listener(BuildContext context,ProjectsState state) {
+
+  void listener(BuildContext context, ProjectsState state) {
     // TODO: implement listener
   }
 
-  updateAction () async {
-  if (await _key.validateAndScroll(context, listRecorder: listFiels)) {
-    await projectsCubit.updatePhase();
+  updateAction() async {
+    if (await _key.validateAndScroll(context, listRecorder: listFiels)) {
+      await projectsCubit.updatePhaseFunc(
+
+          parameter: .new(
+          phaseId: args.projectPhaseItem.id,
+          progressPercentage: progressValue.value.toString(),
+          updateDate: _updateDateController.text.trim(),
+
+           notes:_controllerDesc.text.trim(),
+
+          plannedStartDate: _controllerPS.text.trim(),
+          plannedEndDate: _controllerPE.text.trim(),
+
+          actualStartDate: _controllerAS.text.trim(),
+          actualEndDate: _controllerAE.text.trim(),
+          photos: imagesListNotifier.value,
+        ),
+      );
+    }
   }
 }
-}
-

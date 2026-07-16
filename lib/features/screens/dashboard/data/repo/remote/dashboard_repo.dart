@@ -1,3 +1,4 @@
+import 'package:mkaweel/core/api_helper/caller_tag.dart';
 import 'package:mkaweel/core/constants/app_constant.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -37,7 +38,7 @@ class DashboardRepo extends BaseRepo {
       onCallData: dio.getData(
         uri: EndPoints.getSuppliers,
         cancelToken: cancelToken,
-        caller: getTag(),
+        caller: callerTag(),
       ),
       asObject: SuppliersRes.fromJson,
     );

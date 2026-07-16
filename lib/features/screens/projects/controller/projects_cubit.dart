@@ -14,6 +14,7 @@ import 'package:mkaweel/features/screens/projects/data/model/delete_pj_parameter
 import 'package:mkaweel/features/screens/projects/data/model/delete_project_res/delete_project_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/get_project_data_parameter.dart';
 import 'package:mkaweel/features/screens/projects/data/model/project_phases_res/project_phases_res.dart';
+import 'package:mkaweel/features/screens/projects/data/model/update_phase_parameter.dart';
 import 'package:mkaweel/main.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
 import 'package:mkaweel/features/screens/projects/service/projects_service.dart';
@@ -33,12 +34,17 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
 
      int get getProjectPhasesKeyCode => AppConstant.getProjectPhasesKeyCode;
 
+    int get updatePhaseKeyCode => AppConstant.updatePhaseKeyCode;
+
   init() async {
     // TODO: implement init
   }
 
   @override
   Future<void> close() {
+    // add every key in file
+    CancelManager.cancel(updatePhaseKeyCode);
+
     // add every key in file
     CancelManager.cancel(getProjectPhasesKeyCode);
 
@@ -142,6 +148,22 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
           onLoadCallback: () => safeEmit(current.copyWith(getProjectPhasesState: Loading())),
           onRightCallback: (data) => safeEmit(current.copyWith(getProjectPhasesState: Success(data))),
           onLeftCallback: (failure) => safeEmit(current.copyWith(getProjectPhasesState: ErrorState(failure))),
+        ),
+      );
+    });
+  }
+
+  Future<void> updatePhaseFunc( {UpdateProjectPhaseRequest? parameter}) async {
+    await CancelManager.runCancelableFun(updatePhaseKeyCode, (token) async {
+      await _service.updatePhaseServ(
+        RequestCallbackObserver<ProjectPhasesRes, UpdateProjectPhaseRequest>(
+           parameter: parameter,
+          cancelToken: token,
+          onLoadCallback: () => safeEmit( current.copyWith(updatePhaseState: Loading())),
+          onRightCallback: (data) => safeEmit( current.copyWith(
+              getProjectPhasesState: ,
+              updatePhaseState: Success(data))),
+          onLeftCallback: (failure) => safeEmit( current.copyWith(updatePhaseState: ErrorState(failure))),
         ),
       );
     });
