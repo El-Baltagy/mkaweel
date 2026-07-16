@@ -188,7 +188,7 @@ class ProjectCard extends StatelessWidget {
             ],
 
               /// Location
-              _LocationRow(projectInfoData: projectInfoData),
+              LocationRow(projectInfoData: projectInfoData),
               if (projectInfoData.description != null ||
                   projectInfoData.extra_details != null)
                 const Divider(height: 28),

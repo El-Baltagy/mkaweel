@@ -210,7 +210,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                             )
                                 : Text(
                               widget.args.projectId == null
-                                  ? 'add_edit_task_project'.tr()
+                                  ? 'create_project'.tr()
                                   : 'save'.tr(),
                               style: AppTextStyles.font16SemiBold.copyWith(
                                 color:

@@ -197,6 +197,7 @@ mixin _$ProjectInfoData {
   String? get latitude => throw _privateConstructorUsedError;
   String? get longitude => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
+  String? get location => throw _privateConstructorUsedError;
   String? get extra_details => throw _privateConstructorUsedError;
   String? get contract_value => throw _privateConstructorUsedError;
   String? get currency => throw _privateConstructorUsedError;
@@ -227,6 +228,7 @@ abstract class $ProjectInfoDataCopyWith<$Res> {
       String? latitude,
       String? longitude,
       String? description,
+      String? location,
       String? extra_details,
       String? contract_value,
       String? currency,
@@ -257,6 +259,7 @@ class _$ProjectInfoDataCopyWithImpl<$Res, $Val extends ProjectInfoData>
     Object? latitude = freezed,
     Object? longitude = freezed,
     Object? description = freezed,
+    Object? location = freezed,
     Object? extra_details = freezed,
     Object? contract_value = freezed,
     Object? currency = freezed,
@@ -297,6 +300,10 @@ class _$ProjectInfoDataCopyWithImpl<$Res, $Val extends ProjectInfoData>
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      location: freezed == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
               as String?,
       extra_details: freezed == extra_details
           ? _value.extra_details
@@ -347,6 +354,7 @@ abstract class _$$ProjectInfoDataImplCopyWith<$Res>
       String? latitude,
       String? longitude,
       String? description,
+      String? location,
       String? extra_details,
       String? contract_value,
       String? currency,
@@ -375,6 +383,7 @@ class __$$ProjectInfoDataImplCopyWithImpl<$Res>
     Object? latitude = freezed,
     Object? longitude = freezed,
     Object? description = freezed,
+    Object? location = freezed,
     Object? extra_details = freezed,
     Object? contract_value = freezed,
     Object? currency = freezed,
@@ -415,6 +424,10 @@ class __$$ProjectInfoDataImplCopyWithImpl<$Res>
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      location: freezed == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
               as String?,
       extra_details: freezed == extra_details
           ? _value.extra_details
@@ -460,6 +473,7 @@ class _$ProjectInfoDataImpl extends _ProjectInfoData {
       required this.latitude,
       required this.longitude,
       required this.description,
+      required this.location,
       required this.extra_details,
       required this.contract_value,
       required this.currency,
@@ -489,6 +503,8 @@ class _$ProjectInfoDataImpl extends _ProjectInfoData {
   final String? longitude;
   @override
   final String? description;
+  @override
+  final String? location;
   @override
   final String? extra_details;
   @override
@@ -537,6 +553,7 @@ abstract class _ProjectInfoData extends ProjectInfoData {
       required final String? latitude,
       required final String? longitude,
       required final String? description,
+      required final String? location,
       required final String? extra_details,
       required final String? contract_value,
       required final String? currency,
@@ -565,6 +582,8 @@ abstract class _ProjectInfoData extends ProjectInfoData {
   String? get longitude;
   @override
   String? get description;
+  @override
+  String? get location;
   @override
   String? get extra_details;
   @override
