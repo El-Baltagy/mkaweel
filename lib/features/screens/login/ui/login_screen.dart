@@ -36,16 +36,7 @@ class LoginPage extends StatefulWidget implements AutoRouteWrapper {
 }
 
 class _LoginPageState extends LoginPageBaseState {
-  final _key = GlobalKey<FormState>();
-  (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field1 = (.new(), .new());
-  (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field2 = (.new(), .new());
-@override
-  void dispose() {
-    // TODO: implement dispose
-  field1.$2?.dispose();
-  field2.$2?.dispose();
-  super.dispose();
-  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
@@ -161,6 +152,9 @@ abstract class LoginPageBaseState extends State<LoginPage> {
   late final LoginCubit argData;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final _key = GlobalKey<FormState>();
+  (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field1 = (.new(), .new());
+  (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field2 = (.new(), .new());
 
   @override
   void initState() {
@@ -176,6 +170,9 @@ abstract class LoginPageBaseState extends State<LoginPage> {
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    // TODO: implement dispose
+    field1.$2?.dispose();
+    field2.$2?.dispose();
     super.dispose();
   }
   void loginCubitListener(BuildContext context,LoginState state) {

@@ -102,6 +102,19 @@ class _PhaseProgressPageState extends PhaseProgressPageBaseState {
                       controller: _updateDateController,
                     ),
                   ),
+
+                  _UploadPhotosSection(imagesListNotifier),
+                  TitleWithInputField(
+                    'notes_label'.tr(),
+                    NameInputData(
+                      isLabel: false,
+                      maxLines: 3,
+                      widgetPrefix: const SizedBox.shrink(),
+                      validator: (v) => null,
+                      labelText: 'notes_hint'.tr() + "...",
+                      controller: _controllerDesc,
+                    ),
+                  ),
                   StartEndDates(
                     controllerE: _controllerPE,
                     controllerS: _controllerPS,
@@ -119,19 +132,6 @@ class _PhaseProgressPageState extends PhaseProgressPageBaseState {
                     // fieldS:listFiels[3],
                     // fieldE:listFiels[4],
                   ),
-                  _UploadPhotosSection(imagesListNotifier),
-                  TitleWithInputField(
-                    'notes_label'.tr(),
-                    NameInputData(
-                      isLabel: false,
-                      maxLines: 3,
-                      widgetPrefix: const SizedBox.shrink(),
-                      validator: (v) => null,
-                      labelText: 'notes_hint'.tr() + "...",
-                      controller: _controllerDesc,
-                    ),
-                  ),
-                  // Submit button submit_progress_update
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child:
