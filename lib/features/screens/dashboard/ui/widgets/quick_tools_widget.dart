@@ -49,70 +49,140 @@ class QuickToolsWidget extends StatelessWidget {
           bgColor: Colors.teal.shade100, iconColor: Colors.teal ),
       ItemGridData(label: 'suppliers'.tr(), icon: Icons.inventory_2_outlined,
           routeNavigation: SuppliersInfoRoute(args: SuppliersInfoRouteArgs()),
-          bgColor: Colors.green.shade100, iconColor: Colors.green )
+          bgColor: Colors.green.shade100, iconColor: Colors.green )  ,
+
+      ItemGridData(label: 'new_invoice'.tr(), icon: Icons.receipt_long,
+           bgColor: Colors.green.shade100, iconColor: Theme.of(context).primaryColor)
 
     ];
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: list.map((e) =>_buildLinkItem(context,e.label, e.icon, e.bgColor, e.iconColor,
-            onTap: e.onTap??(e.routeNavigation==null?null:
-              () => context.push(  e.routeNavigation!)),
-        )).toList()
+        children: [
+          Text('quick_tools'.tr(), style: AppTextStyles.font16SemiBold),
+          10.verticalSpace,
+          GridView.count(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              crossAxisCount: 3,
+              mainAxisSpacing: 10,
+              crossAxisSpacing: 10,
+              childAspectRatio: 1.1,
+              children:list.map((e) =>_buildToolItem(context,e.label, e.icon, e.bgColor, e.iconColor,
+                onTap: e.onTap??(e.routeNavigation==null?null:
+                    () => context.push(  e.routeNavigation!)),
+              )).toList()
 
+          ),
+        ],
       ),
     );
+
   }
 
 
-  Widget _buildLinkItem(BuildContext context,String label, IconData icon, Color bgColor, Color iconColor,{    VoidCallback? onTap,}) {
-    return Padding(
-      padding:      .only(bottom:AppPadding.p12 ),
-      child: GestureDetector(
-        onTap: onTap ,
-        child: Container(
+  // Widget _buildLinkItem(BuildContext context,String label, IconData icon, Color bgColor, Color iconColor,{    VoidCallback? onTap,}) {
+  //   return Padding(
+  //     padding:      .only(bottom:AppPadding.p12 ),
+  //     child: GestureDetector(
+  //       onTap: onTap ,
+  //       child: Container(
+  //
+  //         padding: const  .all(AppPadding.p16),
+  //          decoration: BoxDecoration(
+  //           color: context.theme.scaffoldBackgroundColor,
+  //           borderRadius: BorderRadius.circular(AppSizes.s12),
+  //           boxShadow: [
+  //             BoxShadow(
+  //               color: Colors.black.withOpacity(0.08),
+  //               blurRadius: 5,
+  //               offset: const Offset(0, 2),
+  //             ),
+  //           ],
+  //         ),
+  //         child: Row(
+  //           children: [
+  //             Container(
+  //               padding: const EdgeInsets.all(AppPadding.p8),
+  //               decoration: BoxDecoration(
+  //                 color: bgColor.withOpacity(0.5),
+  //                 borderRadius: BorderRadius.circular(AppSizes.s8),
+  //               ),
+  //               child: Icon(icon, color: iconColor),
+  //             ),
+  //             10.horizontalSpace,
+  //             Container(
+  //               constraints: BoxConstraints(
+  //                 maxWidth: context.width * 0.6,
+  //               ),
+  //               child: TickerText(
+  //                 child: Text(
+  //                   label,
+  //                   style: AppTextStyles.font14Regular.copyWith(fontWeight: FontWeight.bold, color: context.theme.colorScheme.tertiaryFixed),
+  //                 ),
+  //               ),
+  //             ),
+  //
+  //           ],
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
-          padding: const  .all(AppPadding.p16),
-           decoration: BoxDecoration(
-            color: context.theme.scaffoldBackgroundColor,
-            borderRadius: BorderRadius.circular(AppSizes.s12),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.08),
-                blurRadius: 5,
-                offset: const Offset(0, 2),
+  Widget _buildToolItem(
+      BuildContext context,
+      String label,
+      IconData icon,
+      Color bgColor,
+      Color iconColor, {
+        VoidCallback? onTap,
+      }) {
+    return GestureDetector(
+      onTap:onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          color: context.theme.scaffoldBackgroundColor,
+          borderRadius: BorderRadius.circular(AppSizes.s12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.03),
+              blurRadius: 5,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(AppPadding.p8),
+              decoration: BoxDecoration(
+                color: bgColor.withOpacity(0.5),
+                borderRadius: BorderRadius.circular(AppSizes.s8),
               ),
-            ],
-          ),
-          child: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(AppPadding.p8),
-                decoration: BoxDecoration(
-                  color: bgColor.withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(AppSizes.s8),
-                ),
-                child: Icon(icon, color: iconColor),
+              child: Icon(icon, color: iconColor),
+            ),
+            10.verticalSpace,
+            Container(
+              constraints: BoxConstraints(
+                maxWidth: context.width * 0.6,
               ),
-              10.horizontalSpace,
-              Container(
-                constraints: BoxConstraints(
-                  maxWidth: context.width * 0.6,
-                ),
-                child: TickerText(
-                  child: Text(
-                    label,
-                    style: AppTextStyles.font14Regular.copyWith(fontWeight: FontWeight.bold, color: context.theme.colorScheme.tertiaryFixed),
+              child: TickerText(
+                child: Text(
+                  label,
+                  style: AppTextStyles.font12Regular.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: context.theme.colorScheme.tertiaryFixed,
                   ),
+                  textAlign: TextAlign.center,
                 ),
               ),
-
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
-
 }

@@ -1,20 +1,11 @@
 {
   "status": "success",
-  "message": "تم تحديث مرحلة المشروع بنجاح.",
+  "message": "تم استرجاع إحصائيات لوحة التحكم بنجاح.",
   "data": {
-    "id": 13,
-    "project_id": 10,
-    "phase_id": 1,
-    "name": "تجهيز الموقع",
-    "description": "استلام الموقع، التسوير، تجهيز الخدمات المؤقتة",
-    "planned_start_date": "2026-08-15",
-    "planned_end_date": "2026-09-15",
-    "actual_start_date": "2026-10-15",
-    "actual_end_date": "2026-11-15",
-    "progress_percentage": 45,
-    "status": "in_progress",
-    "notes": "تم الانتهاء من نصف أعمال الأساسات",
-    "created_at": "2026-07-05T23:03:35.000000Z",
-    "updated_at": "2026-07-16T00:42:32.000000Z"
+    "total_projects": 32,
+    "completed_projects": 0,
+    "total_tasks": 1,
+    "completed_tasks": 1,
+    "total_workers": 4
   }
 }

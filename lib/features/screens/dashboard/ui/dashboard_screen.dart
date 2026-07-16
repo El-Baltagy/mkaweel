@@ -3,19 +3,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/base/base_local_repo.dart';
-import 'package:mkaweel/core/constants/app_constant.dart';
-import 'package:mkaweel/core/constants/app_locator.dart';
+ import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
-import 'package:mkaweel/core/storage/storage_helper.dart';
- import 'package:mkaweel/features/screens/dashboard/controller/dashboard_cubit.dart';
+  import 'package:mkaweel/features/screens/dashboard/controller/dashboard_cubit.dart';
 import 'package:mkaweel/features/screens/dashboard/controller/dashboard_state.dart';
- import 'package:mkaweel/core/extension/double.dart';
-import 'package:mkaweel/features/screens/dashboard/ui/widgets/dashboard_header_widget.dart';
+ import 'package:mkaweel/features/screens/dashboard/ui/widgets/dashboard_header_widget.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/widgets/stats_cards_widget.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/widgets/today_tasks_widget.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/widgets/quick_tools_widget.dart';
-import 'package:mkaweel/features/screens/dashboard/ui/widgets/quick_links_widget.dart';
-import 'package:token_saver/secure_token_manager.dart';
 
 @RoutePage()
 class DashboardPage extends StatefulWidget implements AutoRouteWrapper{
@@ -59,18 +54,15 @@ class _DashboardPageState extends DashboardPageBaseState {
             bottom: false,
             child: SingleChildScrollView(
               child: Column(
+                spacing: 20,
                 children: [
-
-                  const DashboardHeaderWidget(),
-                  20.verticalSpace,
-                  const TodayTasksWidget(),
-                  20.verticalSpace,
-                    QuickToolsWidget(
+                   const DashboardHeaderWidget(),
+                   const StatsCardsWidget(),
+                   const TodayTasksWidget(),
+                     QuickToolsWidget(
                     dashboardCubit: dashboardCubit
-
-                  ),
-
-                 ],
+                   ),
+                  ],
               ),
             ),
           ),

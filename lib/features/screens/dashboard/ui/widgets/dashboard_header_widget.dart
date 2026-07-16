@@ -42,17 +42,17 @@ class DashboardHeaderWidget extends StatelessWidget {
             'hello'.tr()+" ${StorageHelper.userData.name}",
             style: AppTextStyles.font24Bold.copyWith(color: context.theme.scaffoldBackgroundColor),
           ),
-          // 20.verticalSpace,
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //   children: [
-          //     _buildStatItem(context,'0', 'active_project'.tr()),
-          //     _buildDivider(context),
-          //     _buildStatItem(context,'0', 'completed'.tr()),
-          //     _buildDivider(context),
-          //     _buildStatItem(context,'0', 'todays_tasks'.tr()),
-          //   ],
-          // ),
+          20.verticalSpace,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildStatItem(context,'0', 'active_project'.tr()),
+              _buildDivider(context),
+              _buildStatItem(context,'0', 'completed'.tr()),
+              _buildDivider(context),
+              _buildStatItem(context,'0', 'todays_tasks'.tr()),
+            ],
+          ),
         ],
       ),
     );
