@@ -51,6 +51,9 @@ class DashboardCubit extends BaseCubit<DashboardState> {
    @override
    Future<void> close() {
     // add every key in file
+    CancelManager.cancel(getStatisticsKeyCode);
+
+    // add every key in file
     CancelManager.cancel(getSuppliersKeyCode);
 
      // add every key in file
@@ -59,6 +62,8 @@ class DashboardCubit extends BaseCubit<DashboardState> {
    }
 
      int get getSuppliersKeyCode => AppConstant.getSuppliersKeyCode;
+
+    int get getStatisticsKeyCode => AppConstant.getStatisticsKeyCode;
 
   @override
    Future<void> init() async {
@@ -76,6 +81,21 @@ class DashboardCubit extends BaseCubit<DashboardState> {
           onLoadCallback: () => safeEmit(_current.copyWith(getSuppliersState: Loading())),
           onRightCallback: (data) => safeEmit(_current.copyWith(getSuppliersState: Success(data))),
           onLeftCallback: (failure) => safeEmit(_current.copyWith(getSuppliersState: ErrorState(failure))),
+        ),
+      );
+    });
+  }
+
+  Future<void> getStatisticsFunc(BaseRequestBackType baseRequestBackType,{NoParameter? parameter}) async {
+    await CancelManager.runCancelableFun(getStatisticsKeyCode, (token) async {
+      await _service.getStatisticsServ(
+        RequestCallbackObserver<StatisticsRes, NoParameter>(
+          baseRequestBackType: baseRequestBackType ,
+          parameter: parameter,
+          cancelToken: token,
+          onLoadCallback: () => safeEmit(_current.copyWith(getStatisticsState: Loading())),
+          onRightCallback: (data) => safeEmit(_current.copyWith(getStatisticsState: Success(data))),
+          onLeftCallback: (failure) => safeEmit(_current.copyWith(getStatisticsState: ErrorState(failure))),
         ),
       );
     });

@@ -43,5 +43,19 @@ class DashboardRepo extends BaseRepo {
       asObject: SuppliersRes.fromJson,
     );
   }
+
+  Future<Either<Failure, StatisticsRes>> getStatisticsApi(
+    NoParameter? parameter, {
+    CancelToken? cancelToken,
+  }) async {
+    return handleResponse(
+      onCallData: dio.getData(
+        uri: EndPoints.getStatistics,
+        cancelToken: cancelToken,
+        caller: getTag(),
+      ),
+      asObject: StatisticsRes.fromJson,
+    );
+  }
 }
 

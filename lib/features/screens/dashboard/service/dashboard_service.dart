@@ -52,4 +52,26 @@ class DashboardService extends BaseService {
       clearLocal: () => _localRepo.clearData(cacheKey),
     );
   }
+
+  Future<void> getStatisticsServ(
+    RequestCallbackObserver<StatisticsRes, NoParameter> requestInfo,
+  ) {
+    const cacheKey = AppConstant.getStatisticsKeyCash;
+    return requestInfo.handleRequest(
+      fetchFromClient: (token) => _remoteRepo.getStatisticsApi(
+        requestInfo.parameter,
+        cancelToken: token,
+      ),
+      fetchLocal: () async {
+        final json = await _localRepo.readData(cacheKey);
+        return json == null ? null : StatisticsRes.fromJson(json);
+      },
+      saveLocal: (old, newData) async {
+        if (newData != null) {
+          await _localRepo.saveData(cacheKey, newData.toJson());
+        }
+      },
+      clearLocal: () => _localRepo.clearData(cacheKey),
+    );
+  }
 }

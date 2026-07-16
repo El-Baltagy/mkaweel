@@ -60,4 +60,8 @@ abstract class AppConstant {
   static const String updatePhaseKeyCash = 'projects_updatePhase_cache';
 
   static const int updatePhaseKeyCode = 6587;
+
+  static const String getStatisticsKeyCash = 'dashboard_getStatistics_cache';
+
+  static const int getStatisticsKeyCode = 5479;
 }
