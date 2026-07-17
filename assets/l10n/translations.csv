@@ -280,3 +280,13 @@ completed_projects,completed projects,المشاريع المكتملة
 total_tasks,total tasks,مجموع المهام
 
 tasks,tasks,المهام
+
+all_construction_tasks,All Construction Tasks,جميع مهام البناء
+schedule_active_operations,Schedule and assignment of active site operations.,جدولة وتعيين عمليات الموقع النشطة.
+add_task,Add Task,إضافة مهمة
+task_name,Task Name,اسم المهمة
+project,Project,المشروع
+assigned_worker,Assigned Worker,العامل المعين
+due_date,Due Date,تاريخ الاستحقاق
+status,Status,الحالة
+actions,Actions,الإجراءات
