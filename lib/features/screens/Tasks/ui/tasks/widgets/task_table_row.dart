@@ -5,8 +5,8 @@ import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 
-class TaskTableRow extends StatelessWidget {
-  const TaskTableRow({
+class TaskCarddItem extends StatelessWidget {
+  const TaskCarddItem({
     super.key,
     required this.index,
     required this.taskName,
@@ -36,168 +36,201 @@ class TaskTableRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        vertical: AppPadding.p16,
+      padding: const EdgeInsets.all(AppPadding.p16),
+      margin: const EdgeInsets.symmetric(
         horizontal: AppPadding.p20,
+        vertical: AppPadding.p8,
       ),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.lightBackground,
-        border: Border(
-          bottom: BorderSide(
-            color: AppColors.lightBorder,
+        borderRadius: BorderRadius.circular(AppSizes.s12),
+        border: Border.all(color: AppColors.lightBorder),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.03),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
           ),
-        ),
+        ],
       ),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Index
-          Expanded(
-            flex: 1,
-            child: Text(
-              index,
-              style: AppTextStyles.font14Regular.copyWith(
-                color: AppColors.primaryLightColor,
+          // Header: Status and Actions
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppPadding.p12,
+                  vertical: AppPadding.p4,
+                ),
+                decoration: BoxDecoration(
+                  color: isCompleted ? AppColors.green : AppColors.gold,
+                  borderRadius: BorderRadius.circular(AppSizes.s12),
+                ),
+                child: Text(
+                  status,
+                  style: AppTextStyles.font12Regular.copyWith(
+                    color: AppColors.lightBackground,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ),
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: onEdit,
+                    child: const Icon(
+                      Icons.edit,
+                      color: AppColors.primaryLightColor,
+                      size: AppSizes.s20,
+                    ),
+                  ),
+                  AppPadding.p16.horizontalSpace,
+                  GestureDetector(
+                    onTap: onDelete,
+                    child: const Icon(
+                      Icons.delete,
+                      color: AppColors.secondryLightColor,
+                      size: AppSizes.s20,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          AppPadding.p12.verticalSpace,
+
+          // Task Name & Subtitle
+          Text(
+            taskName,
+            style: AppTextStyles.font16SemiBold.copyWith(
+              color: AppColors.lightTextPrimary,
             ),
           ),
+          AppPadding.p4.verticalSpace,
+          Text(
+            taskSubtitle,
+            style: AppTextStyles.font12Regular.copyWith(
+              color: AppColors.lightTextSecondary,
+            ),
+          ),
+          AppPadding.p12.verticalSpace,
           
-          // Task Name
-          Expanded(
-            flex: 3,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
+          const Divider(color: AppColors.lightBorder, height: 1),
+          AppPadding.p12.verticalSpace,
+
+          // Details row 1: Project & Due Date
+          Row(
+            children: [
+              Expanded(
+                child: _buildDetailItem(
+                  icon: Icons.business,
+                  title: 'project'.tr(),
+                  value: projectName,
+                ),
+              ),
+              Expanded(
+                child: _buildDetailItem(
+                  icon: Icons.calendar_today,
+                  title: 'due_date'.tr(),
+                  value: dueDate,
+                ),
+              ),
+            ],
+          ),
+          AppPadding.p12.verticalSpace,
+
+          // Details row 2: Worker
+          _buildWorkerItem(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDetailItem({
+    required IconData icon,
+    required String title,
+    required String value,
+  }) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(
+          icon,
+          size: AppSizes.s16,
+          color: AppColors.primaryLightColor,
+        ),
+        AppPadding.p8.horizontalSpace,
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: AppTextStyles.font12Regular.copyWith(
+                  color: AppColors.lightTextSecondary,
+                ),
+              ),
+              AppPadding.p4.verticalSpace,
+              Text(
+                value,
+                style: AppTextStyles.font14Regular.copyWith(
+                  color: AppColors.lightTextPrimary,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildWorkerItem() {
+    return Row(
+      children: [
+        const Icon(
+          Icons.person,
+          size: AppSizes.s16,
+          color: AppColors.primaryLightColor,
+        ),
+        AppPadding.p8.horizontalSpace,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'assigned_worker'.tr(),
+              style: AppTextStyles.font12Regular.copyWith(
+                color: AppColors.lightTextSecondary,
+              ),
+            ),
+            AppPadding.p4.verticalSpace,
+            Row(
               children: [
+                CircleAvatar(
+                  radius: AppSizes.s10,
+                  backgroundImage: NetworkImage(assignedWorkerAvatarUrl),
+                  onBackgroundImageError: (_, __) {},
+                  child: const Icon(
+                    Icons.person,
+                    size: AppSizes.s10,
+                  ),
+                ),
+                AppPadding.p8.horizontalSpace,
                 Text(
-                  taskName,
+                  assignedWorkerName,
                   style: AppTextStyles.font14Regular.copyWith(
                     color: AppColors.lightTextPrimary,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                AppPadding.p4.verticalSpace,
-                Text(
-                  taskSubtitle,
-                  style: AppTextStyles.font12Regular.copyWith(
-                    color: AppColors.lightTextSecondary,
-                  ),
-                ),
               ],
             ),
-          ),
-          
-          // Project
-          Expanded(
-            flex: 2,
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppPadding.p12,
-                vertical: AppPadding.p6,
-              ),
-              decoration: BoxDecoration(
-                color: AppColors.primaryLightColor.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(AppSizes.s12),
-              ),
-              child: Text(
-                projectName,
-                style: AppTextStyles.font12Regular.copyWith(
-                  color: AppColors.primaryLightColor,
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ),
-          
-          // Assigned Worker
-          Expanded(
-            flex: 3,
-            child: Row(
-              children: [
-                CircleAvatar(
-                  radius: AppSizes.s12,
-                  backgroundImage: NetworkImage(assignedWorkerAvatarUrl),
-                  onBackgroundImageError: (_, __) {},
-                  child: const Icon(
-                    Icons.person,
-                    size: AppSizes.s12,
-                  ),
-                ),
-                AppPadding.p8.horizontalSpace,
-                Expanded(
-                  child: Text(
-                    assignedWorkerName,
-                    style: AppTextStyles.font14Regular.copyWith(
-                      color: AppColors.lightTextPrimary,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          
-          // Due Date
-          Expanded(
-            flex: 2,
-            child: Text(
-              dueDate,
-              style: AppTextStyles.font14Regular.copyWith(
-                color: AppColors.lightTextPrimary,
-              ),
-            ),
-          ),
-          
-          // Status
-          Expanded(
-            flex: 2,
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppPadding.p12,
-                vertical: AppPadding.p4,
-              ),
-              decoration: BoxDecoration(
-                color: isCompleted ? AppColors.green : AppColors.gold,
-                borderRadius: BorderRadius.circular(AppSizes.s12),
-              ),
-              child: Text(
-                status,
-                style: AppTextStyles.font12Regular.copyWith(
-                  color: AppColors.lightBackground,
-                  fontWeight: FontWeight.w500,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-          
-          // Actions
-          Expanded(
-            flex: 2,
-            child: Row(
-              children: [
-                IconButton(
-                  icon: const Icon(
-                    Icons.edit,
-                    color: AppColors.primaryLightColor,
-                    size: AppSizes.s18,
-                  ),
-                  onPressed: onEdit,
-                ),
-                IconButton(
-                  icon: const Icon(
-                    Icons.delete,
-                    color: AppColors.secondryLightColor,
-                    size: AppSizes.s18,
-                  ),
-                  onPressed: onDelete,
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+          ],
+        ),
+      ],
     );
   }
 }

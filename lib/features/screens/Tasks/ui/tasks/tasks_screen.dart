@@ -3,18 +3,22 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
+import 'package:mkaweel/core/shared/widgets/app_bar.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/features/screens/Tasks/controller/Tasks_cubit.dart';
- import 'package:mkaweel/features/screens/Tasks/ui/Tasks/widgets/tasks_header.dart';
+import 'package:mkaweel/features/screens/Tasks/ui/Tasks/widgets/tasks_header.dart';
 import 'package:mkaweel/features/screens/Tasks/ui/Tasks/widgets/tasks_data_table.dart';
- 
+import 'package:mkaweel/features/screens/Tasks/ui/tasks/widgets/task_table_row.dart';
+
 part 'tasks_screen_mixin.dart';
 
 @RoutePage()
 class TasksPage extends StatefulWidget implements AutoRouteWrapper {
   const TasksPage({super.key, required this.args});
+
   final TasksRouteArgs args;
 
   @override
@@ -32,26 +36,45 @@ class TasksPage extends StatefulWidget implements AutoRouteWrapper {
 class _TasksPageState extends TasksPageBaseState {
   @override
   Widget build(BuildContext context) {
-    return Semantics(
-      label: 'tasks_page_semantics'.tr(),
-      child: BlocListener<TasksCubit, TasksState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
-        child: Scaffold(
-          backgroundColor: AppColors.lightBackground,
-          body: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TasksHeader(
-                  onAddTask: ()=>context.push(AddEditTasksRoute(args: AddEditTasksRouteArgs())),
-                ),
-                const TasksDataTable(),
-              ],
-            ),
+    return BlocListener<TasksCubit, TasksState>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      child: Scaffold(
+          backgroundColor: context.theme.scaffoldBackgroundColor,
+          appBar: CustomAppBar(
+            title: 'all_construction_tasks'.tr(),
           ),
-        ),
+          body: BlocSelector<TasksCubit, TasksState, BaseEmit?>(
+            selector: (state) {
+              // TODO: return selected state
+            },
+            builder: (context, state) {
+              return ListView.builder(
+                itemCount: 6, // Example count
+                itemBuilder: (context, index) {
+                  return TaskCarddItem(
+                    index: '${index + 1}',
+                    taskName: 'حفر الأساسات',
+                    taskSubtitle: 'حفر الأساسات للمبنى الأول',
+                    projectName: 'مشروع بناء مجمع سكني',
+                    assignedWorkerName: 'أحمد خالد',
+                    assignedWorkerAvatarUrl: 'https://via.placeholder.com/150',
+                    dueDate: '2026-07-01',
+                    status: index == 0 ? 'Completed' : 'Pending',
+                    // Example
+                    isCompleted: index == 0,
+                    onEdit: () {
+                      // TODO: Navigate to AddEditTasks screen
+                    },
+                    onDelete: () {
+                      // TODO: Delete task
+                    },
+                  );
+                },
+              );
+            },
+          )
       ),
     );
   }
