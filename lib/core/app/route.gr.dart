@@ -15,32 +15,73 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
-    AddEditTasksRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(child: const AddEditTasksPage()),
-      );
-    },
-    AddWorkerRoute.name: (routeData) {
-      final args = routeData.argsAs<AddWorkerRouteArgs>();
+    SuppliersInfoRoute.name: (routeData) {
+      final args = routeData.argsAs<SuppliersInfoRouteArgs>(orElse: () =>   SuppliersInfoRouteArgs.noArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: WrappedRoute(
-            child: AddWorkerPage(
-          key: args.key,
-          args: args.args,
-        )),
+            child: SuppliersInfoPage(
+              args: args ,
+            )),
+      );
+    },
+    AddEditTasksRoute.name: (routeData) {
+      final args = routeData.argsAs<AddEditTasksRouteArgs>( );
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(
+            child: AddEditTasksPage(
+              args: args ,
+            )),
+      );
+    },
+
+    TasksRoute.name: (routeData) {
+      final args = routeData.argsAs<TasksRouteArgs>(
+        orElse: () => TasksRouteArgs.noArgs(),
+      );
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: TasksPage(args: args)),
+      );
+    },
+
+    WasteCalculatorRoute.name: (routeData) {
+      final args = routeData.argsAs<WasteCalculatorRouteArgs>(   );
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: WasteCalculatorPage(args: args)),
+      );
+    },
+
+    AddWorkerRoute.name: (routeData) {
+      final args = routeData.argsAs<AddWorkerRouteArgs>(
+        orElse: () => AddWorkerRouteArgs.noArgs(),
+      );
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: AddWorkerPage(args: args)),
+      );
+    },
+    ProjectDetailsRoute.name: (routeData) {
+      final args = routeData.argsAs<ProjectDetailsRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: ProjectDetailsPage(args: args)),
+      );
+    },
+    PhaseProgressRoute.name: (routeData) {
+      final args = routeData.argsAs<PhaseProgressRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: PhaseProgressPage(args: args)),
       );
     },
     CreateProjectRoute.name: (routeData) {
       final args = routeData.argsAs<CreateProjectRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: WrappedRoute(
-            child: CreateProjectPage(
-          key: args.key,
-          args: args.args,
-        )),
+        child: WrappedRoute(child: CreateProjectPage(args: args)),
       );
     },
     DashboardRoute.name: (routeData) {
@@ -55,6 +96,7 @@ abstract class _$AppRouter extends RootStackRouter {
         child: WrappedRoute(child: const GanttChartPage()),
       );
     },
+
     LoginRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -65,11 +107,7 @@ abstract class _$AppRouter extends RootStackRouter {
       final args = routeData.argsAs<MainHomeRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: WrappedRoute(
-            child: MainHomePage(
-          key: args.key,
-          args: args.args,
-        )),
+        child: WrappedRoute(child: MainHomePage(args: args)),
       );
     },
     MarketPricesRoute.name: (routeData) {
@@ -84,34 +122,7 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const OnboardingPage(),
       );
     },
-    PhaseProgressRoute.name: (routeData) {
-      final args = routeData.argsAs<PhaseProgressRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(
-            child: PhaseProgressPage(
-          key: args.key,
-          args: args.args,
-        )),
-      );
-    },
-    ProfileScreen.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(child: const ProfileScreen()),
-      );
-    },
-    ProjectDetailsRoute.name: (routeData) {
-      final args = routeData.argsAs<ProjectDetailsRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(
-            child: ProjectDetailsPage(
-          key: args.key,
-          args: args.args,
-        )),
-      );
-    },
+
     ProjectsRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -130,39 +141,7 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const SplashPage(),
       );
     },
-    SuppliersInfoRoute.name: (routeData) {
-      final args = routeData.argsAs<SuppliersInfoRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(
-            child: SuppliersInfoPage(
-          key: args.key,
-          args: args.args,
-        )),
-      );
-    },
-    TasksRoute.name: (routeData) {
-      final args = routeData.argsAs<TasksRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(
-            child: TasksPage(
-          key: args.key,
-          args: args.args,
-        )),
-      );
-    },
-    WasteCalculatorRoute.name: (routeData) {
-      final args = routeData.argsAs<WasteCalculatorRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(
-            child: WasteCalculatorPage(
-          key: args.key,
-          args: args.args,
-        )),
-      );
-    },
+
     WorkersRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -173,103 +152,52 @@ abstract class _$AppRouter extends RootStackRouter {
 }
 
 /// generated route for
-/// [AddEditTasksPage]
-class AddEditTasksRoute extends PageRouteInfo<void> {
-  const AddEditTasksRoute({List<PageRouteInfo>? children})
-      : super(
-          AddEditTasksRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'AddEditTasksRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [AddWorkerPage]
-class AddWorkerRoute extends PageRouteInfo<AddWorkerRouteArgs> {
-  AddWorkerRoute({
-    Key? key,
-    required InvalidType args,
+/// [CreateTaskPage]
+class CreateTaskRoute extends PageRouteInfo<CreateTaskRouteArgs> {
+  CreateTaskRoute({
+    required CreateTaskRouteArgs args,
     List<PageRouteInfo>? children,
-  }) : super(
-          AddWorkerRoute.name,
-          args: AddWorkerRouteArgs(
-            key: key,
-            args: args,
-          ),
-          initialChildren: children,
-        );
+  }) : super(CreateTaskRoute.name, args: args, initialChildren: children);
 
-  static const String name = 'AddWorkerRoute';
+  static const String name = 'CreateTaskRoute';
 
-  static const PageInfo<AddWorkerRouteArgs> page =
-      PageInfo<AddWorkerRouteArgs>(name);
+  static const PageInfo<CreateTaskRouteArgs> page =
+  PageInfo<CreateTaskRouteArgs>(name);
 }
 
-class AddWorkerRouteArgs {
-  const AddWorkerRouteArgs({
-    this.key,
-    required this.args,
-  });
+class CreateTaskRouteArgs {
+  const CreateTaskRouteArgs();
 
-  final Key? key;
-
-  final InvalidType args;
-
-  @override
-  String toString() {
-    return 'AddWorkerRouteArgs{key: $key, args: $args}';
-  }
+  static CreateTaskRouteArgs noArgs() => CreateTaskRouteArgs();
 }
 
 /// generated route for
 /// [CreateProjectPage]
+
 class CreateProjectRoute extends PageRouteInfo<CreateProjectRouteArgs> {
   CreateProjectRoute({
-    Key? key,
-    required InvalidType args,
+    required CreateProjectRouteArgs args,
     List<PageRouteInfo>? children,
-  }) : super(
-          CreateProjectRoute.name,
-          args: CreateProjectRouteArgs(
-            key: key,
-            args: args,
-          ),
-          initialChildren: children,
-        );
+  }) : super(CreateProjectRoute.name, args: args, initialChildren: children);
 
   static const String name = 'CreateProjectRoute';
 
   static const PageInfo<CreateProjectRouteArgs> page =
-      PageInfo<CreateProjectRouteArgs>(name);
+  PageInfo<CreateProjectRouteArgs>(name);
 }
 
 class CreateProjectRouteArgs {
-  const CreateProjectRouteArgs({
-    this.key,
-    required this.args,
-  });
+  const CreateProjectRouteArgs(this.projectId,this.projectsCubit);
 
-  final Key? key;
-
-  final InvalidType args;
-
-  @override
-  String toString() {
-    return 'CreateProjectRouteArgs{key: $key, args: $args}';
-  }
+  final String? projectId;
+  final ProjectsCubit   projectsCubit;
 }
 
 /// generated route for
 /// [DashboardPage]
 class DashboardRoute extends PageRouteInfo<void> {
   const DashboardRoute({List<PageRouteInfo>? children})
-      : super(
-          DashboardRoute.name,
-          initialChildren: children,
-        );
+      : super(DashboardRoute.name, initialChildren: children);
 
   static const String name = 'DashboardRoute';
 
@@ -280,10 +208,7 @@ class DashboardRoute extends PageRouteInfo<void> {
 /// [GanttChartPage]
 class GanttChartRoute extends PageRouteInfo<void> {
   const GanttChartRoute({List<PageRouteInfo>? children})
-      : super(
-          GanttChartRoute.name,
-          initialChildren: children,
-        );
+      : super(GanttChartRoute.name, initialChildren: children);
 
   static const String name = 'GanttChartRoute';
 
@@ -294,62 +219,22 @@ class GanttChartRoute extends PageRouteInfo<void> {
 /// [LoginPage]
 class LoginRoute extends PageRouteInfo<void> {
   const LoginRoute({List<PageRouteInfo>? children})
-      : super(
-          LoginRoute.name,
-          initialChildren: children,
-        );
+      : super(LoginRoute.name, initialChildren: children);
 
   static const String name = 'LoginRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
 
-/// generated route for
-/// [MainHomePage]
-class MainHomeRoute extends PageRouteInfo<MainHomeRouteArgs> {
-  MainHomeRoute({
-    Key? key,
-    required InvalidType args,
-    List<PageRouteInfo>? children,
-  }) : super(
-          MainHomeRoute.name,
-          args: MainHomeRouteArgs(
-            key: key,
-            args: args,
-          ),
-          initialChildren: children,
-        );
-
-  static const String name = 'MainHomeRoute';
-
-  static const PageInfo<MainHomeRouteArgs> page =
-      PageInfo<MainHomeRouteArgs>(name);
-}
-
 class MainHomeRouteArgs {
-  const MainHomeRouteArgs({
-    this.key,
-    required this.args,
-  });
-
-  final Key? key;
-
-  final InvalidType args;
-
-  @override
-  String toString() {
-    return 'MainHomeRouteArgs{key: $key, args: $args}';
-  }
+  const MainHomeRouteArgs();
 }
 
 /// generated route for
 /// [MarketPricesPage]
 class MarketPricesRoute extends PageRouteInfo<void> {
   const MarketPricesRoute({List<PageRouteInfo>? children})
-      : super(
-          MarketPricesRoute.name,
-          initialChildren: children,
-        );
+      : super(MarketPricesRoute.name, initialChildren: children);
 
   static const String name = 'MarketPricesRoute';
 
@@ -360,10 +245,7 @@ class MarketPricesRoute extends PageRouteInfo<void> {
 /// [OnboardingPage]
 class OnboardingRoute extends PageRouteInfo<void> {
   const OnboardingRoute({List<PageRouteInfo>? children})
-      : super(
-          OnboardingRoute.name,
-          initialChildren: children,
-        );
+      : super(OnboardingRoute.name, initialChildren: children);
 
   static const String name = 'OnboardingRoute';
 
@@ -371,103 +253,21 @@ class OnboardingRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [PhaseProgressPage]
-class PhaseProgressRoute extends PageRouteInfo<PhaseProgressRouteArgs> {
-  PhaseProgressRoute({
-    Key? key,
-    required InvalidType args,
-    List<PageRouteInfo>? children,
-  }) : super(
-          PhaseProgressRoute.name,
-          args: PhaseProgressRouteArgs(
-            key: key,
-            args: args,
-          ),
-          initialChildren: children,
-        );
+/// [PerformancePage]
+class PerformanceRoute extends PageRouteInfo<void> {
+  const PerformanceRoute({List<PageRouteInfo>? children})
+      : super(PerformanceRoute.name, initialChildren: children);
 
-  static const String name = 'PhaseProgressRoute';
-
-  static const PageInfo<PhaseProgressRouteArgs> page =
-      PageInfo<PhaseProgressRouteArgs>(name);
-}
-
-class PhaseProgressRouteArgs {
-  const PhaseProgressRouteArgs({
-    this.key,
-    required this.args,
-  });
-
-  final Key? key;
-
-  final InvalidType args;
-
-  @override
-  String toString() {
-    return 'PhaseProgressRouteArgs{key: $key, args: $args}';
-  }
-}
-
-/// generated route for
-/// [ProfileScreen]
-class ProfileScreen extends PageRouteInfo<void> {
-  const ProfileScreen({List<PageRouteInfo>? children})
-      : super(
-          ProfileScreen.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'ProfileScreen';
+  static const String name = 'PerformanceRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [ProjectDetailsPage]
-class ProjectDetailsRoute extends PageRouteInfo<ProjectDetailsRouteArgs> {
-  ProjectDetailsRoute({
-    Key? key,
-    required InvalidType args,
-    List<PageRouteInfo>? children,
-  }) : super(
-          ProjectDetailsRoute.name,
-          args: ProjectDetailsRouteArgs(
-            key: key,
-            args: args,
-          ),
-          initialChildren: children,
-        );
-
-  static const String name = 'ProjectDetailsRoute';
-
-  static const PageInfo<ProjectDetailsRouteArgs> page =
-      PageInfo<ProjectDetailsRouteArgs>(name);
-}
-
-class ProjectDetailsRouteArgs {
-  const ProjectDetailsRouteArgs({
-    this.key,
-    required this.args,
-  });
-
-  final Key? key;
-
-  final InvalidType args;
-
-  @override
-  String toString() {
-    return 'ProjectDetailsRouteArgs{key: $key, args: $args}';
-  }
 }
 
 /// generated route for
 /// [ProjectsPage]
 class ProjectsRoute extends PageRouteInfo<void> {
   const ProjectsRoute({List<PageRouteInfo>? children})
-      : super(
-          ProjectsRoute.name,
-          initialChildren: children,
-        );
+      : super(ProjectsRoute.name, initialChildren: children);
 
   static const String name = 'ProjectsRoute';
 
@@ -478,10 +278,7 @@ class ProjectsRoute extends PageRouteInfo<void> {
 /// [SettingsPage]
 class SettingsRoute extends PageRouteInfo<void> {
   const SettingsRoute({List<PageRouteInfo>? children})
-      : super(
-          SettingsRoute.name,
-          initialChildren: children,
-        );
+      : super(SettingsRoute.name, initialChildren: children);
 
   static const String name = 'SettingsRoute';
 
@@ -492,69 +289,130 @@ class SettingsRoute extends PageRouteInfo<void> {
 /// [SplashPage]
 class SplashRoute extends PageRouteInfo<void> {
   const SplashRoute({List<PageRouteInfo>? children})
-      : super(
-          SplashRoute.name,
-          initialChildren: children,
-        );
+      : super(SplashRoute.name, initialChildren: children);
 
   static const String name = 'SplashRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
 
+
 /// generated route for
-/// [SuppliersInfoPage]
-class SuppliersInfoRoute extends PageRouteInfo<SuppliersInfoRouteArgs> {
-  SuppliersInfoRoute({
-    Key? key,
-    required InvalidType args,
-    List<PageRouteInfo>? children,
-  }) : super(
-          SuppliersInfoRoute.name,
-          args: SuppliersInfoRouteArgs(
-            key: key,
-            args: args,
-          ),
-          initialChildren: children,
-        );
+/// [ProfileScreenPage]
+class ProfileScreenPageRoute extends PageRouteInfo<void> {
+  const ProfileScreenPageRoute({List<PageRouteInfo>? children})
+      : super(ProfileScreenPageRoute.name, initialChildren: children);
 
-  static const String name = 'SuppliersInfoRoute';
+  static const String name = 'ProfileScreenPageRoute';
 
-  static const PageInfo<SuppliersInfoRouteArgs> page =
-      PageInfo<SuppliersInfoRouteArgs>(name);
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
-class SuppliersInfoRouteArgs {
-  const SuppliersInfoRouteArgs({
-    this.key,
-    required this.args,
+/// generated route for
+/// [WorkersPage]
+class WorkersRoute extends PageRouteInfo<void> {
+  const WorkersRoute({List<PageRouteInfo>? children})
+      : super(WorkersRoute.name, initialChildren: children);
+
+  static const String name = 'WorkersRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [ProjectDetailsPage]
+class ProjectDetailsRoute extends PageRouteInfo<ProjectDetailsRouteArgs> {
+  ProjectDetailsRoute({
+    required ProjectDetailsRouteArgs args,
+    List<PageRouteInfo>? children,
+  }) : super(ProjectDetailsRoute.name, args: args, initialChildren: children);
+
+  static const String name = 'ProjectDetailsRoute';
+
+  static const PageInfo<ProjectDetailsRouteArgs> page =
+  PageInfo<ProjectDetailsRouteArgs>(name);
+}
+
+class ProjectDetailsRouteArgs {
+  const ProjectDetailsRouteArgs({required this.projectsCubit,required this.projectInfoData});
+
+  final ProjectsCubit projectsCubit;
+  final ProjectInfoData projectInfoData;
+}
+
+/// generated route for
+/// [PhaseProgressPage]
+class PhaseProgressRoute extends PageRouteInfo<PhaseProgressRouteArgs> {
+  PhaseProgressRoute({
+    required PhaseProgressRouteArgs args,
+    List<PageRouteInfo>? children,
+  }) : super(PhaseProgressRoute.name, args: args, initialChildren: children);
+
+  static const String name = 'PhaseProgressRoute';
+
+  static const PageInfo<PhaseProgressRouteArgs> page =
+  PageInfo<PhaseProgressRouteArgs>(name);
+}
+
+class PhaseProgressRouteArgs {
+  const PhaseProgressRouteArgs({required this.projectPhaseItem,required this.projectsCubit });
+  final ProjectphaseItem   projectPhaseItem;
+  final ProjectsCubit   projectsCubit;
+}
+
+///generated route for
+/// [MainHomePage]
+class MainHomeRoute extends PageRouteInfo<MainHomeRouteArgs> {
+  MainHomeRoute({
+    required MainHomeRouteArgs args,
+    List<PageRouteInfo>? children,
+  }) : super(MainHomeRoute.name, args: args, initialChildren: children);
+
+  static const String name = 'MainHomeRoute';
+
+  static const PageInfo<MainHomeRouteArgs> page = PageInfo<MainHomeRouteArgs>(
+    name,
+  );
+}
+
+/// generated route for
+/// [AddWorkerPage]
+class AddWorkerRoute extends PageRouteInfo<AddWorkerRouteArgs> {
+  AddWorkerRoute({
+    required AddWorkerRouteArgs args,
+    List<PageRouteInfo>? children,
+  }) : super(AddWorkerRoute.name, args: args, initialChildren: children);
+
+  static const String name = 'AddWorkerRoute';
+
+  static const PageInfo<AddWorkerRouteArgs> page = PageInfo<AddWorkerRouteArgs>(
+    name,
+  );
+}
+
+class AddWorkerRouteArgs {
+  const AddWorkerRouteArgs({
+    required this.workerItem,
+    required this.projectsCubit,
+    required this.workersCubit,
   });
 
-  final Key? key;
+  final WorkerItem? workerItem;
+  final ProjectsCubit? projectsCubit;
+  final WorkersCubit? workersCubit;
 
-  final InvalidType args;
-
-  @override
-  String toString() {
-    return 'SuppliersInfoRouteArgs{key: $key, args: $args}';
-  }
+  static AddWorkerRouteArgs noArgs() => AddWorkerRouteArgs(
+    workerItem: null,
+    projectsCubit: null,
+    workersCubit: null,
+  );
 }
 
 /// generated route for
 /// [TasksPage]
 class TasksRoute extends PageRouteInfo<TasksRouteArgs> {
-  TasksRoute({
-    Key? key,
-    required InvalidType args,
-    List<PageRouteInfo>? children,
-  }) : super(
-          TasksRoute.name,
-          args: TasksRouteArgs(
-            key: key,
-            args: args,
-          ),
-          initialChildren: children,
-        );
+  TasksRoute({required TasksRouteArgs args, List<PageRouteInfo>? children})
+      : super(TasksRoute.name, args: args, initialChildren: children);
 
   static const String name = 'TasksRoute';
 
@@ -562,69 +420,71 @@ class TasksRoute extends PageRouteInfo<TasksRouteArgs> {
 }
 
 class TasksRouteArgs {
-  const TasksRouteArgs({
-    this.key,
-    required this.args,
-  });
+  const TasksRouteArgs();
 
-  final Key? key;
-
-  final InvalidType args;
-
-  @override
-  String toString() {
-    return 'TasksRouteArgs{key: $key, args: $args}';
-  }
+  static TasksRouteArgs noArgs() => TasksRouteArgs();
 }
 
+
+
+
 /// generated route for
-/// [WasteCalculatorPage]
+/// [TasksvPage]
 class WasteCalculatorRoute extends PageRouteInfo<WasteCalculatorRouteArgs> {
-  WasteCalculatorRoute({
-    Key? key,
-    required InvalidType args,
-    List<PageRouteInfo>? children,
-  }) : super(
-          WasteCalculatorRoute.name,
-          args: WasteCalculatorRouteArgs(
-            key: key,
-            args: args,
-          ),
-          initialChildren: children,
-        );
+  WasteCalculatorRoute({required WasteCalculatorRouteArgs args, List<PageRouteInfo>? children})
+      : super(WasteCalculatorRoute.name, args: args, initialChildren: children);
 
   static const String name = 'WasteCalculatorRoute';
 
-  static const PageInfo<WasteCalculatorRouteArgs> page =
-      PageInfo<WasteCalculatorRouteArgs>(name);
+  static const PageInfo<WasteCalculatorRouteArgs> page = PageInfo<WasteCalculatorRouteArgs>(name);
 }
 
 class WasteCalculatorRouteArgs {
-  const WasteCalculatorRouteArgs({
-    this.key,
-    required this.args,
-  });
-
-  final Key? key;
-
-  final InvalidType args;
-
-  @override
-  String toString() {
-    return 'WasteCalculatorRouteArgs{key: $key, args: $args}';
-  }
+  const WasteCalculatorRouteArgs(this.dashboardCubit);
+  final DashboardCubit dashboardCubit;
 }
+
+
+
 
 /// generated route for
-/// [WorkersPage]
-class WorkersRoute extends PageRouteInfo<void> {
-  const WorkersRoute({List<PageRouteInfo>? children})
-      : super(
-          WorkersRoute.name,
-          initialChildren: children,
-        );
+/// [SuppliersInfoPage]
+class SuppliersInfoRoute extends PageRouteInfo<SuppliersInfoRouteArgs> {
+  SuppliersInfoRoute({
+    required SuppliersInfoRouteArgs args  ,
+    List<PageRouteInfo>? children,
+  }) : super(
+    SuppliersInfoRoute.name,
+    args: args,
+    initialChildren: children,
+  );
 
-  static const String name = 'WorkersRoute';
+  static const String name = 'SuppliersInfoRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<SuppliersInfoRouteArgs> page =
+  PageInfo<SuppliersInfoRouteArgs>(name);
 }
+class SuppliersInfoRouteArgs {
+  const SuppliersInfoRouteArgs( );
+  static SuppliersInfoRouteArgs noArgs()=>SuppliersInfoRouteArgs();
+}
+/// generated route for
+/// [AddEditTasksPage]
+class AddEditTasksRoute extends PageRouteInfo<AddEditTasksRouteArgs> {
+  AddEditTasksRoute({
+    required AddEditTasksRouteArgs args  ,
+    List<PageRouteInfo>? children,
+  }) : super(
+    AddEditTasksRoute.name,
+    args: args,
+    initialChildren: children,
+  );
+
+  static const String name = 'SuppliersInfoRoute';
+
+  static const PageInfo<AddEditTasksRouteArgs> page =
+  PageInfo<AddEditTasksRouteArgs>(name);
+}
+class AddEditTasksRouteArgs {
+  const AddEditTasksRouteArgs( );
+ }

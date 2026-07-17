@@ -41,7 +41,7 @@ class AppLocator {
 
   void init(){
 
-    ///..................Tasks.................///
+    ///..................tasks.................///
     _sl.registerLazySingleton(() => TasksRepo(_sl()));
     _sl.registerLazySingleton(() => TasksService(_sl(), _sl()));
     _sl.registerFactory(() => TasksCubit(_sl()));

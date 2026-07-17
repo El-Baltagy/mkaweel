@@ -99,7 +99,7 @@ class TaskForm extends StatelessWidget {
           _buildLabel('due_date'.tr()),
           AppPadding.p8.verticalSpace,
           TextInputWidget(
-            data: DobTextInputData(
+            data: DOPInputData(
               controller: dueDateController,
               labelText: 'mm/dd/yyyy',
             ),

@@ -9,9 +9,8 @@ import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/features/screens/Tasks/controller/Tasks_cubit.dart';
-import 'package:mkaweel/features/screens/Tasks/controller/Tasks_state.dart';
-import 'package:mkaweel/features/screens/Tasks/ui/AddEditTasks/widgets/action_buttons.dart';
-import 'package:mkaweel/features/screens/Tasks/ui/AddEditTasks/widgets/task_form.dart';
+import 'package:mkaweel/features/screens/Tasks/ui/add_edit_tasks/widgets/action_buttons.dart';
+import 'package:mkaweel/features/screens/Tasks/ui/add_edit_tasks/widgets/task_form.dart';
 
 part 'add_edit_tasks_mixin.dart';
 
@@ -42,10 +41,9 @@ class _AddEditTasksPageState extends AddEditTasksBaseState {
         },
         child: Scaffold(
           backgroundColor: AppColors.lightSurface,
-          appBar: MainAppBar(
+          appBar: CustomAppBar(
             title: 'create_task_title'.tr(),
-            isBack: true,
-          ),
+           ),
           body: Column(
             children: [
               Expanded(

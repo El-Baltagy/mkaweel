@@ -1,4 +1,4 @@
-part of 'Tasks_screen.dart';
+part of 'tasks_screen.dart';
 
 abstract class TasksPageBaseState extends State<TasksPage> {
   late final TasksCubit tasksCubit;

@@ -9,7 +9,7 @@ import 'package:mkaweel/features/screens/Tasks/controller/Tasks_cubit.dart';
  import 'package:mkaweel/features/screens/Tasks/ui/Tasks/widgets/tasks_header.dart';
 import 'package:mkaweel/features/screens/Tasks/ui/Tasks/widgets/tasks_data_table.dart';
  
-part 'Tasks_screen_mixin.dart';
+part 'tasks_screen_mixin.dart';
 
 @RoutePage()
 class TasksPage extends StatefulWidget implements AutoRouteWrapper {
