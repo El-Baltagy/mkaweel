@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
@@ -20,9 +21,13 @@ class TodayTasksWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
                 Text('tasks'.tr(), style: AppTextStyles.font16SemiBold),
-              Text(
-                'show_all'.tr(),
-                style: AppTextStyles.font14Regular.copyWith(color: Theme.of(context).primaryColor),
+              GestureDetector(
+                //AddEditTasksPage
+                onTap: () => context.push(TasksRoute(args: TasksRouteArgs())),
+                child: Text(
+                  'show_all'.tr(),
+                  style: AppTextStyles.font14Regular.copyWith(color: Theme.of(context).primaryColor),
+                ),
               ),
             ],
           ),

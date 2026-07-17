@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
+import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/features/screens/Tasks/controller/Tasks_cubit.dart';
  import 'package:mkaweel/features/screens/Tasks/ui/Tasks/widgets/tasks_header.dart';
@@ -44,9 +45,7 @@ class _TasksPageState extends TasksPageBaseState {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TasksHeader(
-                  onAddTask: () {
-                    // TODO: Implement add task logic
-                  },
+                  onAddTask: ()=>context.push(AddEditTasksRoute(args: AddEditTasksRouteArgs())),
                 ),
                 const TasksDataTable(),
               ],
