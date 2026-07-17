@@ -290,3 +290,15 @@ assigned_worker,Assigned Worker,العامل المعين
 due_date,Due Date,تاريخ الاستحقاق
 status,Status,الحالة
 actions,Actions,الإجراءات
+
+create_task_title,CREATE TASK,إنشاء مهمة
+task_information,Task Information,معلومات المهمة
+e_g_concrete_pouring,e.g. Concrete Pouring - Phase 1,مثال: صب الخرسانة - المرحلة 1
+select_project,Select Project,حدد المشروع
+construction_phase,Construction Phase,مرحلة البناء
+select_phase,Select Phase...,حدد المرحلة...
+unassigned,Unassigned,غير معين
+task_description,Task Description,وصف المهمة
+detail_the_steps,Detail the steps materials and safety rules for this task...,فصل الخطوات والمواد وقواعد السلامة لهذه المهمة...
+cancel,Cancel,إلغاء
+create_task_btn,Create Task,إنشاء المهمة
