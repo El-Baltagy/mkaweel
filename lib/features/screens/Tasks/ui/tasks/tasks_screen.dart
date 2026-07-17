@@ -9,11 +9,20 @@ import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/shared/widgets/app_bar.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/features/screens/Tasks/controller/Tasks_cubit.dart';
-import 'package:mkaweel/features/screens/Tasks/ui/Tasks/widgets/tasks_header.dart';
-import 'package:mkaweel/features/screens/Tasks/ui/Tasks/widgets/tasks_data_table.dart';
-import 'package:mkaweel/features/screens/Tasks/ui/tasks/widgets/task_table_row.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:mkaweel/core/extension/double.dart';
+import 'package:mkaweel/core/shared/methods/date_helper.dart';
+import 'package:mkaweel/core/theming/app_colors.dart';
+import 'package:mkaweel/core/theming/app_text_styles.dart';
+import 'package:mkaweel/core/theming/app_values.dart';
+import 'package:mkaweel/features/screens/Tasks/data/model/tasks_res/tasks_res.dart';
 
 part 'tasks_screen_mixin.dart';
+
+part 'widgets/task_item.dart';
+part 'widgets/worker_item.dart';
+part 'widgets/detailed_item.dart';
 
 @RoutePage()
 class TasksPage extends StatefulWidget implements AutoRouteWrapper {
@@ -41,40 +50,39 @@ class _TasksPageState extends TasksPageBaseState {
         // TODO: implement listener
       },
       child: Scaffold(
-          backgroundColor: context.theme.scaffoldBackgroundColor,
-          appBar: CustomAppBar(
-            title: 'all_construction_tasks'.tr(),
-          ),
-          body: BlocSelector<TasksCubit, TasksState, BaseEmit?>(
-            selector: (state) {
-              // TODO: return selected state
-            },
-            builder: (context, state) {
-              return ListView.builder(
-                itemCount: 6, // Example count
-                itemBuilder: (context, index) {
-                  return TaskCarddItem(
-                    index: '${index + 1}',
-                    taskName: 'حفر الأساسات',
-                    taskSubtitle: 'حفر الأساسات للمبنى الأول',
-                    projectName: 'مشروع بناء مجمع سكني',
-                    assignedWorkerName: 'أحمد خالد',
-                    assignedWorkerAvatarUrl: 'https://via.placeholder.com/150',
-                    dueDate: '2026-07-01',
-                    status: index == 0 ? 'Completed' : 'Pending',
-                    // Example
-                    isCompleted: index == 0,
-                    onEdit: () {
-                      // TODO: Navigate to AddEditTasks screen
-                    },
-                    onDelete: () {
-                      // TODO: Delete task
-                    },
-                  );
-                },
-              );
-            },
-          )
+        backgroundColor: context.theme.scaffoldBackgroundColor,
+        appBar: CustomAppBar(title: 'all_construction_tasks'.tr()),
+        body: BlocSelector<TasksCubit, TasksState, BaseEmit?>(
+          selector: (state) {
+            // TODO: return selected state
+          },
+          builder: (context, state) {
+            return ListView.builder(
+              itemCount: 6, // Example count
+              itemBuilder: (context, index) {
+                return TaskCardItem(
+                  taskItem: TaskItem.getEmptyItem,
+                  // index: '${index + 1}',
+                  // taskName: 'حفر الأساسات',
+                  // taskSubtitle: 'حفر الأساسات للمبنى الأول',
+                  // projectName: 'مشروع بناء مجمع سكني',
+                  // assignedWorkerName: 'أحمد خالد',
+                  // assignedWorkerAvatarUrl: 'https://via.placeholder.com/150',
+                  // dueDate: '2026-07-01',
+                  // status: index == 0 ? 'Completed' : 'Pending',
+                  // // Example
+                  // isCompleted: index == 0,
+                  // onEdit: () {
+                  //   // TODO: Navigate to AddEditTasks screen
+                  // },
+                  // onDelete: () {
+                  //   // TODO: Delete task
+                  // },
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }

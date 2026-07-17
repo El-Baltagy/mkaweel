@@ -25,22 +25,22 @@ class ProjectPhasesRes with _$ProjectPhasesRes, EquatableMixin {
 
 @freezed
 class ProjectphaseItem with _$ProjectphaseItem, EquatableMixin {
-  static ProjectphaseItem getEmptyItem  =   .new(
-    id: 1,
-    project_id: 2,
-    phase_id: 3,
-    name: 'name',
-    description: 'description',
-    planned_start_date: DateTime.now().toString(),
-    planned_end_date: DateTime.now().toString(),
-    actual_start_date: DateTime.now().toString(),
-    actual_end_date: DateTime.now().toString(),
-    progress_percentage: 0,
-    status: 'status',
-    notes: 'notes',
-    created_at: DateTime.now().toString(),
-    updated_at: DateTime.now().toString(),
-  );
+  static ProjectphaseItem getEmptyItem  =  ProjectphaseItem.fromJson( {
+    "id": 13,
+    "project_id": 10,
+    "phase_id": 1,
+    "name": "Site Preparation",
+    "description": "Site handover, fencing, and temporary utilities setup",
+    "planned_start_date": "2026-08-15",
+    "planned_end_date": "2026-09-15",
+    "actual_start_date": "2026-10-15",
+    "actual_end_date": "2026-11-15",
+    "progress_percentage": 50,
+    "status": "in_progress",
+    "notes": "تم الانتهاء من نصف أعمال الأساسات",
+    "created_at": "2026-07-05T23:03:35.000000Z",
+    "updated_at": "2026-07-16T01:08:32.000000Z"
+  });
 
   const ProjectphaseItem._();
 
