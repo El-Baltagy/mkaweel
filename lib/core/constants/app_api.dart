@@ -35,4 +35,6 @@ abstract class EndPoints {
   static   String updatePhase (String id) =>  '/api/project-phases/$id/store';
 
   static const String getStatistics = '/api/statistics';
+
+  static const String getTasks = '/api/tasks';
 }

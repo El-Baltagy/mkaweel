@@ -302,3 +302,6 @@ task_description,Task Description,وصف المهمة
 detail_the_steps,Detail the steps materials and safety rules for this task...,فصل الخطوات والمواد وقواعد السلامة لهذه المهمة...
 cancel,Cancel,إلغاء
 create_task_btn,Create Task,إنشاء المهمة
+
+delete_task,delete task,حذف المهمة
+do_you_want_to_delete_this_task,do you want to delete this task,هل تريد حذف هذه المهمة

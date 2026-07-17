@@ -64,4 +64,8 @@ abstract class AppConstant {
   static const String getStatisticsKeyCash = 'dashboard_getStatistics_cache';
 
   static const int getStatisticsKeyCode = 5479;
+
+  static const String getTasksKeyCash = 'Tasks_getTasks_cache';
+
+  static const int getTasksKeyCode = 1708;
 }

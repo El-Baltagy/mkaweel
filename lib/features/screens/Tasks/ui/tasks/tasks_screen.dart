@@ -3,10 +3,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/shared/widgets/app_bar.dart';
+import 'package:mkaweel/core/shared/widgets/entrance_fader.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/features/screens/Tasks/controller/Tasks_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -17,6 +19,8 @@ import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/features/screens/Tasks/data/model/tasks_res/tasks_res.dart';
+import 'package:mkaweel/features/screens/projects/ui/all_projects/widgets/delete_pj_dialouge.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 part 'tasks_screen_mixin.dart';
 
@@ -46,44 +50,34 @@ class _TasksPageState extends TasksPageBaseState {
   @override
   Widget build(BuildContext context) {
     return BlocListener<TasksCubit, TasksState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+      listener: tasksListener,
       child: Scaffold(
         backgroundColor: context.theme.scaffoldBackgroundColor,
         appBar: CustomAppBar(title: 'all_construction_tasks'.tr()),
         body: BlocSelector<TasksCubit, TasksState, BaseEmit?>(
-          selector: (state) {
-            // TODO: return selected state
-          },
+          selector: (state) =>state is TasksLoaded?state.getTasksState:null,
           builder: (context, state) {
-            return ListView.builder(
-              itemCount: 6, // Example count
-              itemBuilder: (context, index) {
-                return TaskCardItem(
-                  taskItem: TaskItem.getEmptyItem,
-                  // index: '${index + 1}',
-                  // taskName: 'حفر الأساسات',
-                  // taskSubtitle: 'حفر الأساسات للمبنى الأول',
-                  // projectName: 'مشروع بناء مجمع سكني',
-                  // assignedWorkerName: 'أحمد خالد',
-                  // assignedWorkerAvatarUrl: 'https://via.placeholder.com/150',
-                  // dueDate: '2026-07-01',
-                  // status: index == 0 ? 'Completed' : 'Pending',
-                  // // Example
-                  // isCompleted: index == 0,
-                  // onEdit: () {
-                  //   // TODO: Navigate to AddEditTasks screen
-                  // },
-                  // onDelete: () {
-                  //   // TODO: Delete task
-                  // },
-                );
-              },
+            bool isLoading=state is ! Success<TasksRes>;
+            List<TaskItem>listTasks=isLoading?List.generate(4, (index) => TaskItem.getEmptyItem):
+            (state).data!.data;
+            return EntranceFader(
+              dx: context.isLTR?-32: 32,
+              enableAnimation: !isLoading,
+              child: ListView.builder(
+                itemCount: listTasks.length, // Example count
+                itemBuilder: (context, index) {
+                  return TaskCardItem(
+                    taskItem: listTasks[index],
+                    isLoading:isLoading ,
+                  );
+                },
+              ),
             );
           },
         ),
       ),
     );
   }
+
+
 }
