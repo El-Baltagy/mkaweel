@@ -9,6 +9,7 @@ import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
+import 'package:mkaweel/core/shared/methods/print.dart';
 import 'package:mkaweel/core/shared/widgets/app_bar.dart';
 import 'package:mkaweel/core/shared/widgets/entrance_fader.dart';
 import 'package:mkaweel/features/screens/dashboard/controller/dashboard_cubit.dart';
@@ -20,7 +21,9 @@ part 'suppliers_info_screen_mixin.dart';
 
 
 part 'widgets/detailed_row.dart';
+part 'widgets/supplier.dart';
 part 'widgets/header.dart';
+part 'widgets/show_more_less.dart';
 
 @RoutePage()
 class SuppliersInfoPage extends StatefulWidget implements AutoRouteWrapper {

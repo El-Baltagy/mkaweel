@@ -26,7 +26,7 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     SuppliersInfoRoute.name: (routeData) {
-      final args = routeData.argsAs<SuppliersInfoRouteArgs>(orElse: () =>   SuppliersInfoRouteArgs.noArgs());
+      final args = routeData.argsAs<SuppliersInfoRouteArgs>( );
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: WrappedRoute(
@@ -35,6 +35,14 @@ abstract class _$AppRouter extends RootStackRouter {
             )),
       );
     },
+    GanttChartRoute.name: (routeData) {
+      final args = routeData.argsAs<GanttChartRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child:   GanttChartPage(args:args)),
+      );
+    },
+
     AddEditTasksRoute.name: (routeData) {
       final args = routeData.argsAs<AddEditTasksRouteArgs>( );
       return AutoRoutePage<dynamic>(
@@ -98,13 +106,6 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: WrappedRoute(child: const DashboardPage()),
-      );
-    },
-    GanttChartRoute.name: (routeData) {
-      final args = routeData.argsAs<GanttChartRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(child:   GanttChartPage(args:args)),
       );
     },
 
@@ -228,7 +229,7 @@ class GanttChartRoute extends PageRouteInfo<GanttChartRouteArgs> {
     initialChildren: children,
   );
 
-  static const String name = 'SuppliersInfoRoute';
+  static const String name = 'GanttChartRoute';
 
   static const PageInfo<GanttChartRouteArgs> page =
   PageInfo<GanttChartRouteArgs>(name);
@@ -503,7 +504,7 @@ class AddEditTasksRoute extends PageRouteInfo<AddEditTasksRouteArgs> {
     initialChildren: children,
   );
 
-  static const String name = 'SuppliersInfoRoute';
+  static const String name = 'AddEditTasksRoute';
 
   static const PageInfo<AddEditTasksRouteArgs> page =
   PageInfo<AddEditTasksRouteArgs>(name);
