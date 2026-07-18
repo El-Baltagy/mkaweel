@@ -55,10 +55,10 @@ class _GanttChartPageState extends GanttChartPageBaseState {
         appBar: CustomAppBar(
           title: 'gantt_chart'.tr(),
           actions: [
-            IconButton(
-              icon: const Icon(Icons.sync, color: Colors.white),
-              onPressed: () {},
-            )
+            // IconButton(
+            //   icon: const Icon(Icons.sync, color: Colors.white),
+            //   onPressed: () {},
+            // )
           ]
         ),
 

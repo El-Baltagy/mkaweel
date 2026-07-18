@@ -39,9 +39,7 @@ class GhantChart extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      'project_phase_details'.tr(
-                        //defaultValue: 'Project Phase Details'
-                      ),
+                      'project_phase_details'.tr( ),
                       style: AppTextStyles.font14Regular.copyWith(
                         color: AppColors.contractorGreyText,
                         fontWeight: FontWeight.w600,
@@ -66,9 +64,7 @@ class GhantChart extends StatelessWidget {
           if (emitState is ErrorState) {
             return Center(
               child: Text(
-                'error_loading_data'.tr(
-                  //defaultValue: 'Failed to load chart data'
-                ),
+                'error_loading_data'.tr(  ),
                 style: AppTextStyles.font14Regular.copyWith(color: AppColors.red),
               ),
             );

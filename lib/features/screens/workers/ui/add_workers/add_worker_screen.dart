@@ -11,6 +11,7 @@ import 'package:mkaweel/core/extension/form_auto_scroll.dart';
 import 'package:mkaweel/core/extension/form_data.dart';
 import 'package:mkaweel/core/extension/list.dart';
 import 'package:mkaweel/core/shared/methods/print.dart';
+import 'package:mkaweel/core/shared/widgets/app_bar.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/dob_text_input_data.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/email_text_input_data.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/name_text_input_data.dart';
@@ -63,27 +64,11 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
       listener: listenerWorkersCubit,
       child: Scaffold(
         backgroundColor: context.theme.scaffoldBackgroundColor,
-        appBar: AppBar(
-          backgroundColor: context.theme.primaryColor,
-          title: Text(
-            widget.args.workerItem != null
-                ? 'update_worker_data'.tr()
-                : 'add_worker'.tr(),
-            style: AppTextStyles.font18SemiBold.copyWith(
-              color: context.theme.scaffoldBackgroundColor,
-            ),
-          ),
-          centerTitle: true,
-          leading: const SizedBox.shrink(),
-          actions: [
-            IconButton(
-              icon: Icon(
-                Icons.arrow_forward_ios,
-                color: context.theme.scaffoldBackgroundColor,
-              ),
-              onPressed: () => context.pop(),
-            ),
-          ],
+        appBar: CustomAppBar(
+          title:
+          widget.args.workerItem != null
+              ? 'update_worker_data'.tr()
+              : 'add_worker'.tr(),
         ),
 
         body: Form(
