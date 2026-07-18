@@ -319,3 +319,11 @@ fetching_location,Fetching location...,...جارٍ تحديد الموقع
 location_error,Could not get location,تعذّر تحديد الموقع
 weather_error,Could not load weather,تعذّر تحميل الطقس
 retry,Retry,إعادة المحاولة
+
+select_analysis_scope,select analysis scope,حدد نطاق التحليل
+no_projects_found,no projects found,لم يتم العثور على مشاريع
+choose_project,choose project,اختر المشروع
+please_select_a_project_from_above,please select a project from above,يرجى اختيار مشروع من الأعلى
+project_phase_details,project phase details,تفاصيل مرحلة المشروع
+progress,Progress,التقدم
+error_loading_data,error loading data,خطأ في تحميل البيانات

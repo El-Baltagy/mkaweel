@@ -8,10 +8,9 @@ abstract class GanttChartPageBaseState extends State<GanttChartPage> {
   @override
   void initState() {
     dashboardCubit = widget.args.dashboardCubit;
-    projectsCubit = ProjectsCubit.get();
-    // TODO: implement initState
+    projectsCubit = ProjectsCubit.get(context: context);
     super.initState();
-
+    projectsCubit.getAllProjectsFunc(Init());
   }
 
 

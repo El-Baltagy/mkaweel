@@ -104,7 +104,7 @@ abstract class _$AppRouter extends RootStackRouter {
       final args = routeData.argsAs<GanttChartRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: WrappedRoute(child: const GanttChartPage(args:args)),
+        child: WrappedRoute(child:   GanttChartPage(args:args)),
       );
     },
 
@@ -217,13 +217,21 @@ class DashboardRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [GanttChartPage]
-class GanttChartRoute extends PageRouteInfo<void> {
-  const GanttChartRoute({List<PageRouteInfo>? children})
-      : super(GanttChartRoute.name, initialChildren: children);
 
-  static const String name = 'GanttChartRoute';
+class GanttChartRoute extends PageRouteInfo<GanttChartRouteArgs> {
+  GanttChartRoute({
+    required GanttChartRouteArgs args  ,
+    List<PageRouteInfo>? children,
+  }) : super(
+    GanttChartRoute.name,
+    args: args,
+    initialChildren: children,
+  );
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const String name = 'SuppliersInfoRoute';
+
+  static const PageInfo<GanttChartRouteArgs> page =
+  PageInfo<GanttChartRouteArgs>(name);
 }
 class GanttChartRouteArgs {
   const GanttChartRouteArgs(this.dashboardCubit );

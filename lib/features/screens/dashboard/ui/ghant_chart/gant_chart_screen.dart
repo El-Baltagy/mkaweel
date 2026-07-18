@@ -3,17 +3,24 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/app/route.dart';
+import 'package:mkaweel/core/base/base_cubit.dart';
+import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/double.dart';
- import 'package:mkaweel/core/theming/app_text_styles.dart';
+import 'package:mkaweel/core/shared/widgets/app_bar.dart';
+import 'package:mkaweel/core/theming/app_text_styles.dart';
+import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/features/screens/dashboard/controller/dashboard_cubit.dart';
-import 'package:mkaweel/features/screens/dashboard/ui/ghant_chart/widgets/gantt_actions_widget.dart';
-import 'package:mkaweel/features/screens/dashboard/ui/ghant_chart/widgets/gantt_empty_state_widget.dart';
-import 'package:mkaweel/features/screens/dashboard/ui/ghant_chart/widgets/gantt_project_header_widget.dart';
+import 'package:mkaweel/features/screens/dashboard/controller/dashboard_state.dart';
+import 'package:mkaweel/features/screens/dashboard/data/model/ghant_res/ghant_res.dart';
+import 'package:mkaweel/features/screens/dashboard/ui/ghant_chart/widgets/custom_bar_chart_widget.dart';
+ import 'package:mkaweel/features/screens/dashboard/ui/ghant_chart/widgets/gantt_project_dropdown_widget.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 part 'ghant_screen_mixin.dart';
+part 'widgets/gant_chart_widget.dart';
 
 @RoutePage()
 class GanttChartPage extends StatefulWidget implements AutoRouteWrapper {
@@ -26,7 +33,7 @@ class GanttChartPage extends StatefulWidget implements AutoRouteWrapper {
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(value: args.dashboardCubit),
-         BlocProvider<ProjectsCubit>(
+        BlocProvider<ProjectsCubit>(
           create: (context) => ProjectsCubit(AppLocator()()()),
         ),
       ],
@@ -45,39 +52,28 @@ class _GanttChartPageState extends GanttChartPageBaseState {
       label: 'Gantt Chart Screen',
       child: Scaffold(
         backgroundColor: context.theme.scaffoldBackgroundColor,
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).primaryColor,
-          elevation: 0,
-          leading: IconButton(
-            icon: const Icon(Icons.sync, color: Colors.white),
-            onPressed: () {},
-          ),
-          centerTitle: true,
-          title: Text(
-            'gantt_chart'.tr(),
-            style: AppTextStyles.font16SemiBold.copyWith(color: Colors.white),
-          ),
+        appBar: CustomAppBar(
+          title: 'gantt_chart'.tr(),
           actions: [
             IconButton(
-              icon: const Icon(
-                Icons.arrow_forward_ios,
-                color: Colors.white,
-                size: 20,
-              ),
-              onPressed: () => context.pop(),
-            ),
-          ],
+              icon: const Icon(Icons.sync, color: Colors.white),
+              onPressed: () {},
+            )
+          ]
         ),
+
         body: SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const GanttProjectHeaderWidget(),
-                16.verticalSpace,
-                const GanttEmptyStateWidget(),
+                const GanttProjectDropdownWidget(),
                 24.verticalSpace,
-                const GanttActionsWidget(),
+                
+                GhantChart(),
+
+                32.verticalSpace
               ],
             ),
           ),

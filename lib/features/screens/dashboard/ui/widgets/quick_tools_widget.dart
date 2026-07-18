@@ -38,7 +38,9 @@ class QuickToolsWidget extends StatelessWidget {
 
     final List<ItemGridData>list=[
       ItemGridData(label: 'gantt_chart'.tr(), icon: Icons.format_list_bulleted,
-          bgColor: Colors.indigo.shade100, iconColor: Colors.indigo,routeNavigation: const GanttChartRoute()),
+          bgColor: Colors.indigo.shade100, iconColor: Colors.indigo,routeNavigation:   GanttChartRoute(
+            args: .new(dashboardCubit)
+          )),
       ItemGridData(label: 'waste_calculator'.tr(), icon: Icons.calculate_outlined,
           bgColor: Colors.orange.shade100, iconColor: Colors.orange,routeNavigation:
           WasteCalculatorRoute(

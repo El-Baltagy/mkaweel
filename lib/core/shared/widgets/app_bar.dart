@@ -7,10 +7,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSize {
     super.key,
     this.title,
     this.leading,
+    this.actions,
   });
 
   final Widget? leading;
   final String? title;
+  final List<Widget>? actions;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSize {
           title!, style: AppTextStyles.font18SemiBold.copyWith(color: context.theme.scaffoldBackgroundColor)),
       centerTitle: true,
       leading:leading  ,
+      actions:actions,
     );
   }
 
