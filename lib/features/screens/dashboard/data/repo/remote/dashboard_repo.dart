@@ -12,6 +12,8 @@ import 'package:mkaweel/features/screens/dashboard/data/model/statistics_res/sta
 import 'package:mkaweel/features/screens/dashboard/data/model/suppliers_res/suppliers_res.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/waste_calc_paremeter.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/waste_calc_res/waste_calc_res.dart';
+import 'package:mkaweel/features/screens/dashboard/data/model/weather_parameter.dart';
+import 'package:mkaweel/features/screens/dashboard/data/model/weather_res/weather_res.dart';
 
 class DashboardRepo extends BaseRepo {
   DashboardRepo(this.dio);
@@ -56,6 +58,21 @@ class DashboardRepo extends BaseRepo {
         caller: callerTag(),
       ),
       asObject: StatisticsRes.fromJson,
+    );
+  }
+  /// Fetch weather data for the given [parameter] lat/lng coordinates.
+  Future<Either<Failure, WeatherRes>> getWeatherApi(
+      WeatherParameter parameter, {
+        CancelToken? cancelToken,
+      }) async {
+    return handleResponse(
+      onCallData: dio.getData(
+        uri: EndPoints.getWeather,
+        cancelToken: cancelToken,
+        caller: callerTag(),
+        query: parameter.toJson(),
+      ),
+      asObject: WeatherRes.fromJson,
     );
   }
 }

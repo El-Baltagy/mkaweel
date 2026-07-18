@@ -68,4 +68,11 @@ abstract class AppConstant {
   static const String getTasksKeyCash = 'Tasks_getTasks_cache';
 
   static const int getTasksKeyCode = 1708;
+
+  static const String getWeatherKeyCash = 'dashboard_getWeather_cache';
+
+  static const int getWeatherKeyCode = 3371;
+
+  /// Cached lat/lng — stored across sessions (no primary/secondary check)
+  static const String getLatLngKeyCash = 'dashboard_latlng_cache';
 }

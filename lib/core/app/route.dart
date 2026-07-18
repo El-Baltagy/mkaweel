@@ -6,6 +6,7 @@ import 'package:mkaweel/features/screens/dashboard/ui/dashboard_screen.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/ghant_chart/gantt_chart_screen.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/suppliers_info/suppliers_info_screen.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/waste_calculator/waste_calculator_screen.dart';
+import 'package:mkaweel/features/screens/dashboard/ui/weather/weather_screen.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/data/model/create_project_res/create_project_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/project_phases_res/project_phases_res.dart';
@@ -26,7 +27,7 @@ import 'package:mkaweel/features/screens/workers/ui/add_workers/add_worker_scree
 import 'package:mkaweel/features/screens/Tasks/ui/Tasks/tasks_screen.dart';
   part 'route.gr.dart';
 
-@AutoRouterConfig(replaceInRouteName: 'Page,Route')
+  @AutoRouterConfig(replaceInRouteName: 'Page,Route')
 class AppRouter extends _$AppRouter {
   AppRouter({super.navigatorKey});
 
