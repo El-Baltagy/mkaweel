@@ -8,6 +8,7 @@ abstract class WeatherPageBaseState extends State<WeatherPage> {
     dashboardCubit = DashboardCubit.get(context: context);
     // TODO: implement initState
     super.initState();
+    dashboardCubit.getWeatherFunc(Init());
   }
 
   @override

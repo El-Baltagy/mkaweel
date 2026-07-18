@@ -8,6 +8,8 @@ import 'package:mkaweel/features/screens/dashboard/data/model/suppliers_res/supp
 import 'package:mkaweel/features/screens/dashboard/data/model/waste_calc_paremeter.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/waste_calc_res/waste_calc_res.dart';
 import 'package:mkaweel/features/screens/dashboard/data/repo/remote/dashboard_repo.dart';
+import 'package:mkaweel/features/screens/dashboard/data/model/weather_parameter.dart';
+import 'package:mkaweel/features/screens/dashboard/data/model/weather_res/weather_res.dart';
 
 class DashboardService extends BaseService {
   DashboardService(this._remoteRepo, this._localRepo);
@@ -74,6 +76,31 @@ class DashboardService extends BaseService {
       saveLocal: (old, newData) async {
         if (newData != null) {
           await _localRepo.saveData(cacheKey,  savedData:newData.toJson());
+        }
+      },
+      clearLocal: () => _localRepo.clearData(cacheKey),
+    );
+  }
+
+  Future<void> getWeatherServ(
+    RequestCallbackObserver<WeatherRes, WeatherParameter> requestInfo,
+  ) {
+    const cacheKey = AppConstant.getWeatherKeyCash;
+    return requestInfo.handleRequest(
+      fetchFromClient: (token) => _remoteRepo.getWeatherApi(
+        requestInfo.parameter!,
+        cancelToken: token,
+      ),
+      fetchLocal: () async {
+        final tuple = await _localRepo.readData(cacheKey);
+        if (tuple?.$1['pr'] == _localRepo.primarySessionId) {
+          return WeatherRes.fromJson(tuple!.$2);
+        }
+        return null;
+      },
+      saveLocal: (old, newData) async {
+        if (newData != null) {
+          await _localRepo.saveData(cacheKey, savedData: newData.toJson());
         }
       },
       clearLocal: () => _localRepo.clearData(cacheKey),

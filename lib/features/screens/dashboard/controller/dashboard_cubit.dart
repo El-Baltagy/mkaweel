@@ -10,6 +10,8 @@ import 'package:mkaweel/features/screens/dashboard/data/model/statistics_res/sta
 import 'package:mkaweel/features/screens/dashboard/data/model/suppliers_res/suppliers_res.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/waste_calc_paremeter.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/waste_calc_res/waste_calc_res.dart';
+import 'package:mkaweel/features/screens/dashboard/data/model/weather_parameter.dart';
+import 'package:mkaweel/features/screens/dashboard/data/model/weather_res/weather_res.dart';
 import 'package:mkaweel/main.dart';
 import 'package:mkaweel/features/screens/dashboard/controller/dashboard_state.dart';
 import 'package:mkaweel/features/screens/dashboard/service/dashboard_service.dart';
@@ -59,12 +61,15 @@ class DashboardCubit extends BaseCubit<DashboardState> {
 
      // add every key in file
      CancelManager.cancel(calculateWastePercentageKeyCode);
+     CancelManager.cancel(getWeatherKeyCode);
      return super.close();
    }
 
      int get getSuppliersKeyCode => AppConstant.getSuppliersKeyCode;
 
     int get getStatisticsKeyCode => AppConstant.getStatisticsKeyCode;
+
+    int get getWeatherKeyCode => AppConstant.getWeatherKeyCode;
 
   @override
    Future<void> init() async {
@@ -98,4 +103,19 @@ class DashboardCubit extends BaseCubit<DashboardState> {
         ),
       );
    }
+
+  Future<void> getWeatherFunc(BaseRequestBackType baseRequestBackType,{WeatherParameter? parameter}) async {
+    await CancelManager.runCancelableFun(getWeatherKeyCode, (token) async {
+      await _service.getWeatherServ(
+        RequestCallbackObserver<WeatherRes, WeatherParameter>(
+          baseRequestBackType: baseRequestBackType ,
+          parameter: parameter,
+          cancelToken: token,
+          onLoadCallback: () => safeEmit(_current.copyWith(getWeatherState: Loading())),
+          onRightCallback: (data) => safeEmit(_current.copyWith(getWeatherState: Success(data))),
+          onLeftCallback: (failure) => safeEmit(_current.copyWith(getWeatherState: ErrorState(failure))),
+        ),
+      );
+    });
+  }
 }
