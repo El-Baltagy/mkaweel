@@ -61,7 +61,16 @@ extension RequestHandler<T, P> on RequestCallbackObserver<T, P> {
 
     // ── Handle result ──────────────────────────────────────────────────────
     result.fold(
-          onLeftCallback,
+          (failure) async {
+            if (fetchLocal != null) {
+              final localData = await fetchLocal();
+              if (localData != null) {
+                onRightCallback(localData);
+                return;
+              }
+            }
+            onLeftCallback(failure);
+          },
           (newData) async {
             T finalData = newData;
             T? oldData;

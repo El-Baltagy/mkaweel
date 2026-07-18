@@ -11,6 +11,10 @@ import 'package:mkaweel/features/screens/dashboard/data/repo/remote/dashboard_re
 import 'package:mkaweel/features/screens/dashboard/data/model/weather_parameter.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/weather_res/weather_res.dart';
 
+import 'package:mkaweel/core/api_helper/dio_error_handler.dart';
+import 'package:mkaweel/core/shared/methods/location_Service.dart';
+import 'package:dartz/dartz.dart';
+
 class DashboardService extends BaseService {
   DashboardService(this._remoteRepo, this._localRepo);
   
@@ -86,18 +90,57 @@ class DashboardService extends BaseService {
     RequestCallbackObserver<WeatherRes, WeatherParameter> requestInfo,
   ) {
     const cacheKey = AppConstant.getWeatherKeyCash;
+    const latLngCacheKey = AppConstant.getLatLngKeyCash;
+
     return requestInfo.handleRequest(
-      fetchFromClient: (token) => _remoteRepo.getWeatherApi(
-        requestInfo.parameter!,
-        cancelToken: token,
-      ),
+      fetchFromClient: (token) async {
+        WeatherParameter? param = requestInfo.parameter;
+
+        if (param == null) {
+          // Try to get from cache first
+          final cachedLatLng = await _localRepo.readData(latLngCacheKey);
+          if (cachedLatLng != null && cachedLatLng.$2.containsKey('lat') && cachedLatLng.$2.containsKey('lng')) {
+            param = WeatherParameter(
+              latitude: double.parse(cachedLatLng.$2['lat'].toString()),
+              longitude:double.parse(cachedLatLng.$2['lng'].toString())  ,
+            );
+          } else {
+            // Get from GPS
+            final position = await LocationService().getCurrentLocation();
+            if (position != null) {
+              param = WeatherParameter(
+                latitude: position.latitude,
+                longitude: position.longitude,
+              );
+              // Cache it
+              await _localRepo.saveData(latLngCacheKey, savedData: param.toJson());
+            }
+          }
+        }
+
+        if (param == null) {
+          return const Left<Failure, WeatherRes>(Failure( 'Could not get location',   0));
+        }
+
+        return _remoteRepo.getWeatherApi(
+          param,
+          cancelToken: token,
+        );
+      },
       fetchLocal: () async {
         final tuple = await _localRepo.readData(cacheKey);
+        PrintHelper().ordinaryPrint(tuple?.$1['pr']);
+        PrintHelper().ordinaryPrint(_localRepo.primarySessionId);
+          return WeatherRes.fromJson(tuple!.$2);
+
         if (tuple?.$1['pr'] == _localRepo.primarySessionId) {
           return WeatherRes.fromJson(tuple!.$2);
+        }else{
+
         }
         return null;
       },
+
       saveLocal: (old, newData) async {
         if (newData != null) {
           await _localRepo.saveData(cacheKey, savedData: newData.toJson());
