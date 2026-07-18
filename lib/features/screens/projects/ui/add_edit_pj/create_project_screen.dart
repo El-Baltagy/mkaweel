@@ -9,6 +9,7 @@ import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/form_auto_scroll.dart';
 import 'package:mkaweel/core/shared/methods/location_Service.dart';
+import 'package:mkaweel/core/shared/widgets/app_bar.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/name_text_input_data.dart';
   import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
@@ -54,28 +55,13 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
         label: 'Create Project Screen',
         child: Scaffold(
           backgroundColor: context.theme.scaffoldBackgroundColor,
-          appBar: AppBar(
-            backgroundColor: context.theme.primaryColor,
-            title: Text(
+          appBar: CustomAppBar(
+            title:
               widget.args.projectId != null
                   ? 'update_project'.tr()
                   : 'new_project'.tr(),
-              style: AppTextStyles.font18SemiBold.copyWith(
-                color: context.theme.scaffoldBackgroundColor,
-              ),
-            ),
-            centerTitle: true,
-            leading: const SizedBox.shrink(),
-            actions: [
-              IconButton(
-                icon: Icon(
-                  Icons.arrow_forward_ios,
-                  color: context.theme.scaffoldBackgroundColor,
-                ),
-                onPressed: () => context.pop(),
-              ),
-            ],
           ),
+
           body: ValueListenableBuilder(valueListenable:isLoadingNotifier , builder: (context, value, child) {
             return Form(
               key: _key,

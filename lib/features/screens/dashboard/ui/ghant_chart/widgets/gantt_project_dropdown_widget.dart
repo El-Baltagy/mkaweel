@@ -43,9 +43,7 @@ class _GanttProjectDropdownWidgetState extends State<GanttProjectDropdownWidget>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'select_analysis_scope'.tr(
-                    //defaultValue: 'Select Analysis Scope'
-                  ),
+                  'select_analysis_scope'.tr(  ),
                   style: AppTextStyles.font12Regular.copyWith(color: AppColors.contractorGreyText),
                 ),
                 const SizedBox(height: 8),
