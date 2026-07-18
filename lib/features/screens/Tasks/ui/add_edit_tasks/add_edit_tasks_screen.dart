@@ -4,14 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
+import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/double.dart';
-import 'package:mkaweel/core/shared/widgets/app_bar.dart';
-import 'package:mkaweel/core/theming/app_colors.dart';
+import 'package:mkaweel/core/extension/form_auto_scroll.dart';
+import 'package:mkaweel/core/shared/widgets/text_inputs/dob_text_input_data.dart';
+import 'package:mkaweel/core/shared/widgets/text_inputs/name_text_input_data.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/features/screens/Tasks/controller/Tasks_cubit.dart';
-import 'package:mkaweel/features/screens/Tasks/ui/add_edit_tasks/widgets/action_buttons.dart';
-import 'package:mkaweel/features/screens/Tasks/ui/add_edit_tasks/widgets/task_form.dart';
+import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/title_with_input.dart';
+import 'package:mkaweel/features/screens/workers/data/model/add_worker_data_request.dart';
+import 'package:mkaweel/features/screens/workers/ui/add_workers/widgets/drop_down_role_selector.dart';
 
 part 'add_edit_tasks_mixin.dart';
 
@@ -34,61 +37,188 @@ class AddEditTasksPage extends StatefulWidget implements AutoRouteWrapper {
 class _AddEditTasksPageState extends AddEditTasksBaseState {
   @override
   Widget build(BuildContext context) {
-    return Semantics(
-      label: 'create_task_title'.tr(),
-      child: BlocListener<TasksCubit, TasksState>(
-        listener: (context, state) {
-          // Handle states here (loading, success, error)
-        },
+    return BlocListener<TasksCubit, TasksState>(
+      listener: (context, state) {
+        // Handle states here (loading, success, error)
+      },
+      child: Semantics(
+        label: 'create_task_title'.tr(),
         child: Scaffold(
-          backgroundColor: AppColors.lightSurface,
-          appBar: CustomAppBar(
-            title: 'create_task_title'.tr(),
-           ),
-          body: Column(
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(AppPadding.p20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Page Header
-                      Text(
-                        'create_task_title'.tr(),
-                        style: AppTextStyles.font18SemiBold.copyWith(
-                          color: AppColors.lightTextPrimary,
-                        ),
-                      ),
-                      AppPadding.p16.verticalSpace,
-
-                      // Form Container
-                      TaskForm(
-                        nameController: nameController,
-                        projectController: projectController,
-                        phaseController: phaseController,
-                        workerController: workerController,
-                        dueDateController: dueDateController,
-                        statusController: statusController,
-                        descriptionController: descriptionController,
-                      ),
-                    ],
-                  ),
-                ),
+          backgroundColor: context.theme.scaffoldBackgroundColor,
+          appBar: AppBar(
+            backgroundColor: context.theme.primaryColor,
+            title: Text(
+              'create_task_title'.tr(),
+              style: AppTextStyles.font18SemiBold.copyWith(
+                color: context.theme.scaffoldBackgroundColor,
               ),
-              
-              // Bottom Action Buttons
-              ActionButtons(
-                onCancel: () {
-                  context.router.maybePop();
-                },
-                onCreateTask: () {
-                  // TODO: Dispatch cubit action to create task
-                },
+            ),
+            centerTitle: true,
+            leading: const SizedBox.shrink(),
+            actions: [
+              IconButton(
+                icon: Icon(
+                  Icons.arrow_forward_ios,
+                  color: context.theme.scaffoldBackgroundColor,
+                ),
+                onPressed: () => context.pop(),
               ),
             ],
           ),
+          body: Form(
+            key: _key,
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(AppPadding.p20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  buildName(),
+                  20.verticalSpace,
+
+                  buildProjectSelector(),
+                  20.verticalSpace,
+
+                  buildPhaseSelector(),
+                  20.verticalSpace,
+
+                  buildWorkerSelector(),
+                  20.verticalSpace,
+
+                  buildDOB(context),
+                  20.verticalSpace,
+
+                  buildStatusSelector(),
+                  20.verticalSpace,
+
+                  buildDescription(),
+                  30.verticalSpace,
+
+                  SizedBox(
+                    width: double.infinity,
+                    height: AppSizes.s48,
+                    child: BlocBuilder<TasksCubit, TasksState>(
+                      builder: (context, state) {
+                        bool isLoading = false; // Add your loading condition here
+                        return ElevatedButton(
+                          onPressed: () => saveTask(isLoading),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: context.theme.primaryColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(AppSizes.s8),
+                            ),
+                          ),
+                          child: isLoading
+                              ? CircularProgressIndicator(
+                            color: context.theme.scaffoldBackgroundColor,
+                          )
+                              : Text(
+                            'create_task_btn'.tr(),
+                            style: AppTextStyles.font16SemiBold.copyWith(
+                              color: context.theme.scaffoldBackgroundColor,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  20.verticalSpace,
+                ],
+              ),
+            ),
+          ),
         ),
+      ),
+    );
+  }
+
+  TitleWithInputField buildName() {
+    return TitleWithInputField(
+      'task_name'.tr(),
+      NameInputData(
+        isLabel: false,
+        widgetPrefix: const SizedBox.shrink(),
+        field: listFields[0],
+        labelText: 'e_g_concrete_pouring'.tr(),
+        controller: _nameController,
+      ),
+    );
+  }
+
+  BottomSheetSelector buildProjectSelector() {
+    return BottomSheetSelector(
+      field: listFields[1],
+      isMultiSelect: false,
+      title: 'project'.tr(),
+      listChoices: projectChoices,
+      selectedRoleNotifier: projectNotifier,
+    );
+  }
+
+  BottomSheetSelector buildPhaseSelector() {
+    return BottomSheetSelector(
+      field: listFields[2],
+      isMultiSelect: false,
+      title: 'construction_phase'.tr(),
+      listChoices: phaseChoices,
+      selectedRoleNotifier: phaseNotifier,
+    );
+  }
+
+  BottomSheetSelector buildWorkerSelector() {
+    return BottomSheetSelector(
+      field: listFields[3],
+      isMultiSelect: false,
+      title: 'assign_worker'.tr(),
+      listChoices: workerChoices,
+      selectedRoleNotifier: workerNotifier,
+    );
+  }
+
+  TitleWithInputField buildDOB(BuildContext context) {
+    return TitleWithInputField(
+      'due_date'.tr(),
+      DOPInputData(
+        fontSize: 13,
+        field: listFields[4],
+        labelText: 'mm/dd/yyyy',
+        onTap: () async {
+          final date = await showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime.now(),
+            lastDate: DateTime(2050),
+          );
+          if (date != null) {
+            _dueDateController.text =
+            "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
+          }
+        },
+        controller: _dueDateController,
+      ),
+    );
+  }
+
+  BottomSheetSelector buildStatusSelector() {
+    return BottomSheetSelector(
+      field: listFields[5],
+      isMultiSelect: false,
+      title: 'status'.tr(),
+      listChoices: statusChoices,
+      selectedRoleNotifier: statusNotifier,
+    );
+  }
+
+  TitleWithInputField buildDescription() {
+    return TitleWithInputField(
+      'task_description'.tr(),
+      NameInputData(
+        isLabel: false,
+        widgetPrefix: const SizedBox.shrink(),
+        field: listFields[6],
+        maxLines: 4,
+        validator: (v) => null,
+        labelText: 'detail_the_steps'.tr(),
+        controller: _descriptionController,
       ),
     );
   }
