@@ -1,24 +1,21 @@
-import 'package:mkaweel/core/app/route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/shared/widgets/app_bar.dart';
-import 'package:mkaweel/core/shared/widgets/entrance_fader.dart';
-import 'package:mkaweel/core/theming/app_colors.dart';
-import 'package:mkaweel/features/screens/Tasks/controller/Tasks_cubit.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/shared/methods/date_helper.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
-import 'package:mkaweel/features/screens/Tasks/data/model/tasks_res/tasks_res.dart';
+import 'package:mkaweel/features/screens/Tasks/controller/Tasks_cubit.dart';
+ import 'package:mkaweel/features/screens/Tasks/data/model/tasks_res/tasks_res.dart';
+import 'package:mkaweel/features/screens/Tasks/ui/Tasks/widgets/tasks_list.dart';
 import 'package:mkaweel/features/screens/projects/ui/all_projects/widgets/delete_pj_dialouge.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -51,33 +48,40 @@ class _TasksPageState extends TasksPageBaseState {
   Widget build(BuildContext context) {
     return BlocListener<TasksCubit, TasksState>(
       listener: tasksListener,
-      child: Scaffold(
-        backgroundColor: context.theme.scaffoldBackgroundColor,
-        appBar: CustomAppBar(title: 'all_construction_tasks'.tr()),
-        body: BlocSelector<TasksCubit, TasksState, BaseEmit?>(
-          selector: (state) =>state is TasksLoaded?state.getTasksState:null,
-          builder: (context, state) {
-            bool isLoading=state is ! Success<TasksRes>;
-            List<TaskItem>listTasks=isLoading?List.generate(4, (index) => TaskItem.getEmptyItem):
-            (state).data!.data;
-            return EntranceFader(
-              dx: context.isLTR?-32: 32,
-              enableAnimation: !isLoading,
-              child: ListView.builder(
-                itemCount: listTasks.length, // Example count
-                itemBuilder: (context, index) {
-                  return TaskCardItem(
-                    taskItem: listTasks[index],
-                    isLoading:isLoading ,
-                  );
-                },
-              ),
-            );
-          },
+      child: Semantics(
+        label: 'Tasks Screen',
+        child: Scaffold(
+          backgroundColor: context.theme.scaffoldBackgroundColor,
+          appBar: CustomAppBar(
+            leading: IconButton(
+              icon: Icon(Icons.sync, color: context.theme.scaffoldBackgroundColor),
+              onPressed: () => tasksCubit.getTasksFunc(Reload()),
+            ),
+            title: 'all_construction_tasks'.tr(),
+          ),
+          body: BlocSelector<TasksCubit, TasksState, BaseEmit?>(
+            selector: (state) =>
+                state is TasksLoaded ? state.getTasksState : null,
+            builder: (context, state) {
+              return TasksListWidget(
+                state: state,
+                tasksCubit: tasksCubit,
+              );
+            },
+          ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: context.theme.colorScheme.secondary,
+            onPressed: () async {
+              final result = await context.push(AddEditTasksRoute(args: AddEditTasksRouteArgs()));
+              if (result == true) {
+                await tasksCubit.getTasksFunc(Reload());
+              }
+            },
+            child: Icon(Icons.add, color: context.theme.scaffoldBackgroundColor),
+          ),
         ),
       ),
     );
   }
-
-
 }

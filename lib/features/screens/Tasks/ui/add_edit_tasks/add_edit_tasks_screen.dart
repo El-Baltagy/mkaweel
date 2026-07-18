@@ -71,24 +71,19 @@ class _AddEditTasksPageState extends AddEditTasksBaseState {
               padding: const EdgeInsets.all(AppPadding.p20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: AppSizes.s20,
                 children: [
                   buildName(),
-                  20.verticalSpace,
 
                   buildProjectSelector(),
-                  20.verticalSpace,
 
                   buildPhaseSelector(),
-                  20.verticalSpace,
 
                   buildWorkerSelector(),
-                  20.verticalSpace,
 
                   buildDOB(context),
-                  20.verticalSpace,
 
                   buildStatusSelector(),
-                  20.verticalSpace,
 
                   buildDescription(),
                   30.verticalSpace,
