@@ -24,9 +24,7 @@ import 'package:mkaweel/features/screens/projects/ui/project_details/project_det
 import 'package:mkaweel/features/screens/projects/ui/project_phases/phase_progress_screen.dart';
 import 'package:mkaweel/features/screens/workers/ui/add_workers/add_worker_screen.dart';
 import 'package:mkaweel/features/screens/Tasks/ui/Tasks/tasks_screen.dart';
-
-import 'package:mkaweel/features/screens/dashboard/waste_calculator/weather/weather_screen.dart';
-part 'route.gr.dart';
+  part 'route.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')
 class AppRouter extends _$AppRouter {
