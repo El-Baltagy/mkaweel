@@ -22,8 +22,8 @@ class TodayTasksWidget extends StatelessWidget {
             children: [
                 Text('tasks'.tr(), style: AppTextStyles.font16SemiBold),
               GestureDetector(
-                //AddEditTasksPage
-                onTap: () => context.push(TasksRoute(args: TasksRouteArgs())),
+                 onTap: () => context.push(TasksRoute(args: TasksRouteArgs())),
+                // onTap: () => context.push(TasksRoute(args: TasksRouteArgs())),
                 child: Text(
                   'show_all'.tr(),
                   style: AppTextStyles.font14Regular.copyWith(color: Theme.of(context).primaryColor),
