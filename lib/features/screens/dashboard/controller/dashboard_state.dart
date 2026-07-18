@@ -13,10 +13,11 @@ import 'package:mkaweel/core/base/base_state.dart';
 /// Single combined state — both slices are always present together.
 /// This prevents one request's emission from wiping the other's data.
 class DashboardLoaded extends DashboardState {
-  final BaseEmit? wasteCalcEmit , getSuppliersState, getStatisticsState, getWeatherState;
+  final BaseEmit? wasteCalcEmit , getSuppliersState, getStatisticsState, getWeatherState, getGhantDataState;
   final DashboardState? refreshOrInit;
 
   DashboardLoaded({
+    this.getGhantDataState,
     this.getStatisticsState,
     this.getSuppliersState,
     this.wasteCalcEmit,
@@ -25,6 +26,7 @@ class DashboardLoaded extends DashboardState {
   });
 
   DashboardLoaded copyWith({
+    BaseEmit? getGhantDataState,
     BaseEmit? getStatisticsState,
     BaseEmit? getSuppliersState,
     BaseEmit? wasteCalcEmit,
@@ -32,6 +34,7 @@ class DashboardLoaded extends DashboardState {
     DashboardState? refreshOrInit,
   }) {
     return DashboardLoaded(
+      getGhantDataState: getGhantDataState ?? this.getGhantDataState,
       getStatisticsState: getStatisticsState ?? this.getStatisticsState,
       getSuppliersState: getSuppliersState ?? this.getSuppliersState,
       getWeatherState: getWeatherState ?? this.getWeatherState,

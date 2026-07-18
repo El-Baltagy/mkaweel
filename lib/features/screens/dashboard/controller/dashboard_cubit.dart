@@ -6,6 +6,8 @@ import 'package:mkaweel/core/base/base_service.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_constant.dart';
 import 'package:mkaweel/core/shared/methods/print.dart';
+import 'package:mkaweel/features/screens/dashboard/data/model/ghant_data.dart';
+import 'package:mkaweel/features/screens/dashboard/data/model/ghant_res/ghant_res.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/statistics_res/statistics_res.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/suppliers_res/suppliers_res.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/waste_calc_paremeter.dart';
@@ -54,6 +56,9 @@ class DashboardCubit extends BaseCubit<DashboardState> {
    @override
    Future<void> close() {
     // add every key in file
+    CancelManager.cancel(getGhantDataKeyCode);
+
+    // add every key in file
     CancelManager.cancel(getStatisticsKeyCode);
 
     // add every key in file
@@ -70,6 +75,8 @@ class DashboardCubit extends BaseCubit<DashboardState> {
     int get getStatisticsKeyCode => AppConstant.getStatisticsKeyCode;
 
     int get getWeatherKeyCode => AppConstant.getWeatherKeyCode;
+
+    int get getGhantDataKeyCode => AppConstant.getGhantDataKeyCode;
 
   @override
    Future<void> init() async {
@@ -118,4 +125,21 @@ class DashboardCubit extends BaseCubit<DashboardState> {
       );
     });
   }
+
+  Future<void> getGhantDataFunc( {required GhantParameter  parameter}) async {
+    await CancelManager.runCancelableFun(getGhantDataKeyCode, (token) async {
+      await _service.getGhantDataServ(
+        RequestCallbackObserver<GhantRes, GhantParameter>(
+          baseRequestBackType: Reload() ,
+          parameter: parameter,
+          cancelToken: token,
+          onLoadCallback: () => safeEmit(_current.copyWith(getGhantDataState: Loading())),
+          onRightCallback: (data) => safeEmit(_current.copyWith(getGhantDataState: Success(data))),
+          onLeftCallback: (failure) => safeEmit(_current.copyWith(getGhantDataState: ErrorState(failure))),
+        ),
+      );
+
+    });
+  }
+
 }

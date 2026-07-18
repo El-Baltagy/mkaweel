@@ -3,7 +3,7 @@ import 'package:mkaweel/core/storage/storage_helper.dart';
 import 'package:mkaweel/features/screens/Tasks/ui/add_edit_tasks/add_edit_tasks_screen.dart';
 import 'package:mkaweel/features/screens/dashboard/controller/dashboard_cubit.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/dashboard_screen.dart';
-import 'package:mkaweel/features/screens/dashboard/ui/ghant_chart/gantt_chart_screen.dart';
+import 'package:mkaweel/features/screens/dashboard/ui/ghant_chart/gant_chart_screen.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/suppliers_info/suppliers_info_screen.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/waste_calculator/waste_calculator_screen.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/weather/weather_screen.dart';

@@ -16,7 +16,7 @@ abstract class _$AppRouter extends RootStackRouter {
   @override
   final Map<String, PageFactory> pagesMap = {
     WeatherRoute.name: (routeData) {
-      final args = routeData.argsAs<WeatherRouteArgs>(orElse: () =>   WeatherRouteArgs.noArgs());
+      final args = routeData.argsAs<WeatherRouteArgs>( );
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: WrappedRoute(
@@ -101,9 +101,10 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     GanttChartRoute.name: (routeData) {
+      final args = routeData.argsAs<GanttChartRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: WrappedRoute(child: const GanttChartPage()),
+        child: WrappedRoute(child: const GanttChartPage(args:args)),
       );
     },
 
@@ -223,6 +224,10 @@ class GanttChartRoute extends PageRouteInfo<void> {
   static const String name = 'GanttChartRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+class GanttChartRouteArgs {
+  const GanttChartRouteArgs(this.dashboardCubit );
+  final DashboardCubit dashboardCubit;
 }
 
 /// generated route for
@@ -517,6 +522,6 @@ class WeatherRoute extends PageRouteInfo<WeatherRouteArgs> {
   PageInfo<WeatherRouteArgs>(name);
 }
 class WeatherRouteArgs {
-  const WeatherRouteArgs( );
-   static WeatherRouteArgs noArgs()=>WeatherRouteArgs();
-}
+  const WeatherRouteArgs(this.dashboardCubit );
+  final DashboardCubit dashboardCubit;
+ }

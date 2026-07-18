@@ -75,4 +75,8 @@ abstract class AppConstant {
 
   /// Cached lat/lng — stored across sessions (no primary/secondary check)
   static const String getLatLngKeyCash = 'dashboard_latlng_cache';
+
+  static const String getGhantDataKeyCash = 'dashboard_getGhantData_cache';
+
+  static const int getGhantDataKeyCode = 7819;
 }

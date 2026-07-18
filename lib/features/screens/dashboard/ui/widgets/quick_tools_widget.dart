@@ -45,7 +45,9 @@ class QuickToolsWidget extends StatelessWidget {
             args: WasteCalculatorRouteArgs(dashboardCubit),
           )),
       ItemGridData(label: 'weather'.tr(), icon: Icons.cloud_outlined,
-          routeNavigation: WeatherRoute(args: .new() ),
+          routeNavigation: WeatherRoute(args: .new(
+              dashboardCubit
+          ) ),
           bgColor: Colors.blue.shade100, iconColor: Colors.blue ),
       ItemGridData(label: 'attendance_registration'.tr(), icon: Icons.how_to_reg,
           bgColor: Colors.teal.shade100, iconColor: Colors.teal ),

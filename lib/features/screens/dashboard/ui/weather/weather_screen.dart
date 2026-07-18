@@ -21,9 +21,8 @@ class WeatherPage extends StatefulWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    return BlocProvider<DashboardCubit>(
-      create: (context) => DashboardCubit(AppLocator()()()),
-      child: this,
+    return BlocProvider.value(value: args.dashboardCubit,
+    child: this
     );
   }
 

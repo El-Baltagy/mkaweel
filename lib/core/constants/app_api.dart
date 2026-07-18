@@ -40,4 +40,6 @@ abstract class EndPoints {
 
   /// Weather endpoint — expects ?lat=...&lng=... query params
   static const String getWeather = '/api/weather';
+
+  static const String getGhantData = '/api/projects/chart-data';
 }

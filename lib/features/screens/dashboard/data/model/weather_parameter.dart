@@ -1,8 +1,7 @@
 class WeatherParameter {
   const WeatherParameter({required this.latitude, required this.longitude});
 
-  final double latitude;
-  final double longitude;
+  final double latitude, longitude;
 
   Map<String, dynamic> toJson() => {
         'lat': latitude,

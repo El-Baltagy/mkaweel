@@ -4,6 +4,8 @@ import 'package:mkaweel/core/constants/app_constant.dart';
 import 'package:mkaweel/core/base/base_service.dart';
 import 'package:mkaweel/core/base/base_local_repo.dart';
 import 'package:mkaweel/core/shared/methods/print.dart';
+import 'package:mkaweel/features/screens/dashboard/data/model/ghant_data.dart';
+import 'package:mkaweel/features/screens/dashboard/data/model/ghant_res/ghant_res.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/statistics_res/statistics_res.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/suppliers_res/suppliers_res.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/waste_calc_paremeter.dart';
@@ -144,6 +146,18 @@ class DashboardService extends BaseService {
         }
       },
       clearLocal: () => _localRepo.clearData(cacheKey),
+    );
+  }
+
+  Future<void> getGhantDataServ(
+    RequestCallbackObserver<GhantRes, GhantParameter> requestInfo,
+  ) {
+
+    return requestInfo.handleRequest(
+      fetchFromClient: (token) => _remoteRepo.getGhantDataApi(
+        requestInfo.parameter,
+        cancelToken: token,
+      )
     );
   }
 }

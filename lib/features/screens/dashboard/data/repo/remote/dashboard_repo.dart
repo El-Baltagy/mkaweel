@@ -8,6 +8,8 @@ import 'package:mkaweel/core/api_helper/response_handler.dart';
 import 'package:mkaweel/core/base/base_remote_repo.dart';
 import 'package:mkaweel/core/constants/app_api.dart';
 import 'package:mkaweel/core/shared/methods/print.dart';
+import 'package:mkaweel/features/screens/dashboard/data/model/ghant_data.dart';
+import 'package:mkaweel/features/screens/dashboard/data/model/ghant_res/ghant_res.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/statistics_res/statistics_res.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/suppliers_res/suppliers_res.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/waste_calc_paremeter.dart';
@@ -73,6 +75,21 @@ class DashboardRepo extends BaseRepo {
         query: parameter.toJson(),
       ),
       asObject: WeatherRes.fromJson,
+    );
+  }
+
+  Future<Either<Failure, GhantRes>> getGhantDataApi(
+    GhantParameter? parameter, {
+    CancelToken? cancelToken,
+  }) async {
+    return handleResponse(
+      onCallData: dio.getData(
+        uri: EndPoints.getGhantData,
+        cancelToken: cancelToken,
+        caller: callerTag(),
+        query: parameter?.toJson()
+      ),
+      asObject: GhantRes.fromJson,
     );
   }
 }
