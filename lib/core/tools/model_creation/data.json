@@ -1,11 +1,24 @@
 {
   "status": "success",
-  "message": "تم استرجاع إحصائيات لوحة التحكم بنجاح.",
   "data": {
-    "total_projects": 32,
-    "completed_projects": 0,
-    "total_tasks": 1,
-    "completed_tasks": 1,
-    "total_workers": 4
+    "coordinates": {
+      "latitude": 36.2021,
+      "longitude": 37.1343
+    },
+    "location": {
+      "region": "حلب",
+      "subdivision": "محافظة حلب",
+      "country": "سوريا",
+      "formatted_address": "حلب، محافظة حلب، سوريا"
+    },
+    "weather": {
+      "temperature": 26.3,
+      "temperature_unit": "°C",
+      "wind_speed": 8.7,
+      "wind_speed_unit": "km/h",
+      "weather_code": 0,
+      "status": "مشمس",
+      "description": "سماء صافية"
+    }
   }
 }

@@ -15,6 +15,16 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    WeatherRoute.name: (routeData) {
+      final args = routeData.argsAs<WeatherRouteArgs>(orElse: () =>   WeatherRouteArgs.noArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(
+            child: WeatherPage(
+           args: args ,
+        )),
+      );
+    },
     SuppliersInfoRoute.name: (routeData) {
       final args = routeData.argsAs<SuppliersInfoRouteArgs>(orElse: () =>   SuppliersInfoRouteArgs.noArgs());
       return AutoRoutePage<dynamic>(
@@ -488,3 +498,25 @@ class AddEditTasksRoute extends PageRouteInfo<AddEditTasksRouteArgs> {
 class AddEditTasksRouteArgs {
   const AddEditTasksRouteArgs( );
  }
+
+/// generated route for
+/// [WeatherPage]
+class WeatherRoute extends PageRouteInfo<WeatherRouteArgs> {
+  WeatherRoute({
+   required WeatherRouteArgs args  ,
+    List<PageRouteInfo>? children,
+  }) : super(
+    WeatherRoute.name,
+    args: args,
+    initialChildren: children,
+  );
+
+  static const String name = 'WeatherRoute';
+
+  static const PageInfo<WeatherRouteArgs> page =
+  PageInfo<WeatherRouteArgs>(name);
+}
+class WeatherRouteArgs {
+  const WeatherRouteArgs( );
+   static WeatherRouteArgs noArgs()=>WeatherRouteArgs();
+}

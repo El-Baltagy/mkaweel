@@ -36,6 +36,14 @@ class _MyAppState extends State<MyApp> {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: themeMode,
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(
+            textScaler: const TextScaler.linear(0.9),
+          ),
+          child: child!,
+        );
+      },
       routerConfig: appRouter.config(),
     );
   }
