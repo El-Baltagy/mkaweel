@@ -315,7 +315,7 @@ wind_speed_label,Wind Speed,سرعة الرياح
 weather_condition,Condition,الحالة الجوية
 weather_description,Description,الوصف
 weather_location,Location,الموقع
-fetching_location,Fetching location...,جارٍ تحديد الموقع...
+fetching_location,Fetching location...,...جارٍ تحديد الموقع
 location_error,Could not get location,تعذّر تحديد الموقع
 weather_error,Could not load weather,تعذّر تحميل الطقس
 retry,Retry,إعادة المحاولة

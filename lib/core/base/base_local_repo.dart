@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:mkaweel/core/storage/hive_storage.dart';
 
 class BaseLocalRepo {
@@ -53,10 +54,15 @@ class BaseLocalRepo {
   Future<(Map<String, dynamic>, Map<String, dynamic>)?> readData(String key) async {
     try {
       final data = await HiveStorage().readData(key);
-      return data == null
-          ? null
-          : (data["keys"] as Map<String, dynamic>, data["data"] as Map<String, dynamic>);
+      if (data == null) return null;
+      
+      // Deeply convert Map<dynamic, dynamic> to Map<String, dynamic>
+      final keysMap = jsonDecode(jsonEncode(data["keys"])) as Map<String, dynamic>;
+      final dataMap = jsonDecode(jsonEncode(data["data"])) as Map<String, dynamic>;
+      // PrintHelper()(tuple?.$1['pr']);
+      return (keysMap, dataMap);
     } catch (e) {
+      print('Hive readData error: $e');
       return null;
     }
   }

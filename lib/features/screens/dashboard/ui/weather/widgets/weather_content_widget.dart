@@ -53,6 +53,7 @@ class WeatherContentWidget extends StatelessWidget {
           ),
           child: Column(
             children: [
+
               // Hero temperature display
               WeatherHeaderWidget(
                 temperature: weather.temperature,
@@ -64,7 +65,7 @@ class WeatherContentWidget extends StatelessWidget {
               24.verticalSpace,
 
               // Wind speed + condition row
-              WeatherDetailsRowWidget(
+               WeatherDetailsRowWidget(
                 windSpeed: weather.wind_speed,
                 windSpeedUnit: weather.wind_speed_unit,
                 status: weather.status,

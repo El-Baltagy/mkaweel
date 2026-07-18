@@ -1,3 +1,4 @@
+import 'package:mkaweel/core/api_helper/caller_tag.dart';
 import 'package:mkaweel/core/constants/app_typedef.dart';
 import 'package:mkaweel/core/constants/app_constant.dart';
 import 'package:mkaweel/core/base/base_service.dart';
@@ -129,14 +130,10 @@ class DashboardService extends BaseService {
       },
       fetchLocal: () async {
         final tuple = await _localRepo.readData(cacheKey);
-        PrintHelper().ordinaryPrint(tuple?.$1['pr']);
-        PrintHelper().ordinaryPrint(_localRepo.primarySessionId);
-          return WeatherRes.fromJson(tuple!.$2);
+        // PrintHelper().loggerPrint(tuple?.$1['pr'],.info,callerTag());
 
         if (tuple?.$1['pr'] == _localRepo.primarySessionId) {
           return WeatherRes.fromJson(tuple!.$2);
-        }else{
-
         }
         return null;
       },
