@@ -12,20 +12,25 @@ class GhantChart extends StatelessWidget {
           final emitState = state.getGhantDataState;
 
           if (emitState == null) {
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.all(32.0),
-                child: Text(
-                  'please_select_a_project_from_above'.tr( ),
-                  style: AppTextStyles.font14Regular,
-                  textAlign: TextAlign.center,
-                ),
+            return Padding(
+              padding: const EdgeInsets.all(32.0).copyWith(
+                top: context.height*0.3
+              ),
+              child: Text(
+                'please_select_a_project_from_above'.tr( ),
+                style: AppTextStyles.font16SemiBold,
+                textAlign:  .center,
               ),
             );
           }
 
-          if (emitState is Loading) {
-            return const Center(child: CircularProgressIndicator());
+          if (emitState is Loading ) {
+            return   Padding(
+                padding:   EdgeInsets. only(
+                    top: context.height*0.25
+                ),
+              child: const CircularProgressIndicator(),
+            );
           }
 
           if (emitState is Success<GhantRes>) {
@@ -47,7 +52,7 @@ class GhantChart extends StatelessWidget {
                     ),
                     const Spacer(),
                     Text(
-                      'Progress: ${progress.toStringAsFixed(1)}%',
+                     'progress_percentage_label'.tr()+ ': ${progress.toStringAsFixed(1)}%',
                       style: AppTextStyles.font14Regular.copyWith(
                         color: AppColors.contractorGreen,
                         fontWeight: FontWeight.w600,

@@ -66,12 +66,12 @@ class _GanttChartPageState extends GanttChartPageBaseState {
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment:  .center,
               children: [
                 const GanttProjectDropdownWidget(),
                 24.verticalSpace,
                 
-                GhantChart(),
+                const GhantChart(),
 
                 32.verticalSpace
               ],
