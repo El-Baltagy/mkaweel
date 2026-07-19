@@ -33,6 +33,35 @@ class DashboardCubit extends BaseCubit<DashboardState> {
        : DashboardLoaded();
 
    int get calculateWastePercentageKeyCode => AppConstant.calculateWastePercentageKeyCode;
+   int get getSuppliersKeyCode => AppConstant.getSuppliersKeyCode;
+   int get getStatisticsKeyCode => AppConstant.getStatisticsKeyCode;
+   int get getWeatherKeyCode => AppConstant.getWeatherKeyCode;
+   int get getGhantDataKeyCode => AppConstant.getGhantDataKeyCode;
+   @override
+   Future<void> close() {
+     // add every key in file
+     CancelManager.cancel(getGhantDataKeyCode);
+
+     // add every key in file
+     CancelManager.cancel(getStatisticsKeyCode);
+
+     // add every key in file
+     CancelManager.cancel(getSuppliersKeyCode);
+
+     // add every key in file
+     CancelManager.cancel(calculateWastePercentageKeyCode);
+     CancelManager.cancel(getWeatherKeyCode);
+     return super.close();
+   }
+
+
+   @override
+   Future<void> init() async {
+     _current.getGhantDataState=null;
+   }
+
+
+
 
    Future<void> calculateWastePercentageFunc(  {WasteCalcParemeter? parameter}) async {
      await CancelManager.runCancelableFun(calculateWastePercentageKeyCode, (token) async {
@@ -53,36 +82,7 @@ class DashboardCubit extends BaseCubit<DashboardState> {
    }
 
 
-   @override
-   Future<void> close() {
-    // add every key in file
-    CancelManager.cancel(getGhantDataKeyCode);
 
-    // add every key in file
-    CancelManager.cancel(getStatisticsKeyCode);
-
-    // add every key in file
-    CancelManager.cancel(getSuppliersKeyCode);
-
-     // add every key in file
-     CancelManager.cancel(calculateWastePercentageKeyCode);
-     CancelManager.cancel(getWeatherKeyCode);
-     return super.close();
-   }
-
-     int get getSuppliersKeyCode => AppConstant.getSuppliersKeyCode;
-
-    int get getStatisticsKeyCode => AppConstant.getStatisticsKeyCode;
-
-    int get getWeatherKeyCode => AppConstant.getWeatherKeyCode;
-
-    int get getGhantDataKeyCode => AppConstant.getGhantDataKeyCode;
-
-  @override
-   Future<void> init() async {
-
-   }
-  
 
   Future<void> getSuppliersFunc(BaseRequestBackType baseRequestBackType,{NoParameter? parameter}) async {
     await CancelManager.runCancelableFun(getSuppliersKeyCode, (token) async {

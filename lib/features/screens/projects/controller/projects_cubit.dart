@@ -37,7 +37,7 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
     int get updatePhaseKeyCode => AppConstant.updatePhaseKeyCode;
 
   init() async {
-    // TODO: implement init
+
   }
 
   @override
@@ -188,5 +188,3 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
     });
   }
 }
-//dart run lib/core/tools/create_auto_functions/add_function_script.dart
-//projects getProjectPhases ProjectPhasesRes GetProjectDataParameter
