@@ -347,3 +347,5 @@ edit_phase,edit phase,تعديل المرحله
 progress_history,progress history,تاريخ التقدم
 
 no_progress_updates,no progress updates,لا توجد تحديثات التقدم
+
+assign_worker,assign worker,العامل المعين
