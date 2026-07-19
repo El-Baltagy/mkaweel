@@ -98,11 +98,28 @@ class _PhaseCard extends StatelessWidget {
                     ),
                     10.horizontalSpace,
                     Expanded(
-                      child: BuildPhaseBtn(
-                        title: 'view_tasks'.tr(),
-                        icon: Icons.task,
+                      child:         BuildPhaseBtn(
+                        title: 'view_updates_and_progress'.tr(),
+                        icon: Icons.remove_red_eye_outlined,
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(AppSizes.s8),
+                          ),
+                          backgroundColor: AppColors.primaryLightColor,
+                          foregroundColor: AppColors.lightBackground,
+                          textStyle: AppTextStyles.font14Regular.copyWith(
+                            color: AppColors.lightBackground,
+                          ),
+                        ),
                         onPressed: () {
-                          context.push(TasksRoute(args: .new()));
+                          context.push(
+                            ProjectPhaseUpdateRoute(
+                              args: ProjectPhaseUpdateRouteArgs(
+                                phaseId: projectPhaseItem.id,
+                                projectsCubit: projectsCubit,
+                              ),
+                            ),
+                          );
                         },
                       ),
                     ),
@@ -110,35 +127,7 @@ class _PhaseCard extends StatelessWidget {
                 ),
               ),
             ),
-            AppPadding.p8.verticalSpace,
-            Semantics(
-              label: 'view_updates_and_progress'.tr(),
-              button: true,
-              child: BuildPhaseBtn(
-                title: 'view_updates_and_progress'.tr(),
-                icon: Icons.remove_red_eye_outlined,
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(AppSizes.s8),
-                  ),
-                  backgroundColor: AppColors.primaryLightColor,
-                  foregroundColor: AppColors.lightBackground,
-                  textStyle: AppTextStyles.font14Regular.copyWith(
-                    color: AppColors.lightBackground,
-                  ),
-                ),
-                onPressed: () {
-                  context.push(
-                    ProjectPhaseUpdateRoute(
-                      args: ProjectPhaseUpdateRouteArgs(
-                        phaseId: projectPhaseItem.id,
-                        projectsCubit: projectsCubit,
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
+
           ],
         ),
       ),

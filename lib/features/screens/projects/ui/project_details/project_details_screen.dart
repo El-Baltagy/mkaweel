@@ -8,12 +8,14 @@ import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/shared/methods/date_helper.dart';
 import 'package:mkaweel/core/shared/widgets/app_bar.dart';
+import 'package:mkaweel/core/shared/widgets/ticker_text.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
  import 'package:mkaweel/features/screens/projects/data/model/project_phases_res/project_phases_res.dart';
+import 'package:mkaweel/features/screens/projects/ui/all_projects/widgets/project_card.dart';
 import 'package:mkaweel/features/screens/projects/ui/project_details/widgets/progress_text.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -45,8 +47,10 @@ class _ProjectDetailsPageState extends ProjectDetailsPageBaseState {
       child: Scaffold(
         backgroundColor: context.theme.scaffoldBackgroundColor,
         appBar: CustomAppBar(
-          title:
-              'project_overview'.tr() + ' ' + widget.args.projectInfoData.name,
+          titleWDG: TickerText(child: Text('project_overview'.tr() + ' ' + widget.args.projectInfoData.name,
+              style: AppTextStyles.font18SemiBold.copyWith(color: context.theme.scaffoldBackgroundColor)
+          ))
+
         ),
         body: BlocSelector<ProjectsCubit, ProjectsState, BaseEmit?>(
           selector: (state) =>
@@ -63,9 +67,11 @@ class _ProjectDetailsPageState extends ProjectDetailsPageBaseState {
               padding: const EdgeInsets.all(
                 AppPadding.p16,
               ).copyWith(bottom: AppPadding.p32),
-              itemCount: list.length,
+              itemCount: list.length ,
               separatorBuilder: (_, __) => AppPadding.p12.verticalSpace,
-              itemBuilder: (context, index) => _PhaseCard(
+              itemBuilder: (context, index) =>
+
+                  _PhaseCard(
                 projectsCubit: projectsCubit,
                 isLoading: isLoading,
                 projectPhaseItem: list[index],

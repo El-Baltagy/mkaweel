@@ -232,7 +232,7 @@ planned_end_date,Planned End Date,تاريخ الانتهاء المخطط
 actual_start_date,Actual Start Date,تاريخ البدء الفعلي
 actual_end_date,Actual End Date,تاريخ الانتهاء الفعلي
 save_phase_dates,Save Phase Dates,حفظ تواريخ المرحلة
-view_updates_and_progress,View Updates & Progress,عرض التحديثات والتقدم
+view_updates_and_progress,View Updates ,عرض التحديثات
 phase_name_label,Phase Name,اسم المرحلة
 pending_status,Pending,قيد الانتظار
 in_progress_status,In Progress,جاري التنفيذ
@@ -343,7 +343,7 @@ enter_new_password_confirm,enter new password confirm,أدخل تأكيد كلم
 enter_new_password,enter new password,أدخل كلمة المرور الجديدة
 
 view_tasks,view tasks,عرض المهام
-edit_phase,edit phase,مرحلة التحرير
+edit_phase,edit phase,تعديل المرحله
 progress_history,progress history,تاريخ التقدم
 
 no_progress_updates,no progress updates,لا توجد تحديثات التقدم

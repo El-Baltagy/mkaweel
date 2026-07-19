@@ -21,7 +21,7 @@ class TickerText extends StatefulWidget {
     required this.child,
     this.scrollDirection = Axis.horizontal,
     this.returnDuration = const Duration(milliseconds: 800),
-    this.startPauseDuration = const Duration(seconds: 8),
+    this.startPauseDuration = const Duration(seconds: 2),
     this.endPauseDuration,
     this.speed = 20,
     this.controller,

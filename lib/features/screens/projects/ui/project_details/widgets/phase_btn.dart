@@ -21,14 +21,19 @@ class BuildPhaseBtn extends StatelessWidget {
       width: double.infinity,
       height: AppSizes.s48,
       child: ElevatedButton.icon(
+
         onPressed:onPressed ,
         icon:   Icon(
           icon,
            size: AppSizes.s18,
         ),
-        label: Text(
-            title
-         ),
+        label:
+        TickerText(child: Text(title,
+            // style: AppTextStyles.font18SemiBold.copyWith(color: context.theme.scaffoldBackgroundColor)
+        )),
+        // Text(
+        //     title
+        //  ),
         style:style??
         OutlinedButton.styleFrom(
           foregroundColor: AppColors.primaryLightColor,

@@ -41,14 +41,13 @@ class _ProjectPhaseUpdatePageState extends ProjectPhaseUpdatePageBaseState {
   @override
   Widget build(BuildContext context) {
     final isDark = context.theme.brightness == Brightness.dark;
-    final bgColor = isDark ? AppColors.darkBackground : const Color(0xFFF5F7FA);
 
     return BlocListener<ProjectsCubit, ProjectsState>(
       listener: (context, state) {
         // listener reserved for future use
       },
       child: Scaffold(
-        backgroundColor: bgColor,
+        backgroundColor: context.theme.scaffoldBackgroundColor,
         appBar: CustomAppBar(
           title: 'progress_history'.tr(),
         ),

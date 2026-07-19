@@ -19,17 +19,20 @@ part   'location_row.dart';
 
 
 class ProjectCard extends StatelessWidget {
-  const ProjectCard({super.key, required this.projectInfoData,required this.projectsCubit});
+  const ProjectCard({super.key, required this.projectInfoData,required this.projectsCubit,
+    this.showEditDeleTasksBtns=true, this.margin});
 
   final ProjectInfoData projectInfoData;
   final ProjectsCubit projectsCubit;
+  final bool showEditDeleTasksBtns;
+  final EdgeInsetsGeometry? margin;
   @override
   Widget build(BuildContext context) {
     final primary = Theme.of(context).primaryColor;
 
     return Card(
       elevation: 2,
-      margin: const EdgeInsets.all(12),
+      margin:margin  ,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: InkWell(
         onTap: () => context.push(ProjectDetailsRoute(
@@ -54,7 +57,7 @@ class ProjectCard extends StatelessWidget {
                   const SizedBox(width: 12),
                   Expanded(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment:  .start,
                       children: [
                         Text(
                            projectInfoData.name,
@@ -72,8 +75,10 @@ class ProjectCard extends StatelessWidget {
                       ],
                     ),
                   ),
+                  if( showEditDeleTasksBtns)
                   Row(
                     mainAxisSize: .min,
+                    spacing: 5,
                     children: [
                       GestureDetector(
                         onTap: () async {
@@ -86,8 +91,7 @@ class ProjectCard extends StatelessWidget {
                           color: context.theme.primaryColor,
                         ),
                       ),
-                      10.horizontalSpace,
-                      BlocBuilder<ProjectsCubit, ProjectsState>(
+                       BlocBuilder<ProjectsCubit, ProjectsState>(
                         bloc: projectsCubit,
                         builder: (context, state) {
                           bool isDeleting = false;
@@ -118,6 +122,15 @@ class ProjectCard extends StatelessWidget {
                                   )
                                 );
                         },
+                      ),
+                      GestureDetector(
+                        onTap: ()   {
+  context.push(TasksRoute(args: .new()));
+
+                        },
+                        child:   Icon(Icons.task_rounded,
+                          color: context.theme.primaryColor,
+                        ),
                       ),
                     ],
                   ),
