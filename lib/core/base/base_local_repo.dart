@@ -19,7 +19,7 @@ class BaseLocalRepo {
      return _instance;
   }
 
-  static void setSessionId(String secondarySessionId) {
+  static void setSecSessionId(String secondarySessionId) {
     _instance.secondarySessionId = secondarySessionId;
     print(secondarySessionId);
    }

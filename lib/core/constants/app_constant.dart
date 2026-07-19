@@ -79,4 +79,7 @@ abstract class AppConstant {
   static const String getGhantDataKeyCash = 'dashboard_getGhantData_cache';
 
   static const int getGhantDataKeyCode = 7819;
+
+
+  static const int getProfileDataKeyCode = 3243;
 }

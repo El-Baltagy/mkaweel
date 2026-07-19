@@ -133,8 +133,8 @@ class _CustomBarChartWidgetState extends State<CustomBarChartWidget> {
                           showZeroValue: false,
                           textStyle: TextStyle(fontSize: 10, color: Colors.black),
                         ),
-                        dataLabelMapper: (PhaseItem data, _) => "${data.progress_percentage}%",
-                        xValueMapper: (PhaseItem data, _) => "${widget.phases.indexOf(data) + 1}",
+                        dataLabelMapper: (PhaseItem data, _) => '${data.progress_percentage}%',
+                        xValueMapper: (PhaseItem data, _) => '${widget.phases.indexOf(data) + 1}',
                         yValueMapper: (PhaseItem data, _) => data.progress_percentage,
                         pointColorMapper: (PhaseItem data, _) => _getColorForPhase(widget.phases.indexOf(data)),
                         borderRadius: const BorderRadius.only(
@@ -193,16 +193,15 @@ class _CustomBarChartWidgetState extends State<CustomBarChartWidget> {
   }
 
   Widget _buildDetailRow(Map<String, dynamic> map, bool isInactive) {
-    final int id = map['id'];
-    final PhaseItem phase = map['phase'];
-    final int index = map['index'];
+    final int id = map['id'] as int;
+    final PhaseItem phase = map['phase'] as PhaseItem;
+    final int index = map['index'] as int;
     final Color color = _getColorForPhase(index);
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
+         children: [
           Container(
             width: 28,
             height: 28,

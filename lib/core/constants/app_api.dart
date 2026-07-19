@@ -42,4 +42,6 @@ abstract class EndPoints {
   static const String getWeather = '/api/weather';
 
   static const String getGhantData = '/api/projects/chart-data';
+
+  static const String getProfileData = '/api/user';
 }
