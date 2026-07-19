@@ -15,6 +15,16 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    ProjectPhaseUpdateRoute.name: (routeData) {
+      final args = routeData.argsAs<ProjectPhaseUpdateRouteArgs>( );
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(
+            child: ProjectPhaseUpdatePage(
+           args: args ,
+        )),
+      );
+    },
     ChangePasswordRoute.name: (routeData) {
       final args = routeData.argsAs<ChangePasswordRouteArgs>( );
       return AutoRoutePage<dynamic>(
@@ -606,3 +616,24 @@ class ChangePasswordRouteArgs {
       );
     final SettingsCubit  settingsCubit;
 }
+
+/// generated route for
+/// [ProjectPhaseUpdatePage]
+class ProjectPhaseUpdateRoute extends PageRouteInfo<ProjectPhaseUpdateRouteArgs> {
+  ProjectPhaseUpdateRoute({
+   required ProjectPhaseUpdateRouteArgs args  ,
+    List<PageRouteInfo>? children,
+  }) : super(
+    ProjectPhaseUpdateRoute.name,
+    args: args,
+    initialChildren: children,
+  );
+
+  static const String name = 'ProjectPhaseUpdateRoute';
+
+  static const PageInfo<ProjectPhaseUpdateRouteArgs> page =
+  PageInfo<ProjectPhaseUpdateRouteArgs>(name);
+}
+class ProjectPhaseUpdateRouteArgs {
+  const ProjectPhaseUpdateRouteArgs( );
+ }

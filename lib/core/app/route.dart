@@ -14,6 +14,7 @@ import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/create_project_
 import 'package:mkaweel/features/screens/projects/ui/all_projects/projects_screen.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/market_prices_screen.dart';
 import 'package:mkaweel/features/screens/main_home/ui/main_home_screen.dart';
+import 'package:mkaweel/features/screens/projects/ui/project_phase_update/project_phase_update_screen.dart';
 import 'package:mkaweel/features/screens/settings/controller/settings_cubit.dart';
 import 'package:mkaweel/features/screens/settings/data/base_type_worker.dart';
 import 'package:mkaweel/features/screens/settings/ui/change_password/change_password_screen.dart';
@@ -31,12 +32,17 @@ import 'package:mkaweel/features/screens/workers/ui/add_workers/add_worker_scree
 import 'package:mkaweel/features/screens/Tasks/ui/Tasks/tasks_screen.dart';
  part 'route.gr.dart';
 
+
   @AutoRouterConfig(replaceInRouteName: 'Page,Route')
 class AppRouter extends _$AppRouter {
   AppRouter({super.navigatorKey});
 
   @override
   List<AutoRoute> get routes => [
+      AutoRoute(
+        page: ProjectPhaseUpdateRoute.page,
+        // initial: true,
+      ),
       AutoRoute(
         page: ChangePasswordRoute.page,
         // initial: true,
