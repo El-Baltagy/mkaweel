@@ -9,7 +9,7 @@ class EntranceFader extends StatelessWidget {
     this.duration = const Duration(milliseconds: 500),
 
 
-    required this.child, required this.enableAnimation, });
+    required this.child,   this.enableAnimation=true });
   final Widget child;
   final void Function()? onAnimationEnded;
 

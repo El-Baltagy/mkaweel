@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/base/base_state.dart';
-import 'package:mkaweel/core/constants/app_locator.dart';
-import 'package:mkaweel/core/extension/context.dart';
+ import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/shared/methods/date_helper.dart';
 import 'package:mkaweel/core/shared/widgets/app_bar.dart';
@@ -14,12 +13,12 @@ import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
-import 'package:mkaweel/features/screens/projects/data/model/create_project_res/create_project_res.dart';
-import 'package:mkaweel/features/screens/projects/data/model/project_phases_res/project_phases_res.dart';
+ import 'package:mkaweel/features/screens/projects/data/model/project_phases_res/project_phases_res.dart';
 import 'package:mkaweel/features/screens/projects/ui/project_details/widgets/progress_text.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 part 'widgets/phase_card.dart';
+part 'widgets/phase_btn.dart';
 
 part 'pj_details_mixin.dart';
 

@@ -341,3 +341,9 @@ old_password,old password,كلمة المرور القديمة
 enter_new_password_confirm,enter new password confirm,أدخل تأكيد كلمة المرور الجديدة
 
 enter_new_password,enter new password,أدخل كلمة المرور الجديدة
+
+view_tasks,view tasks,عرض المهام
+edit_phase,edit phase,مرحلة التحرير
+progress_history,progress history,تاريخ التقدم
+
+no_progress_updates,no progress updates,لا توجد تحديثات التقدم

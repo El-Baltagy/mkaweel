@@ -18,6 +18,7 @@ import 'package:mkaweel/features/screens/projects/data/model/update_phase_parame
 import 'package:mkaweel/main.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
 import 'package:mkaweel/features/screens/projects/service/projects_service.dart';
+import 'package:mkaweel/features/screens/projects/data/model/pj_phase_update/pj_phase_update.dart';
 
 class ProjectsCubit extends BaseCubit<ProjectsState> {
   ProjectsCubit(this._service) : super(ProjectsLoaded());
@@ -36,6 +37,8 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
 
     int get updatePhaseKeyCode => AppConstant.updatePhaseKeyCode;
 
+    int get getPhaseUpdatesKeyCode => AppConstant.getPhaseUpdatesKeyCode;
+
   init() async {
 
   }
@@ -51,6 +54,7 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
     // add every key in file
     CancelManager.cancel(getAllProjectsKeyCode);
     CancelManager.cancel(createProjectKeyCode);
+    CancelManager.cancel(getPhaseUpdatesKeyCode);
     return super.close();
   }
 
@@ -183,6 +187,21 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
             ));
           },
           onLeftCallback: (failure) => safeEmit( current.copyWith(updatePhaseState: ErrorState(failure))),
+        ),
+      );
+    });
+  }
+
+  Future<void> getPhaseUpdatesFunc({GetProjectDataParameter? parameter}) async {
+    await CancelManager.runCancelableFun(getPhaseUpdatesKeyCode, (token) async {
+      await _service.getPhaseUpdatesServ(
+        RequestCallbackObserver<PjPhaseUpdate, GetProjectDataParameter>(
+          baseRequestBackType: Reload(),
+          parameter: parameter,
+          cancelToken: token,
+          onLoadCallback: () => safeEmit(current.copyWith(getPjPhaseUpdateState: Loading())),
+          onRightCallback: (data) => safeEmit(current.copyWith(getPjPhaseUpdateState: Success(data))),
+          onLeftCallback: (failure) => safeEmit(current.copyWith(getPjPhaseUpdateState: ErrorState(failure))),
         ),
       );
     });

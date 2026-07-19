@@ -17,6 +17,8 @@ import 'package:mkaweel/features/screens/projects/data/model/delete_project_res/
 import 'package:mkaweel/features/screens/projects/data/model/get_project_data_parameter.dart';
 import 'package:mkaweel/features/screens/projects/data/model/project_phases_res/project_phases_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/update_phase_parameter.dart';
+import 'package:mkaweel/features/screens/projects/data/model/pj_phase_update/pj_phase_update.dart';
+
 
 class ProjectsRepo extends BaseRepo {
   ProjectsRepo(this.dio);
@@ -109,5 +111,18 @@ class ProjectsRepo extends BaseRepo {
       ),
     );
   }
-}
 
+  Future<Either<Failure, PjPhaseUpdate>> getPhaseUpdatesApi(
+    GetProjectDataParameter? parameter, {
+    CancelToken? cancelToken,
+  }) async {
+    return handleResponse(
+      onCallData: dio.getData(
+        uri: EndPoints.getPhaseUpdates(parameter!.projectId),
+        cancelToken: cancelToken,
+        caller: callerTag(),
+      ),
+      asObject: PjPhaseUpdate.fromJson,
+    );
+  }
+}

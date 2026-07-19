@@ -16,7 +16,7 @@ abstract class _$AppRouter extends RootStackRouter {
   @override
   final Map<String, PageFactory> pagesMap = {
     ProjectPhaseUpdateRoute.name: (routeData) {
-      final args = routeData.argsAs<ProjectPhaseUpdateRouteArgs>( );
+      final args = routeData.argsAs<ProjectPhaseUpdateRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: WrappedRoute(
@@ -635,5 +635,10 @@ class ProjectPhaseUpdateRoute extends PageRouteInfo<ProjectPhaseUpdateRouteArgs>
   PageInfo<ProjectPhaseUpdateRouteArgs>(name);
 }
 class ProjectPhaseUpdateRouteArgs {
-  const ProjectPhaseUpdateRouteArgs( );
- }
+  const ProjectPhaseUpdateRouteArgs({
+    required this.phaseId,
+    required this.projectsCubit,
+  });
+  final int phaseId;
+  final ProjectsCubit projectsCubit;
+}

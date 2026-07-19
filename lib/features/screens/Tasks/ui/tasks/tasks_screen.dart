@@ -53,11 +53,7 @@ class _TasksPageState extends TasksPageBaseState {
         child: Scaffold(
           backgroundColor: context.theme.scaffoldBackgroundColor,
           appBar: CustomAppBar(
-            leading: IconButton(
-              icon: Icon(Icons.sync, color: context.theme.scaffoldBackgroundColor),
-              onPressed: () => tasksCubit.getTasksFunc(Reload()),
-            ),
-            title: 'all_construction_tasks'.tr(),
+             title: 'all_construction_tasks'.tr(),
           ),
           body: BlocSelector<TasksCubit, TasksState, BaseEmit?>(
             selector: (state) =>

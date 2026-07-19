@@ -15,8 +15,9 @@ class ProjectsLoaded extends ProjectsState {
     this.createProjectResState,
     this.refreshOrInit,
     this.deletingProjectIds = const [],
+    this.getPjPhaseUpdateState,
   });
-  final BaseEmit? allProjectsResState,deleteProjectResState,createProjectResState, getProjectPhasesState, updatePhaseState;
+  final BaseEmit? allProjectsResState,deleteProjectResState,createProjectResState, getProjectPhasesState, updatePhaseState, getPjPhaseUpdateState;
   final ProjectsState? refreshOrInit;
   final List<String> deletingProjectIds;
 
@@ -28,6 +29,7 @@ class ProjectsLoaded extends ProjectsState {
     BaseEmit? createProjectResState,
     ProjectsState? refreshOrInit,
     List<String>? deletingProjectIds,
+    BaseEmit? getPjPhaseUpdateState,
   }) {
     return ProjectsLoaded(
       updatePhaseState: updatePhaseState ?? this.updatePhaseState,
@@ -37,6 +39,7 @@ class ProjectsLoaded extends ProjectsState {
       createProjectResState: createProjectResState ?? this.createProjectResState,
         deleteProjectResState: deleteProjectResState ?? this.deleteProjectResState,
         deletingProjectIds: deletingProjectIds ?? this.deletingProjectIds,
+        getPjPhaseUpdateState: getPjPhaseUpdateState ?? this.getPjPhaseUpdateState,
     );
   }
 }

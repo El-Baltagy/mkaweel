@@ -12,6 +12,8 @@ import 'package:mkaweel/features/screens/projects/data/model/get_project_data_pa
 import 'package:mkaweel/features/screens/projects/data/model/project_phases_res/project_phases_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/update_phase_parameter.dart';
 import 'package:mkaweel/features/screens/projects/data/repo/remote/projects_repo.dart';
+import 'package:mkaweel/features/screens/projects/data/model/pj_phase_update/pj_phase_update.dart';
+
 
 class ProjectsService extends BaseService {
   ProjectsService(this._remoteRepo, this._localRepo);
@@ -95,6 +97,17 @@ class ProjectsService extends BaseService {
   ) {
      return requestInfo.handleRequest(
       fetchFromClient: (token) => _remoteRepo.updatePhaseApi(
+        requestInfo.parameter,
+        cancelToken: token,
+      ),
+    );
+  }
+
+  Future<void> getPhaseUpdatesServ(
+    RequestCallbackObserver<PjPhaseUpdate, GetProjectDataParameter> requestInfo,
+  ) {
+    return requestInfo.handleRequest(
+      fetchFromClient: (token) => _remoteRepo.getPhaseUpdatesApi(
         requestInfo.parameter,
         cancelToken: token,
       ),

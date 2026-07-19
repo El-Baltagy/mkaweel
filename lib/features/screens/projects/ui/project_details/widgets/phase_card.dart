@@ -1,7 +1,11 @@
 part of '../project_details_screen.dart';
 
 class _PhaseCard extends StatelessWidget {
-  const _PhaseCard({required this.isLoading, required this.projectPhaseItem, required this.projectsCubit});
+  const _PhaseCard({
+    required this.isLoading,
+    required this.projectPhaseItem,
+    required this.projectsCubit,
+  });
 
   final bool isLoading;
 
@@ -61,39 +65,78 @@ class _PhaseCard extends StatelessWidget {
             ),
             AppPadding.p12.verticalSpace,
 
-            ProgressRow(projectPhaseItem: projectPhaseItem, isCompleted: projectPhaseItem.progress_percentage == 100),
+            ProgressRow(
+              projectPhaseItem: projectPhaseItem,
+              isCompleted: projectPhaseItem.progress_percentage == 100,
+            ),
             AppPadding.p16.verticalSpace,
+
             // Navigation button → PhaseProgress screen
             Semantics(
-              label: 'view_updates_and_progress'.tr(),
+              label: 'progress_history'.tr(),
               button: true,
               child: SizedBox(
                 width: double.infinity,
                 height: AppSizes.s48,
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                  context.push(  PhaseProgressRoute(
-                    args: PhaseProgressRouteArgs(projectPhaseItem:projectPhaseItem,
-                    projectsCubit: projectsCubit
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: BuildPhaseBtn(
+                        title: 'edit_phase'.tr(),
+                        icon: Icons.edit,
+                        onPressed: () {
+                          context.push(
+                            PhaseProgressRoute(
+                              args: PhaseProgressRouteArgs(
+                                projectPhaseItem: projectPhaseItem,
+                                projectsCubit: projectsCubit,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
                     ),
-                  ));
-                  },
-                  icon: const Icon(
-                    Icons.remove_red_eye_outlined,
-                    size: AppSizes.s18,
+                    10.horizontalSpace,
+                    Expanded(
+                      child: BuildPhaseBtn(
+                        title: 'view_tasks'.tr(),
+                        icon: Icons.task,
+                        onPressed: () {
+                          context.push(TasksRoute(args: .new()));
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            AppPadding.p8.verticalSpace,
+            Semantics(
+              label: 'view_updates_and_progress'.tr(),
+              button: true,
+              child: BuildPhaseBtn(
+                title: 'view_updates_and_progress'.tr(),
+                icon: Icons.remove_red_eye_outlined,
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(AppSizes.s8),
                   ),
-                  label: Text('view_updates_and_progress'.tr()),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primaryLightColor,
-                    foregroundColor: AppColors.lightBackground,
-                    textStyle: AppTextStyles.font14Regular.copyWith(
-                      color: AppColors.lightBackground,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppSizes.s8),
-                    ),
+                  backgroundColor: AppColors.primaryLightColor,
+                  foregroundColor: AppColors.lightBackground,
+                  textStyle: AppTextStyles.font14Regular.copyWith(
+                    color: AppColors.lightBackground,
                   ),
                 ),
+                onPressed: () {
+                  context.push(
+                    ProjectPhaseUpdateRoute(
+                      args: ProjectPhaseUpdateRouteArgs(
+                        phaseId: projectPhaseItem.id,
+                        projectsCubit: projectsCubit,
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
           ],
@@ -101,8 +144,6 @@ class _PhaseCard extends StatelessWidget {
       ),
     );
   }
-
-
 
   Widget buildColumn(String title, String? date1, String? date2) {
     if (date1 == null || date2 == null) return const SizedBox.shrink();
