@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/app/app.dart';
-import 'package:mkaweel/localization.dart';
+import 'package:mkaweel/core/localization/localization.dart';
 import 'package:mkaweel/core/storage/hive_storage.dart';
 import 'package:mkaweel/core/theming/theme_cubit.dart';
 

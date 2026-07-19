@@ -13,6 +13,7 @@ import 'package:mkaweel/features/screens/dashboard/controller/dashboard_cubit.da
 import 'package:mkaweel/features/screens/login/data/model/login_res/login_res.dart';
 import 'package:mkaweel/features/screens/main_home/controller/main_home_cubit.dart';
 import 'package:mkaweel/features/screens/main_home/controller/main_home_state.dart';
+import 'package:mkaweel/features/screens/settings/data/base_type_worker.dart';
 
 part 'widgets/bottom_nav_bar.dart';
  part 'widgets/home_admin.dart';
@@ -51,7 +52,7 @@ class _MainHomePageState extends MainHomePageBaseState {
         }
         User? data=state is Success<User> ? state.data : null;
         if(data!=null){
-          return data.role.toLowerCase().trim()=='admin' ? const _HomeAdmin() : const _HomeWorker();
+          return data.role.toLowerCase().trim()!='admin' ? const _HomeAdmin() : const _HomeWorker();
         }
        return    buildError();
 

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mkaweel/core/shared/methods/print.dart';
 
 class CodegenLoader extends RootBundleAssetLoader {
   CodegenLoader._internal();
@@ -44,7 +45,7 @@ class CodegenLoader extends RootBundleAssetLoader {
         supportedLocales = [const Locale('en')];
       }
     } catch (e) {
-      print('Error loading asset manifest: \$e');
+      PrintHelper().ordinaryPrint('Error loading asset manifest: \$e');
       supportedLocales = [const Locale('en')];
     }
     
@@ -64,7 +65,7 @@ class CodegenLoader extends RootBundleAssetLoader {
       '$assetTranslationsPath/app_$localeKey.json',
     );
 
-    final Map<String, dynamic> jsonMap = json.decode(jsonString);
+    final Map<String, dynamic> jsonMap = json.decode(jsonString) as Map<String, dynamic>;
     _cache[localeKey] = jsonMap;
     return jsonMap;
   }

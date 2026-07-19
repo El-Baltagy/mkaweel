@@ -81,6 +81,14 @@ abstract class _$AppRouter extends RootStackRouter {
         child: WrappedRoute(child: AddWorkerPage(args: args)),
       );
     },
+
+    SettingsRoute.name: (routeData) {
+      final args = routeData.argsAs<SettingsRouteArgs>( );
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: SettingsPage(args: args)),
+      );
+    },
     ProjectDetailsRoute.name: (routeData) {
       final args = routeData.argsAs<ProjectDetailsRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -141,12 +149,7 @@ abstract class _$AppRouter extends RootStackRouter {
         child: WrappedRoute(child: const ProjectsPage()),
       );
     },
-    SettingsRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(child: const SettingsPage()),
-      );
-    },
+
     SplashRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -298,16 +301,6 @@ class ProjectsRoute extends PageRouteInfo<void> {
   static const PageInfo<void> page = PageInfo<void>(name);
 }
 
-/// generated route for
-/// [SettingsPage]
-class SettingsRoute extends PageRouteInfo<void> {
-  const SettingsRoute({List<PageRouteInfo>? children})
-      : super(SettingsRoute.name, initialChildren: children);
-
-  static const String name = 'SettingsRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
 
 /// generated route for
 /// [SplashPage]
@@ -533,4 +526,27 @@ class WeatherRoute extends PageRouteInfo<WeatherRouteArgs> {
 class WeatherRouteArgs {
   const WeatherRouteArgs(this.dashboardCubit );
   final DashboardCubit dashboardCubit;
+ }
+
+
+/// generated route for
+/// [SettingsPage]
+class SettingsRoute extends PageRouteInfo<SettingsRouteArgs> {
+  SettingsRoute({
+   required SettingsRouteArgs args  ,
+    List<PageRouteInfo>? children,
+  }) : super(
+    SettingsRoute.name,
+    args: args,
+    initialChildren: children,
+  );
+
+  static const String name = 'SettingsRoute';
+
+  static const PageInfo<SettingsRouteArgs> page =
+  PageInfo<SettingsRouteArgs>(name);
+}
+class SettingsRouteArgs {
+  const SettingsRouteArgs( this.baseUserType );
+final BaseUserType baseUserType;
  }
