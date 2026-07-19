@@ -19,9 +19,9 @@ abstract class BaseUserType {
 }
 
 class BaseTypeAdmin extends BaseUserType {
-  BaseTypeAdmin() : super(title: 'settings');
+  BaseTypeAdmin._() : super(title: 'settings_title');
 //._
-  static final instance = BaseTypeAdmin ();
+  static final instance = BaseTypeAdmin._ ();
 
   @override
   List<SettingItem> buildSettingItems(BuildContext context,SettingsCubit  settingsCubit) {
@@ -39,9 +39,9 @@ class BaseTypeAdmin extends BaseUserType {
 
 
 class BaseTypeWorker extends BaseUserType {
-  BaseTypeWorker () : super(title: 'home');
+  BaseTypeWorker ._() : super(title: 'home');
 
-  static final instance = BaseTypeWorker ();
+  static final instance = BaseTypeWorker._ ();
 
   @override
   List<SettingItem> buildSettingItems(BuildContext context,SettingsCubit  settingsCubit) {

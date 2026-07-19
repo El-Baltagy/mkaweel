@@ -35,7 +35,7 @@ class ProjectphaseItem with _$ProjectphaseItem, EquatableMixin {
     "planned_end_date": "2026-09-15",
     "actual_start_date": "2026-10-15",
     "actual_end_date": "2026-11-15",
-    "progress_percentage": 50,
+    "progress_percentage": 10,
     "status": "in_progress",
     "notes": "تم الانتهاء من نصف أعمال الأساسات",
     "created_at": "2026-07-05T23:03:35.000000Z",

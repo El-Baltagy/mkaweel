@@ -158,7 +158,7 @@ please_choose_material,please choose material,الرجاء اختيار المو
 waste_quantity,waste quantity,كمية الهدر
 waste_percentage,waste percentage,نسبة الهدر
 
-do_you_forget_password,Do You forget password,هل نسيت كلمة المرور
+do_you_forget_password,Do You forget password ?,هل نسيت كلمة المرور ؟
 
 forget_password,forget password,نسيت كلمة المرور
 send,send,يرسل
@@ -333,9 +333,11 @@ please_try_again_later,please try again later,يرجى المحاولة مرة �
 change_password,change password,تغيير كلمة المرور
 
 enter_new_password_confirm,enter new password confirm,أدخل تأكيد كلمة المرور الجديدة
-new_password_and_new_confirm_password_must_be_identical,new password and new confirm password must be identical,يجب أن تكون كلمة المرور الجديدة وكلمة المرور المؤكدة الجديدة متطابقتين
+new_password_and_new_confirm_password_must_be_identical,new password and new confirm password must be identical,كلمات المرور الجديدة يجب أن تكون متطابقه
 new_password_confirm,new password confirm,تأكيد كلمة المرور الجديدة
 new_password,new password,كلمة المرور الجديدة
 old_password,old password,كلمة المرور القديمة
 
 enter_new_password_confirm,enter new password confirm,أدخل تأكيد كلمة المرور الجديدة
+
+enter_new_password,enter new password,أدخل كلمة المرور الجديدة

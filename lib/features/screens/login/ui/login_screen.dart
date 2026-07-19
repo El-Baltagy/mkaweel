@@ -134,7 +134,7 @@ class _LoginPageState extends LoginPageBaseState {
     children: [
       GestureDetector(
         onTap: () => context.pushNavigation(ForgetPasswordScreen()),
-        child: Text("do_you_forget_password".tr()+" ؟ ",
+        child: Text("do_you_forget_password".tr() ,
         style: TextStyle(
           color: context.theme.primaryColor,
           fontSize: 14,

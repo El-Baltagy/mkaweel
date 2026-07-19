@@ -1,84 +1,29 @@
 {
   "status": "success",
    "data": {
-     "selected_project": {
-      "id": 10,
-      "name": "مشروع بناء مجمع سكني",
-      "progress_percentage": 11.5,
-      "phases": [
-        {
-          "phase_id": 13,
-          "phase_name": "تجهيز الموقع",
-          "progress_percentage": 50,
-          "status": "in_progress"
-        },
-        {
-          "phase_id": 14,
-          "phase_name": "أعمال الحفر والتهيئة",
-          "progress_percentage": 36,
-          "status": "pending"
-        },
-        {
-          "phase_id": 15,
-          "phase_name": "أعمال الأساسات",
-          "progress_percentage": 30,
-          "status": "in_progress"
-        },
-        {
-          "phase_id": 16,
-          "phase_name": "الهيكل الخرساني",
-          "progress_percentage": 0,
-          "status": "pending"
-        },
-        {
-          "phase_id": 17,
-          "phase_name": "أعمال المباني",
-          "progress_percentage": 0,
-          "status": "pending"
-        },
-        {
-          "phase_id": 18,
-          "phase_name": "أعمال اللياسة والمحارة",
-          "progress_percentage": 17,
-          "status": "in_progress"
-        },
-        {
-          "phase_id": 19,
-          "phase_name": "أعمال العزل",
-          "progress_percentage": 0,
-          "status": "pending"
-        },
-        {
-          "phase_id": 20,
-          "phase_name": "الأرضيات والأسقف",
-          "progress_percentage": 0,
-          "status": "pending"
-        },
-        {
-          "phase_id": 21,
-          "phase_name": "الأعمال الكهربائية والميكانيكية",
-          "progress_percentage": 0,
-          "status": "pending"
-        },
-        {
-          "phase_id": 22,
-          "phase_name": "الدهانات والتشطيبات النهائية",
-          "progress_percentage": 0,
-          "status": "pending"
-        },
-        {
-          "phase_id": 23,
-          "phase_name": "الأعمال الخارجية",
-          "progress_percentage": 0,
-          "status": "pending"
-        },
-        {
-          "phase_id": 24,
-          "phase_name": "الفحص والتسليم",
-          "progress_percentage": 5,
-          "status": "in_progress"
-        }
-      ]
-    }
+     "progress_updates": [
+      {
+        "id": 8,
+
+        "progress_percentage": 10,
+        "update_date": "2026-07-05",
+        "notes": "تيست",
+        "photos": [
+          "https://muqawili.app/uploads/projects/10/1783292678_6a4ae306f30c9.png"
+        ],
+         "creator_name": "admin"
+      },
+      {
+        "id": 9,
+         "progress_percentage": 50,
+        "update_date": "2026-07-05",
+        "notes": "تم استلام الموقع",
+        "photos": [
+          "https://muqawili.app/uploads/projects/10/1783292708_6a4ae3242fe49.jpeg"
+        ],
+         "creator_name": "admin"
+      }
+
+    ]
   }
 }

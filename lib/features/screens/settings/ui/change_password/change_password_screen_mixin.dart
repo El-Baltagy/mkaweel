@@ -24,4 +24,12 @@ abstract class ChangePasswordPageBaseState extends State<ChangePasswordPage> {
     _newPWConfirmController.dispose();
     super.dispose();
   }
+  changePassword()async{
+    if (await _key.validateAndScroll(context,listRecorder:listFields)){
+      // await settingsCubit.changePassword(
+      //   oldPassword: _oldPWController.text.trim(),
+      //   newPassword: _newPWController.text.trim(),
+      // );
+    }
+  }
 }

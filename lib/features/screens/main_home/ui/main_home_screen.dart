@@ -16,8 +16,10 @@ import 'package:mkaweel/features/screens/main_home/controller/main_home_state.da
 import 'package:mkaweel/features/screens/settings/data/base_type_worker.dart';
 
 part 'widgets/bottom_nav_bar.dart';
- part 'widgets/home_admin.dart';
- part 'widgets/home_worker.dart';
+
+part 'widgets/home_admin.dart';
+
+part 'widgets/home_worker.dart';
 
 @RoutePage()
 class MainHomePage extends StatefulWidget implements AutoRouteWrapper {
@@ -46,35 +48,33 @@ class _MainHomePageState extends MainHomePageBaseState {
           state is MainHomeLoaded ? state.getProfileDataState : null,
       builder: (context, state) {
         // bool isLoading = state is Loading;
-        if(state is Loading ){
-
-          return buildLoading();
+        if (state is ErrorState) {
+          return buildError();
         }
-        User? data=state is Success<User> ? state.data : null;
-        if(data!=null){
-          return data.role.toLowerCase().trim()!='admin' ? const _HomeAdmin() : const _HomeWorker();
-        }
-       return    buildError();
 
+        User? data = state is Success<User> ? state.data : null;
+        if (data != null) {
+          return data.role.toLowerCase().trim() == 'admin'
+              ? const _HomeAdmin()
+              : const _HomeWorker();
+        }
+        return buildLoading();
       },
     );
   }
 
   Scaffold buildLoading() {
-
-    return const Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
+    return const Scaffold(body: Center(child: CircularProgressIndicator()));
   }
+
   Scaffold buildError() {
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisSize: .min,
           children: [
-            Icon(Icons.refresh,
+            Icon(
+              Icons.refresh,
               color: context.theme.colorScheme.secondary,
               size: 30,
             ),
@@ -84,18 +84,16 @@ class _MainHomePageState extends MainHomePageBaseState {
               children: [
                 Text('please_try_again_later'.tr()),
                 10.horizontalSpace,
-                Icon(Icons.error_outline,
+                Icon(
+                  Icons.error_outline,
                   color: context.theme.colorScheme.secondary,
                 ),
-
               ],
             ),
-
           ],
         ),
       ),
     );
-
   }
 }
 

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
+import 'package:mkaweel/core/extension/form_auto_scroll.dart';
 import 'package:mkaweel/core/shared/widgets/app_bar.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/password_text_input_data.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
@@ -12,8 +13,7 @@ import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/title_with_input.dart';
 import 'package:mkaweel/features/screens/settings/controller/settings_cubit.dart';
 import 'package:mkaweel/features/screens/settings/controller/settings_state.dart';
- 
-part 'change_password_screen_mixin.dart';
+ part 'change_password_screen_mixin.dart';
 
 @RoutePage()
 class ChangePasswordPage extends StatefulWidget implements AutoRouteWrapper {
@@ -39,6 +39,7 @@ class _ChangePasswordPageState extends ChangePasswordPageBaseState {
       appBar: CustomAppBar(
         title: 'change_password'.tr(),
       ),
+      bottomNavigationBar:buildSaveBtn() ,
       body: Form(
         key: _key,
         child: SingleChildScrollView(
@@ -50,44 +51,45 @@ class _ChangePasswordPageState extends ChangePasswordPageBaseState {
               buildNewPW(),
               buildNewPWConfirm(),
 
-              Padding(
-                padding: const EdgeInsets.only(top: 24),
-                child: BlocConsumer<SettingsCubit, SettingsState>(
-                  listener: (context, state) {
-                    // if(){}
-                  },
-                  builder: (context, state) {
-                    bool isLoading=false;
-                    // bool isLoading=state is UpdateProfileResState && state.baseEmit is Loading;
-
-                    return isLoading?
-                    const CircularProgressIndicator():
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {} ,
-                        // onPressed: () => updateProfile(context) ,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).primaryColor,
-                          padding: const EdgeInsets.symmetric(vertical: AppPadding.p16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(AppSizes.s12),
-                          ),
-                        ),
-                        child: Text(
-                          'save'.tr(),
-                          style: AppTextStyles.font16SemiBold.copyWith(
-                            color: context.theme.scaffoldBackgroundColor,
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Padding buildSaveBtn() {
+    return Padding(
+      padding: const  .all(20),
+      child: BlocConsumer<SettingsCubit, SettingsState>(
+        listener: (context, state) {
+         },
+        builder: (context, state) {
+          bool isLoading=false;
+          // bool isLoading=state is UpdateProfileResState && state.baseEmit is Loading;
+
+          return isLoading?
+          const CircularProgressIndicator():
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: changePassword ,
+               style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).primaryColor,
+                padding: const EdgeInsets.symmetric(vertical: AppPadding.p16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(AppSizes.s12),
+                ),
+              ),
+              child: Text(
+                'save'.tr(),
+                style: AppTextStyles.font16SemiBold.copyWith(
+                  color: context.theme.scaffoldBackgroundColor,
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

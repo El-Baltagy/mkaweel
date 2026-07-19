@@ -8,6 +8,7 @@ import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/form_auto_scroll.dart';
+import 'package:mkaweel/core/shared/widgets/app_bar.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/dob_text_input_data.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/email_text_input_data.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/name_text_input_data.dart';
@@ -48,16 +49,8 @@ class _ProfileScreenState extends ProfilePageBaseState {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-        elevation: 0,
-        title: Text(
-          'profile'.tr(),
-          style: AppTextStyles.font18SemiBold.copyWith(
-            color: Theme.of(context).appBarTheme.foregroundColor ?? context.theme.scaffoldBackgroundColor,
-          ),
-        ),
-        centerTitle: true,
+      appBar: CustomAppBar(
+        title: 'profile'.tr(),
       ),
       floatingActionButton: FloatingActionButton(onPressed: () {
         debugPrint(_avatarNotifier.value);
@@ -130,6 +123,24 @@ class _ProfileScreenState extends ProfilePageBaseState {
                    )
 
                ),
+
+               Row(
+                 mainAxisAlignment: .end,
+                 children: [
+                   GestureDetector(
+                       onTap: () =>  context.pushRoute(  ChangePasswordRoute(args: .new(widget.args.settingsCubit))),
+                       child: Text('change_password'.tr(),
+                       style:AppTextStyles.font14Regular.copyWith(
+                       color: context.theme.primaryColor,
+                         fontSize: 16,
+                         fontWeight: .w600,
+                         decoration: .underline,
+                         decorationColor:  context.theme.primaryColor
+                       )))
+
+                 ],
+               ),
+
 
                Padding(
                 padding: const EdgeInsets.only(top: 24),

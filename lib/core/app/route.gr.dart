@@ -120,6 +120,14 @@ abstract class _$AppRouter extends RootStackRouter {
         child: WrappedRoute(child: CreateProjectPage(args: args)),
       );
     },
+    //ProfileScreenPageRoute
+    ProfileScreenPageRoute.name: (routeData) {
+      final args = routeData.argsAs<ProfileScreenPageRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: ProfileScreen(args: args)),
+      );
+    },
     DashboardRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -551,7 +559,7 @@ final BaseUserType baseUserType;
 
 
 /// generated route for
-/// [ChangePasswordPage]
+/// [ProfileScreenPagePage]
 class ProfileScreenPageRoute extends PageRouteInfo<ProfileScreenPageRouteArgs> {
   ProfileScreenPageRoute({
     required ProfileScreenPageRouteArgs args  ,
