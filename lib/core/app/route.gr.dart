@@ -15,6 +15,16 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    ChangePasswordRoute.name: (routeData) {
+      final args = routeData.argsAs<ChangePasswordRouteArgs>( );
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(
+            child: ChangePasswordPage(
+           args: args ,
+        )),
+      );
+    },
     WeatherRoute.name: (routeData) {
       final args = routeData.argsAs<WeatherRouteArgs>( );
       return AutoRoutePage<dynamic>(
@@ -313,18 +323,6 @@ class SplashRoute extends PageRouteInfo<void> {
   static const PageInfo<void> page = PageInfo<void>(name);
 }
 
-
-/// generated route for
-/// [ProfileScreenPage]
-class ProfileScreenPageRoute extends PageRouteInfo<void> {
-  const ProfileScreenPageRoute({List<PageRouteInfo>? children})
-      : super(ProfileScreenPageRoute.name, initialChildren: children);
-
-  static const String name = 'ProfileScreenPageRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
 /// generated route for
 /// [WorkersPage]
 class WorkersRoute extends PageRouteInfo<void> {
@@ -550,3 +548,53 @@ class SettingsRouteArgs {
   const SettingsRouteArgs( this.baseUserType );
 final BaseUserType baseUserType;
  }
+
+
+/// generated route for
+/// [ChangePasswordPage]
+class ProfileScreenPageRoute extends PageRouteInfo<ProfileScreenPageRouteArgs> {
+  ProfileScreenPageRoute({
+    required ProfileScreenPageRouteArgs args  ,
+    List<PageRouteInfo>? children,
+  }) : super(
+    ProfileScreenPageRoute.name,
+    args: args,
+    initialChildren: children,
+  );
+
+  static const String name = 'ProfileScreenPageRoute';
+
+  static const PageInfo<ProfileScreenPageRouteArgs> page =
+  PageInfo<ProfileScreenPageRouteArgs>(name);
+}
+
+class ProfileScreenPageRouteArgs {
+  const ProfileScreenPageRouteArgs(
+      this.settingsCubit
+      );
+  final SettingsCubit  settingsCubit;
+}
+
+/// generated route for
+/// [ChangePasswordPage]
+class ChangePasswordRoute extends PageRouteInfo<ChangePasswordRouteArgs> {
+  ChangePasswordRoute({
+   required ChangePasswordRouteArgs args  ,
+    List<PageRouteInfo>? children,
+  }) : super(
+    ChangePasswordRoute.name,
+    args: args,
+    initialChildren: children,
+  );
+
+  static const String name = 'ChangePasswordRoute';
+
+  static const PageInfo<ChangePasswordRouteArgs> page =
+  PageInfo<ChangePasswordRouteArgs>(name);
+}
+class ChangePasswordRouteArgs {
+  const ChangePasswordRouteArgs(
+      this.settingsCubit
+      );
+    final SettingsCubit  settingsCubit;
+}

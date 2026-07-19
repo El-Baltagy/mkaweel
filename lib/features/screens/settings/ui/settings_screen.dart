@@ -61,7 +61,7 @@ class _SettingsPageState extends SettingsPageBaseState {
                   ),
                   child: Column(
                     children: [
-                      ...widget.args.baseUserType.buildSettingItems(context),
+                      ...widget.args.baseUserType.buildSettingItems(context,settingsCubit),
                       SettingItem(
                         icon: Icons.language,
                         title: 'language'.tr(),

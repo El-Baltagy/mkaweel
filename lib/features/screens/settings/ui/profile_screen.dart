@@ -20,6 +20,7 @@ import 'package:mkaweel/core/extension/double.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:mkaweel/core/storage/storage_helper.dart';
 import 'package:mkaweel/features/screens/login/data/model/login_res/login_res.dart';
+import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/title_with_input.dart';
 import 'package:mkaweel/features/screens/settings/controller/settings_cubit.dart';
 import 'package:mkaweel/features/screens/settings/controller/settings_state.dart';
 import 'package:mkaweel/features/screens/settings/data/model/update_profile_parameters.dart';
@@ -28,11 +29,11 @@ import 'package:mkaweel/features/screens/settings/ui/widgets/image_chnager.dart'
 
 @RoutePage()
 class ProfileScreen extends StatefulWidget  implements AutoRouteWrapper{
-  const ProfileScreen({super.key});
+  const ProfileScreen({super.key, required this.args});
+  final ProfileScreenPageRouteArgs args;
   @override
   Widget wrappedRoute(BuildContext context) {
-    return BlocProvider<SettingsCubit>(
-      create: (context) => SettingsCubit(AppLocator()()()),
+    return BlocProvider.value(value: args.settingsCubit,
       child: this,
     );
   }
@@ -66,99 +67,101 @@ class _ProfileScreenState extends ProfilePageBaseState {
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(AppPadding.p16),
           child: Column(
+            spacing: 16,
              children: [
-              24.verticalSpace,
-               ImageChange(avatarNotifier: _avatarNotifier),
+                Padding(
+                 padding: const EdgeInsets.only(top: 8.0),
+                 child: ImageChange(avatarNotifier: _avatarNotifier),
+               ),
 
-              32.verticalSpace,
-              _buildTextField(
-                 label: 'name'.tr(),
-                widget:   TextInputWidget(
-                    data:  NameInputData(
-                      isLabel: false,
-                      controller: _nameController,
-                      field: field1,
-                    )
-                ),
+                Padding(
+                 padding: const EdgeInsets.only(top: 16),
+                 child: TitleWithInputField(
+                   'name'.tr(),
+                      NameInputData(
+                         isLabel: false,
+                         controller: _nameController,
+                         field: field1,
+                       )
+
+                 ),
                ),
-              16.verticalSpace,
-              _buildTextField(
-                 label: 'phone'.tr(),
-                widget:   TextInputWidget(
-                    data:  PhoneInputData(
-                      isLabel: false,
-                      controller: _phoneController,
-                      field: field2,
-                    )
-                ),
+
+                TitleWithInputField(
+                   'phone'.tr(),
+                   PhoneInputData(
+                     isLabel: false,
+                     controller: _phoneController,
+                     field: field2,
+                   )
+
                ),
-               16.verticalSpace,
-              _buildTextField(
-                 label: 'email'.tr(),
-               widget:   TextInputWidget(
-                   data:  EmailInputData(
+
+                TitleWithInputField(
+                   'email'.tr(),
+                   EmailInputData(
                      labelText: "email@gmail.com",
                      isLabel: false,
-                      controller: _emailController,
+                     controller: _emailController,
                      field: field3,
                    )
+
                ),
-                ),
-              16.verticalSpace,
-              _buildTextField(
-                 label: 'date_of_birth'.tr(),
-                widget:TextInputWidget(
-              data:  DOPInputData(
-                  field: field4,
-                  onTap: () async {
-                    final date = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(1900),
-                      lastDate: DateTime.now(),
-                    );
-                    if (date != null) {
-                      setState(() {
-                        _dobController.text = "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
-                      });
-                    }
 
-                  },
-                  controller: _dobController,
-                )) ,
+                TitleWithInputField(
+                   'date_of_birth'.tr(),
+                   DOPInputData(
+                     field: field4,
+                     onTap: () async {
+                       final date = await showDatePicker(
+                         context: context,
+                         initialDate: DateTime.now(),
+                         firstDate: DateTime(1900),
+                         lastDate: DateTime.now(),
+                       );
+                       if (date != null) {
+                         setState(() {
+                           _dobController.text = "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
+                         });
+                       }
+
+                     },
+                     controller: _dobController,
+                   )
+
+               ),
+
+               Padding(
+                padding: const EdgeInsets.only(top: 24),
+                child: BlocConsumer<SettingsCubit, SettingsState>(
+                  listener: listenerProfile,
+                builder: (context, state) {
+                   bool isLoading=state is UpdateProfileResState && state.baseEmit is Loading;
+
+                  return isLoading?
+                  const CircularProgressIndicator():
+                  SizedBox(
+                                  width: double.infinity,
+                                  child: ElevatedButton(
+                                    onPressed: () => updateProfile(context) ,
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Theme.of(context).primaryColor,
+                                      padding: const EdgeInsets.symmetric(vertical: AppPadding.p16),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(AppSizes.s12),
+                                      ),
+                                    ),
+                                     child: Text(
+                                      'save'.tr(),
+                                      style: AppTextStyles.font16SemiBold.copyWith(
+                                        color: context.theme.scaffoldBackgroundColor,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                },
+                                        ),
               ),
-              40.verticalSpace,
-              BlocProvider(
-          create: (context) => SettingsCubit(AppLocator()()()),
-          child: BlocConsumer<SettingsCubit, SettingsState>(
-            listener: listenerProfile,
-          builder: (context, state) {
-             bool isLoading=state is UpdateProfileResState && state.baseEmit is Loading;
-
-            return isLoading?
-            const CircularProgressIndicator():
-            SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () => updateProfile(context) ,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).primaryColor,
-                    padding: const EdgeInsets.symmetric(vertical: AppPadding.p16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppSizes.s12),
-                    ),
-                  ),
-                   child: Text(
-                    'save'.tr(),
-                    style: AppTextStyles.font16SemiBold.copyWith(
-                      color: context.theme.scaffoldBackgroundColor,
-                    ),
-                  ),
-                ),
-              );
-          },
-        ),
-        ),
             ],
           ),
         ),
@@ -166,26 +169,6 @@ class _ProfileScreenState extends ProfilePageBaseState {
     );
   }
 
-
-
-  Widget _buildTextField({
-     required String label,
-    required Widget widget
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: AppTextStyles.font14Regular.copyWith(
-            color: context.theme.primaryColor
-          ),
-        ),
-        8.verticalSpace,
-        widget
-      ],
-    );
-  }
 
 
 }

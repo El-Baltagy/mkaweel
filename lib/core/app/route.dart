@@ -14,7 +14,9 @@ import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/create_project_
 import 'package:mkaweel/features/screens/projects/ui/all_projects/projects_screen.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/market_prices_screen.dart';
 import 'package:mkaweel/features/screens/main_home/ui/main_home_screen.dart';
+import 'package:mkaweel/features/screens/settings/controller/settings_cubit.dart';
 import 'package:mkaweel/features/screens/settings/data/base_type_worker.dart';
+import 'package:mkaweel/features/screens/settings/ui/change_password/change_password_screen.dart';
 import 'package:mkaweel/features/screens/workers/controller/workers_cubit.dart';
 import 'package:mkaweel/features/screens/workers/data/model/all_workers/all_workers.dart';
 import 'package:mkaweel/features/screens/workers/ui/workers_sc/workers_screen.dart';
@@ -26,7 +28,7 @@ import 'package:mkaweel/features/screens/projects/ui/project_details/project_det
 import 'package:mkaweel/features/screens/projects/ui/project_phases/phase_progress_screen.dart';
 import 'package:mkaweel/features/screens/workers/ui/add_workers/add_worker_screen.dart';
 import 'package:mkaweel/features/screens/Tasks/ui/Tasks/tasks_screen.dart';
-  part 'route.gr.dart';
+ part 'route.gr.dart';
 
   @AutoRouterConfig(replaceInRouteName: 'Page,Route')
 class AppRouter extends _$AppRouter {
@@ -34,6 +36,10 @@ class AppRouter extends _$AppRouter {
 
   @override
   List<AutoRoute> get routes => [
+      AutoRoute(
+        page: ChangePasswordRoute.page,
+        // initial: true,
+      ),
       AutoRoute(
         page: WeatherRoute.page,
         // initial: true,

@@ -329,3 +329,13 @@ progress,Progress,التقدم
 error_loading_data,error loading data,خطأ في تحميل البيانات
 
 please_try_again_later,please try again later,يرجى المحاولة مرة أخرى لاحقا
+
+change_password,change password,تغيير كلمة المرور
+
+enter_new_password_confirm,enter new password confirm,أدخل تأكيد كلمة المرور الجديدة
+new_password_and_new_confirm_password_must_be_identical,new password and new confirm password must be identical,يجب أن تكون كلمة المرور الجديدة وكلمة المرور المؤكدة الجديدة متطابقتين
+new_password_confirm,new password confirm,تأكيد كلمة المرور الجديدة
+new_password,new password,كلمة المرور الجديدة
+old_password,old password,كلمة المرور القديمة
+
+enter_new_password_confirm,enter new password confirm,أدخل تأكيد كلمة المرور الجديدة
