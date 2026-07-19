@@ -138,10 +138,11 @@ class _SettingsPageState extends SettingsPageBaseState {
                     width: double.infinity,
                     child:
                     OutlinedButton(
+
                       onPressed: () async=>await  settingsCubit.logoutFunc( ),
                       style: OutlinedButton.styleFrom(
                         side:   BorderSide(color: context.theme.colorScheme.secondary),
-                        padding: const EdgeInsets.symmetric(vertical: AppPadding.p16),
+                        padding: const  .symmetric(vertical: AppPadding.p16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(AppSizes.s12),
                         ),
