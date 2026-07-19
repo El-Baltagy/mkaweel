@@ -519,7 +519,8 @@ class AddEditTasksRoute extends PageRouteInfo<AddEditTasksRouteArgs> {
   PageInfo<AddEditTasksRouteArgs>(name);
 }
 class AddEditTasksRouteArgs {
-  const AddEditTasksRouteArgs( );
+  const AddEditTasksRouteArgs( this.id);
+  final int? id;
  }
 
 /// generated route for
