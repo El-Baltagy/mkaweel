@@ -1,0 +1,36 @@
+import 'package:dio/dio.dart';
+
+class CreateInvoiceParameter { // File path or file name
+
+  CreateInvoiceParameter({
+    required this.amount,
+    required this.invoiceDate,
+    required this.category,
+    required this.notes,
+    required this.currency,
+    required this.attachment,
+  });
+  final String? amount, invoiceDate, category,notes, currency, attachment;
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> map= {
+      'amount': amount,
+      'invoice_date': invoiceDate,
+      'category': category,
+      'notes': notes,
+      'currency': currency,
+      'attachment': attachment,
+    } ;
+    map.removeWhere((key, value) =>value==null);
+    return map;
+  }
+
+  Future<FormData>  toFormData () async => FormData.fromMap({
+    ...toJson(),
+    if(attachment!=null)
+    'attachment': await MultipartFile.fromFile(
+      attachment!,
+      filename: attachment!.split('/').last,
+    ),
+  });
+}
