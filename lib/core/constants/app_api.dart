@@ -46,4 +46,6 @@ abstract class EndPoints {
   static const String getGhantData = '/api/projects/chart-data';
 
   static const String getProfileData = '/api/user';
+
+  static const String changePassword = '/api/update_password';
 }

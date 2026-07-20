@@ -21,3 +21,7 @@ class UpdateProfileResState extends SettingsState {
   final BaseEmit baseEmit;
   UpdateProfileResState(this.baseEmit);
 }
+class ChangePasswordState extends SettingsState {
+  final BaseEmit baseEmit;
+  ChangePasswordState(this.baseEmit);
+}

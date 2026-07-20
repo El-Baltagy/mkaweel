@@ -59,7 +59,7 @@ abstract class DioErrorHandler {
       // response.data wasn't valid JSON
     }
 
-
+   final String? message2 = message;
      switch (code) {
       case 400:
         message = 'Bad request.';
@@ -74,14 +74,14 @@ abstract class DioErrorHandler {
         message = 'Not found.';
         break;
         case 422:
-        message = 'Unprocessable Entity\n'+message;
+        message = 'Unprocessable Entity';
         break;
       case 500:
         message = 'Internal server error.';
         break;
     }
-
-    return Failure(message, code);
+//+message
+    return Failure(message+(message2==null?'':'\n$message2'), code);
   }
 }
 class Failure {

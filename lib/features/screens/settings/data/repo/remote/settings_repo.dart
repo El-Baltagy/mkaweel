@@ -1,3 +1,5 @@
+import 'package:mkaweel/core/api_helper/caller_tag.dart';
+import 'package:mkaweel/core/constants/app_constant.dart';
 
 import 'package:dio/dio.dart';
 import 'package:mkaweel/core/api_helper/response_handler.dart';
@@ -7,6 +9,7 @@ import 'package:mkaweel/core/api_helper/dio_error_handler.dart';
 import 'package:dartz/dartz.dart';
  import 'package:mkaweel/core/api_helper/dio_helper.dart';
 import 'package:mkaweel/core/base/base_remote_repo.dart';
+import 'package:mkaweel/features/screens/settings/data/model/change+password_parameter.dart';
 import 'package:mkaweel/features/screens/settings/data/model/delete_account_res/delete_account_res.dart';
 import 'package:mkaweel/features/screens/settings/data/model/logout_res/logout_res.dart';
 import 'package:mkaweel/features/screens/settings/data/model/update_profile_parameters.dart';
@@ -53,6 +56,21 @@ class SettingsRepo extends BaseRepo {
         cancelToken: cancelToken,
       ),
       asObject: UpdateProfileRes.fromJson,
+    );
+  }
+
+  Future<Either<Failure, DeleteAccountRes>> changePasswordApi(
+    ChangePasswordParameter? parameter, {
+    CancelToken? cancelToken,
+  }) async {
+    return handleResponse(
+      onCallData: dio.postData(
+        uri: EndPoints.changePassword,
+        cancelToken: cancelToken,
+        data:parameter!.toJson() ,
+        caller: callerTag(),
+      ),
+      asObject: DeleteAccountRes.fromJson,
     );
   }
 }

@@ -1,7 +1,9 @@
+import 'package:mkaweel/core/constants/app_typedef.dart';
  import 'package:mkaweel/core/constants/app_constant.dart';
 import 'package:mkaweel/core/base/base_service.dart';
 import 'package:mkaweel/core/base/base_local_repo.dart';
 import 'package:mkaweel/core/shared/methods/print.dart';
+import 'package:mkaweel/features/screens/settings/data/model/change+password_parameter.dart';
 import 'package:mkaweel/features/screens/settings/data/model/delete_account_res/delete_account_res.dart';
 import 'package:mkaweel/features/screens/settings/data/model/logout_res/logout_res.dart';
 import 'package:mkaweel/features/screens/settings/data/model/update_profile_parameters.dart';
@@ -51,6 +53,17 @@ class SettingsService extends BaseService {
            await _localRepo.saveData(AppConstant.userKeyCash, savedData:  newData!.data.user.toJson());
           }
        },
+    );
+  }
+
+  Future<void> changePasswordServ(
+    RequestCallbackObserver<DeleteAccountRes, ChangePasswordParameter> requestInfo,
+  ) {
+     return requestInfo.handleRequest(
+      fetchFromClient: (token) => _remoteRepo.changePasswordApi(
+        requestInfo.parameter,
+        cancelToken: token,
+      ),
     );
   }
 }

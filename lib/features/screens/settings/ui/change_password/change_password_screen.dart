@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:mkaweel/core/api_helper/dio_error_handler.dart';
 import 'package:mkaweel/core/app/route.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/form_auto_scroll.dart';
@@ -13,6 +15,7 @@ import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/title_with_input.dart';
 import 'package:mkaweel/features/screens/settings/controller/settings_cubit.dart';
 import 'package:mkaweel/features/screens/settings/controller/settings_state.dart';
+import 'package:mkaweel/features/screens/settings/data/model/delete_account_res/delete_account_res.dart';
  part 'change_password_screen_mixin.dart';
 
 @RoutePage()
@@ -63,13 +66,34 @@ class _ChangePasswordPageState extends ChangePasswordPageBaseState {
       padding: const  .all(20),
       child: BlocConsumer<SettingsCubit, SettingsState>(
         listener: (context, state) {
-         },
+          if(state is ChangePasswordState){
+            if(state.baseEmit  is Success<DeleteAccountRes>) {
+              final DeleteAccountRes data=(state.baseEmit as Success<DeleteAccountRes>).data!;
+              if(data.status=='success'){
+                context.showToast(data.message);
+                context.pushAndPopUntil(MainHomeRoute(args: .new()), predicate: (route) => false,);
+              }
+          }
+
+            if(state.baseEmit  is ErrorState){
+              final ErrorState f=state.baseEmit as ErrorState  ;
+               context.showToast(f.failure.message,
+              isSuccess: false
+              );
+          }
+
+          }
+        },
         builder: (context, state) {
-          bool isLoading=false;
-          // bool isLoading=state is UpdateProfileResState && state.baseEmit is Loading;
+           bool isLoading=state is ChangePasswordState && state.baseEmit is Loading;
 
           return isLoading?
-          const CircularProgressIndicator():
+          const Row(
+            mainAxisAlignment: .center,
+            children: [
+              CircularProgressIndicator(),
+            ],
+          ):
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(

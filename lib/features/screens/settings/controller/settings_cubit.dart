@@ -6,6 +6,7 @@ import 'package:mkaweel/core/shared/methods/print.dart';
 import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mkaweel/features/screens/settings/data/model/change+password_parameter.dart';
 import 'package:mkaweel/features/screens/settings/data/model/delete_account_res/delete_account_res.dart';
 import 'package:mkaweel/features/screens/settings/data/model/logout_res/logout_res.dart';
 import 'package:mkaweel/features/screens/settings/data/model/update_profile_parameters.dart';
@@ -26,6 +27,8 @@ class SettingsCubit extends BaseCubit<SettingsState> {
 
   int get deleteAccountKeyCode => AppConstant.deleteAccountKeyCode;
    int get updateProfileKeyCode => AppConstant.updateProfileKeyCode;
+    int get changePasswordKeyCode => AppConstant.changePasswordKeyCode;
+
   init() async {
      // TODO: implement init
 
@@ -50,6 +53,9 @@ class SettingsCubit extends BaseCubit<SettingsState> {
 
   @override
   Future<void> close() {
+    // add every key in file
+    CancelManager.cancel(changePasswordKeyCode);
+
     // add every key in file
     CancelManager.cancel(updateProfileKeyCode);
     // add every key in file
@@ -84,6 +90,20 @@ class SettingsCubit extends BaseCubit<SettingsState> {
           onLoadCallback: () => safeEmit(UpdateProfileResState(Loading())),
           onRightCallback: (data) => safeEmit(UpdateProfileResState(Success(data))),
           onLeftCallback: (failure) => safeEmit(UpdateProfileResState(ErrorState(failure))),
+        ),
+      );
+    });
+  }
+
+  Future<void> changePasswordFunc( {ChangePasswordParameter? parameter}) async {
+    await CancelManager.runCancelableFun(changePasswordKeyCode, (token) async {
+      await _service.changePasswordServ(
+        RequestCallbackObserver<DeleteAccountRes, ChangePasswordParameter>(
+           parameter: parameter,
+          cancelToken: token,
+          onLoadCallback: () => safeEmit(ChangePasswordState(Loading())),
+          onRightCallback: (data) => safeEmit(ChangePasswordState(Success(data))),
+          onLeftCallback: (failure) => safeEmit(ChangePasswordState(ErrorState(failure))),
         ),
       );
     });
