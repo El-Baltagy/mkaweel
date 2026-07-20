@@ -672,5 +672,6 @@ class InvoiceRoute extends PageRouteInfo<InvoiceRouteArgs> {
   PageInfo<InvoiceRouteArgs>(name);
 }
 class InvoiceRouteArgs {
-  const InvoiceRouteArgs( );
+  const InvoiceRouteArgs( this.dashboardCubit);
+  final DashboardCubit dashboardCubit;
  }

@@ -14,6 +14,8 @@ import 'package:mkaweel/core/shared/widgets/text_inputs/name_text_input_data.dar
   import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
+import 'package:mkaweel/features/screens/market_prices/data/model/currency_data.dart';
+import 'package:mkaweel/features/screens/market_prices/ui/widgets/currency_tabs_widget.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
 import 'package:mkaweel/features/screens/projects/data/model/create_project_parameters.dart';

@@ -148,18 +148,19 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
   }
 
   final List<String> _listStringCurrencies = [
-    'SAR',
+    // 'SAR',
     'USD',
     'TRY',
-    'EUR',
-    'AED',
-    'EGP',
-    'IQD',
-    'JOD',
-    'KWD',
-    'LYD',
-    'OMR',
-    'QAR',
+    // 'EUR',
+    // 'AED',
+    // 'EGP',
+    // 'IQD',
+    // 'JOD',
+    // 'KWD',
+    // 'LYD',
+    // 'OMR',
+    // 'QAR',
     'SYP',
   ];
+
 }

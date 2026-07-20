@@ -349,3 +349,11 @@ progress_history,progress history,تاريخ التقدم
 no_progress_updates,no progress updates,لا توجد تحديثات التقدم
 
 assign_worker,assign worker,العامل المعين
+
+category,Category,الفئة
+amount,Amount,الكمية
+date,Date,التاريخ
+attachment,Attachment,مرفق
+enter_notes,Enter notes,أدخل الملاحظات
+
+upload_attachment,upload attachment,تحميل المرفق
