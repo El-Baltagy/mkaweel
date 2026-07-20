@@ -4,6 +4,7 @@ import 'package:mkaweel/features/screens/Tasks/ui/add_edit_tasks/add_edit_tasks_
 import 'package:mkaweel/features/screens/dashboard/controller/dashboard_cubit.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/dashboard_screen.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/ghant_chart/gant_chart_screen.dart';
+import 'package:mkaweel/features/screens/dashboard/ui/invoice/invoice_screen.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/suppliers_info/suppliers_info_screen.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/waste_calculator/waste_calculator_screen.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/weather/weather_screen.dart';
@@ -39,6 +40,10 @@ class AppRouter extends _$AppRouter {
 
   @override
   List<AutoRoute> get routes => [
+      AutoRoute(
+        page: InvoiceRoute.page,
+        // initial: true,
+      ),
       AutoRoute(
         page: ProjectPhaseUpdateRoute.page,
         // initial: true,
