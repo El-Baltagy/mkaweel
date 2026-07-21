@@ -38,12 +38,18 @@ class InvoicePage extends StatefulWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    return MultiBlocProvider(providers: [
-      BlocProvider.value(value: args.dashboardCubit),
-      BlocProvider<MarketPricesCubit>(
-          create: (context) => .new(AppLocator()()())),
-      BlocProvider<ProjectsCubit>(create: (context) => .new(AppLocator()()())),
-    ], child: this);
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(value: args.dashboardCubit),
+        BlocProvider<MarketPricesCubit>(
+          create: (context) => .new(AppLocator()()()),
+        ),
+        BlocProvider<ProjectsCubit>(
+          create: (context) => .new(AppLocator()()()),
+        ),
+      ],
+      child: this,
+    );
   }
 
   @override
@@ -67,7 +73,8 @@ class _InvoicePageState extends InvoicePageBaseState {
               spacing: 20,
               children: [
                 // 1. Select Project
-                ValueListenableBuilder(valueListenable: projectsList,
+                ValueListenableBuilder(
+                  valueListenable: projectsList,
                   builder: (context, value, child) {
                     return BottomSheetSelector(
                       field: fields[0],
@@ -76,9 +83,11 @@ class _InvoicePageState extends InvoicePageBaseState {
                       listChoices: value,
                       selectedRoleNotifier: selectedProjectNotifier,
                     );
-                  },),
+                  },
+                ),
                 // 2. Select Category
-                ValueListenableBuilder(valueListenable: categoriesList,
+                ValueListenableBuilder(
+                  valueListenable: categoriesList,
                   builder: (context, value, child) {
                     return BottomSheetSelector(
                       field: fields[1],
@@ -87,7 +96,8 @@ class _InvoicePageState extends InvoicePageBaseState {
                       listChoices: value,
                       selectedRoleNotifier: selectedCategoryNotifier,
                     );
-                  },),
+                  },
+                ),
 
                 // 3. Enter Amount
                 TitleWithInputField(
@@ -125,8 +135,7 @@ class _InvoicePageState extends InvoicePageBaseState {
                       );
                       if (date != null) {
                         dateController.text =
-                        "${date.year}-${date.month.toString().padLeft(
-                            2, '0')}-${date.day.toString().padLeft(2, '0')}";
+                            "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
                       }
                     },
                     controller: dateController,
@@ -135,7 +144,6 @@ class _InvoicePageState extends InvoicePageBaseState {
 
                 // 5. Enter Attachment (one image only)
                 InvoiceImagePicker(imageNotifier: attachmentNotifier),
-
 
                 // 7. Enter Notes
                 TitleWithInputField(
@@ -153,38 +161,41 @@ class _InvoicePageState extends InvoicePageBaseState {
 
                 // Submit Button
                 BlocSelector<DashboardCubit, DashboardState, BaseEmit?>(
-                  selector: (state)=>state is DashboardLoaded ? state.createInvoiceState : null,
+                  selector: (state) => state is DashboardLoaded
+                      ? state.createInvoiceState
+                      : null,
                   builder: (context, state) {
-                    bool isLoading=state is Loading;
+                    bool isLoading = state is Loading;
                     return Container(
                       padding: const .only(top: 10),
 
-                      child: isLoading ?
-                      const Row(
-                        mainAxisAlignment: .center,
-                        children: [
-                          CircularProgressIndicator.adaptive()
-                        ],
-                      ) :
-                      SizedBox(
-                        width: double.infinity,
-                        height: AppSizes.s48,
-                        child: ElevatedButton(
-                          onPressed: submitInvoice,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: context.theme.primaryColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(AppSizes.s8),
+                      child: isLoading
+                          ? const Row(
+                              mainAxisAlignment: .center,
+                              children: [CircularProgressIndicator.adaptive()],
+                            )
+                          : SizedBox(
+                              width: double.infinity,
+                              height: AppSizes.s48,
+                              child: ElevatedButton(
+                                onPressed: submitInvoice,
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: context.theme.primaryColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      AppSizes.s8,
+                                    ),
+                                  ),
+                                ),
+                                child: Text(
+                                  'save'.tr(),
+                                  style: AppTextStyles.font16SemiBold.copyWith(
+                                    color:
+                                        context.theme.scaffoldBackgroundColor,
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                          child: Text(
-                            'save'.tr(),
-                            style: AppTextStyles.font16SemiBold.copyWith(
-                              color: context.theme.scaffoldBackgroundColor,
-                            ),
-                          ),
-                        ),
-                      ),
                     );
                   },
                 ),
@@ -196,6 +207,4 @@ class _InvoicePageState extends InvoicePageBaseState {
       ),
     );
   }
-
-
 }

@@ -42,7 +42,7 @@ class ProjectInfoData with _$ProjectInfoData, EquatableMixin {
         "extra_details": "معلومات إضافية عن المشروع",
         "contract_value": "100000.00",
         "currency": "USD",
-        "progress_percentage": 11.5,
+        "progress_percentage": 30,
         "created_at": "2026-07-05T23:03:35.000000Z",
         "updated_at": "2026-07-05T23:03:35.000000Z"
       }

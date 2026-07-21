@@ -8,10 +8,12 @@ import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/shared/widgets/app_bar.dart';
+import 'package:mkaweel/core/shared/widgets/classic_header_refresh.dart';
  import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
  import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/features/screens/projects/ui/all_projects/widgets/projects_list.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 @RoutePage()
 class ProjectsPage extends StatefulWidget implements AutoRouteWrapper{
@@ -39,22 +41,33 @@ class _ProjectsPageState extends ProjectsPageBaseState {
        label: 'Projects Screen',
        child: Scaffold(
          backgroundColor: context.theme.scaffoldBackgroundColor,
-         appBar: CustomAppBar(leading: IconButton(
-           icon:   Icon(Icons.sync, color: context.theme.scaffoldBackgroundColor),
-           onPressed: () =>projectsCubit.getAllProjectsFunc(Reload()),
-         ),
+         appBar: CustomAppBar(
+           // leading: SizedBox.shrink(),
+         //   leading: IconButton(
+         //   icon:   Icon(Icons.sync, color: context.theme.scaffoldBackgroundColor),
+         //   onPressed: () =>projectsCubit.getAllProjectsFunc(Reload()),
+         // ),
          title:  'projects'.tr(),
          ),
 
-         body: BlocSelector<ProjectsCubit, ProjectsState, BaseEmit?>(
-       selector: (state) =>state is ProjectsLoaded ? state.allProjectsResState : null,
-       builder: (context, state) {
-         return ProjectsListWidget(
-     projectsCubit: projectsCubit,
-           state: state,
-         );
-       },
-     ),
+         body: SmartRefresher(
+           controller: refreshController,
+           header: const ClassicHeaderRefresh(),
+             onRefresh: () {
+                projectsCubit.getAllProjectsFunc(Reload()).whenComplete(() {
+                 refreshController.refreshCompleted();
+               },);
+             },
+             child: BlocSelector<ProjectsCubit, ProjectsState, BaseEmit?>(
+                  selector: (state) =>state is ProjectsLoaded ? state.allProjectsResState : null,
+                  builder: (context, state) {
+           return ProjectsListWidget(
+                projectsCubit: projectsCubit,
+             state: state,
+           );
+                  },
+                ),
+         ),
          floatingActionButtonLocation: .centerFloat,
          floatingActionButton: FloatingActionButton(
            backgroundColor: context.theme.colorScheme.secondary,
@@ -76,7 +89,7 @@ class _ProjectsPageState extends ProjectsPageBaseState {
 
 abstract class  ProjectsPageBaseState extends State<ProjectsPage> {
   late final ProjectsCubit projectsCubit;
-  
+  RefreshController refreshController=.new();
   @override
   void initState() {
     super.initState();
@@ -86,6 +99,7 @@ abstract class  ProjectsPageBaseState extends State<ProjectsPage> {
 
   @override
   void dispose() {
+    refreshController.dispose();
     super.dispose();
   }
 }

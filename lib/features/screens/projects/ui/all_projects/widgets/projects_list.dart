@@ -5,6 +5,7 @@ import 'package:mkaweel/features/screens/projects/data/model/all_projects_res/al
 import 'package:mkaweel/features/screens/projects/data/model/create_project_res/create_project_res.dart';
 import 'package:mkaweel/features/screens/projects/ui/all_projects/widgets/empty_projects_widget.dart';
 import 'package:mkaweel/features/screens/projects/ui/all_projects/widgets/project_card.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class ProjectsListWidget extends StatelessWidget {
   const ProjectsListWidget({super.key, required this.state, required this.projectsCubit});
@@ -14,13 +15,22 @@ class ProjectsListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isLoading = state is! Success<AllProjectsRes>;
-    if(isLoading){
-      return const Center(
-          child: CircularProgressIndicator());
-    }
 
-    final List<ProjectInfoData> list=isLoading?[]:(state as Success<AllProjectsRes>).data?.data??[] ;
+    final List<ProjectInfoData> list=isLoading?List.generate(5, (index) => ProjectInfoData.getEmptyItem):(state as Success<AllProjectsRes>).data?.data??[] ;
     if(list.isNotEmpty){
+      return SingleChildScrollView(
+        padding: const .symmetric(vertical: 8),
+        child: Column(
+          children: list.map((e) => Skeletonizer(
+            enabled:  isLoading,
+            child: ProjectCard(
+              margin: const .symmetric(horizontal: 12,vertical: 6),
+              projectsCubit:projectsCubit ,
+              projectInfoData:e
+            ),
+          )).toList()
+        ),
+      );
       return ListView.builder(
         padding: const .symmetric(vertical: 8),
           itemCount: list.length,

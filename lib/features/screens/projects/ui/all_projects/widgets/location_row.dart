@@ -33,9 +33,11 @@ class _LocationRowState extends State<LocationRow> {
               double.parse(widget.projectInfoData.longitude!)));
       location = value?.toString();
     }
-    setState(() {
+    if(mounted) {
+      setState(() {
       isLoading = false;
     });
+    }
 
   }
 
