@@ -19,13 +19,14 @@ abstract class InvoicePageBaseState extends State<InvoicePage> {
   final ValueNotifier<List<int>> selectedCurrencyNotifier = ValueNotifier([]);
   final ValueNotifier<String> attachmentNotifier = ValueNotifier('');
 
-
   final List<UIApiKeys> currenciesList = CurrencyTabsWidget.listTabs
       .map((e) => UIApiKeys(e.label, e.shortcut))
       .toList();
+
   // Example data (Will be populated by API in future)
   ValueNotifier<List<UIApiKeys>> projectsList = .new([]);
   ValueNotifier<List<UIApiKeys>> categoriesList = .new([]);
+
   @override
   void initState() {
     dashboardCubit = DashboardCubit.get(context: context);
@@ -36,23 +37,21 @@ abstract class InvoicePageBaseState extends State<InvoicePage> {
     dateController.text =
         "${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}";
     super.initState();
-       marketPricesCubit.getCatogeriesFunc(Init()).then((value) {
-        if (value != null) {
-          categoriesList.value = value.data
-              .map((e) => UIApiKeys(e.name, e.id.toString()))
-              .toList();
-        }
-      });
+    marketPricesCubit.getCatogeriesFunc(Init()).then((value) {
+      if (value != null) {
+        categoriesList.value = value.data
+            .map((e) => UIApiKeys(e.name, e.id.toString()))
+            .toList();
+      }
+    });
 
-      projectsCubit.getAllProjectsFunc(Init()).then((value) {
-        if (value != null) {
-          projectsList.value = value.data
-              .map((e) => UIApiKeys(e.name, e.id.toString()))
-              .toList();
-        }
-       });
-
-
+    projectsCubit.getAllProjectsFunc(Init()).then((value) {
+      if (value != null) {
+        projectsList.value = value.data
+            .map((e) => UIApiKeys(e.name, e.id.toString()))
+            .toList();
+      }
+    });
   }
 
   @override
@@ -64,19 +63,45 @@ abstract class InvoicePageBaseState extends State<InvoicePage> {
     projectsList.dispose();
     super.dispose();
   }
+  void dashboardListener(BuildContext context, DashboardState state) {
+    if(state is DashboardLoaded   ){
+      if(state.createInvoiceState is Success<InvoiceRes>){
+        final InvoiceRes data=(state.createInvoiceState as Success<InvoiceRes>).data!;
+        if(data.status=='success' ){
+          context.showToast(data.message).whenComplete(() => context.pop());
+         }
+      } else if(state.createInvoiceState is ErrorState){
+        final ErrorState f=state.createInvoiceState as ErrorState  ;
+        context.showToast(f.failure.message,
+            isSuccess: false
+        );
+      }
+    }
+  }
 
   submitInvoice() async {
     if (await formKey.validateAndScroll(context, listRecorder: fields)) {
-      //    if (selectedProjectNotifier.value.isEmpty ||
-      //       selectedCategoryNotifier.value.isEmpty ||
-      //       selectedCurrencyNotifier.value.isEmpty) {
-      //     // Validation for dropdowns
-      //     ScaffoldMessenger.of(context).showSnackBar(
-      //       SnackBar(content: Text('please_fill_required_fields'.tr())),
-      //     );
-      //     return;
-      //   }
-      //   // TODO: Proceed to submit API
+      if (selectedProjectNotifier.value.isEmpty ||
+          selectedCategoryNotifier.value.isEmpty ||
+          selectedCurrencyNotifier.value.isEmpty) {
+        // Validation for dropdowns
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('please_fill_required_fields'.tr())),
+        );
+        return;
+      }
+
+      await dashboardCubit.createInvoiceFunc(
+        parameter: CreateInvoiceParameter(
+          amount: amountController.text,
+          invoiceDate: dateController.text,
+          category: categoriesList.value[selectedCategoryNotifier.value.first].apiValue,
+          notes: notesController.text,
+          currency: currenciesList[selectedCurrencyNotifier.value.first].apiValue,
+          attachment: attachmentNotifier.value.isNotEmpty ? attachmentNotifier.value : null,
+          projectId: projectsList.value[selectedProjectNotifier.value.first].apiValue,
+        ),
+      );
     }
   }
 }

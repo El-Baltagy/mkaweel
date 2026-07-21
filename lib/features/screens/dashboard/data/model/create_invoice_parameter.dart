@@ -9,14 +9,15 @@ class CreateInvoiceParameter { // File path or file name
     required this.notes,
     required this.currency,
     required this.attachment,
+    required this.projectId,
   });
-  final String? amount, invoiceDate, category,notes, currency, attachment;
+  final String? amount, projectId,invoiceDate, category,notes, currency, attachment;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> map= {
       'amount': amount,
       'invoice_date': invoiceDate,
-      'category': category,
+      'category_id': category,
       'notes': notes,
       'currency': currency,
       'attachment': attachment,

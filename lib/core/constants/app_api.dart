@@ -48,4 +48,6 @@ abstract class EndPoints {
   static const String getProfileData = '/api/user';
 
   static const String changePassword = '/api/update_password';
+
+  static   String createInvoice (String id)=> '/api/projects/$id/invoices';
 }

@@ -15,6 +15,7 @@ import 'package:mkaweel/core/base/base_state.dart';
 class DashboardLoaded extends DashboardState {
 
   DashboardLoaded({
+    this.createInvoiceState,
     this.getGhantDataState,
     this.getStatisticsState,
     this.getSuppliersState,
@@ -22,11 +23,12 @@ class DashboardLoaded extends DashboardState {
     this.getWeatherState,
     this.refreshOrInit,
   });
-  final BaseEmit? wasteCalcEmit , getSuppliersState, getStatisticsState, getWeatherState;
+  final BaseEmit? wasteCalcEmit , getSuppliersState, getStatisticsState, getWeatherState, createInvoiceState;
     BaseEmit?  getGhantDataState;
   final DashboardState? refreshOrInit;
 
   DashboardLoaded copyWith({
+    BaseEmit? createInvoiceState,
     BaseEmit? getGhantDataState,
     BaseEmit? getStatisticsState,
     BaseEmit? getSuppliersState,
@@ -35,6 +37,7 @@ class DashboardLoaded extends DashboardState {
     DashboardState? refreshOrInit,
   }) {
     return DashboardLoaded(
+      createInvoiceState: createInvoiceState ?? this.createInvoiceState,
       getGhantDataState: getGhantDataState ?? this.getGhantDataState,
       getStatisticsState: getStatisticsState ?? this.getStatisticsState,
       getSuppliersState: getSuppliersState ?? this.getSuppliersState,

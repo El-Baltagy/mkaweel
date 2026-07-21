@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/base/base_cubit.dart';
+import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/double.dart';
@@ -17,6 +18,8 @@ import 'package:mkaweel/core/theming/app_values.dart';
 
 import 'package:mkaweel/features/screens/dashboard/controller/dashboard_cubit.dart';
 import 'package:mkaweel/features/screens/dashboard/controller/dashboard_state.dart';
+import 'package:mkaweel/features/screens/dashboard/data/model/invoice_res/invoice_res.dart';
+import 'package:mkaweel/features/screens/dashboard/data/model/create_invoice_parameter.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/invoice/widgets/invoice_image_picker.dart';
 import 'package:mkaweel/features/screens/market_prices/controller/market_prices_cubit.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/currency_tabs_widget.dart';
@@ -51,9 +54,7 @@ class _InvoicePageState extends InvoicePageBaseState {
   @override
   Widget build(BuildContext context) {
     return BlocListener<DashboardCubit, DashboardState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+      listener: dashboardListener,
       child: Scaffold(
         backgroundColor: context.theme.scaffoldBackgroundColor,
         appBar: CustomAppBar(title: 'new_invoice'.tr()),
@@ -143,7 +144,7 @@ class _InvoicePageState extends InvoicePageBaseState {
                     validator: (v) => null,
                     // not required
                     maxLines: 3,
-                    labelText: 'enter_notes'.tr() + "...",
+                    labelText: '${'enter_notes'.tr()}...',
                     controller: notesController,
                   ),
                 ),
@@ -177,4 +178,6 @@ class _InvoicePageState extends InvoicePageBaseState {
       ),
     );
   }
+
+
 }

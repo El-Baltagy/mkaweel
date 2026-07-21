@@ -89,5 +89,9 @@ abstract class AppConstant {
   static const String changePasswordKeyCash = 'settings_changePassword_cache';
 
   static const int changePasswordKeyCode = 3845;
+
+  static const String createInvoiceKeyCash = 'dashboard_createInvoice_cache';
+
+  static const int createInvoiceKeyCode = 286;
 }
 

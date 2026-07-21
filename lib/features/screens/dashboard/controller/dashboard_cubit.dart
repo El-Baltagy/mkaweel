@@ -6,8 +6,10 @@ import 'package:mkaweel/core/base/base_service.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_constant.dart';
 import 'package:mkaweel/core/shared/methods/print.dart';
+import 'package:mkaweel/features/screens/dashboard/data/model/create_invoice_parameter.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/ghant_data.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/ghant_res/ghant_res.dart';
+import 'package:mkaweel/features/screens/dashboard/data/model/invoice_res/invoice_res.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/statistics_res/statistics_res.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/suppliers_res/suppliers_res.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/waste_calc_paremeter.dart';
@@ -39,6 +41,9 @@ class DashboardCubit extends BaseCubit<DashboardState> {
    int get getGhantDataKeyCode => AppConstant.getGhantDataKeyCode;
    @override
    Future<void> close() {
+    // add every key in file
+    CancelManager.cancel(createInvoiceKeyCode);
+
      // add every key in file
      CancelManager.cancel(getGhantDataKeyCode);
 
@@ -55,7 +60,9 @@ class DashboardCubit extends BaseCubit<DashboardState> {
    }
 
 
-   @override
+     int get createInvoiceKeyCode => AppConstant.createInvoiceKeyCode;
+
+  @override
    Future<void> init() async {
      _current.getGhantDataState=null;
    }
@@ -142,4 +149,18 @@ class DashboardCubit extends BaseCubit<DashboardState> {
     });
   }
 
+
+  Future<void> createInvoiceFunc( {CreateInvoiceParameter? parameter}) async {
+    await CancelManager.runCancelableFun(createInvoiceKeyCode, (token) async {
+      await _service.createInvoiceServ(
+        RequestCallbackObserver<InvoiceRes, CreateInvoiceParameter>(
+           parameter: parameter,
+          cancelToken: token,
+          onLoadCallback: () => safeEmit(_current.copyWith(createInvoiceState: Loading())),
+          onRightCallback: (data) => safeEmit(_current.copyWith(createInvoiceState: Success(data))),
+          onLeftCallback: (failure) => safeEmit(_current.copyWith(createInvoiceState: ErrorState(failure))),
+        ),
+      );
+    });
+  }
 }
