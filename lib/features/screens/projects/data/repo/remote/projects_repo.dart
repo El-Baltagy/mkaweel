@@ -140,4 +140,18 @@ class ProjectsRepo extends BaseRepo {
       asObject: ProjectInoicesRes.fromJson,
     );
   }
+
+  Future<Either<Failure, DeleteProjectRes>> deleteInvoiceApi(
+    DeleteProjectParameter? parameter, {
+    CancelToken? cancelToken,
+  }) async {
+    return handleResponse(
+      onCallData: dio.getData(
+        uri: EndPoints.deleteInvoice(parameter!.id),
+        cancelToken: cancelToken,
+        caller: callerTag(),
+      ),
+      asObject: DeleteProjectRes.fromJson,
+    );
+  }
 }

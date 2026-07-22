@@ -42,12 +42,17 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
 
     int get getProjectInvoicesKeyCode => AppConstant.getProjectInvoicesKeyCode;
 
+    int get deleteTaskKeyCode => AppConstant.deleteTaskKeyCode;
+
   init() async {
 
   }
 
   @override
   Future<void> close() {
+    // add every key in file
+    CancelManager.cancel(deleteTaskKeyCode);
+
     // add every key in file
     CancelManager.cancel(getProjectInvoicesKeyCode);
 
@@ -222,6 +227,22 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
           onLoadCallback: () => safeEmit( current.copyWith(getProjectInvoicesState: Loading())),
           onRightCallback: (data) => safeEmit( current.copyWith(getProjectInvoicesState: Success(data))),
           onLeftCallback: (failure) => safeEmit( current.copyWith(getProjectInvoicesState: ErrorState(failure))),
+        ),
+      );
+    });
+  }
+
+  Future<void> deleteInvoiceFunc( {DeleteProjectParameter? parameter}) async {
+    await CancelManager.runCancelableFun(deleteTaskKeyCode, (token) async {
+      await _service.deleteInvoiceServ(
+        RequestCallbackObserver<DeleteProjectRes, DeleteProjectParameter>(
+           parameter: parameter,
+          cancelToken: token,
+          onLoadCallback: () => safeEmit( current.copyWith(deleteTaskState: Loading())),
+          onRightCallback: (data) => safeEmit( current.copyWith(
+
+              deleteTaskState: Success(data))),
+          onLeftCallback: (failure) => safeEmit( current.copyWith(deleteTaskState: ErrorState(failure))),
         ),
       );
     });

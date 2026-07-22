@@ -52,4 +52,6 @@ abstract class EndPoints {
   static   String createInvoice (String id)=> '/api/projects/$id/invoices';
 
   static   String getProjectInvoices (String id)=>  '/api/projects/$id/invoices';
-}
+  static   String deleteInvoice (String id)=>  '/api/project-invoices/$id';
+
+ }

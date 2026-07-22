@@ -125,4 +125,15 @@ class ProjectsService extends BaseService {
       )
     );
   }
+
+  Future<void> deleteInvoiceServ(
+    RequestCallbackObserver<DeleteProjectRes, DeleteProjectParameter> requestInfo,
+  ) {
+     return requestInfo.handleRequest(
+      fetchFromClient: (token) => _remoteRepo.deleteInvoiceApi(
+        requestInfo.parameter,
+        cancelToken: token,
+      )
+    );
+  }
 }

@@ -97,5 +97,9 @@ abstract class AppConstant {
   static const String getProjectInvoicesKeyCash = 'projects_getProjectInvoices_cache';
 
   static const int getProjectInvoicesKeyCode = 4102;
+
+  static const String deleteTaskKeyCash = 'projects_deleteTask_cache';
+
+  static const int deleteTaskKeyCode = 119;
 }
 
