@@ -105,7 +105,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                       title:  'currency'.tr(),
                       isMultiSelect: false,
                       listChoices: _listStringCurrencies.map((e) => UIApiKeys(e, e)).toList(),
-                      selectedRoleNotifier: selectedCurrencyNotifier,
+                      selectedNotifier: selectedCurrencyNotifier,
                     ),
 
 

@@ -151,7 +151,7 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
       isMultiSelect: true,
       title: "projects".tr(),
       listChoices: pjChoices,
-      selectedRoleNotifier: _projectIdsNotifier,
+      selectedNotifier: _projectIdsNotifier,
     );
 
   }
@@ -185,7 +185,7 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
               isMultiSelect: false,
               title: 'role'.tr() + " / " + "access_level".tr(),
               listChoices: listChoices,
-              selectedRoleNotifier: _roleIndexesNotifier,
+              selectedNotifier: _roleIndexesNotifier,
             );
   }
 

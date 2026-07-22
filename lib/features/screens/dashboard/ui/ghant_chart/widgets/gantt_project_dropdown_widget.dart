@@ -71,7 +71,7 @@ class _GanttProjectDropdownWidgetState extends State<GanttProjectDropdownWidget>
               title: 'select_analysis_scope'.tr(),
               isMultiSelect: false,
               listChoices: _currentProjects.map((e) => UIApiKeys(e.name  , e.id.toString())).toList(),
-              selectedRoleNotifier: _selectedProjectNotifier,
+              selectedNotifier: _selectedProjectNotifier,
             );
           }
         }

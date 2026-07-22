@@ -9,10 +9,10 @@ import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/title_w
 
 class BottomSheetSelector extends StatefulWidget {
   const BottomSheetSelector({
-    super.key, required this.listChoices, required this.selectedRoleNotifier, required this.isMultiSelect, required this.title, this.field,
+    super.key, required this.listChoices, required this.selectedNotifier, required this.isMultiSelect, required this.title, this.field,
   });
   final List<UIApiKeys> listChoices;
-  final ValueNotifier<List<int>> selectedRoleNotifier;
+  final ValueNotifier<List<int>> selectedNotifier;
   final  bool isMultiSelect;
   final  String title;
   final (GlobalKey<FormFieldState<dynamic>>, FocusNode?)? field;
@@ -23,7 +23,7 @@ class BottomSheetSelector extends StatefulWidget {
 class _BottomSheetSelectorState extends State<BottomSheetSelector> {
   final TextEditingController _controller=.new();
   void _listener() {
-    final validIndexes = widget.selectedRoleNotifier.value
+    final validIndexes = widget.selectedNotifier.value
         .where((e) => e >= 0 && e < widget.listChoices.length)
         .toList();
     _controller.text = validIndexes
@@ -33,14 +33,14 @@ class _BottomSheetSelectorState extends State<BottomSheetSelector> {
   @override
   void initState() {
     // TODO: implement initState
-    widget.selectedRoleNotifier.addListener(_listener);
+    widget.selectedNotifier.addListener(_listener);
     super.initState();
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
-    widget.selectedRoleNotifier.removeListener(_listener);
+    widget.selectedNotifier.removeListener(_listener);
     _controller.dispose();
     super.dispose();
   }
@@ -105,7 +105,7 @@ class _BottomSheetSelectorState extends State<BottomSheetSelector> {
                         ),
                       ),
                       20.verticalSpace,
-                      ValueListenableBuilder(valueListenable: widget.selectedRoleNotifier, builder: (context, value, child) {
+                      ValueListenableBuilder(valueListenable: widget.selectedNotifier, builder: (context, value, child) {
                         return  Column(
                             children: List.generate(widget.listChoices.length, ( index) {
                               bool isSelected=value.contains(index);
@@ -120,17 +120,17 @@ class _BottomSheetSelectorState extends State<BottomSheetSelector> {
                                   if(widget.isMultiSelect){
                                     
                                     if(isSelected){
-                                      widget.selectedRoleNotifier.value=value.where((e) =>
+                                      widget.selectedNotifier.value=value.where((e) =>
                                       e!=index).toList();
                                     }else{
-                                      widget.selectedRoleNotifier.value=[
+                                      widget.selectedNotifier.value=[
                                         ...value,
                                         index
                                       ];
                                     }
                                   }else{
                                     context.pop();
-                                  widget.selectedRoleNotifier.value=[index];
+                                  widget.selectedNotifier.value=[index];
                                 }
                                   } ,
                                 title:widget.listChoices[index] .uiTxt,

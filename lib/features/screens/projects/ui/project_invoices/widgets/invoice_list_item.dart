@@ -95,7 +95,7 @@ class _InvoiceListItem extends StatelessWidget {
                   borderRadius: BorderRadius.circular(AppSizes.s8),
                 ),
                 child: Text(
-                  '${item.amount} SAR',
+                  '${item.amount} ${item.amount}',
                   style: AppTextStyles.font16SemiBold.copyWith(
                     color: AppColors.primaryLightColor,
                   ),

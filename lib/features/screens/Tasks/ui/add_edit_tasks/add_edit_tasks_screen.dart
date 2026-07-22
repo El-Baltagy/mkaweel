@@ -145,7 +145,7 @@ class _AddEditTasksPageState extends AddEditTasksBaseState {
       isMultiSelect: false,
       title: 'project'.tr(),
       listChoices: projectChoices,
-      selectedRoleNotifier: projectNotifier,
+      selectedNotifier: projectNotifier,
     );
   }
 
@@ -155,7 +155,7 @@ class _AddEditTasksPageState extends AddEditTasksBaseState {
       isMultiSelect: false,
       title: 'construction_phase'.tr(),
       listChoices: phaseChoices,
-      selectedRoleNotifier: phaseNotifier,
+      selectedNotifier: phaseNotifier,
     );
   }
 
@@ -165,7 +165,7 @@ class _AddEditTasksPageState extends AddEditTasksBaseState {
       isMultiSelect: false,
       title: 'assign_worker'.tr(),
       listChoices: workerChoices,
-      selectedRoleNotifier: workerNotifier,
+      selectedNotifier: workerNotifier,
     );
   }
 
@@ -199,7 +199,7 @@ class _AddEditTasksPageState extends AddEditTasksBaseState {
       isMultiSelect: false,
       title: 'status'.tr(),
       listChoices: statusChoices,
-      selectedRoleNotifier: statusNotifier,
+      selectedNotifier: statusNotifier,
     );
   }
 

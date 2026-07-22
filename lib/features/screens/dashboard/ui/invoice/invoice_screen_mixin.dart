@@ -37,21 +37,25 @@ abstract class InvoicePageBaseState extends State<InvoicePage> {
     dateController.text =
         "${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}";
     super.initState();
-    marketPricesCubit.getCatogeriesFunc(Init()).then((value) {
-      if (value != null) {
-        categoriesList.value = value.data
-            .map((e) => UIApiKeys(e.name, e.id.toString()))
-            .toList();
-      }
-    });
 
-    projectsCubit.getAllProjectsFunc(Init()).then((value) {
-      if (value != null) {
-        projectsList.value = value.data
-            .map((e) => UIApiKeys(e.name, e.id.toString()))
-            .toList();
-      }
-    });
+    Future.delayed(const Duration(milliseconds: 300),() {
+      marketPricesCubit.getCatogeriesFunc(Init()).then((value) {
+        if (value != null) {
+          categoriesList.value = value.data
+              .map((e) => UIApiKeys(e.name, e.id.toString()))
+              .toList();
+        }
+      });
+
+      projectsCubit.getAllProjectsFunc(Init()).then((value) {
+        if (value != null) {
+          projectsList.value = value.data
+              .map((e) => UIApiKeys(e.name, e.id.toString()))
+              .toList();
+        }
+      });
+    },);
+
   }
 
   @override

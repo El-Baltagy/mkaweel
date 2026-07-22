@@ -81,7 +81,7 @@ class _InvoicePageState extends InvoicePageBaseState {
                       title: 'select_project'.tr(),
                       isMultiSelect: false,
                       listChoices: value,
-                      selectedRoleNotifier: selectedProjectNotifier,
+                      selectedNotifier: selectedProjectNotifier,
                     );
                   },
                 ),
@@ -94,7 +94,7 @@ class _InvoicePageState extends InvoicePageBaseState {
                       title: 'category'.tr(),
                       isMultiSelect: false,
                       listChoices: value,
-                      selectedRoleNotifier: selectedCategoryNotifier,
+                      selectedNotifier: selectedCategoryNotifier,
                     );
                   },
                 ),
@@ -118,7 +118,7 @@ class _InvoicePageState extends InvoicePageBaseState {
                   title: 'currency'.tr(),
                   isMultiSelect: false,
                   listChoices: currenciesList,
-                  selectedRoleNotifier: selectedCurrencyNotifier,
+                  selectedNotifier: selectedCurrencyNotifier,
                 ),
                 // 6. Enter Date (default today)
                 TitleWithInputField(
