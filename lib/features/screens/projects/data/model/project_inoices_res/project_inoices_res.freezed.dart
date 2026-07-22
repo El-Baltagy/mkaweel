@@ -22,7 +22,7 @@ ProjectInoicesRes _$ProjectInoicesResFromJson(Map<String, dynamic> json) {
 mixin _$ProjectInoicesRes {
   String get status => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
-  Data get data => throw _privateConstructorUsedError;
+  ProjectInoiceData get data => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,9 +36,9 @@ abstract class $ProjectInoicesResCopyWith<$Res> {
           ProjectInoicesRes value, $Res Function(ProjectInoicesRes) then) =
       _$ProjectInoicesResCopyWithImpl<$Res, ProjectInoicesRes>;
   @useResult
-  $Res call({String status, String message, Data data});
+  $Res call({String status, String message, ProjectInoiceData data});
 
-  $DataCopyWith<$Res> get data;
+  $ProjectInoiceDataCopyWith<$Res> get data;
 }
 
 /// @nodoc
@@ -70,14 +70,14 @@ class _$ProjectInoicesResCopyWithImpl<$Res, $Val extends ProjectInoicesRes>
       data: null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as Data,
+              as ProjectInoiceData,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $DataCopyWith<$Res> get data {
-    return $DataCopyWith<$Res>(_value.data, (value) {
+  $ProjectInoiceDataCopyWith<$Res> get data {
+    return $ProjectInoiceDataCopyWith<$Res>(_value.data, (value) {
       return _then(_value.copyWith(data: value) as $Val);
     });
   }
@@ -91,10 +91,10 @@ abstract class _$$ProjectInoicesResImplCopyWith<$Res>
       __$$ProjectInoicesResImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String status, String message, Data data});
+  $Res call({String status, String message, ProjectInoiceData data});
 
   @override
-  $DataCopyWith<$Res> get data;
+  $ProjectInoiceDataCopyWith<$Res> get data;
 }
 
 /// @nodoc
@@ -124,7 +124,7 @@ class __$$ProjectInoicesResImplCopyWithImpl<$Res>
       data: null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as Data,
+              as ProjectInoiceData,
     ));
   }
 }
@@ -144,7 +144,7 @@ class _$ProjectInoicesResImpl extends _ProjectInoicesRes {
   @override
   final String message;
   @override
-  final Data data;
+  final ProjectInoiceData data;
 
   @JsonKey(ignore: true)
   @override
@@ -165,7 +165,7 @@ abstract class _ProjectInoicesRes extends ProjectInoicesRes {
   const factory _ProjectInoicesRes(
       {required final String status,
       required final String message,
-      required final Data data}) = _$ProjectInoicesResImpl;
+      required final ProjectInoiceData data}) = _$ProjectInoicesResImpl;
   const _ProjectInoicesRes._() : super._();
 
   factory _ProjectInoicesRes.fromJson(Map<String, dynamic> json) =
@@ -176,31 +176,33 @@ abstract class _ProjectInoicesRes extends ProjectInoicesRes {
   @override
   String get message;
   @override
-  Data get data;
+  ProjectInoiceData get data;
   @override
   @JsonKey(ignore: true)
   _$$ProjectInoicesResImplCopyWith<_$ProjectInoicesResImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-Data _$DataFromJson(Map<String, dynamic> json) {
-  return _Data.fromJson(json);
+ProjectInoiceData _$ProjectInoiceDataFromJson(Map<String, dynamic> json) {
+  return _ProjectInoiceData.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Data {
+mixin _$ProjectInoiceData {
   List<InvoiceItem> get invoices => throw _privateConstructorUsedError;
   Budgetsummary get budget_summary => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $DataCopyWith<Data> get copyWith => throw _privateConstructorUsedError;
+  $ProjectInoiceDataCopyWith<ProjectInoiceData> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $DataCopyWith<$Res> {
-  factory $DataCopyWith(Data value, $Res Function(Data) then) =
-      _$DataCopyWithImpl<$Res, Data>;
+abstract class $ProjectInoiceDataCopyWith<$Res> {
+  factory $ProjectInoiceDataCopyWith(
+          ProjectInoiceData value, $Res Function(ProjectInoiceData) then) =
+      _$ProjectInoiceDataCopyWithImpl<$Res, ProjectInoiceData>;
   @useResult
   $Res call({List<InvoiceItem> invoices, Budgetsummary budget_summary});
 
@@ -208,9 +210,9 @@ abstract class $DataCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$DataCopyWithImpl<$Res, $Val extends Data>
-    implements $DataCopyWith<$Res> {
-  _$DataCopyWithImpl(this._value, this._then);
+class _$ProjectInoiceDataCopyWithImpl<$Res, $Val extends ProjectInoiceData>
+    implements $ProjectInoiceDataCopyWith<$Res> {
+  _$ProjectInoiceDataCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -245,10 +247,11 @@ class _$DataCopyWithImpl<$Res, $Val extends Data>
 }
 
 /// @nodoc
-abstract class _$$DataImplCopyWith<$Res> implements $DataCopyWith<$Res> {
-  factory _$$DataImplCopyWith(
-          _$DataImpl value, $Res Function(_$DataImpl) then) =
-      __$$DataImplCopyWithImpl<$Res>;
+abstract class _$$ProjectInoiceDataImplCopyWith<$Res>
+    implements $ProjectInoiceDataCopyWith<$Res> {
+  factory _$$ProjectInoiceDataImplCopyWith(_$ProjectInoiceDataImpl value,
+          $Res Function(_$ProjectInoiceDataImpl) then) =
+      __$$ProjectInoiceDataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<InvoiceItem> invoices, Budgetsummary budget_summary});
@@ -258,10 +261,11 @@ abstract class _$$DataImplCopyWith<$Res> implements $DataCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$DataImplCopyWithImpl<$Res>
-    extends _$DataCopyWithImpl<$Res, _$DataImpl>
-    implements _$$DataImplCopyWith<$Res> {
-  __$$DataImplCopyWithImpl(_$DataImpl _value, $Res Function(_$DataImpl) _then)
+class __$$ProjectInoiceDataImplCopyWithImpl<$Res>
+    extends _$ProjectInoiceDataCopyWithImpl<$Res, _$ProjectInoiceDataImpl>
+    implements _$$ProjectInoiceDataImplCopyWith<$Res> {
+  __$$ProjectInoiceDataImplCopyWithImpl(_$ProjectInoiceDataImpl _value,
+      $Res Function(_$ProjectInoiceDataImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -270,7 +274,7 @@ class __$$DataImplCopyWithImpl<$Res>
     Object? invoices = null,
     Object? budget_summary = null,
   }) {
-    return _then(_$DataImpl(
+    return _then(_$ProjectInoiceDataImpl(
       invoices: null == invoices
           ? _value._invoices
           : invoices // ignore: cast_nullable_to_non_nullable
@@ -285,14 +289,14 @@ class __$$DataImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$DataImpl extends _Data {
-  const _$DataImpl(
+class _$ProjectInoiceDataImpl extends _ProjectInoiceData {
+  const _$ProjectInoiceDataImpl(
       {required final List<InvoiceItem> invoices, required this.budget_summary})
       : _invoices = invoices,
         super._();
 
-  factory _$DataImpl.fromJson(Map<String, dynamic> json) =>
-      _$$DataImplFromJson(json);
+  factory _$ProjectInoiceDataImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ProjectInoiceDataImplFromJson(json);
 
   final List<InvoiceItem> _invoices;
   @override
@@ -308,24 +312,26 @@ class _$DataImpl extends _Data {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$DataImplCopyWith<_$DataImpl> get copyWith =>
-      __$$DataImplCopyWithImpl<_$DataImpl>(this, _$identity);
+  _$$ProjectInoiceDataImplCopyWith<_$ProjectInoiceDataImpl> get copyWith =>
+      __$$ProjectInoiceDataImplCopyWithImpl<_$ProjectInoiceDataImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$DataImplToJson(
+    return _$$ProjectInoiceDataImplToJson(
       this,
     );
   }
 }
 
-abstract class _Data extends Data {
-  const factory _Data(
+abstract class _ProjectInoiceData extends ProjectInoiceData {
+  const factory _ProjectInoiceData(
       {required final List<InvoiceItem> invoices,
-      required final Budgetsummary budget_summary}) = _$DataImpl;
-  const _Data._() : super._();
+      required final Budgetsummary budget_summary}) = _$ProjectInoiceDataImpl;
+  const _ProjectInoiceData._() : super._();
 
-  factory _Data.fromJson(Map<String, dynamic> json) = _$DataImpl.fromJson;
+  factory _ProjectInoiceData.fromJson(Map<String, dynamic> json) =
+      _$ProjectInoiceDataImpl.fromJson;
 
   @override
   List<InvoiceItem> get invoices;
@@ -333,7 +339,7 @@ abstract class _Data extends Data {
   Budgetsummary get budget_summary;
   @override
   @JsonKey(ignore: true)
-  _$$DataImplCopyWith<_$DataImpl> get copyWith =>
+  _$$ProjectInoiceDataImplCopyWith<_$ProjectInoiceDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -350,8 +356,8 @@ mixin _$InvoiceItem {
   int get amount => throw _privateConstructorUsedError;
   String get invoice_date => throw _privateConstructorUsedError;
   Categorydetails get category_details => throw _privateConstructorUsedError;
-  String get notes => throw _privateConstructorUsedError;
-  dynamic get attachment => throw _privateConstructorUsedError;
+  String? get notes => throw _privateConstructorUsedError;
+  String? get attachment => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -373,8 +379,8 @@ abstract class $InvoiceItemCopyWith<$Res> {
       int amount,
       String invoice_date,
       Categorydetails category_details,
-      String notes,
-      dynamic attachment});
+      String? notes,
+      String? attachment});
 
   $CategorydetailsCopyWith<$Res> get category_details;
 }
@@ -399,7 +405,7 @@ class _$InvoiceItemCopyWithImpl<$Res, $Val extends InvoiceItem>
     Object? amount = null,
     Object? invoice_date = null,
     Object? category_details = null,
-    Object? notes = null,
+    Object? notes = freezed,
     Object? attachment = freezed,
   }) {
     return _then(_value.copyWith(
@@ -431,14 +437,14 @@ class _$InvoiceItemCopyWithImpl<$Res, $Val extends InvoiceItem>
           ? _value.category_details
           : category_details // ignore: cast_nullable_to_non_nullable
               as Categorydetails,
-      notes: null == notes
+      notes: freezed == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       attachment: freezed == attachment
           ? _value.attachment
           : attachment // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String?,
     ) as $Val);
   }
 
@@ -467,8 +473,8 @@ abstract class _$$InvoiceItemImplCopyWith<$Res>
       int amount,
       String invoice_date,
       Categorydetails category_details,
-      String notes,
-      dynamic attachment});
+      String? notes,
+      String? attachment});
 
   @override
   $CategorydetailsCopyWith<$Res> get category_details;
@@ -492,7 +498,7 @@ class __$$InvoiceItemImplCopyWithImpl<$Res>
     Object? amount = null,
     Object? invoice_date = null,
     Object? category_details = null,
-    Object? notes = null,
+    Object? notes = freezed,
     Object? attachment = freezed,
   }) {
     return _then(_$InvoiceItemImpl(
@@ -524,14 +530,14 @@ class __$$InvoiceItemImplCopyWithImpl<$Res>
           ? _value.category_details
           : category_details // ignore: cast_nullable_to_non_nullable
               as Categorydetails,
-      notes: null == notes
+      notes: freezed == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       attachment: freezed == attachment
           ? _value.attachment
           : attachment // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String?,
     ));
   }
 }
@@ -569,9 +575,9 @@ class _$InvoiceItemImpl extends _InvoiceItem {
   @override
   final Categorydetails category_details;
   @override
-  final String notes;
+  final String? notes;
   @override
-  final dynamic attachment;
+  final String? attachment;
 
   @JsonKey(ignore: true)
   @override
@@ -596,8 +602,8 @@ abstract class _InvoiceItem extends InvoiceItem {
       required final int amount,
       required final String invoice_date,
       required final Categorydetails category_details,
-      required final String notes,
-      required final dynamic attachment}) = _$InvoiceItemImpl;
+      required final String? notes,
+      required final String? attachment}) = _$InvoiceItemImpl;
   const _InvoiceItem._() : super._();
 
   factory _InvoiceItem.fromJson(Map<String, dynamic> json) =
@@ -618,9 +624,9 @@ abstract class _InvoiceItem extends InvoiceItem {
   @override
   Categorydetails get category_details;
   @override
-  String get notes;
+  String? get notes;
   @override
-  dynamic get attachment;
+  String? get attachment;
   @override
   @JsonKey(ignore: true)
   _$$InvoiceItemImplCopyWith<_$InvoiceItemImpl> get copyWith =>

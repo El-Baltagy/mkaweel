@@ -86,10 +86,10 @@ class _InvoiceListItem extends StatelessWidget {
               ),
             ],
           ),
-          if (item.notes.isNotEmpty) ...[
+          if (item.notes?.trim().isNotEmpty==true) ...[
             AppPadding.p12.verticalSpace,
             Text(
-              item.notes,
+              item.notes!,
               style: AppTextStyles.font14Regular.copyWith(
                 color: isDark ? Colors.grey[300] : Colors.grey[800],
               ),

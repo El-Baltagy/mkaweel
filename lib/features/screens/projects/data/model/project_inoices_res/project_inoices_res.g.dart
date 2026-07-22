@@ -11,7 +11,7 @@ _$ProjectInoicesResImpl _$$ProjectInoicesResImplFromJson(
     _$ProjectInoicesResImpl(
       status: json['status'] as String,
       message: json['message'] as String,
-      data: Data.fromJson(json['data'] as Map<String, dynamic>),
+      data: ProjectInoiceData.fromJson(json['data'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$ProjectInoicesResImplToJson(
@@ -22,7 +22,9 @@ Map<String, dynamic> _$$ProjectInoicesResImplToJson(
       'data': instance.data.toJson(),
     };
 
-_$DataImpl _$$DataImplFromJson(Map<String, dynamic> json) => _$DataImpl(
+_$ProjectInoiceDataImpl _$$ProjectInoiceDataImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ProjectInoiceDataImpl(
       invoices: (json['invoices'] as List<dynamic>)
           .map((e) => InvoiceItem.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -30,7 +32,8 @@ _$DataImpl _$$DataImplFromJson(Map<String, dynamic> json) => _$DataImpl(
           json['budget_summary'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$DataImplToJson(_$DataImpl instance) =>
+Map<String, dynamic> _$$ProjectInoiceDataImplToJson(
+        _$ProjectInoiceDataImpl instance) =>
     <String, dynamic>{
       'invoices': instance.invoices.map((e) => e.toJson()).toList(),
       'budget_summary': instance.budget_summary.toJson(),
@@ -46,8 +49,8 @@ _$InvoiceItemImpl _$$InvoiceItemImplFromJson(Map<String, dynamic> json) =>
       invoice_date: json['invoice_date'] as String,
       category_details: Categorydetails.fromJson(
           json['category_details'] as Map<String, dynamic>),
-      notes: json['notes'] as String,
-      attachment: json['attachment'],
+      notes: json['notes'] as String?,
+      attachment: json['attachment'] as String?,
     );
 
 Map<String, dynamic> _$$InvoiceItemImplToJson(_$InvoiceItemImpl instance) =>

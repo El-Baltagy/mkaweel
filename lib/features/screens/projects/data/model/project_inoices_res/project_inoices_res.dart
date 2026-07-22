@@ -11,7 +11,7 @@ class ProjectInoicesRes with _$ProjectInoicesRes, EquatableMixin {
   const factory ProjectInoicesRes({
     required String status,
     required String message,
-    required Data data,
+    required ProjectInoiceData data,
   }) = _ProjectInoicesRes;
 
   factory ProjectInoicesRes.fromJson(Map<String, dynamic> json) => _$ProjectInoicesResFromJson(json);
@@ -26,14 +26,14 @@ class ProjectInoicesRes with _$ProjectInoicesRes, EquatableMixin {
 }
 
 @freezed
-class Data with _$Data, EquatableMixin {
-  const Data._();
-  const factory Data({
+class ProjectInoiceData with _$ProjectInoiceData, EquatableMixin {
+  const ProjectInoiceData._();
+  const factory ProjectInoiceData({
     required List<InvoiceItem> invoices,
     required Budgetsummary budget_summary,
-  }) = _Data;
+  }) = _ProjectInoiceData;
 
-  factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
+  factory ProjectInoiceData.fromJson(Map<String, dynamic> json) => _$ProjectInoiceDataFromJson(json);
 
   @override
   List<Object?> get props => [
@@ -54,8 +54,8 @@ class InvoiceItem with _$InvoiceItem, EquatableMixin {
     required int amount,
     required String invoice_date,
     required Categorydetails category_details,
-    required String notes,
-    required dynamic attachment,
+    required String? notes,
+    required String? attachment,
   }) = _InvoiceItem;
 
   factory InvoiceItem.fromJson(Map<String, dynamic> json) => _$InvoiceItemFromJson(json);
