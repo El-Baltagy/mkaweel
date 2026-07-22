@@ -141,7 +141,7 @@ class ProjectCard extends StatelessWidget {
       child: Padding(
         padding: const  .fromSTEB(16, 16, 0, 16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment:  .start,
           children: [
             /// Header
             Row(
@@ -196,6 +196,7 @@ class ProjectCard extends StatelessWidget {
             Padding(
               padding: const  .fromSTEB(0, 0, 16, 0),
               child: Column(
+                crossAxisAlignment:  .start,
                 children: [
                   const SizedBox(height: 20),
 
