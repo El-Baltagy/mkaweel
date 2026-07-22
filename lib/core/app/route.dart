@@ -31,7 +31,8 @@ import 'package:mkaweel/features/screens/projects/ui/project_details/project_det
 import 'package:mkaweel/features/screens/projects/ui/project_phases/phase_progress_screen.dart';
 import 'package:mkaweel/features/screens/workers/ui/add_workers/add_worker_screen.dart';
 import 'package:mkaweel/features/screens/Tasks/ui/Tasks/tasks_screen.dart';
- part 'route.gr.dart';
+ import 'package:mkaweel/features/screens/projects/ui/project_invoices/project_invoices_screen.dart';
+part 'route.gr.dart';
 
 
   @AutoRouterConfig(replaceInRouteName: 'Page,Route')
@@ -40,6 +41,10 @@ class AppRouter extends _$AppRouter {
 
   @override
   List<AutoRoute> get routes => [
+      AutoRoute(
+        page: ProjectInvoicesRoute.page,
+        // initial: true,
+      ),
       AutoRoute(
         page: InvoiceRoute.page,
         // initial: true,

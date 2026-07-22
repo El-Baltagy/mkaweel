@@ -123,11 +123,10 @@ class ProjectCard extends StatelessWidget {
         title: 'project_invoices',
         onTap: () async {
           await context.push(
-            ProjectDetailsRoute(
-              args: ProjectDetailsRouteArgs(
-                projectsCubit: projectsCubit,
-                projectInfoData: projectInfoData,
-              ),
+            ProjectInvoicesRoute(
+              args: .new(
+               projectsCubit,
+               ),
             ),
           );
         },

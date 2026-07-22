@@ -15,6 +15,16 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    ProjectInvoicesRoute.name: (routeData) {
+      final args = routeData.argsAs<ProjectInvoicesRouteArgs>( );
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(
+            child: ProjectInvoicesPage(
+           args: args ,
+        )),
+      );
+    },
     InvoiceRoute.name: (routeData) {
       final args = routeData.argsAs<InvoiceRouteArgs>( );
       return AutoRoutePage<dynamic>(
@@ -674,4 +684,26 @@ class InvoiceRoute extends PageRouteInfo<InvoiceRouteArgs> {
 class InvoiceRouteArgs {
   const InvoiceRouteArgs( this.dashboardCubit);
   final DashboardCubit dashboardCubit;
+ }
+
+/// generated route for
+/// [ProjectInvoicesPage]
+class ProjectInvoicesRoute extends PageRouteInfo<ProjectInvoicesRouteArgs> {
+  ProjectInvoicesRoute({
+   required ProjectInvoicesRouteArgs args  ,
+    List<PageRouteInfo>? children,
+  }) : super(
+    ProjectInvoicesRoute.name,
+    args: args,
+    initialChildren: children,
+  );
+
+  static const String name = 'ProjectInvoicesRoute';
+
+  static const PageInfo<ProjectInvoicesRouteArgs> page =
+  PageInfo<ProjectInvoicesRouteArgs>(name);
+}
+class ProjectInvoicesRouteArgs {
+  const ProjectInvoicesRouteArgs( this.projectsCubit);
+  final ProjectsCubit projectsCubit;
  }
