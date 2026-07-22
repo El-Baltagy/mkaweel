@@ -23,8 +23,8 @@ class TasksRepo extends BaseRepo {
   }) async {
     return handleResponse(
       onCallData: dio.getData(
-        uri:baseTasksData.getApi(),
-        query: baseTasksData.getQuery(),
+        uri:baseTasksData.api  ,
+        query: baseTasksData.query  ,
         cancelToken: cancelToken,
         caller: callerTag(),
       ),

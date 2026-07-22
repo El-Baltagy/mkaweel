@@ -23,8 +23,8 @@ class TodayTasksWidget extends StatelessWidget {
             children: [
                 Text('tasks'.tr(), style: AppTextStyles.font16SemiBold),
               GestureDetector(
-                 onTap: () => context.push(TasksRoute(args: TasksRouteArgs(
-                     AdminAllTasksData( )
+                 onTap: () => context.push(TasksRoute(args: const TasksRouteArgs(
+                     AdminTasksData(.all )
                  ))),
                 // onTap: () => context.push(TasksRoute(args: TasksRouteArgs())),
                 child: Text(
