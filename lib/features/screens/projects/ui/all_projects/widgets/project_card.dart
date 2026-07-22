@@ -126,6 +126,7 @@ class ProjectCard extends StatelessWidget {
             ProjectInvoicesRoute(
               args: .new(
                projectsCubit,
+                  projectInfoData.id.toString(),
                ),
             ),
           );

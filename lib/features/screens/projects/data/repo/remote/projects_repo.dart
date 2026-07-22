@@ -15,6 +15,7 @@ import 'package:mkaweel/features/screens/projects/data/model/create_project_res/
 import 'package:mkaweel/features/screens/projects/data/model/delete_pj_parameter.dart';
 import 'package:mkaweel/features/screens/projects/data/model/delete_project_res/delete_project_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/get_project_data_parameter.dart';
+import 'package:mkaweel/features/screens/projects/data/model/project_inoices_res/project_inoices_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/project_phases_res/project_phases_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/update_phase_parameter.dart';
 import 'package:mkaweel/features/screens/projects/data/model/pj_phase_update/pj_phase_update.dart';
@@ -132,7 +133,7 @@ class ProjectsRepo extends BaseRepo {
   }) async {
     return handleResponse(
       onCallData: dio.getData(
-        uri: EndPoints.getProjectInvoices,
+        uri: EndPoints.getProjectInvoices(parameter!.id),
         cancelToken: cancelToken,
         caller: callerTag(),
       ),

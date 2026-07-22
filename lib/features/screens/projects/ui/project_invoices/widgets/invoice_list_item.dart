@@ -41,7 +41,7 @@ class _InvoiceListItem extends StatelessWidget {
                 ),
                 child: Text(
                   '${item.amount} SAR',
-                  style: AppTextStyles.font14Bold.copyWith(
+                  style: AppTextStyles.font16SemiBold.copyWith(
                     color: AppColors.primaryLightColor,
                   ),
                 ),

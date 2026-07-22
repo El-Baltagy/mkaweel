@@ -9,6 +9,7 @@ import 'package:mkaweel/core/base/base_service.dart';
 import 'package:mkaweel/core/base/base_local_repo.dart';
 import 'package:mkaweel/features/screens/projects/data/model/delete_project_res/delete_project_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/get_project_data_parameter.dart';
+import 'package:mkaweel/features/screens/projects/data/model/project_inoices_res/project_inoices_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/project_phases_res/project_phases_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/update_phase_parameter.dart';
 import 'package:mkaweel/features/screens/projects/data/repo/remote/projects_repo.dart';
@@ -117,26 +118,11 @@ class ProjectsService extends BaseService {
   Future<void> getProjectInvoicesServ(
     RequestCallbackObserver<ProjectInoicesRes, DeleteProjectParameter> requestInfo,
   ) {
-    const cacheKey = AppConstant.getProjectInvoicesKeyCash;
-    return requestInfo.handleRequest(
+     return requestInfo.handleRequest(
       fetchFromClient: (token) => _remoteRepo.getProjectInvoicesApi(
         requestInfo.parameter,
         cancelToken: token,
-      ),
-      fetchLocal: () async {
-        final tuple = await _localRepo.readData(cacheKey);
-
-        if (tuple?.$1['pr'] == _localRepo.primarySessionId) {
-          return StatisticsRes.fromJson(tuple!.$2);
-        }
-        return null; 
-      },
-      saveLocal: (old, newData) async {
-        if (newData != null) {
-          await _localRepo.saveData(cacheKey,savedData: newData.toJson());
-        }
-      },
-      clearLocal: () => _localRepo.clearData(cacheKey),
+      )
     );
   }
 }

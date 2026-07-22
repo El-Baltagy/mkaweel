@@ -21,12 +21,12 @@ part 'widgets/invoice_list_item.dart';
 
 @RoutePage()
 class ProjectInvoicesPage extends StatefulWidget implements AutoRouteWrapper {
-  const ProjectInvoicesPage({super.key, required this.projectsCubit});
-  final ProjectsCubit projectsCubit;
+  const ProjectInvoicesPage({super.key, required this.args});
+  final ProjectInvoicesRouteArgs args;
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    return BlocProvider.value(value: projectsCubit, child: this);
+    return BlocProvider.value(value: args.projectsCubit, child: this);
   }
 
   @override

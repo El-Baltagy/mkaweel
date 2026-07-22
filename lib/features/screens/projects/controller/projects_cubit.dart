@@ -13,6 +13,7 @@ import 'package:mkaweel/features/screens/projects/data/model/create_project_res/
 import 'package:mkaweel/features/screens/projects/data/model/delete_pj_parameter.dart';
 import 'package:mkaweel/features/screens/projects/data/model/delete_project_res/delete_project_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/get_project_data_parameter.dart';
+import 'package:mkaweel/features/screens/projects/data/model/project_inoices_res/project_inoices_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/project_phases_res/project_phases_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/update_phase_parameter.dart';
 import 'package:mkaweel/main.dart';
@@ -212,16 +213,15 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
     });
   }
 
-  Future<void> getProjectInvoicesFunc(BaseRequestBackType baseRequestBackType,{DeleteProjectParameter? parameter}) async {
+  Future<void> getProjectInvoicesFunc( {DeleteProjectParameter? parameter}) async {
     await CancelManager.runCancelableFun(getProjectInvoicesKeyCode, (token) async {
       await _service.getProjectInvoicesServ(
         RequestCallbackObserver<ProjectInoicesRes, DeleteProjectParameter>(
-          baseRequestBackType: baseRequestBackType ,
-          parameter: parameter,
+           parameter: parameter,
           cancelToken: token,
-          onLoadCallback: () => safeEmit(_current.copyWith(getProjectInvoicesState: Loading())),
-          onRightCallback: (data) => safeEmit(_current.copyWith(getProjectInvoicesState: Success(data))),
-          onLeftCallback: (failure) => safeEmit(_current.copyWith(getProjectInvoicesState: ErrorState(failure))),
+          onLoadCallback: () => safeEmit( current.copyWith(getProjectInvoicesState: Loading())),
+          onRightCallback: (data) => safeEmit( current.copyWith(getProjectInvoicesState: Success(data))),
+          onLeftCallback: (failure) => safeEmit( current.copyWith(getProjectInvoicesState: ErrorState(failure))),
         ),
       );
     });

@@ -704,6 +704,7 @@ class ProjectInvoicesRoute extends PageRouteInfo<ProjectInvoicesRouteArgs> {
   PageInfo<ProjectInvoicesRouteArgs>(name);
 }
 class ProjectInvoicesRouteArgs {
-  const ProjectInvoicesRouteArgs( this.projectsCubit);
+  const ProjectInvoicesRouteArgs( this.projectsCubit,this.projectID);
   final ProjectsCubit projectsCubit;
+  final String projectID;
  }

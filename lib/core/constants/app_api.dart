@@ -51,5 +51,5 @@ abstract class EndPoints {
 
   static   String createInvoice (String id)=> '/api/projects/$id/invoices';
 
-  static const String getProjectInvoices = '/api/$functionName';
+  static   String getProjectInvoices (String id)=>  '/api/projects/$id/invoices';
 }
