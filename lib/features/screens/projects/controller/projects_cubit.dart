@@ -39,12 +39,17 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
 
     int get getPhaseUpdatesKeyCode => AppConstant.getPhaseUpdatesKeyCode;
 
+    int get getProjectInvoicesKeyCode => AppConstant.getProjectInvoicesKeyCode;
+
   init() async {
 
   }
 
   @override
   Future<void> close() {
+    // add every key in file
+    CancelManager.cancel(getProjectInvoicesKeyCode);
+
     // add every key in file
     CancelManager.cancel(updatePhaseKeyCode);
 
@@ -202,6 +207,21 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
           onLoadCallback: () => safeEmit(current.copyWith(getPjPhaseUpdateState: Loading())),
           onRightCallback: (data) => safeEmit(current.copyWith(getPjPhaseUpdateState: Success(data))),
           onLeftCallback: (failure) => safeEmit(current.copyWith(getPjPhaseUpdateState: ErrorState(failure))),
+        ),
+      );
+    });
+  }
+
+  Future<void> getProjectInvoicesFunc(BaseRequestBackType baseRequestBackType,{DeleteProjectParameter? parameter}) async {
+    await CancelManager.runCancelableFun(getProjectInvoicesKeyCode, (token) async {
+      await _service.getProjectInvoicesServ(
+        RequestCallbackObserver<ProjectInoicesRes, DeleteProjectParameter>(
+          baseRequestBackType: baseRequestBackType ,
+          parameter: parameter,
+          cancelToken: token,
+          onLoadCallback: () => safeEmit(_current.copyWith(getProjectInvoicesState: Loading())),
+          onRightCallback: (data) => safeEmit(_current.copyWith(getProjectInvoicesState: Success(data))),
+          onLeftCallback: (failure) => safeEmit(_current.copyWith(getProjectInvoicesState: ErrorState(failure))),
         ),
       );
     });

@@ -5,14 +5,21 @@ abstract class ProjectInvoicesPageBaseState extends State<ProjectInvoicesPage> {
 
   @override
   void initState() {
-    projectsCubit = ProjectsCubit.get(context: context);
-    // TODO: implement initState
     super.initState();
+    projectsCubit = widget.projectsCubit;
+    _fetchInvoices();
+  }
+
+  void _fetchInvoices() {
+    // We use a hardcoded id '1' for now.
+    // If you add a projectId to ProjectInvoicesRouteArgs, you can pass it here.
+    projectsCubit.getProjectInvoicesFunc(
+      parameter: DeleteProjectParameter('1'),
+    );
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 }

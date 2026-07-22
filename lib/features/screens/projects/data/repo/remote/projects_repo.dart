@@ -125,4 +125,18 @@ class ProjectsRepo extends BaseRepo {
       asObject: PjPhaseUpdate.fromJson,
     );
   }
+
+  Future<Either<Failure, ProjectInoicesRes>> getProjectInvoicesApi(
+    DeleteProjectParameter? parameter, {
+    CancelToken? cancelToken,
+  }) async {
+    return handleResponse(
+      onCallData: dio.getData(
+        uri: EndPoints.getProjectInvoices,
+        cancelToken: cancelToken,
+        caller: callerTag(),
+      ),
+      asObject: ProjectInoicesRes.fromJson,
+    );
+  }
 }

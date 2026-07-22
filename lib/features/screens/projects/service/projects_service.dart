@@ -113,4 +113,30 @@ class ProjectsService extends BaseService {
       ),
     );
   }
+
+  Future<void> getProjectInvoicesServ(
+    RequestCallbackObserver<ProjectInoicesRes, DeleteProjectParameter> requestInfo,
+  ) {
+    const cacheKey = AppConstant.getProjectInvoicesKeyCash;
+    return requestInfo.handleRequest(
+      fetchFromClient: (token) => _remoteRepo.getProjectInvoicesApi(
+        requestInfo.parameter,
+        cancelToken: token,
+      ),
+      fetchLocal: () async {
+        final tuple = await _localRepo.readData(cacheKey);
+
+        if (tuple?.$1['pr'] == _localRepo.primarySessionId) {
+          return StatisticsRes.fromJson(tuple!.$2);
+        }
+        return null; 
+      },
+      saveLocal: (old, newData) async {
+        if (newData != null) {
+          await _localRepo.saveData(cacheKey,savedData: newData.toJson());
+        }
+      },
+      clearLocal: () => _localRepo.clearData(cacheKey),
+    );
+  }
 }

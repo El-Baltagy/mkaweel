@@ -93,5 +93,9 @@ abstract class AppConstant {
   static const String createInvoiceKeyCash = 'dashboard_createInvoice_cache';
 
   static const int createInvoiceKeyCode = 286;
+
+  static const String getProjectInvoicesKeyCash = 'projects_getProjectInvoices_cache';
+
+  static const int getProjectInvoicesKeyCode = 4102;
 }
 
