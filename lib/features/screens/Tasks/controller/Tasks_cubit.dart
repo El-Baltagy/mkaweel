@@ -7,6 +7,7 @@ import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/features/screens/Tasks/data/model/tasks_res/tasks_res.dart';
+import 'package:mkaweel/features/screens/Tasks/ui/tasks/base_tasks_data.dart';
 import 'package:mkaweel/main.dart';
 import 'package:mkaweel/features/screens/Tasks/service/Tasks_service.dart';
 part 'Tasks_state.dart';
@@ -33,11 +34,11 @@ class TasksCubit extends BaseCubit<TasksState> {
    
   
 
-  Future<void> getTasksFunc(BaseRequestBackType baseRequestBackType,{NoParameter? parameter}) async {
+  Future<void> getTasksFunc( {required BaseTasksData  parameter}) async {
     await CancelManager.runCancelableFun(getTasksKeyCode, (token) async {
       await _service.getTasksServ(
-        RequestCallbackObserver<TasksRes, NoParameter>(
-          baseRequestBackType: baseRequestBackType ,
+        RequestCallbackObserver<TasksRes, BaseTasksData>(
+
           parameter: parameter,
           cancelToken: token,
           onLoadCallback: () => safeEmit(_current.copyWith(getTasksState: Loading())),

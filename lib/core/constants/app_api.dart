@@ -38,7 +38,7 @@ abstract class EndPoints {
 
   static const String getStatistics = '/api/statistics';
 
-  static const String getTasks = '/api/tasks';
+
 
   /// Weather endpoint — expects ?lat=...&lng=... query params
   static const String getWeather = '/api/weather';
@@ -54,4 +54,9 @@ abstract class EndPoints {
   static   String getProjectInvoices (String id)=>  '/api/projects/$id/invoices';
   static   String deleteInvoice (String id)=>  '/api/project-invoices/$id';
 
+
+
+  static const String getAdminTasks = '/api/tasks';
+  static   String getProjectTasks (String id)=> '/api/projects/$id/tasks';
+  static const String getWorkerTasks  =  '/api/worker/tasks';
  }

@@ -52,12 +52,12 @@ class BaseTypeWorker extends BaseUserType {
          iconColor: context.theme.primaryColor,
         onTap: () => context.pushRoute(  ChangePasswordRoute(args: .new(settingsCubit))),
       ),
-      SettingItem(
-        icon: Icons.task_rounded,
-        title: 'tasks'.tr(context: context),
-        iconColor: context.theme.primaryColor,
-        onTap: () => context.pushRoute(  TasksRoute(args: .new())),
-      ),
+      // SettingItem(
+      //   icon: Icons.task_rounded,
+      //   title: 'tasks'.tr(context: context),
+      //   iconColor: context.theme.primaryColor,
+      //   onTap: () => context.pushRoute(  TasksRoute(args: .new())),
+      // ),
     ];
   }
 }

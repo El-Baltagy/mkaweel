@@ -4,10 +4,12 @@ class _TaskListItem extends StatelessWidget {
   const _TaskListItem({
     required this.taskItem,
     required this.tasksCubit,
+    required this.parameter,
   });
 
   final TaskItem taskItem;
   final TasksCubit tasksCubit;
+  final BaseTasksData parameter;
 
 
   @override
@@ -64,7 +66,9 @@ class _TaskListItem extends StatelessWidget {
                         taskItem.id
                     )));
                     if (result == true) {
-                      await tasksCubit.getTasksFunc(Reload());
+                      await tasksCubit.getTasksFunc(
+                        parameter: parameter
+                      );
                     }
                   },
                 ),

@@ -6,6 +6,7 @@ import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/extension/context.dart';
+import 'package:mkaweel/features/screens/Tasks/ui/tasks/base_tasks_data.dart';
 
 class TodayTasksWidget extends StatelessWidget {
   const TodayTasksWidget({super.key});
@@ -22,7 +23,9 @@ class TodayTasksWidget extends StatelessWidget {
             children: [
                 Text('tasks'.tr(), style: AppTextStyles.font16SemiBold),
               GestureDetector(
-                 onTap: () => context.push(TasksRoute(args: TasksRouteArgs())),
+                 onTap: () => context.push(TasksRoute(args: TasksRouteArgs(
+                     AdminAllTasksData( )
+                 ))),
                 // onTap: () => context.push(TasksRoute(args: TasksRouteArgs())),
                 child: Text(
                   'show_all'.tr(),

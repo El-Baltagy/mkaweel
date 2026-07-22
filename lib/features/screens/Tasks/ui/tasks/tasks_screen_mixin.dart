@@ -8,7 +8,7 @@ abstract class TasksPageBaseState extends State<TasksPage> {
     tasksCubit = TasksCubit.get(context: context);
     // TODO: implement initState
     super.initState();
-    tasksCubit.getTasksFunc(Init());
+    tasksCubit.getTasksFunc(parameter: widget.args.baseTasksData);
   }
 
   @override

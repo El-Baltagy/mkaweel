@@ -95,9 +95,7 @@ abstract class _$AppRouter extends RootStackRouter {
     },
 
     TasksRoute.name: (routeData) {
-      final args = routeData.argsAs<TasksRouteArgs>(
-        orElse: () => TasksRouteArgs.noArgs(),
-      );
+      final args = routeData.argsAs<TasksRouteArgs>( );
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: WrappedRoute(child: TasksPage(args: args)),
@@ -473,10 +471,9 @@ class TasksRoute extends PageRouteInfo<TasksRouteArgs> {
 }
 
 class TasksRouteArgs {
-  const TasksRouteArgs();
-
-  static TasksRouteArgs noArgs() => TasksRouteArgs();
-}
+  const TasksRouteArgs(this.baseTasksData);
+final BaseTasksData baseTasksData;
+ }
 
 
 

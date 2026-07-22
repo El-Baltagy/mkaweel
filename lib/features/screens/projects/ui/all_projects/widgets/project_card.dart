@@ -5,6 +5,7 @@ import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:mkaweel/core/extension/context.dart';
  import 'package:mkaweel/core/shared/methods/location_Service.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
+import 'package:mkaweel/features/screens/Tasks/ui/tasks/base_tasks_data.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/data/model/create_project_res/create_project_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/delete_pj_parameter.dart';
@@ -85,7 +86,9 @@ class ProjectCard extends StatelessWidget {
         ),
         title: 'tasks',
         onTap: () async {
-          await context.push(TasksRoute(args: .new()));
+          await context.push(TasksRoute(args: .new(
+              AdminProjectTasksData(projectInfoData.id.toString())
+          )));
         },
       ),
           .new(

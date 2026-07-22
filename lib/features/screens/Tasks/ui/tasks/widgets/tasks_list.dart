@@ -4,11 +4,12 @@ class TasksListWidget extends StatelessWidget {
   const TasksListWidget({
     super.key,
     required this.state,
-    required this.tasksCubit,
+    required this.tasksCubit, required this.parameter,
   });
 
   final BaseEmit? state;
   final TasksCubit tasksCubit;
+  final BaseTasksData parameter;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +38,7 @@ class TasksListWidget extends StatelessWidget {
             child: _TaskListItem(
               taskItem: listTasks[index],
               tasksCubit: tasksCubit,
+              parameter: parameter,
             ),
           );
         },
