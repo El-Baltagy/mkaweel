@@ -31,14 +31,7 @@ class ProjectsListWidget extends StatelessWidget {
           )).toList()
         ),
       );
-      return ListView.builder(
-        padding: const .symmetric(vertical: 8),
-          itemCount: list.length,
-          itemBuilder: (context, index) => ProjectCard(
-            margin: const .symmetric(horizontal: 12,vertical: 6),
-            projectsCubit:projectsCubit ,
-            projectInfoData:list[index],
-          ));
+
     }
     return const EmptyProjectsWidget();
   }

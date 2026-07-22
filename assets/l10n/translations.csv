@@ -357,3 +357,12 @@ attachment,Attachment,مرفق
 enter_notes,Enter notes,أدخل الملاحظات
 
 upload_attachment,upload attachment,تحميل المرفق
+
+project_phases,project phases,مراحل المشروع
+edit,edit,يحرر
+
+project_tasks,project tasks,مهام المشروع
+delete_project,delete project,حذف المشروع
+edit_project,edit project,تحرير المشروع
+
+project_invoices,project invoices,فواتير المشروع
