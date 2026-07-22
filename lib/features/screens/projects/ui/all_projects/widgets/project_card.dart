@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:mkaweel/core/extension/context.dart';
-import 'package:mkaweel/core/extension/double.dart';
-import 'package:mkaweel/core/shared/methods/location_Service.dart';
+ import 'package:mkaweel/core/shared/methods/location_Service.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/data/model/create_project_res/create_project_res.dart';
@@ -12,10 +11,8 @@ import 'package:mkaweel/features/screens/projects/data/model/delete_pj_parameter
   import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/location_selection.dart';
 import 'package:mkaweel/features/screens/projects/ui/all_projects/widgets/delete_pj_dialouge.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-
-part 'info_row.dart';
-
-part 'location_row.dart';
+ part 'info_row.dart';
+ part 'location_row.dart';
 
 
 class ProjectCard extends StatelessWidget {
@@ -193,6 +190,7 @@ class ProjectCard extends StatelessWidget {
                 ),
               ],
             ),
+
             Padding(
               padding: const  .fromSTEB(0, 0, 16, 0),
               child: Column(

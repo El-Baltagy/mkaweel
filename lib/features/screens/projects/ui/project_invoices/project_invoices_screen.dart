@@ -15,6 +15,7 @@ import 'package:mkaweel/features/screens/projects/controller/projects_state.dart
 import 'package:mkaweel/features/screens/projects/data/model/project_inoices_res/project_inoices_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/delete_pj_parameter.dart';
 import 'package:mkaweel/core/base/base_state.dart';
+import 'package:mkaweel/features/screens/projects/ui/all_projects/widgets/delete_pj_dialouge.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 part 'project_invoices_screen_mixin.dart';
@@ -69,7 +70,7 @@ class _ProjectInvoicesPageState extends ProjectInvoicesPageBaseState {
             bool isLoading = invoicesState is Loading;
             final List<InvoiceItem> items =
             isLoading ?
-            List.generate(4, (index) => emptyInvoice) :
+            List.generate(5, (index) => emptyInvoice) :
             invoicesState is Success<ProjectInoicesRes>
                 ? (invoicesState.data?.data.invoices ?? [])
                 : [];
@@ -89,6 +90,7 @@ class _ProjectInvoicesPageState extends ProjectInvoicesPageBaseState {
                 return Skeletonizer(
                   enabled: isLoading,
                   child: _InvoiceListItem(
+                    projectsCubit: projectsCubit,
                     item: item,
                     isDark: isDark,
                   )
