@@ -1,29 +1,159 @@
 {
   "status": "success",
-   "data": {
-     "progress_updates": [
+  "message": "Project invoices and expenses retrieved successfully.",
+  "data": {
+    "invoices": [
       {
-        "id": 8,
-
-        "progress_percentage": 10,
-        "update_date": "2026-07-05",
-        "notes": "تيست",
-        "photos": [
-          "https://muqawili.app/uploads/projects/10/1783292678_6a4ae306f30c9.png"
-        ],
-         "creator_name": "admin"
+        "id": 10,
+        "project_id": 10,
+        "category_id": 1,
+        "invoice_number": "INV-1009",
+        "amount": 122,
+        "invoice_date": "2026-10-25",
+        "category_details": {
+          "id": 1,
+          "name": "الخرسانة والاسمنت",
+          "image_path": null,
+          "description": "الاسمنت والخرسانة الجاهزة ومشتقاتها",
+          "is_active": true,
+          "type": "material"
+        },
+        "notes": "ascsc",
+        "attachment": null
       },
       {
         "id": 9,
-         "progress_percentage": 50,
-        "update_date": "2026-07-05",
-        "notes": "تم استلام الموقع",
-        "photos": [
-          "https://muqawili.app/uploads/projects/10/1783292708_6a4ae3242fe49.jpeg"
-        ],
-         "creator_name": "admin"
-      }
-
-    ]
+        "project_id": 10,
+        "category_id": 1,
+        "invoice_number": "INV-1008",
+        "amount": 122,
+        "invoice_date": "2026-10-25",
+        "category_details": {
+          "id": 1,
+          "name": "الخرسانة والاسمنت",
+          "image_path": null,
+          "description": "الاسمنت والخرسانة الجاهزة ومشتقاتها",
+          "is_active": true,
+          "type": "material"
+        },
+        "notes": "ascsc",
+        "attachment": null
+      },
+      {
+        "id": 8,
+        "project_id": 10,
+        "category_id": 1,
+        "invoice_number": "INV-1007",
+        "amount": 122,
+        "invoice_date": "2026-10-25",
+        "category_details": {
+          "id": 1,
+          "name": "الخرسانة والاسمنت",
+          "image_path": null,
+          "description": "الاسمنت والخرسانة الجاهزة ومشتقاتها",
+          "is_active": true,
+          "type": "material"
+        },
+        "notes": "ascsc",
+        "attachment": null
+      },
+      {
+        "id": 7,
+        "project_id": 10,
+        "category_id": 1,
+        "invoice_number": "INV-1006",
+        "amount": 122,
+        "invoice_date": "2026-10-25",
+        "category_details": {
+          "id": 1,
+          "name": "الخرسانة والاسمنت",
+          "image_path": null,
+          "description": "الاسمنت والخرسانة الجاهزة ومشتقاتها",
+          "is_active": true,
+          "type": "material"
+        },
+        "notes": "ascsc",
+        "attachment": null
+      },
+      {
+        "id": 5,
+        "project_id": 10,
+        "category_id": 1,
+        "invoice_number": "INV-1004",
+        "amount": 100,
+        "invoice_date": "2026-07-19",
+        "category_details": {
+          "id": 1,
+          "name": "الخرسانة والاسمنت",
+          "image_path": null,
+          "description": "الاسمنت والخرسانة الجاهزة ومشتقاتها",
+          "is_active": true,
+          "type": "material"
+        },
+        "notes": "خراسانة",
+        "attachment": "https://muqawili.app/uploads/invoices/10/1784477563_6a5cf77b3f53c.jpeg"
+      },
+      {
+        "id": 4,
+        "project_id": 10,
+        "category_id": 1,
+        "invoice_number": "INV-1003",
+        "amount": 100,
+        "invoice_date": "2026-07-19",
+        "category_details": {
+          "id": 1,
+          "name": "الخرسانة والاسمنت",
+          "image_path": null,
+          "description": "الاسمنت والخرسانة الجاهزة ومشتقاتها",
+          "is_active": true,
+          "type": "material"
+        },
+        "notes": "خراسانة",
+        "attachment": null
+      },
+      {
+        "id": 3,
+        "project_id": 10,
+        "category_id": 1,
+        "invoice_number": "INV-1002",
+        "amount": 100,
+        "invoice_date": "2026-07-19",
+        "category_details": {
+          "id": 1,
+          "name": "الخرسانة والاسمنت",
+          "image_path": null,
+          "description": "الاسمنت والخرسانة الجاهزة ومشتقاتها",
+          "is_active": true,
+          "type": "material"
+        },
+        "notes": "خراسانة",
+        "attachment":  "https://muqawili.app/uploads/projects/10/1783292708_6a4ae3242fe49.jpeg"
+      },
+      {
+        "id": 2,
+        "project_id": 10,
+        "category_id": 1,
+        "invoice_number": "INV-1001",
+        "amount": 100,
+        "invoice_date": "2026-07-19",
+        "category_details": {
+          "id": 1,
+          "name": "الخرسانة والاسمنت",
+          "image_path": null,
+          "description": "الاسمنت والخرسانة الجاهزة ومشتقاتها",
+          "is_active": true,
+          "type": "material"
+         },
+        "notes": "فاتورة اسمنت",
+        "attachment": "https://muqawili.app/uploads/invoices/10/1784477363_6a5cf6b395ecf.jpeg",
+        }
+    ],
+    "budget_summary": {
+      "total_budget": 100000,
+      "total_expenses": 888,
+      "remaining_budget": 99112,
+      "budget_consumption_percentage": 0.9,
+      "currency": "USD"
+    }
   }
 }
