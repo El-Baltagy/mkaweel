@@ -18,7 +18,7 @@ class _EmptyItem extends StatelessWidget {
           ),
           AppPadding.p12.verticalSpace,
           Text(
-            'no_invoices'.tr(),
+            'there_is_no_invoices'.tr(),
             style: AppTextStyles.font16SemiBold.copyWith(
               color: isDark
                   ? AppColors.darkTextSecondary

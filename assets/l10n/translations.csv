@@ -366,3 +366,8 @@ delete_project,delete project,حذف المشروع
 edit_project,edit project,تحرير المشروع
 
 project_invoices,project invoices,فواتير المشروع
+
+no_invoices,no invoices,لا فواتير
+retry_again,retry again,أعد المحاولة مرة أخرى
+
+there_is_no_invoices,there is no invoices,لا يوجد فواتير
