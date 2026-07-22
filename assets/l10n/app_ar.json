@@ -26,6 +26,7 @@
   "app_name": "تطبيقي",
   "ar": "العربية",
   "are_you_sure_you_want_to_delete_this_project": "هل أنت متأكد أنك تريد حذف هذا المشروع",
+  "are_you_sure_you_want_to_delete_this_task": "هل أنت متأكد أنك تريد حذف هذه المهمة",
   "are_you_sure_you_want_to_delete_this_worker": "هل أنت متأكد أنك تريد حذف هذا العامل",
   "assign_worker": "العامل المعين",
   "assigned_worker": "العامل المعين",

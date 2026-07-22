@@ -80,7 +80,7 @@ class _ProjectInvoicesPageState extends ProjectInvoicesPageBaseState {
             }
 
             return ListView.builder(
-              padding: const .symmetric(
+              padding: const EdgeInsets.symmetric(
                 horizontal: AppPadding.p16,
                 vertical: AppPadding.p20,
               ),

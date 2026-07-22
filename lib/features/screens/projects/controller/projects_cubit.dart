@@ -236,13 +236,29 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
     await CancelManager.runCancelableFun(deleteTaskKeyCode, (token) async {
       await _service.deleteInvoiceServ(
         RequestCallbackObserver<DeleteProjectRes, DeleteProjectParameter>(
-           parameter: parameter,
+          parameter: parameter,
           cancelToken: token,
-          onLoadCallback: () => safeEmit( current.copyWith(deleteTaskState: Loading())),
-          onRightCallback: (data) => safeEmit( current.copyWith(
-
-              deleteTaskState: Success(data))),
-          onLeftCallback: (failure) => safeEmit( current.copyWith(deleteTaskState: ErrorState(failure))),
+          onLoadCallback: () => safeEmit(current.copyWith(
+            deleteTaskState: Loading<String>(parameter?.id.toString()),
+          )),
+          onRightCallback: (data) {
+            var newInvoicesState = current.getProjectInvoicesState;
+            if (newInvoicesState is Success<ProjectInoicesRes> && parameter != null) {
+              final oldRes = newInvoicesState.data;
+              if (oldRes != null) {
+                final updatedInvoices = oldRes.data.invoices
+                    .where((element) => element.id.toString() != parameter.id.toString())
+                    .toList();
+                final updatedData = oldRes.data.copyWith(invoices: updatedInvoices);
+                newInvoicesState = Success<ProjectInoicesRes>(oldRes.copyWith(data: updatedData));
+              }
+            }
+            safeEmit(current.copyWith(
+              getProjectInvoicesState: newInvoicesState,
+              deleteTaskState: Success(data),
+            ));
+          },
+          onLeftCallback: (failure) => safeEmit(current.copyWith(deleteTaskState: ErrorState(failure))),
         ),
       );
     });

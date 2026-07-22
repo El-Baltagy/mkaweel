@@ -146,7 +146,7 @@ class ProjectsRepo extends BaseRepo {
     CancelToken? cancelToken,
   }) async {
     return handleResponse(
-      onCallData: dio.getData(
+      onCallData: dio.deleteData(
         uri: EndPoints.deleteInvoice(parameter!.id),
         cancelToken: cancelToken,
         caller: callerTag(),
