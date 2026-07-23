@@ -679,8 +679,9 @@ class InvoiceRoute extends PageRouteInfo<InvoiceRouteArgs> {
   PageInfo<InvoiceRouteArgs>(name);
 }
 class InvoiceRouteArgs {
-  const InvoiceRouteArgs( this.dashboardCubit);
-  final DashboardCubit dashboardCubit;
+  const InvoiceRouteArgs( this.dashboardCubit,this.invoiceItem);
+  final DashboardCubit? dashboardCubit;
+  final (InvoiceItem,Budgetsummary)? invoiceItem;
  }
 
 /// generated route for

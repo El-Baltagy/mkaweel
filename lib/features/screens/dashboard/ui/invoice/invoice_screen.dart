@@ -24,6 +24,7 @@ import 'package:mkaweel/features/screens/dashboard/ui/invoice/widgets/invoice_im
 import 'package:mkaweel/features/screens/market_prices/controller/market_prices_cubit.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/currency_tabs_widget.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
+import 'package:mkaweel/features/screens/projects/data/model/project_inoices_res/project_inoices_res.dart' hide Budgetsummary;
 import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/title_with_input.dart';
 import 'package:mkaweel/features/screens/workers/data/model/add_worker_data_request.dart';
 import 'package:mkaweel/features/screens/workers/ui/add_workers/widgets/drop_down_role_selector.dart';
@@ -40,7 +41,12 @@ class InvoicePage extends StatefulWidget implements AutoRouteWrapper {
   Widget wrappedRoute(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider.value(value: args.dashboardCubit),
+        if (args.dashboardCubit != null)
+          BlocProvider.value(value: args.dashboardCubit!)
+        else
+          BlocProvider<DashboardCubit>(
+            create: (context) => .new(AppLocator()()()),
+          ),
         BlocProvider<MarketPricesCubit>(
           create: (context) => .new(AppLocator()()()),
         ),

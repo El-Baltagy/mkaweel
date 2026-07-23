@@ -4,10 +4,12 @@ class _InvoiceListItem extends StatelessWidget {
   const _InvoiceListItem({
     required this.item,
     required this.isDark,
+    required this.budgetsummary,
     this.projectsCubit,
   });
 
   final InvoiceItem item;
+  final Budgetsummary budgetsummary;
   final bool isDark;
   final ProjectsCubit? projectsCubit;
 
@@ -40,9 +42,12 @@ class _InvoiceListItem extends StatelessWidget {
                   ),
                 ),
               ),
-              Icon(
-                Icons.edit,
-                color: context.theme.primaryColor,
+              GestureDetector(
+                onTap: () => context.push( InvoiceRoute(args: .new(null,(item,budgetsummary) ) )),
+                child: Icon(
+                  Icons.edit,
+                  color: context.theme.primaryColor,
+                ),
               ),
               5.horizontalSpace,
               if (isDeleting)
@@ -95,7 +100,7 @@ class _InvoiceListItem extends StatelessWidget {
                   borderRadius: BorderRadius.circular(AppSizes.s8),
                 ),
                 child: Text(
-                  '${item.amount} ${item.amount}',
+                  '${item.amount} ${budgetsummary.currency}',
                   style: AppTextStyles.font16SemiBold.copyWith(
                     color: AppColors.primaryLightColor,
                   ),

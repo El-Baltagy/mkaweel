@@ -68,14 +68,14 @@ class _ProjectInvoicesPageState extends ProjectInvoicesPageBaseState {
                   onPressed: _fetchInvoices);
             }
             bool isLoading = invoicesState is Loading;
-            final List<InvoiceItem> items =
-            isLoading ?
-            List.generate(5, (index) => emptyInvoice) :
-            invoicesState is Success<ProjectInoicesRes>
-                ? (invoicesState.data?.data.invoices ?? [])
-                : [];
+            final ProjectInoicesRes? inoicesRes= invoicesState is Success<ProjectInoicesRes>
+            ?  invoicesState.data:null;
+            final (List<InvoiceItem>,Budgetsummary) items =
+            isLoading ||inoicesRes==null?
+            (List.generate(5, (index) => emptyInvoice),emptyBudgetSummary) :
+            (inoicesRes.data.invoices ,inoicesRes.data.budget_summary)    ;
 
-            if (items.isEmpty && invoicesState != null) {
+            if (items.$1.isEmpty && invoicesState != null) {
               return _EmptyItem(isDark: isDark);
             }
 
@@ -84,12 +84,13 @@ class _ProjectInvoicesPageState extends ProjectInvoicesPageBaseState {
                 horizontal: AppPadding.p16,
                 vertical: AppPadding.p20,
               ),
-              itemCount: items.length,
+              itemCount: items.$1.length,
               itemBuilder: (context, index) {
-                final item = items[index];
+                final item = items.$1[index];
                 return Skeletonizer(
                   enabled: isLoading,
                   child: _InvoiceListItem(
+                    budgetsummary: items.$2,
                     projectsCubit: projectsCubit,
                     item: item,
                     isDark: isDark,

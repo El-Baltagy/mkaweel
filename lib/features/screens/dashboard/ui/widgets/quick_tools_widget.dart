@@ -59,7 +59,7 @@ class QuickToolsWidget extends StatelessWidget {
           bgColor: Colors.green.shade100, iconColor: Colors.green )  ,
 
       ItemGridData(label: 'new_invoice'.tr(), icon: Icons.receipt_long,
-          routeNavigation: InvoiceRoute(args: .new( dashboardCubit ) ),
+          routeNavigation: InvoiceRoute(args: .new( dashboardCubit,null ) ),
 
            bgColor: Colors.green.shade100, iconColor: Theme.of(context).primaryColor)
 

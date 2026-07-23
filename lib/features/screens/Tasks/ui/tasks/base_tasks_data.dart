@@ -60,8 +60,6 @@ class AdminTasksData extends BaseTasksData {
 
   final AdminTaskType type;
 
-  static const today = AdminTasksData(AdminTaskType.today);
-  static const all = AdminTasksData(AdminTaskType.all);
 
   @override
   String get api => EndPoints.getAdminTasks;

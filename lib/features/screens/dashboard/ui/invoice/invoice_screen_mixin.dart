@@ -38,23 +38,7 @@ abstract class InvoicePageBaseState extends State<InvoicePage> {
         "${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}";
     super.initState();
 
-    Future.delayed(const Duration(milliseconds: 300),() {
-      marketPricesCubit.getCatogeriesFunc(Init()).then((value) {
-        if (value != null) {
-          categoriesList.value = value.data
-              .map((e) => UIApiKeys(e.name, e.id.toString()))
-              .toList();
-        }
-      });
-
-      projectsCubit.getAllProjectsFunc(Init()).then((value) {
-        if (value != null) {
-          projectsList.value = value.data
-              .map((e) => UIApiKeys(e.name, e.id.toString()))
-              .toList();
-        }
-      });
-    },);
+    setDataIntoControllers();
 
   }
 
@@ -67,6 +51,40 @@ abstract class InvoicePageBaseState extends State<InvoicePage> {
     projectsList.dispose();
     super.dispose();
   }
+  setDataIntoControllers()async{
+    await Future.delayed(const Duration(milliseconds: 300),() {
+      marketPricesCubit.getCatogeriesFunc(Init()).then((value) {
+        if (value != null) {
+          categoriesList.value = value.data
+              .map((e) => UIApiKeys(e.name, e.id.toString()))
+              .toList();
+        }});
+
+      projectsCubit.getAllProjectsFunc(Init()).then((value) {
+        if (value != null) {
+          projectsList.value = value.data
+              .map((e) => UIApiKeys(e.name, e.id.toString()))
+              .toList();
+        }});
+    },) ;
+
+ final   invoiceItem=widget.args.invoiceItem;
+
+ if(invoiceItem !=null){
+   amountController.text=invoiceItem.$1.amount.toString();
+   dateController.text=invoiceItem.$1.invoice_date;
+   notesController.text=invoiceItem.$1.notes??"";
+   selectedProjectNotifier.value=[projectsList.value.indexWhere((element) => element.apiValue==invoiceItem.$1.project_id.toString())];
+   selectedCategoryNotifier.value=[categoriesList.value.indexWhere((element) => element.apiValue==invoiceItem.$1.category_id.toString())];
+   selectedCurrencyNotifier.value=[currenciesList.indexWhere((element) => element.apiValue==invoiceItem.$2.currency.toLowerCase())];
+   attachmentNotifier.value=invoiceItem.$1.attachment??'';
+
+ }
+
+  }
+
+
+
   void dashboardListener(BuildContext context, DashboardState state) {
     if(state is DashboardLoaded   ){
       if(state.createInvoiceState is Success<InvoiceRes>){
