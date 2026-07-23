@@ -32,14 +32,23 @@ class _BottomSheetSelectorState extends State<BottomSheetSelector> {
   }
   @override
   void initState() {
-    // TODO: implement initState
     widget.selectedNotifier.addListener(_listener);
     super.initState();
+    _listener();
+  }
+
+  @override
+  void didUpdateWidget(BottomSheetSelector oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.selectedNotifier != widget.selectedNotifier) {
+      oldWidget.selectedNotifier.removeListener(_listener);
+      widget.selectedNotifier.addListener(_listener);
+    }
+    _listener();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     widget.selectedNotifier.removeListener(_listener);
     _controller.dispose();
     super.dispose();

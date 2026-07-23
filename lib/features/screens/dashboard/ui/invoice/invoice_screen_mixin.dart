@@ -19,7 +19,7 @@ abstract class InvoicePageBaseState extends State<InvoicePage> {
   final ValueNotifier<List<int>> selectedCurrencyNotifier = ValueNotifier([]);
   final ValueNotifier<String> attachmentNotifier = ValueNotifier('');
 
-  final List<UIApiKeys> currenciesList = CurrencyTabsWidget.listTabs
+  late  final List<UIApiKeys> currenciesList = CurrencyTabsWidget.listTabs
       .map((e) => UIApiKeys(e.label, e.shortcut))
       .toList();
 
@@ -38,7 +38,7 @@ abstract class InvoicePageBaseState extends State<InvoicePage> {
         "${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}";
     super.initState();
 
-    Future.delayed(Duration(milliseconds: 600),setDataIntoControllers);
+    Future.delayed(Duration(milliseconds: 200),setDataIntoControllers);
 
   }
 
