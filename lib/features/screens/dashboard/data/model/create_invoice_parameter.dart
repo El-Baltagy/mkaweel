@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:mkaweel/core/shared/methods/print.dart';
 
 class CreateInvoiceParameter { // File path or file name
 
@@ -23,6 +24,7 @@ class CreateInvoiceParameter { // File path or file name
       'attachment': attachment,
     } ;
     map.removeWhere((key, value) =>value==null);
+    PrintHelper().ordinaryPrint(map);
     return map;
   }
 

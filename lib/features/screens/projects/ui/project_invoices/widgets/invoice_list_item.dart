@@ -42,14 +42,14 @@ class _InvoiceListItem extends StatelessWidget {
                   ),
                 ),
               ),
-              GestureDetector(
-                onTap: () => context.push( InvoiceRoute(args: .new(null,(item,budgetsummary) ) )),
-                child: Icon(
-                  Icons.edit,
-                  color: context.theme.primaryColor,
-                ),
-              ),
-              5.horizontalSpace,
+              // GestureDetector(
+              //   onTap: () => context.push( InvoiceRoute(args: .new(null,(item,budgetsummary) ) )),
+              //   child: Icon(
+              //     Icons.edit,
+              //     color: context.theme.primaryColor,
+              //   ),
+              // ),
+              // 5.horizontalSpace,
               if (isDeleting)
                 const SizedBox(
                   width: 18,
@@ -61,8 +61,8 @@ class _InvoiceListItem extends StatelessWidget {
               else
                 GestureDetector(
                   onTap: DeletePjDialouge(
-                    title: 'delete_task'.tr(),
-                    subTitle: 'are_you_sure_you_want_to_delete_this_task'.tr(),
+                    title: 'delete_invoice'.tr(),
+                    subTitle: 'are_you_sure_you_want_to_delete_this_invoice'.tr(),
                     onPressedDelete: () => cubit.deleteInvoiceFunc(
                       parameter: DeleteProjectParameter(item.id.toString()),
                     ),

@@ -167,7 +167,7 @@ class DashboardService extends BaseService {
     RequestCallbackObserver<InvoiceRes, CreateInvoiceParameter> requestInfo,
   ) {
      return requestInfo.handleRequest(
-      fetchFromClient: (token) => _remoteRepo.createInvoiceApi(
+      fetchFromClient: (token) => _remoteRepo.addEditInvoiceApi(
         requestInfo.parameter,
         cancelToken: token,
       ),

@@ -95,7 +95,7 @@ class DashboardRepo extends BaseRepo {
     );
   }
 
-  Future<Either<Failure, InvoiceRes>> createInvoiceApi(
+  Future<Either<Failure, InvoiceRes>> addEditInvoiceApi(
     CreateInvoiceParameter? parameter, {
     CancelToken? cancelToken,
   }) async {
