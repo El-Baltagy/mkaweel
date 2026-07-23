@@ -6,6 +6,8 @@ import 'package:mkaweel/core/base/base_local_repo.dart';
 import 'package:mkaweel/features/screens/Tasks/data/model/tasks_res/tasks_res.dart';
 import 'package:mkaweel/features/screens/Tasks/data/repo/remote/Tasks_repo.dart';
 import 'package:mkaweel/features/screens/Tasks/ui/tasks/base_tasks_data.dart';
+import 'package:mkaweel/features/screens/projects/data/model/delete_pj_parameter.dart';
+import 'package:mkaweel/features/screens/projects/data/model/delete_project_res/delete_project_res.dart';
 
 class TasksService extends BaseService {
   TasksService(this._remoteRepo, this._localRepo);
@@ -36,6 +38,18 @@ class TasksService extends BaseService {
       //   }
       // },
       // clearLocal: () => _localRepo.clearData(cacheKey),
+    );
+  }
+
+  Future<void> deleteTaskServ(
+    RequestCallbackObserver<DeleteProjectRes, DeleteProjectParameter> requestInfo,
+  ) {
+    const cacheKey = AppConstant.deleteTaskKeyCash;
+    return requestInfo.handleRequest(
+      fetchFromClient: (token) => _remoteRepo.deleteTaskApi(
+        requestInfo.parameter,
+        cancelToken: token,
+      )
     );
   }
 }

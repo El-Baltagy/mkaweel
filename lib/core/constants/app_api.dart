@@ -60,4 +60,6 @@ abstract class EndPoints {
   static const String getAdminTasks = '/api/tasks';
   static   String getProjectTasks (String id)=> '/api/projects/$id/tasks';
   static const String getWorkerTasks  =  '/api/worker/tasks';
- }
+ 
+  static   String deleteTask (String id)=> '/api/tasks/$id';
+}

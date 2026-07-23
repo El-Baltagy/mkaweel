@@ -1,6 +1,5 @@
 import 'package:mkaweel/core/api_helper/cancel/cancel_manager.dart';
-    import 'package:mkaweel/core/shared/methods/print.dart';
-    import 'package:mkaweel/core/constants/app_constant.dart';
+     import 'package:mkaweel/core/constants/app_constant.dart';
  import 'package:mkaweel/core/base/base_state.dart';
  import 'package:mkaweel/core/base/base_service.dart';   
 import 'package:mkaweel/core/base/base_cubit.dart';
@@ -8,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/features/screens/Tasks/data/model/tasks_res/tasks_res.dart';
 import 'package:mkaweel/features/screens/Tasks/ui/tasks/base_tasks_data.dart';
+import 'package:mkaweel/features/screens/projects/data/model/delete_pj_parameter.dart';
+import 'package:mkaweel/features/screens/projects/data/model/delete_project_res/delete_project_res.dart';
 import 'package:mkaweel/main.dart';
 import 'package:mkaweel/features/screens/Tasks/service/Tasks_service.dart';
 part 'Tasks_state.dart';
@@ -25,6 +26,8 @@ class TasksCubit extends BaseCubit<TasksState> {
        : TasksLoaded();
        
       int get getTasksKeyCode => AppConstant.getTasksKeyCode;
+
+    int get deleteTaskKeyCode => AppConstant.deleteTaskKeyCode;
 
   Future<void> init() async {
      // TODO: implement init
@@ -51,7 +54,45 @@ class TasksCubit extends BaseCubit<TasksState> {
   @override
   Future<void> close() {
     // add every key in file
+    CancelManager.cancel(deleteTaskKeyCode);
+
+    // add every key in file
     CancelManager.cancel(getTasksKeyCode);
     return super.close();
+  }
+
+  Future<void> deleteTaskFunc(DeleteProjectParameter parameter) async {
+    await CancelManager.runCancelableFun(deleteTaskKeyCode, (token) async {
+      await _service.deleteTaskServ(
+        RequestCallbackObserver<DeleteProjectRes, DeleteProjectParameter>(
+          parameter: parameter,
+          cancelToken: token,
+          onLoadCallback: () => safeEmit(
+            _current.copyWith(deleteTaskState: Loading<String>(parameter.id)),
+          ),
+          onRightCallback: (data) {
+            // Remove the deleted task from the cached list
+            final currentTasksState = _current.getTasksState;
+            BaseEmit? updatedTasksState = currentTasksState;
+            if (currentTasksState is Success<TasksRes> &&
+                currentTasksState.data != null) {
+              final updatedList = currentTasksState.data!.data
+                  .where((t) => t.id.toString() != parameter.id)
+                  .toList();
+              updatedTasksState = Success(
+                currentTasksState.data!.copyWith(data: updatedList),
+              );
+            }
+            safeEmit(_current.copyWith(
+              deleteTaskState: Success(data),
+              getTasksState: updatedTasksState,
+            ));
+          },
+          onLeftCallback: (failure) => safeEmit(
+            _current.copyWith(deleteTaskState: ErrorState(failure)),
+          ),
+        ),
+      );
+    });
   }
 }

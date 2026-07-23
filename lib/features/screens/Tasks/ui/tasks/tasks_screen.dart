@@ -16,6 +16,8 @@ import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/features/screens/Tasks/controller/Tasks_cubit.dart';
  import 'package:mkaweel/features/screens/Tasks/data/model/tasks_res/tasks_res.dart';
 import 'package:mkaweel/features/screens/Tasks/ui/tasks/base_tasks_data.dart';
+import 'package:mkaweel/features/screens/projects/data/model/delete_pj_parameter.dart';
+import 'package:mkaweel/features/screens/projects/ui/all_projects/widgets/delete_pj_dialouge.dart';
 import 'package:skeletonizer/skeletonizer.dart';
  part 'tasks_screen_mixin.dart';
  part 'widgets/task_item.dart';

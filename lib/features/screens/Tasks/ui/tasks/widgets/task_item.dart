@@ -73,11 +73,38 @@ class _TaskListItem extends StatelessWidget {
                   },
                 ),
                 10.horizontalSpace,
-                GestureDetector(
-                  child: const Icon(Icons.delete_outline,
-                      color: AppColors.secondryLightColor, size: AppSizes.s20),
-                  onTap: () {
-                    // TODO: delete task
+                BlocSelector<TasksCubit, TasksState, BaseEmit?>(
+                  selector: (state) =>
+                      state is TasksLoaded ? state.deleteTaskState : null,
+                  builder: (context, deleteState) {
+                    final isThisDeleting = deleteState is Loading<String> &&
+                        deleteState.item == taskItem.id.toString();
+                    return GestureDetector(
+                      onTap: isThisDeleting
+                          ? null
+                          : DeletePjDialouge(
+                              title: 'delete_task'.tr(),
+                              subTitle:
+                                  'are_you_sure_you_want_to_delete_this_task'
+                                      .tr(),
+                              onPressedDelete: () => tasksCubit.deleteTaskFunc(
+                                DeleteProjectParameter(taskItem.id.toString()),
+                              ),
+                            ).toShowDialouge,
+                      child: isThisDeleting
+                          ? const SizedBox(
+                              width: AppSizes.s20,
+                              height: AppSizes.s20,
+                              child: CircularProgressIndicator.adaptive(
+                                strokeWidth: 2,
+                              ),
+                            )
+                          : const Icon(
+                              Icons.delete_outline,
+                              color: AppColors.secondryLightColor,
+                              size: AppSizes.s20,
+                            ),
+                    );
                   },
                 ),
               ],
