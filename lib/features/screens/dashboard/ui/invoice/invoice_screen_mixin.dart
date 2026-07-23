@@ -38,7 +38,7 @@ abstract class InvoicePageBaseState extends State<InvoicePage> {
         "${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}";
     super.initState();
 
-    setDataIntoControllers();
+    Future.delayed(Duration(milliseconds: 600),setDataIntoControllers);
 
   }
 
@@ -51,36 +51,53 @@ abstract class InvoicePageBaseState extends State<InvoicePage> {
     projectsList.dispose();
     super.dispose();
   }
-  setDataIntoControllers()async{
-    await Future.delayed(const Duration(milliseconds: 300),() {
-      marketPricesCubit.getCatogeriesFunc(Init()).then((value) {
-        if (value != null) {
-          categoriesList.value = value.data
-              .map((e) => UIApiKeys(e.name, e.id.toString()))
-              .toList();
-        }});
+  Future<void> setDataIntoControllers() async {
+    final categoriesRes = await marketPricesCubit.getCatogeriesFunc(  Init());
+    if (categoriesRes != null) {
+      categoriesList.value = categoriesRes.data
+          .map((e) => UIApiKeys(e.name, e.id.toString()))
+          .toList();
+    }
 
-      projectsCubit.getAllProjectsFunc(Init()).then((value) {
-        if (value != null) {
-          projectsList.value = value.data
-              .map((e) => UIApiKeys(e.name, e.id.toString()))
-              .toList();
-        }});
-    },) ;
+    final projectsRes = await projectsCubit.getAllProjectsFunc(  Init());
+    if (projectsRes != null) {
+      projectsList.value = projectsRes.data
+          .map((e) => UIApiKeys(e.name, e.id.toString()))
+          .toList();
+    }
 
- final   invoiceItem=widget.args.invoiceItem;
+    final invoiceItem = widget.args.invoiceItem;
 
- if(invoiceItem !=null){
-   amountController.text=invoiceItem.$1.amount.toString();
-   dateController.text=invoiceItem.$1.invoice_date;
-   notesController.text=invoiceItem.$1.notes??"";
-   selectedProjectNotifier.value=[projectsList.value.indexWhere((element) => element.apiValue==invoiceItem.$1.project_id.toString())];
-   selectedCategoryNotifier.value=[categoriesList.value.indexWhere((element) => element.apiValue==invoiceItem.$1.category_id.toString())];
-   selectedCurrencyNotifier.value=[currenciesList.indexWhere((element) => element.apiValue==invoiceItem.$2.currency.toLowerCase())];
-   attachmentNotifier.value=invoiceItem.$1.attachment??'';
+    if (invoiceItem != null) {
+      amountController.text = invoiceItem.$1.amount.toString();
+      dateController.text = invoiceItem.$1.invoice_date;
+      notesController.text = invoiceItem.$1.notes ?? '';
 
- }
+      final projIndex = projectsList.value.indexWhere(
+        (element) => element.apiValue == invoiceItem.$1.project_id.toString(),
+      );
+      if (projIndex != -1) {
+        selectedProjectNotifier.value = [projIndex];
+      }
 
+      final catIndex = categoriesList.value.indexWhere(
+        (element) => element.apiValue == invoiceItem.$1.category_id.toString(),
+      );
+      if (catIndex != -1) {
+        selectedCategoryNotifier.value = [catIndex];
+      }
+
+      final currIndex = currenciesList.indexWhere(
+        (element) =>
+            element.apiValue.toLowerCase() ==
+            invoiceItem.$2.currency.toLowerCase(),
+      );
+      if (currIndex != -1) {
+        selectedCurrencyNotifier.value = [currIndex];
+      }
+
+      attachmentNotifier.value = invoiceItem.$1.attachment ?? '';
+    }
   }
 
 
@@ -101,8 +118,9 @@ abstract class InvoicePageBaseState extends State<InvoicePage> {
     }
   }
 
-  submitInvoice() async {
+  Future<void> submitInvoice() async {
     if (await formKey.validateAndScroll(context, listRecorder: fields)) {
+      if (!mounted) return;
       if (selectedProjectNotifier.value.isEmpty ||
           selectedCategoryNotifier.value.isEmpty ||
           selectedCurrencyNotifier.value.isEmpty) {
