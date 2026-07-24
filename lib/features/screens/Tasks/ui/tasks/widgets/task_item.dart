@@ -63,7 +63,8 @@ class _TaskListItem extends StatelessWidget {
                       color: AppColors.primaryLightColor, size: AppSizes.s20),
                   onTap: () async {
                     final result = await context.push(AddEditTasksRoute(args: AddEditTasksRouteArgs(
-                        taskItem.id
+                        taskItem ,
+                        tasksCubit
                     )));
                     if (result == true) {
                       await tasksCubit.getTasksFunc(

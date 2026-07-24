@@ -23,7 +23,7 @@ class TasksListWidget extends StatelessWidget {
     }
 
     final List<TaskItem> listTasks = isLoading
-        ? List.generate(4, (index) => TaskItem.getEmptyItem)
+        ? List.generate(4, (index) => getEmptyTask)
         : (state as Success<TasksRes>).data!.data;
 
     return EntranceFader(

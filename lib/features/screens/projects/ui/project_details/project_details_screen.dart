@@ -12,11 +12,11 @@ import 'package:mkaweel/core/shared/widgets/ticker_text.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
+import 'package:mkaweel/features/dummy.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
  import 'package:mkaweel/features/screens/projects/data/model/project_phases_res/project_phases_res.dart';
-import 'package:mkaweel/features/screens/projects/ui/all_projects/widgets/project_card.dart';
-import 'package:mkaweel/features/screens/projects/ui/project_details/widgets/progress_text.dart';
+ import 'package:mkaweel/features/screens/projects/ui/project_details/widgets/progress_text.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 part 'widgets/phase_card.dart';
@@ -60,7 +60,7 @@ class _ProjectDetailsPageState extends ProjectDetailsPageBaseState {
             final bool isLoading = state is! Success<ProjectPhasesRes>;
 
             final List<ProjectphaseItem> list = isLoading
-                ? List.generate(5, (index) => ProjectphaseItem.getEmptyItem)
+                ? List.generate(5, (index) =>getEmptyProjectphaseItem)
                 :  state .data?.data ?? [];
 // return SizedBox.shrink();
             return ListView.separated(

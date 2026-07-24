@@ -25,22 +25,7 @@ class ProjectPhasesRes with _$ProjectPhasesRes, EquatableMixin {
 
 @freezed
 class ProjectphaseItem with _$ProjectphaseItem, EquatableMixin {
-  static ProjectphaseItem getEmptyItem  =  ProjectphaseItem.fromJson( {
-    "id": 13,
-    "project_id": 10,
-    "phase_id": 1,
-    "name": "Site Preparation",
-    "description": "Site handover, fencing, and temporary utilities setup",
-    "planned_start_date": "2026-08-15",
-    "planned_end_date": "2026-09-15",
-    "actual_start_date": "2026-10-15",
-    "actual_end_date": "2026-11-15",
-    "progress_percentage": 10,
-    "status": "in_progress",
-    "notes": "تم الانتهاء من نصف أعمال الأساسات",
-    "created_at": "2026-07-05T23:03:35.000000Z",
-    "updated_at": "2026-07-16T01:08:32.000000Z"
-  });
+
 
   const ProjectphaseItem._();
 

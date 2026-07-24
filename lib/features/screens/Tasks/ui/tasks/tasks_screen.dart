@@ -13,6 +13,7 @@ import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
+import 'package:mkaweel/features/dummy.dart';
 import 'package:mkaweel/features/screens/Tasks/controller/Tasks_cubit.dart';
  import 'package:mkaweel/features/screens/Tasks/data/model/tasks_res/tasks_res.dart';
 import 'package:mkaweel/features/screens/Tasks/ui/tasks/base_tasks_data.dart';
@@ -69,7 +70,7 @@ class _TasksPageState extends TasksPageBaseState {
         floatingActionButton: FloatingActionButton(
           backgroundColor: context.theme.colorScheme.secondary,
           onPressed: () async {
-            final result = await context.push(AddEditTasksRoute(args: const AddEditTasksRouteArgs(null)));
+            final result = await context.push(AddEditTasksRoute(args:   AddEditTasksRouteArgs(null,tasksCubit)));
             if (result == true) {
               await tasksCubit.getTasksFunc(  parameter: widget.args.baseTasksData);
             }

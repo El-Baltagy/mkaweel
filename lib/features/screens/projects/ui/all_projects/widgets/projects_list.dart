@@ -1,5 +1,6 @@
 import 'package:flutter/Material.dart';
 import 'package:mkaweel/core/base/base_state.dart';
+import 'package:mkaweel/features/dummy.dart';
  import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/data/model/all_projects_res/all_projects_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/create_project_res/create_project_res.dart';
@@ -16,7 +17,7 @@ class ProjectsListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isLoading = state is! Success<AllProjectsRes>;
 
-    final List<ProjectInfoData> list=isLoading?List.generate(5, (index) => ProjectInfoData.getEmptyItem):(state as Success<AllProjectsRes>).data?.data??[] ;
+    final List<ProjectInfoData> list=isLoading?List.generate(5, (index) =>getEmptyProjectInfoData):(state as Success<AllProjectsRes>).data?.data??[] ;
     if(list.isNotEmpty){
       return SingleChildScrollView(
         padding: const .symmetric(vertical: 8),

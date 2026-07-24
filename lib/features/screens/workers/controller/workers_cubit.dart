@@ -39,19 +39,20 @@ class WorkersCubit extends BaseCubit<WorkersState> {
    }
   
 
-  Future<void> getWorkersFunc(  {NoParameter? parameter}) async {
+  Future<AllWorkers?> getWorkersFunc([BaseRequestBackType? baseRequestBackType] ) async {
+    AllWorkers? res;
     await CancelManager.runCancelableFun(getWorkersKeyCode, (token) async {
       await _service.getWorkersServ(
         RequestCallbackObserver<AllWorkers, NoParameter>(
-          baseRequestBackType:Init(),
-          parameter: parameter ,
-          cancelToken: token,
+          baseRequestBackType:baseRequestBackType??Init(),
+           cancelToken: token,
           onLoadCallback: () => safeEmit(current.copyWith(allWorkersEmit: Loading() )),
           onRightCallback: (data) => safeEmit(current.copyWith(allWorkersEmit:Success(data))),
           onLeftCallback: (failure) => safeEmit(current.copyWith(allWorkersEmit:ErrorState(failure))),
         ),
       );
     });
+   return res ;
   }
   @override
   Future<void> close() {

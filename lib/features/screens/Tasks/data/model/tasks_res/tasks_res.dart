@@ -27,16 +27,7 @@ class TasksRes with _$TasksRes, EquatableMixin {
 
 @freezed
 class TaskItem with _$TaskItem, EquatableMixin {
-  static TaskItem getEmptyItem = TaskItem(
-    id: 1,
-    name: 'getEmptyItem',
-    description: 'description',
-    status: 'Completed',
-    due_date: '2026-07-01',
-    project: ProjectInfoData.getEmptyItem,
-    worker: Worker.getEmptyItem,
-    project_phase: ProjectphaseItem.getEmptyItem,
-  );
+
 
   const TaskItem._();
 
@@ -69,18 +60,7 @@ class TaskItem with _$TaskItem, EquatableMixin {
 
 @freezed
 class Worker with _$Worker, EquatableMixin {
-  static Worker getEmptyItem = Worker.fromJson( {
-    "id": 26,
-    "name": "أحمد خالدn",
-    "email": "tester@gmail.com",
-    "dob": "1995-12-31",
-    "phone": "0955325742",
-    "specialization": "construction",
-    "role": "Worker",
-    "avatar": "https://muqawili.app/public/assets/images/users/avatar-1.jpg",
-    "created_at": "2026-07-11T00:37:56.000000Z",
-    "updated_at": "2026-07-11T13:02:58.000000Z"
-  });
+
 
   const Worker._();
 

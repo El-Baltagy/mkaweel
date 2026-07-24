@@ -28,26 +28,7 @@ class CreateProjectRes with _$CreateProjectRes, EquatableMixin {
 
 @freezed
 class ProjectInfoData with _$ProjectInfoData, EquatableMixin {
-  static ProjectInfoData getEmptyItem = ProjectInfoData.fromJson(
-      {
-        "id": 10,
-        "name": "مشروع بناء مجمع سكني",
-        "owner_name": "أحمد خالد",
-        "start_date": "2026-01-01",
-        "end_date": "2027-12-31",
-        "latitude": "33.51380000",
-        "longitude": "36.27650000",
-        "location": null,
-        "description": "مشروع بناء مجمع سكني مكون من 5 أبنية",
-        "extra_details": "معلومات إضافية عن المشروع",
-        "contract_value": "100000.00",
-        "currency": "USD",
-        "progress_percentage": 30,
-        "created_at": "2026-07-05T23:03:35.000000Z",
-        "updated_at": "2026-07-05T23:03:35.000000Z"
-      }
 
-  );
   const ProjectInfoData._();
   const factory ProjectInfoData({
     required int id,
