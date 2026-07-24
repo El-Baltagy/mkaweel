@@ -25,6 +25,7 @@ import 'package:mkaweel/features/screens/projects/data/model/project_phases_res/
 import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/title_with_input.dart';
 import 'package:mkaweel/features/screens/workers/controller/workers_cubit.dart';
 import 'package:mkaweel/features/screens/workers/data/model/add_worker_data_request.dart';
+import 'package:mkaweel/features/screens/workers/data/model/all_workers/all_workers.dart';
 import 'package:mkaweel/features/screens/workers/ui/add_workers/widgets/drop_down_role_selector.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -192,14 +193,23 @@ class _AddEditTasksPageState extends AddEditTasksBaseState {
 
   Widget buildWorkerSelector() {
     //workersList
-    return ValueListenableBuilder(valueListenable: workersList, builder: (context, value, child) {
-      return BottomSheetSelector(
-        field: listFields[3],
-        isMultiSelect: false,
-        title: 'assign_worker'.tr(),
-        listChoices: value,
-        selectedNotifier: selectedWorkerNotifier,
-      );
+    return BlocSelector<WorkersCubit, WorkersState, BaseEmit?>(
+      selector: (state)=>state is AllWorkersLoaded?state.allWorkersEmit:null,
+      builder: (context, state) {
+        bool isLoading=  state is !Success<AllWorkers>;
+      setDataIntoWorkerNotifier(state);
+      return ValueListenableBuilder(valueListenable: workersList, builder: (context, value, child) {
+        return Skeletonizer(
+          enabled: isLoading,
+          child: BottomSheetSelector(
+            field: listFields[3],
+            isMultiSelect: false,
+            title: 'assign_worker'.tr(),
+            listChoices: value,
+            selectedNotifier: selectedWorkerNotifier,
+          ),
+        );
+      },);
     },);
   }
 

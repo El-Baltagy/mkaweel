@@ -1,7 +1,11 @@
 part of 'add_edit_tasks_screen.dart';
 
 abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
-  // Cubit
+  final List<UIApiKeys<String>> statusChoices = [
+    UIApiKeys('pending_status'.tr(), 'pending'),
+    UIApiKeys('in_progress_status'.tr(), 'in_progress'),
+    UIApiKeys('completed_status'.tr(), 'completed'),
+  ];
   late final TasksCubit tasksCubit;
   late final WorkersCubit workersCubit;
   late final ProjectsCubit projectsCubit;
@@ -39,38 +43,16 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
     _dueDateController.text = widget.args.taskItem?.due_date ?? '';
     _descriptionController.text = widget.args.taskItem?.description ?? '';
 
-    workersCubit.getWorkersFunc().then((value) {
-      PrintHelper().ordinaryPrint(
-        '.....2222222222222222222222......new $value',
-      );
-      if (value != null) {
-        PrintHelper().ordinaryPrint(
-          '..ooooooooo.......................ascsccccccccccccccc $value',
-        );
-        workersList.value = value.data
-            .map((e) => UIApiKeys(e.name, e.id.toString()))
-            .toList();
-
-        // Pre-select worker for edit mode.
-        if (widget.args.taskItem != null) {
-          final workerIndex = workersList.value.indexWhere(
-            (element) =>
-                element.apiValue == widget.args.taskItem!.worker.id.toString(),
-          );
-          if (workerIndex != -1) {
-            selectedWorkerNotifier.value = [workerIndex];
-          }
-        }
-      }
-    });
     if (widget.args.taskItem != null) {
       final statusIndex = statusChoices.indexWhere(
-        (element) => element.apiValue == widget.args.taskItem!.status,
+            (element) => element.apiValue == widget.args.taskItem!.status,
       );
       if (statusIndex != -1) {
         statusNotifier.value = [statusIndex];
       }
     }
+    workersCubit.getWorkersFunc() ;
+
 
     selectedProjectNotifier.addListener(_onProjectChanged);
     projectsCubit.getAllProjectsFunc(Init());
@@ -97,14 +79,25 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
     super.dispose();
   }
 
-  void saveTask(bool isLoading) {
-    if (isLoading) return;
-    if (_key.currentState!.validate()) {
-      // TODO: Call API via Cubit
-    } else {
-      // context.scrollToFirstError(listFields);
+setDataIntoWorkerNotifier(BaseEmit? state){
+  if (state is Success<AllWorkers>) {
+    AllWorkers? res=state.data as AllWorkers;
+    workersList.value = res.data
+        .map((e) => UIApiKeys(e.name, e.id.toString()))
+        .toList();
+
+    // Pre-select worker for edit mode.
+    if (widget.args.taskItem != null) {
+      final workerIndex = workersList.value.indexWhere(
+            (element) =>
+        element.apiValue == widget.args.taskItem!.worker.id.toString(),
+      );
+      if (workerIndex != -1) {
+        selectedWorkerNotifier.value = [workerIndex];
+      }
     }
   }
+}
 
   setDataIntoPJNotifier(BaseEmit? state) {
     if (state is Success && projectsList.value.isEmpty) {
@@ -158,9 +151,14 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
     );
   }
 
-  final List<UIApiKeys> statusChoices = [
-    UIApiKeys('Pending', 'pending'),
-    UIApiKeys('In Progress', 'in_progress'),
-    UIApiKeys('Completed', 'completed'),
-  ];
+
+  void saveTask(bool isLoading) {
+    if (isLoading) return;
+    if (_key.currentState!.validate()) {
+      // TODO: Call API via Cubit
+    } else {
+      // context.scrollToFirstError(listFields);
+    }
+  }
+
 }
