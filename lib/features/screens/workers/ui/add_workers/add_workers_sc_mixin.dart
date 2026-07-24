@@ -1,7 +1,7 @@
 part of 'add_worker_screen.dart';
 
 abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
-  late final List<UIApiKeys> pjChoices;
+  late final List<UIApiKeys<String>> pjChoices;
 
   late final WorkersCubit workersCubit;
   late final ProjectsCubit projectsCubit;
@@ -135,7 +135,7 @@ abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
     }
   }
 
-  List<UIApiKeys> listChoices = [
+  List<UIApiKeys<String>> listChoices = [
     .new('worker'.tr(), 'Worker'),
     .new('supervisor'.tr(), 'Supervisor'),
     .new('site_manager'.tr() + ' / ' + 'admin'.tr(), 'Site Manager / Admin'),

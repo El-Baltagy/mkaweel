@@ -19,13 +19,13 @@ abstract class InvoicePageBaseState extends State<InvoicePage> {
   final ValueNotifier<List<int>> selectedCurrencyNotifier = ValueNotifier([]);
   final ValueNotifier<String> attachmentNotifier = ValueNotifier('');
 
-  late  final List<UIApiKeys> currenciesList = CurrencyTabsWidget.listTabs
+  late  final List<UIApiKeys<String>> currenciesList = CurrencyTabsWidget.listTabs
       .map((e) => UIApiKeys(e.label, e.shortcut))
       .toList();
 
   // Example data (Will be populated by API in future)
-  ValueNotifier<List<UIApiKeys>> projectsList = .new([]);
-  ValueNotifier<List<UIApiKeys>> categoriesList = .new([]);
+  ValueNotifier<List<UIApiKeys<String>>> projectsList = .new([]);
+  ValueNotifier<List<UIApiKeys<String>>> categoriesList = .new([]);
 
   @override
   void initState() {

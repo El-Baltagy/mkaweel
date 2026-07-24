@@ -75,8 +75,9 @@ class AddWorkerDataRequest {
   }
 }
 
-class UIApiKeys {
-  final String uiTxt, apiValue;
+class UIApiKeys<P>{
 
   UIApiKeys(this.uiTxt, this.apiValue);
+  final String uiTxt ;
+  final P apiValue;
 }

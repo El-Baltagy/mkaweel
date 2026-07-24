@@ -13,13 +13,13 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
 
   // Notifiers for selectors
   final ValueNotifier<List<int>> selectedProjectNotifier = ValueNotifier([]);
-  final ValueNotifier<List<UIApiKeys>> projectsList = .new([]);
+  final ValueNotifier<List<UIApiKeys<ProjectInfoData>>> projectsList = .new([]);
 
   final ValueNotifier<List<int>> selectedPhaseNotifier = ValueNotifier([]);
-  final ValueNotifier<List<UIApiKeys>> phaseList = .new([]);
+  final ValueNotifier<List<UIApiKeys<ProjectphaseItem>>> phaseList = .new([]);
 
   final ValueNotifier<List<int>> selectedWorkerNotifier = ValueNotifier([]);
-  final ValueNotifier<List<UIApiKeys>> workersList = .new([]);
+  final ValueNotifier<List<UIApiKeys<String>>> workersList = .new([]);
 
   final ValueNotifier<List<int>> statusNotifier = ValueNotifier([]);
 
@@ -50,17 +50,22 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
 
       projectsCubit.getAllProjectsFunc(Init()).then((value) {
         if(value!=null){
-          projectsList.value = value.data
-              .map((e) => UIApiKeys(e.name, e.id.toString()))
+          projectsList.value = value.data.where((element) => element.project_phases?.isNotEmpty==true)
+              .map((e) => UIApiKeys(e.name, e ))
               .toList();
-
+          // phaseList.value=;
         }
       },);
 
+      if(widget.args.taskItem!=null){
+        selectedProjectNotifier.value=[projectsList.value.indexWhere((element) => element.apiValue.id==widget.args.taskItem!.project.id)];
+        selectedPhaseNotifier.value=[phaseList.value.indexWhere((element) => element.apiValue.id ==widget.args.taskItem!.project_phase.id)];
+      }
+
+
     });
 
-    // projectsList.value=;
-    // phaseList.value=;
+
   }
 
   @override
