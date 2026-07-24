@@ -39,7 +39,11 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
     _dueDateController.text = widget.args.taskItem?.due_date ?? '';
     _descriptionController.text = widget.args.taskItem?.description ?? '';
 
-    Future.delayed(Duration(milliseconds: 200), () {
+    // Whenever the selected project changes, update phaseList with the
+    // phases that belong to that project and reset the phase selection.
+    selectedProjectNotifier.addListener(_onProjectChanged);
+
+    Future.delayed(Duration(milliseconds: 500), () {
       workersCubit.getWorkersFunc().then((value) {
         if (value != null) {
           workersList.value = value.data
@@ -49,27 +53,68 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
       });
 
       projectsCubit.getAllProjectsFunc(Init()).then((value) {
-        if(value!=null){
-          projectsList.value = value.data.where((element) => element.project_phases?.isNotEmpty==true)
-              .map((e) => UIApiKeys(e.name, e ))
+        if (value != null) {
+          projectsList.value = value.data
+              .where((element) => element.project_phases?.isNotEmpty == true)
+              .map((e) => UIApiKeys(e.name, e))
               .toList();
-          // phaseList.value=;
         }
-      },);
 
-      if(widget.args.taskItem!=null){
-        selectedProjectNotifier.value=[projectsList.value.indexWhere((element) => element.apiValue.id==widget.args.taskItem!.project.id)];
-        selectedPhaseNotifier.value=[phaseList.value.indexWhere((element) => element.apiValue.id ==widget.args.taskItem!.project_phase.id)];
-      }
+        // Pre-select project & phase when editing an existing task.
+        if (widget.args.taskItem != null) {
+          final projectIndex = projectsList.value.indexWhere(
+            (element) => element.apiValue.id == widget.args.taskItem!.project.id,
+          );
+          if (projectIndex != -1) {
+            // Setting this will also trigger _onProjectChanged which populates phaseList.
+            selectedProjectNotifier.value = [projectIndex];
 
-
+            // Wait one microtask so phaseList is populated before finding the phase.
+            Future.microtask(() {
+              final phaseIndex = phaseList.value.indexWhere(
+                (element) => element.apiValue.id == widget.args.taskItem!.project_phase.id,
+              );
+              if (phaseIndex != -1) {
+                selectedPhaseNotifier.value = [phaseIndex];
+              }
+            });
+          }
+        }
+      });
     });
+  }
 
+  /// Updates [phaseList] with the phases of the currently selected project
+  /// and clears any previously selected phase.
+  void _onProjectChanged() {
+    final indices = selectedProjectNotifier.value;
+    if (indices.isEmpty) {
+      phaseList.value = [];
+      selectedPhaseNotifier.value = [];
+      return;
+    }
 
+    final selectedIndex = indices.first;
+    if (selectedIndex < 0 || selectedIndex >= projectsList.value.length) {
+      phaseList.value = [];
+      selectedPhaseNotifier.value = [];
+      return;
+    }
+
+    final selectedProject = projectsList.value[selectedIndex].apiValue;
+    final phases = selectedProject.project_phases ?? [];
+
+    phaseList.value = phases
+        .map((phase) => UIApiKeys(phase.name, phase))
+        .toList();
+
+    // Reset phase selection when project changes.
+    selectedPhaseNotifier.value = [];
   }
 
   @override
   void dispose() {
+    selectedProjectNotifier.removeListener(_onProjectChanged);
     _nameController.dispose();
     _dueDateController.dispose();
     _descriptionController.dispose();
