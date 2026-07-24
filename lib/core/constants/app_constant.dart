@@ -101,5 +101,9 @@ abstract class AppConstant {
   static const String deleteTaskKeyCash = 'projects_deleteTask_cache';
 
   static const int deleteTaskKeyCode = 119;
+
+  static const String addUpdateTaskFuncKeyCash = 'Tasks_addUpdateTaskFunc_cache';
+
+  static const int addUpdateTaskFuncKeyCode = 6816;
 }
 

@@ -3,6 +3,7 @@ import 'package:mkaweel/core/constants/app_constant.dart';
 import 'package:mkaweel/core/shared/methods/print.dart';    
 import 'package:mkaweel/core/base/base_service.dart';
 import 'package:mkaweel/core/base/base_local_repo.dart';
+import 'package:mkaweel/features/screens/Tasks/data/model/add_edit_update_task_parameter.dart';
 import 'package:mkaweel/features/screens/Tasks/data/model/tasks_res/tasks_res.dart';
 import 'package:mkaweel/features/screens/Tasks/data/repo/remote/Tasks_repo.dart';
 import 'package:mkaweel/features/screens/Tasks/ui/tasks/base_tasks_data.dart';
@@ -47,6 +48,17 @@ class TasksService extends BaseService {
     const cacheKey = AppConstant.deleteTaskKeyCash;
     return requestInfo.handleRequest(
       fetchFromClient: (token) => _remoteRepo.deleteTaskApi(
+        requestInfo.parameter,
+        cancelToken: token,
+      )
+    );
+  }
+
+  Future<void> addUpdateTaskFuncServ(
+    RequestCallbackObserver<DeleteProjectRes, AddEditTaskRequest> requestInfo,
+  ) {
+     return requestInfo.handleRequest(
+      fetchFromClient: (token) => _remoteRepo.addUpdateTaskFuncApi(
         requestInfo.parameter,
         cancelToken: token,
       )

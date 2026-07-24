@@ -45,14 +45,13 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
 
     if (widget.args.taskItem != null) {
       final statusIndex = statusChoices.indexWhere(
-            (element) => element.apiValue == widget.args.taskItem!.status,
+        (element) => element.apiValue == widget.args.taskItem!.status,
       );
       if (statusIndex != -1) {
         statusNotifier.value = [statusIndex];
       }
     }
-    workersCubit.getWorkersFunc() ;
-
+    workersCubit.getWorkersFunc();
 
     selectedProjectNotifier.addListener(_onProjectChanged);
     projectsCubit.getAllProjectsFunc(Init());
@@ -79,25 +78,25 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
     super.dispose();
   }
 
-setDataIntoWorkerNotifier(BaseEmit? state){
-  if (state is Success<AllWorkers>) {
-    AllWorkers? res=state.data as AllWorkers;
-    workersList.value = res.data
-        .map((e) => UIApiKeys(e.name, e.id.toString()))
-        .toList();
+  setDataIntoWorkerNotifier(BaseEmit? state) {
+    if (state is Success<AllWorkers>) {
+      AllWorkers? res = state.data as AllWorkers;
+      workersList.value = res.data
+          .map((e) => UIApiKeys(e.name, e.id.toString()))
+          .toList();
 
-    // Pre-select worker for edit mode.
-    if (widget.args.taskItem != null) {
-      final workerIndex = workersList.value.indexWhere(
-            (element) =>
-        element.apiValue == widget.args.taskItem!.worker.id.toString(),
-      );
-      if (workerIndex != -1) {
-        selectedWorkerNotifier.value = [workerIndex];
+      // Pre-select worker for edit mode.
+      if (widget.args.taskItem != null) {
+        final workerIndex = workersList.value.indexWhere(
+          (element) =>
+              element.apiValue == widget.args.taskItem!.worker.id.toString(),
+        );
+        if (workerIndex != -1) {
+          selectedWorkerNotifier.value = [workerIndex];
+        }
       }
     }
   }
-}
 
   setDataIntoPJNotifier(BaseEmit? state) {
     if (state is Success && projectsList.value.isEmpty) {
@@ -121,28 +120,28 @@ setDataIntoWorkerNotifier(BaseEmit? state){
       });
     }
   }
+
   setDataIntoPhaseNotifier(BaseEmit? state) {
-    if (state is Success  ) {
+    if (state is Success) {
       final cachedValue = state.data as ProjectPhasesRes;
       phaseList.value = cachedValue.data
           .map<UIApiKeys<ProjectphaseItem>>((e) => UIApiKeys(e.name, e))
           .toList();
 
       final projectIndex = phaseList.value.indexWhere(
-            (element) =>
-        element.apiValue.id == widget.args.taskItem?.project_phase.id,
+        (element) =>
+            element.apiValue.id == widget.args.taskItem?.project_phase.id,
       );
       if (projectIndex != -1) {
         selectedPhaseNotifier.value = [projectIndex];
       }
-
     }
   }
 
   /// Updates [phaseList] with the phases of the currently selected project
   /// and clears any previously selected phase.
   void _onProjectChanged() {
-    selectedPhaseNotifier.value=[];
+    selectedPhaseNotifier.value = [];
     projectsCubit.getProjectPhasesFunc(
       parameter: GetProjectDataParameter(
         projectsList.value[selectedProjectNotifier.value.first].apiValue.id
@@ -151,14 +150,21 @@ setDataIntoWorkerNotifier(BaseEmit? state){
     );
   }
 
+  Future<void> saveTask( ) async {
+     if (await _key.validateAndScroll(context, listRecorder: listFields)) {
+      await tasksCubit.addUpdateTaskFuncFunc(
+        parameter: AddEditTaskRequest(
+          name: _nameController.text.trim(),
+          description: _descriptionController.text.trim(),
+          dueDate: _dueDateController.text.trim(),
+          taskId: widget.args.taskItem?.id.toString(),
 
-  void saveTask(bool isLoading) {
-    if (isLoading) return;
-    if (_key.currentState!.validate()) {
-      // TODO: Call API via Cubit
-    } else {
-      // context.scrollToFirstError(listFields);
+          status:  ,
+          projectId: '',
+          workerId: '',
+          projectPhaseId: '',
+        ),
+      );
     }
   }
-
 }

@@ -16,6 +16,7 @@ import 'package:mkaweel/core/shared/widgets/text_inputs/name_text_input_data.dar
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/features/screens/Tasks/controller/Tasks_cubit.dart';
+import 'package:mkaweel/features/screens/Tasks/data/model/add_edit_update_task_parameter.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
 import 'package:mkaweel/features/screens/projects/data/model/all_projects_res/all_projects_res.dart';
@@ -93,22 +94,28 @@ class _AddEditTasksPageState extends AddEditTasksBaseState {
                 SizedBox(
                   width: double.infinity,
                   height: AppSizes.s48,
-                  child: BlocBuilder<TasksCubit, TasksState>(
+                  child: BlocSelector<TasksCubit, TasksState,BaseEmit?>(
+                    selector: (state) => state is TasksLoaded?state.addUpdateTaskFuncState:null,
                     builder: (context, state) {
-                      bool isLoading = false; // Add your loading condition here
-                      return ElevatedButton(
-                        onPressed: () => saveTask(isLoading),
+                      bool isLoading = state is Loading; // Add your loading condition here
+                      return isLoading
+                          ? Row(
+                        mainAxisAlignment: .center,
+                            children: [
+                              CircularProgressIndicator(
+                                                      color: context.theme.scaffoldBackgroundColor,
+                                                    ),
+                            ],
+                          )
+                          : ElevatedButton(
+                        onPressed: saveTask,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: context.theme.primaryColor,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(AppSizes.s8),
                           ),
                         ),
-                        child: isLoading
-                            ? CircularProgressIndicator(
-                          color: context.theme.scaffoldBackgroundColor,
-                        )
-                            : Text(
+                        child: Text(
                           'save'.tr(),
                           style: AppTextStyles.font16SemiBold.copyWith(
                             color: context.theme.scaffoldBackgroundColor,

@@ -8,6 +8,7 @@ import 'package:mkaweel/core/api_helper/dio_error_handler.dart';
 import 'package:mkaweel/core/api_helper/dio_helper.dart';
 import 'package:mkaweel/core/api_helper/response_handler.dart';
 import 'package:mkaweel/core/base/base_remote_repo.dart';
+import 'package:mkaweel/features/screens/Tasks/data/model/add_edit_update_task_parameter.dart';
 import 'package:mkaweel/features/screens/Tasks/data/model/tasks_res/tasks_res.dart';
 import 'package:mkaweel/features/screens/Tasks/ui/tasks/base_tasks_data.dart';
 import 'package:mkaweel/features/screens/projects/data/model/delete_pj_parameter.dart';
@@ -41,6 +42,24 @@ class TasksRepo extends BaseRepo {
     return handleResponse(
       onCallData: dio.deleteData(
         uri: EndPoints.deleteTask(parameter!.id),
+        cancelToken: cancelToken,
+        caller: callerTag(),
+      ),
+      asObject: DeleteProjectRes.fromJson,
+    );
+  }
+
+  Future<Either<Failure, DeleteProjectRes>> addUpdateTaskFuncApi(
+    AddEditTaskRequest? parameter, {
+    CancelToken? cancelToken,
+  }) async {
+    return handleResponse(
+      onCallData: dio.postData(
+        uri:
+        parameter!.taskId==null?
+        EndPoints.addTask
+            :
+        EndPoints.updateTaskFunc(parameter.taskId!) ,
         cancelToken: cancelToken,
         caller: callerTag(),
       ),

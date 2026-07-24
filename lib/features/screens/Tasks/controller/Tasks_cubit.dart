@@ -5,6 +5,7 @@ import 'package:mkaweel/core/api_helper/cancel/cancel_manager.dart';
 import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mkaweel/features/screens/Tasks/data/model/add_edit_update_task_parameter.dart';
 import 'package:mkaweel/features/screens/Tasks/data/model/tasks_res/tasks_res.dart';
 import 'package:mkaweel/features/screens/Tasks/ui/tasks/base_tasks_data.dart';
 import 'package:mkaweel/features/screens/projects/data/model/delete_pj_parameter.dart';
@@ -28,6 +29,8 @@ class TasksCubit extends BaseCubit<TasksState> {
       int get getTasksKeyCode => AppConstant.getTasksKeyCode;
 
     int get deleteTaskKeyCode => AppConstant.deleteTaskKeyCode;
+
+    int get addUpdateTaskFuncKeyCode => AppConstant.addUpdateTaskFuncKeyCode;
 
   Future<void> init() async {
      // TODO: implement init
@@ -53,6 +56,9 @@ class TasksCubit extends BaseCubit<TasksState> {
   }
   @override
   Future<void> close() {
+    // add every key in file
+    CancelManager.cancel(addUpdateTaskFuncKeyCode);
+
     // add every key in file
     CancelManager.cancel(deleteTaskKeyCode);
 
@@ -91,6 +97,20 @@ class TasksCubit extends BaseCubit<TasksState> {
           onLeftCallback: (failure) => safeEmit(
             _current.copyWith(deleteTaskState: ErrorState(failure)),
           ),
+        ),
+      );
+    });
+  }
+
+  Future<void> addUpdateTaskFuncFunc( {AddEditTaskRequest? parameter}) async {
+    await CancelManager.runCancelableFun(addUpdateTaskFuncKeyCode, (token) async {
+      await _service.addUpdateTaskFuncServ(
+        RequestCallbackObserver<DeleteProjectRes, AddEditTaskRequest>(
+           parameter: parameter,
+          cancelToken: token,
+          onLoadCallback: () => safeEmit(_current.copyWith(addUpdateTaskFuncState: Loading())),
+          onRightCallback: (data) => safeEmit(_current.copyWith(addUpdateTaskFuncState: Success(data))),
+          onLeftCallback: (failure) => safeEmit(_current.copyWith(addUpdateTaskFuncState: ErrorState(failure))),
         ),
       );
     });
