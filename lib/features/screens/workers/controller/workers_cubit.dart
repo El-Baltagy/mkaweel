@@ -47,7 +47,10 @@ class WorkersCubit extends BaseCubit<WorkersState> {
           baseRequestBackType:baseRequestBackType??Init(),
            cancelToken: token,
           onLoadCallback: () => safeEmit(current.copyWith(allWorkersEmit: Loading() )),
-          onRightCallback: (data) => safeEmit(current.copyWith(allWorkersEmit:Success(data))),
+          onRightCallback: (data) {
+            res =data;
+            safeEmit(current.copyWith(allWorkersEmit:Success(data)));
+          },
           onLeftCallback: (failure) => safeEmit(current.copyWith(allWorkersEmit:ErrorState(failure))),
         ),
       );

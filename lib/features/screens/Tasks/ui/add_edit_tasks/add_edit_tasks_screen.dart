@@ -88,9 +88,9 @@ class _AddEditTasksPageState extends AddEditTasksBaseState {
 
                 buildProjectSelector(),
 
-                // buildPhaseSelector(),
-                //
-                // buildWorkerSelector(),
+                buildPhaseSelector(),
+
+                buildWorkerSelector(),
 
                 buildDOB(context),
 

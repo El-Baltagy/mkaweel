@@ -46,7 +46,9 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
     // Future.delayed(Duration(milliseconds: 500), () {
       // ── Workers ──────────────────────────────────────────────────────────
       workersCubit.getWorkersFunc().then((value) {
+        PrintHelper().ordinaryPrint('.....2222222222222222222222......new $value');
         if (value != null) {
+          PrintHelper().ordinaryPrint('..ooooooooo.......................ascsccccccccccccccc $value');
           workersList.value = value.data
               .map((e) => UIApiKeys(e.name, e.id.toString()))
               .toList();
@@ -65,9 +67,9 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
 
       // ── Projects & Phases ─────────────────────────────────────────────────
       projectsCubit.getAllProjectsFunc(Reload()).then((value) {
-        PrintHelper().ordinaryPrint('.....2222222222222222222222..ascsccccccccccccccc $value');
+        PrintHelper().ordinaryPrint('.....222111...old $value');
         if (value != null) {
-          PrintHelper().ordinaryPrint('............................ascsccccccccccccccc');
+          PrintHelper().ordinaryPrint('......oooooooolll..............ascsccccccccccccccc');
           projectsList.value = value.data
               .where((element) => element.project_phases?.isNotEmpty == true)
               .map((e) => UIApiKeys(e.name, e))
