@@ -59,12 +59,8 @@ abstract class InvoicePageBaseState extends State<InvoicePage> {
           .toList();
     }
 
-    final projectsRes = await projectsCubit.getAllProjectsFunc(  Init());
-    if (projectsRes != null) {
-      projectsList.value = projectsRes.data
-          .map((e) => UIApiKeys(e.name, e.id.toString()))
-          .toList();
-    }
+        await projectsCubit.getAllProjectsFunc(  Init());
+
 
     final invoiceItem = widget.args.invoiceItem;
 
@@ -117,7 +113,16 @@ abstract class InvoicePageBaseState extends State<InvoicePage> {
       }
     }
   }
-
+  setDataIntoProjectController(BaseEmit? state){
+    if (state is Success && projectsList.value.isEmpty) {
+      final projectsRes = state.data as AllProjectsRes?;
+      if (projectsRes != null) {
+        projectsList.value = projectsRes.data
+            .map((e) => UIApiKeys(e.name, e.id.toString()))
+            .toList();
+      }
+    }
+  }
   Future<void> submitInvoice() async {
     if (await formKey.validateAndScroll(context, listRecorder: fields)) {
       if (!mounted) return;

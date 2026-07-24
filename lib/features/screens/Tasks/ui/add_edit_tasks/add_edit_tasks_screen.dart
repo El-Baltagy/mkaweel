@@ -10,18 +10,23 @@ import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/extension/form_auto_scroll.dart';
 import 'package:mkaweel/core/shared/methods/print.dart';
+import 'package:mkaweel/core/shared/widgets/app_bar.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/dob_text_input_data.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/name_text_input_data.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/features/screens/Tasks/controller/Tasks_cubit.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
+import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
+import 'package:mkaweel/features/screens/projects/data/model/all_projects_res/all_projects_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/create_project_res/create_project_res.dart';
+import 'package:mkaweel/features/screens/projects/data/model/get_project_data_parameter.dart';
 import 'package:mkaweel/features/screens/projects/data/model/project_phases_res/project_phases_res.dart';
 import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/title_with_input.dart';
 import 'package:mkaweel/features/screens/workers/controller/workers_cubit.dart';
 import 'package:mkaweel/features/screens/workers/data/model/add_worker_data_request.dart';
 import 'package:mkaweel/features/screens/workers/ui/add_workers/widgets/drop_down_role_selector.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 part 'add_edit_tasks_mixin.dart';
 
@@ -57,26 +62,10 @@ class _AddEditTasksPageState extends AddEditTasksBaseState {
       },
       child: Scaffold(
         backgroundColor: context.theme.scaffoldBackgroundColor,
-        appBar: AppBar(
-          backgroundColor: context.theme.primaryColor,
-          title: Text(
-            widget.args.taskItem == null ? 'create_task_title'.tr() : 'edit_task'.tr() ,
-            style: AppTextStyles.font18SemiBold.copyWith(
-              color: context.theme.scaffoldBackgroundColor,
-            ),
-          ),
-          centerTitle: true,
-          leading: const SizedBox.shrink(),
-          actions: [
-            IconButton(
-              icon: Icon(
-                Icons.arrow_forward_ios,
-                color: context.theme.scaffoldBackgroundColor,
-              ),
-              onPressed: () => context.pop(),
-            ),
-          ],
+        appBar:CustomAppBar(
+          title:   widget.args.taskItem == null ? 'create_task_title'.tr() : 'edit_task'.tr() ,
         ),
+
         body: Form(
           key: _key,
           child: SingleChildScrollView(
@@ -151,27 +140,53 @@ class _AddEditTasksPageState extends AddEditTasksBaseState {
   }
 
   Widget buildProjectSelector() {
-    return ValueListenableBuilder(valueListenable: projectsList, builder: (context, value, child) {
-      return BottomSheetSelector(
-        field: listFields[1],
-        isMultiSelect: false,
-        title: 'project'.tr(),
-        listChoices: value,
-        selectedNotifier: selectedProjectNotifier,
-      );
-    },);
+    return BlocSelector<ProjectsCubit, ProjectsState, BaseEmit?>(
+      selector: (state) => state is ProjectsLoaded?state.allProjectsResState:null,
+      builder: (context, state) {
+        bool isLoading=state is !Success<AllProjectsRes>;
+        setDataIntoPJNotifier(state);
+        return Skeletonizer(
+          enabled: isLoading,
+          child: ValueListenableBuilder(
+            valueListenable: projectsList,
+            builder: (context, value, child) {
+              return BottomSheetSelector(
+                field: listFields[1],
+                isMultiSelect: false,
+                title: 'project'.tr(),
+                listChoices: value,
+                selectedNotifier: selectedProjectNotifier,
+              );
+            },
+          ),
+        );
+      },
+    );
   }
 
   Widget buildPhaseSelector() {
-    return ValueListenableBuilder(valueListenable:phaseList , builder: (context, value, child) {
-      return BottomSheetSelector(
-        field: listFields[2],
-        isMultiSelect: false,
-        title: 'construction_phase'.tr(),
-        listChoices: value,
-        selectedNotifier: selectedPhaseNotifier,
-      );
-    },);
+    return BlocSelector<ProjectsCubit, ProjectsState, BaseEmit?>(
+      selector: (state)=>state is ProjectsLoaded?state.getProjectPhasesState:null,
+      builder: (context, state) {
+        bool isLoading=
+        // widget.args.taskItem==null&&selPj.isEmpty?
+        //     false:
+        state is !Success<ProjectPhasesRes>;
+        setDataIntoPhaseNotifier(state);
+        return Skeletonizer(
+          enabled: isLoading,
+          child: ValueListenableBuilder(valueListenable:phaseList , builder: (context, value, child) {
+            return BottomSheetSelector(
+              field: listFields[2],
+              isMultiSelect: false,
+              title: 'construction_phase'.tr(),
+              listChoices: value,
+              selectedNotifier: selectedPhaseNotifier,
+            );
+          },),
+        );
+      },
+    );
   }
 
 

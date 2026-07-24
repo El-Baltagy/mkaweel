@@ -24,6 +24,8 @@ import 'package:mkaweel/features/screens/dashboard/ui/invoice/widgets/invoice_im
 import 'package:mkaweel/features/screens/market_prices/controller/market_prices_cubit.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/currency_tabs_widget.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
+import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
+import 'package:mkaweel/features/screens/projects/data/model/all_projects_res/all_projects_res.dart';
 import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/title_with_input.dart';
 import 'package:mkaweel/features/screens/workers/data/model/add_worker_data_request.dart';
 import 'package:mkaweel/features/screens/workers/ui/add_workers/widgets/drop_down_role_selector.dart';
@@ -78,15 +80,23 @@ class _InvoicePageState extends InvoicePageBaseState {
               spacing: 20,
               children: [
                 // 1. Select Project
-                ValueListenableBuilder(
-                  valueListenable: projectsList,
-                  builder: (context, value, child) {
-                    return BottomSheetSelector(
-                      field: fields[0],
-                      title: 'select_project'.tr(),
-                      isMultiSelect: false,
-                      listChoices: value,
-                      selectedNotifier: selectedProjectNotifier,
+                BlocSelector<ProjectsCubit, ProjectsState, BaseEmit?>(
+                  selector: (state) => state is ProjectsLoaded
+                      ? state.allProjectsResState
+                      : null,
+                  builder: (context, state) {
+                   setDataIntoProjectController(state);
+                    return ValueListenableBuilder(
+                      valueListenable: projectsList,
+                      builder: (context, value, child) {
+                        return BottomSheetSelector(
+                          field: fields[0],
+                          title: 'select_project'.tr(),
+                          isMultiSelect: false,
+                          listChoices: value,
+                          selectedNotifier: selectedProjectNotifier,
+                        );
+                      },
                     );
                   },
                 ),

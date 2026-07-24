@@ -123,11 +123,10 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
     );
   }
 
-  Future<AllProjectsRes?> getAllProjectsFunc(
+  Future<void> getAllProjectsFunc(
     BaseRequestBackType? baseRequestBackType, {
     NoParameter? parameter,
   }) async {
-    AllProjectsRes? res;
     await CancelManager.runCancelableFun(getAllProjectsKeyCode, (token) async {
       await _service.getAllProjectsServ(
         RequestCallbackObserver<AllProjectsRes, NoParameter>(
@@ -137,10 +136,6 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
           onLoadCallback: () =>
               safeEmit(current.copyWith(allProjectsResState: Loading())),
           onRightCallback: (data) {
-            PrintHelper().ordinaryPrint(
-              'data..........................1144333330000000000000',
-            );
-            res = data;
             safeEmit(current.copyWith(allProjectsResState: Success(data)));
           },
           onLeftCallback: (failure) => safeEmit(
@@ -149,7 +144,6 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
         ),
       );
     });
-    return res;
   }
 
   Future<void> createProjectFunc({CreateProjectParameters? parameter}) async {

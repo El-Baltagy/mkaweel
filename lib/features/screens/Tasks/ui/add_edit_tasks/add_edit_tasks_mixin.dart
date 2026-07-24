@@ -39,130 +39,41 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
     _dueDateController.text = widget.args.taskItem?.due_date ?? '';
     _descriptionController.text = widget.args.taskItem?.description ?? '';
 
-    // Whenever the selected project changes, update phaseList with the
-    // phases that belong to that project and reset the phase selection.
-    selectedProjectNotifier.addListener(_onProjectChanged);
+    workersCubit.getWorkersFunc().then((value) {
+      PrintHelper().ordinaryPrint(
+        '.....2222222222222222222222......new $value',
+      );
+      if (value != null) {
+        PrintHelper().ordinaryPrint(
+          '..ooooooooo.......................ascsccccccccccccccc $value',
+        );
+        workersList.value = value.data
+            .map((e) => UIApiKeys(e.name, e.id.toString()))
+            .toList();
 
-    // Future.delayed(Duration(milliseconds: 500), () {
-      // ── Workers ──────────────────────────────────────────────────────────
-      workersCubit.getWorkersFunc().then((value) {
-        PrintHelper().ordinaryPrint('.....2222222222222222222222......new $value');
-        if (value != null) {
-          PrintHelper().ordinaryPrint('..ooooooooo.......................ascsccccccccccccccc $value');
-          workersList.value = value.data
-              .map((e) => UIApiKeys(e.name, e.id.toString()))
-              .toList();
-
-          // Pre-select worker for edit mode.
-          if (widget.args.taskItem != null) {
-            final workerIndex = workersList.value.indexWhere(
-              (element) => element.apiValue == widget.args.taskItem!.worker.id.toString(),
-            );
-            if (workerIndex != -1) {
-              selectedWorkerNotifier.value = [workerIndex];
-            }
+        // Pre-select worker for edit mode.
+        if (widget.args.taskItem != null) {
+          final workerIndex = workersList.value.indexWhere(
+            (element) =>
+                element.apiValue == widget.args.taskItem!.worker.id.toString(),
+          );
+          if (workerIndex != -1) {
+            selectedWorkerNotifier.value = [workerIndex];
           }
         }
-      });
-
-      // // ── Projects & Phases ─────────────────────────────────────────────────
-      // final cachedState = projectsCubit.current.allProjectsResState;
-      //   if (cachedState is Success) {
-      //     // Use cached data directly
-      //     final cachedValue = cachedState.data;
-      //     PrintHelper().ordinaryPrint('.....222111...cached $cachedValue');
-      //     projectsList.value = cachedValue.data
-      //         .where((element) => element.project_phases?.isNotEmpty == true)
-      //         .map((e) => UIApiKeys(e.name, e))
-      //         .toList();
-      //     // Pre-select project & phase for edit mode.
-      //     if (widget.args.taskItem != null) {
-      //       final projectIndex = projectsList.value.indexWhere(
-      //         (element) => element.apiValue.id == widget.args.taskItem!.project.id,
-      //       );
-      //       if (projectIndex != -1) {
-      //         selectedProjectNotifier.value = [projectIndex];
-      //         Future.microtask(() {
-      //           final phaseIndex = phaseList.value.indexWhere(
-      //             (element) => element.apiValue.id == widget.args.taskItem!.project_phase.id,
-      //           );
-      //           if (phaseIndex != -1) {
-      //             selectedPhaseNotifier.value = [phaseIndex];
-      //           }
-      //         });
-      //       }
-      //     }
-      //   } else {
-          // Force a full fetch when no cached success state
-   WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-    await projectsCubit.getAllProjectsFunc(Reload()).then((value) {
-       PrintHelper().ordinaryPrint('.....222111...fetched $value');
-       if (value != null) {
-
-         projectsList.value = value.data
-             // .where((element) => element.project_phases?.isNotEmpty == true)
-             .map((e) => UIApiKeys(e.name, e))
-             .toList();
-       }
-       // Pre-select project & phase for edit mode.
-       if (widget.args.taskItem != null) {
-         final projectIndex = projectsList.value.indexWhere(
-               (element) => element.apiValue.id == widget.args.taskItem!.project.id,
-         );
-         if (projectIndex != -1) {
-           selectedProjectNotifier.value = [projectIndex];
-           Future.microtask(() {
-             final phaseIndex = phaseList.value.indexWhere(
-                   (element) => element.apiValue.id == widget.args.taskItem!.project_phase.id,
-             );
-             if (phaseIndex != -1) {
-               selectedPhaseNotifier.value = [phaseIndex];
-             }
-           });
-         }
-       }
-     });
-   },);
-        // }
-
-      // ── Status ────────────────────────────────────────────────────────────
-      if (widget.args.taskItem != null) {
-        final statusIndex = statusChoices.indexWhere(
-          (element) => element.apiValue == widget.args.taskItem!.status,
-        );
-        if (statusIndex != -1) {
-          statusNotifier.value = [statusIndex];
-        }
       }
-    // });
-  }
-
-  /// Updates [phaseList] with the phases of the currently selected project
-  /// and clears any previously selected phase.
-  void _onProjectChanged() {
-    final indices = selectedProjectNotifier.value;
-    if (indices.isEmpty) {
-      phaseList.value = [];
-      selectedPhaseNotifier.value = [];
-      return;
+    });
+    if (widget.args.taskItem != null) {
+      final statusIndex = statusChoices.indexWhere(
+        (element) => element.apiValue == widget.args.taskItem!.status,
+      );
+      if (statusIndex != -1) {
+        statusNotifier.value = [statusIndex];
+      }
     }
 
-    final selectedIndex = indices.first;
-    if (selectedIndex < 0 || selectedIndex >= projectsList.value.length) {
-      phaseList.value = [];
-      selectedPhaseNotifier.value = [];
-      return;
-    }
-
-    final selectedProject = projectsList.value[selectedIndex].apiValue;
-    final phases = selectedProject.project_phases ?? [];
-
-    phaseList.value = phases
-        .map((phase) => UIApiKeys(phase.name, phase))
-        .toList();
-
-    // Reset phase selection when project changes.
-    selectedPhaseNotifier.value = [];
+    selectedProjectNotifier.addListener(_onProjectChanged);
+    projectsCubit.getAllProjectsFunc(Init());
   }
 
   @override
@@ -195,25 +106,61 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
     }
   }
 
+  setDataIntoPJNotifier(BaseEmit? state) {
+    if (state is Success && projectsList.value.isEmpty) {
+      final cachedValue = state.data as AllProjectsRes;
+      Future.microtask(() {
+        projectsList.value = cachedValue.data
+            .map<UIApiKeys<ProjectInfoData>>((e) => UIApiKeys(e.name, e))
+            .toList();
+
+        // Pre-select project & phase for edit mode.
+        if (widget.args.taskItem != null &&
+            selectedProjectNotifier.value.isEmpty) {
+          final projectIndex = projectsList.value.indexWhere(
+            (element) =>
+                element.apiValue.id == widget.args.taskItem!.project.id,
+          );
+          if (projectIndex != -1) {
+            selectedProjectNotifier.value = [projectIndex];
+          }
+        }
+      });
+    }
+  }
+  setDataIntoPhaseNotifier(BaseEmit? state) {
+    if (state is Success  ) {
+      final cachedValue = state.data as ProjectPhasesRes;
+      phaseList.value = cachedValue.data
+          .map<UIApiKeys<ProjectphaseItem>>((e) => UIApiKeys(e.name, e))
+          .toList();
+
+      final projectIndex = phaseList.value.indexWhere(
+            (element) =>
+        element.apiValue.id == widget.args.taskItem?.project_phase.id,
+      );
+      if (projectIndex != -1) {
+        selectedPhaseNotifier.value = [projectIndex];
+      }
+
+    }
+  }
+
+  /// Updates [phaseList] with the phases of the currently selected project
+  /// and clears any previously selected phase.
+  void _onProjectChanged() {
+    selectedPhaseNotifier.value=[];
+    projectsCubit.getProjectPhasesFunc(
+      parameter: GetProjectDataParameter(
+        projectsList.value[selectedProjectNotifier.value.first].apiValue.id
+            .toString(),
+      ),
+    );
+  }
+
   final List<UIApiKeys> statusChoices = [
     UIApiKeys('Pending', 'pending'),
     UIApiKeys('In Progress', 'in_progress'),
     UIApiKeys('Completed', 'completed'),
   ];
 }
-
-// Placeholder data for dropdowns
-// final List<UIApiKeys> projectChoices = [
-//   UIApiKeys('Project A', '1'),
-//   UIApiKeys('Project B', '2'),
-// ];
-
-// final List<UIApiKeys> phaseChoices = [
-//   UIApiKeys('Phase 1', '1'),
-//   UIApiKeys('Phase 2', '2'),
-// ];
-
-// final List<UIApiKeys> workerChoices = [
-//   UIApiKeys('Worker A', '1'),
-//   UIApiKeys('Worker B', '2'),
-// ];
