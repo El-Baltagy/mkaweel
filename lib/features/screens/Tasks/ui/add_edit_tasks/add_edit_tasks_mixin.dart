@@ -43,33 +43,47 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
     // phases that belong to that project and reset the phase selection.
     selectedProjectNotifier.addListener(_onProjectChanged);
 
-    Future.delayed(Duration(milliseconds: 500), () {
+    // Future.delayed(Duration(milliseconds: 500), () {
+      // ── Workers ──────────────────────────────────────────────────────────
       workersCubit.getWorkersFunc().then((value) {
         if (value != null) {
           workersList.value = value.data
               .map((e) => UIApiKeys(e.name, e.id.toString()))
               .toList();
+
+          // Pre-select worker for edit mode.
+          if (widget.args.taskItem != null) {
+            final workerIndex = workersList.value.indexWhere(
+              (element) => element.apiValue == widget.args.taskItem!.worker.id.toString(),
+            );
+            if (workerIndex != -1) {
+              selectedWorkerNotifier.value = [workerIndex];
+            }
+          }
         }
       });
 
-      projectsCubit.getAllProjectsFunc(Init()).then((value) {
+      // ── Projects & Phases ─────────────────────────────────────────────────
+      projectsCubit.getAllProjectsFunc(Reload()).then((value) {
+        PrintHelper().ordinaryPrint('.....2222222222222222222222..ascsccccccccccccccc $value');
         if (value != null) {
+          PrintHelper().ordinaryPrint('............................ascsccccccccccccccc');
           projectsList.value = value.data
               .where((element) => element.project_phases?.isNotEmpty == true)
               .map((e) => UIApiKeys(e.name, e))
               .toList();
         }
 
-        // Pre-select project & phase when editing an existing task.
+        // Pre-select project & phase for edit mode.
         if (widget.args.taskItem != null) {
           final projectIndex = projectsList.value.indexWhere(
             (element) => element.apiValue.id == widget.args.taskItem!.project.id,
           );
           if (projectIndex != -1) {
-            // Setting this will also trigger _onProjectChanged which populates phaseList.
+            // Triggers _onProjectChanged → populates phaseList automatically.
             selectedProjectNotifier.value = [projectIndex];
 
-            // Wait one microtask so phaseList is populated before finding the phase.
+            // One microtask later, phaseList is ready — pick the right phase.
             Future.microtask(() {
               final phaseIndex = phaseList.value.indexWhere(
                 (element) => element.apiValue.id == widget.args.taskItem!.project_phase.id,
@@ -81,7 +95,17 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
           }
         }
       });
-    });
+
+      // ── Status ────────────────────────────────────────────────────────────
+      if (widget.args.taskItem != null) {
+        final statusIndex = statusChoices.indexWhere(
+          (element) => element.apiValue == widget.args.taskItem!.status,
+        );
+        if (statusIndex != -1) {
+          statusNotifier.value = [statusIndex];
+        }
+      }
+    // });
   }
 
   /// Updates [phaseList] with the phases of the currently selected project

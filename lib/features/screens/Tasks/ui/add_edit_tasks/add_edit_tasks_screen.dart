@@ -8,6 +8,7 @@ import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/extension/form_auto_scroll.dart';
+import 'package:mkaweel/core/shared/methods/print.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/dob_text_input_data.dart';
 import 'package:mkaweel/core/shared/widgets/text_inputs/name_text_input_data.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
@@ -87,9 +88,9 @@ class _AddEditTasksPageState extends AddEditTasksBaseState {
 
                 buildProjectSelector(),
 
-                buildPhaseSelector(),
-
-                buildWorkerSelector(),
+                // buildPhaseSelector(),
+                //
+                // buildWorkerSelector(),
 
                 buildDOB(context),
 
