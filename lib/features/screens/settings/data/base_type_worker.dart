@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/Material.dart';
 import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/extension/context.dart';
+import 'package:mkaweel/features/screens/Tasks/ui/tasks/base_tasks_data.dart';
 import 'package:mkaweel/features/screens/main_home/ui/main_home_screen.dart';
 import 'package:mkaweel/features/screens/settings/controller/settings_cubit.dart';
  import 'package:mkaweel/features/screens/settings/ui/settings_screen.dart';
@@ -21,8 +22,7 @@ abstract class BaseUserType {
 
 class BaseTypeAdmin extends BaseUserType {
   BaseTypeAdmin._() : super(title: 'settings_title');
-//._
-  static final instance = BaseTypeAdmin._ ();
+   static final instance = BaseTypeAdmin._ ();
 
   @override
   List<SettingItem> buildSettingItems(BuildContext context,SettingsCubit  settingsCubit) {
@@ -69,6 +69,10 @@ class BaseTypeWorker extends BaseUserType {
 
   @override
   List<NavItemData> buildRoutesNav() =>[
+    NavItemData(icon: Icons.grid_view_rounded, route:   const DashboardRoute(),    label: 'home'.tr()),
+    NavItemData(icon: Icons.task_sharp, route:     TasksRoute(args: const TasksRouteArgs(
+      WorkerTasksData.instance
+    )),    label: 'tasks'.tr()),
      NavItemData(icon: Icons.settings_outlined,route:     SettingsRoute(
         args: .new( this)
     ),     label: 'settings_tab'.tr()),
