@@ -41,7 +41,7 @@ final TasksCubit tasksCubit;
           10.verticalSpace,
 
           BlocSelector<TasksCubit, TasksState, BaseEmit?>(
-            selector: (state) => state is TasksLoaded ? state.homeTasksState : null,
+            selector: (state) => state is TasksLoaded ? state.todayTasksState : null,
             builder: (context, state) {
               bool isLoading = state is! Success<TasksRes>;
               bool isEmpty = !isLoading && ( state .data?.data.isEmpty ?? true);

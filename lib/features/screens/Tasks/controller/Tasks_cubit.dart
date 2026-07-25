@@ -86,7 +86,7 @@ class TasksCubit extends BaseCubit<TasksState> {
             _current.copyWith(deleteTaskState: Loading<String>(parameter.id)),
           ),
           onRightCallback: (data) {
-            // Remove the deleted task from the cached list
+            // Remove the deleted task from getTasksState
             final currentTasksState = _current.getTasksState;
             BaseEmit? updatedTasksState = currentTasksState;
             if (currentTasksState is Success<TasksRes> &&
@@ -98,9 +98,24 @@ class TasksCubit extends BaseCubit<TasksState> {
                 currentTasksState.data!.copyWith(data: updatedList),
               );
             }
+
+            // Remove the deleted task from todayTasksState
+            final currentTodayState = _current.todayTasksState;
+            BaseEmit? updatedTodayState = currentTodayState;
+            if (currentTodayState is Success<TasksRes> &&
+                currentTodayState.data != null) {
+              final updatedList = currentTodayState.data!.data
+                  .where((t) => t.id.toString() != parameter.id)
+                  .toList();
+              updatedTodayState = Success(
+                currentTodayState.data!.copyWith(data: updatedList),
+              );
+            }
+
             safeEmit(_current.copyWith(
               deleteTaskState: Success(data),
               getTasksState: updatedTasksState,
+              todayTasksState: updatedTodayState,
             ));
           },
           onLeftCallback: (failure) => safeEmit(
@@ -134,6 +149,7 @@ class TasksCubit extends BaseCubit<TasksState> {
           cancelToken: token,
           onLoadCallback: () => safeEmit(_current.copyWith(workerMarkTaskCompleteState: Loading<String>(parameter?.id))),
           onRightCallback: (data) {
+            // Update getTasksState
             final currentTasksState = _current.getTasksState;
             BaseEmit? updatedTasksState = currentTasksState;
             if (currentTasksState is Success<TasksRes> &&
@@ -149,9 +165,28 @@ class TasksCubit extends BaseCubit<TasksState> {
                 currentTasksState.data!.copyWith(data: updatedList),
               );
             }
+
+            // Update todayTasksState
+            final currentTodayState = _current.todayTasksState;
+            BaseEmit? updatedTodayState = currentTodayState;
+            if (currentTodayState is Success<TasksRes> &&
+                currentTodayState.data != null &&
+                parameter != null) {
+              final updatedList = currentTodayState.data!.data.map((t) {
+                if (t.id.toString() == parameter.id) {
+                  return t.copyWith(status: 'completed');
+                }
+                return t;
+              }).toList();
+              updatedTodayState = Success(
+                currentTodayState.data!.copyWith(data: updatedList),
+              );
+            }
+
             safeEmit(_current.copyWith(
               workerMarkTaskCompleteState: Success(data),
               getTasksState: updatedTasksState,
+              todayTasksState: updatedTodayState,
             ));
           },
           onLeftCallback: (failure) => safeEmit(_current.copyWith(workerMarkTaskCompleteState: ErrorState(failure))),
