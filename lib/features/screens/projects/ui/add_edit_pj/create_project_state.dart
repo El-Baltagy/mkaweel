@@ -32,14 +32,14 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
         if(value!=null){
             _controllerName.text=value.data.name;
             _controllerOwner_name.text=value.data.owner_name;
-            _controllerContract_value.text=value.data?.contract_value??"";
+            _controllerContract_value.text=value.data.contract_value??'';
             _controllerStart_date.text=value.data.start_date;
             _controllerEnd_date.text=value.data.end_date;
-            _controllerDescription.text=value.data.description??"";
-            _controllerExtra_details.text=value.data.extra_details??"";
+            _controllerDescription.text=value.data.description??'';
+            _controllerExtra_details.text=value.data.extra_details??'';
             if(value.data.currency!=null) {
               Future.delayed(const Duration(milliseconds: 600),(){
-              selectedCurrencyNotifier.value=[_listStringCurrencies.indexWhere((e) => e==value.data.currency)] ;
+              selectedCurrencyNotifier.value=[_listStringCurrencies.indexWhere((e) => e.apiValue.toLowerCase()==value.data.currency?.toLowerCase())] ;
             });
             }
             if(value.data.latitude!=null&&value.data.longitude!=null){
@@ -51,7 +51,7 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
        var addressModel= await LocationService().reverseGeocode(locationNotifier.value.$2 );
         if(addressModel!=null){
           Future.delayed(const Duration(milliseconds: 600),(){
-            locationNotifier.value=( addressModel!.toString(),locationNotifier.value.$2)  ;
+            locationNotifier.value=( addressModel.toString(),locationNotifier.value.$2)  ;
           });
 
         }
@@ -94,19 +94,6 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
       context,
       listRecorder: [field1, field2],
     )) {
-      // debugPrint(CreateProjectParameters(
-      //   name: _controllerName.text,
-      //   owner_name: _controllerOwner_name.text,
-      //   contract_value: _controllerContract_value.text,
-      //   start_date: _controllerStart_date.text,
-      //   end_date: _controllerEnd_date.text,
-      //   description: _controllerDescription.text,
-      //   extra_details: _controllerExtra_details.text,
-      //   currency: selectedCurrencyNotifier.value,
-      //   latitude: locationNotifier.value.$2!.lat.toString(),
-      //   longitude: locationNotifier.value.$2!.lng.toString(),
-      // ).toJsonBody().toString());
-      // return;
       await projectsCubit.createProjectFunc(
         parameter: CreateProjectParameters(
           projectId: widget.args.projectId,
@@ -118,8 +105,8 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
           description: _controllerDescription.text,
           extra_details: _controllerExtra_details.text,
           currency:
-          selectedCurrencyNotifier.value.map((e) => _listStringCurrencies[e]).toList().join(','),
-          latitude: locationNotifier.value.$2?.lat.toString()??'',
+          _listStringCurrencies[selectedCurrencyNotifier.value.first].apiValue,
+           latitude: locationNotifier.value.$2?.lat.toString()??'',
           longitude: locationNotifier.value.$2?.lng.toString()??'',
           location: locationNotifier.value.$1??'',
 
@@ -147,20 +134,13 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
     }
   }
 
-  final List<String> _listStringCurrencies = [
-    // 'SAR',
-    'USD',
-    'TRY',
-    // 'EUR',
-    // 'AED',
-    // 'EGP',
-    // 'IQD',
-    // 'JOD',
-    // 'KWD',
-    // 'LYD',
-    // 'OMR',
-    // 'QAR',
-    'SYP',
-  ];
+  // final List<String> _listStringCurrencies = [
+  //    'USD',
+  //   'TRY',
+  //   'SYP',
+  // ];
+  late  final List<UIApiKeys<String>> _listStringCurrencies = CurrencyTabsWidget.listTabs
+      .map((e) => UIApiKeys(e.label, e.shortcut))
+      .toList();
 
 }

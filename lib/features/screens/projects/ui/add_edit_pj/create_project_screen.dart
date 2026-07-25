@@ -104,7 +104,7 @@ class _CreateProjectPageState extends CreateProjectPageBaseState {
                       field: field5,
                       title:  'currency'.tr(),
                       isMultiSelect: false,
-                      listChoices: _listStringCurrencies.map((e) => UIApiKeys(e, e)).toList(),
+                      listChoices: _listStringCurrencies ,
                       selectedNotifier: selectedCurrencyNotifier,
                     ),
 
