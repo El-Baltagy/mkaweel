@@ -8,7 +8,9 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
    (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field4 = (.new(), .new());
   (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field3 = (.new(), .new());
    (GlobalKey<FormFieldState<dynamic>>, FocusNode?) field5 = (.new(), .new());
-
+  late  final List<UIApiKeys<String>> _listStringCurrencies = CurrencyTabsWidget.listTabs
+      .map((e) => UIApiKeys(e.label, e.shortcut))
+      .toList();
   final TextEditingController _controllerName = .new();
   final TextEditingController _controllerOwner_name = .new();
   final TextEditingController _controllerContract_value = .new();
@@ -105,7 +107,7 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
           description: _controllerDescription.text,
           extra_details: _controllerExtra_details.text,
           currency:
-          _listStringCurrencies[selectedCurrencyNotifier.value.first].apiValue,
+          _listStringCurrencies[selectedCurrencyNotifier.value.first].apiValue.toUpperCase(),
            latitude: locationNotifier.value.$2?.lat.toString()??'',
           longitude: locationNotifier.value.$2?.lng.toString()??'',
           location: locationNotifier.value.$1??'',
@@ -134,13 +136,6 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
     }
   }
 
-  // final List<String> _listStringCurrencies = [
-  //    'USD',
-  //   'TRY',
-  //   'SYP',
-  // ];
-  late  final List<UIApiKeys<String>> _listStringCurrencies = CurrencyTabsWidget.listTabs
-      .map((e) => UIApiKeys(e.label, e.shortcut))
-      .toList();
+
 
 }

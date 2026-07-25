@@ -37,39 +37,31 @@ class DashboardPage extends StatefulWidget implements AutoRouteWrapper {
 class _DashboardPageState extends DashboardPageBaseState {
   @override
   Widget build(BuildContext context) {
-    return BlocListener<DashboardCubit, DashboardState>(
-      listener: listener,
-      child: Semantics(
-        label: 'Dashboard Screen',
-        child: Scaffold(
-          backgroundColor: context.theme.scaffoldBackgroundColor,
-          appBar: AppBar(
-            toolbarHeight: 5,
-          ),
-          body: SafeArea(
-            bottom: false,
-            child: SingleChildScrollView(
-              child: Column(
-                spacing: 20,
-                children: [
-                  BlocSelector<DashboardCubit, DashboardState, BaseEmit?>(
-                    selector: (state)  =>state is DashboardLoaded ? state.getStatisticsState : null ,
-                    builder: (context, state) {
-                      return DashboardHeaderWidget(
-                        state: state,
-                      );
-                    },
-                  ),
-                  // const StatsCardsWidget(),
-                    TodayTasksWidget(
-                      tasksCubit: tasksCubit
-                    ),
-                  QuickToolsWidget(
-                      dashboardCubit: dashboardCubit
-                  ),
-                ],
+    return Scaffold(
+       appBar: AppBar(
+        toolbarHeight: 5,
+      ),
+      body: SafeArea(
+        bottom: false,
+        child: SingleChildScrollView(
+          child: Column(
+            spacing: 20,
+            children: [
+              BlocSelector<DashboardCubit, DashboardState, BaseEmit?>(
+                selector: (state)  =>state is DashboardLoaded ? state.getStatisticsState : null ,
+                builder: (context, state) {
+                  return DashboardHeaderWidget(
+                    state: state,
+                  );
+                },
               ),
-            ),
+                 TodayTasksWidget(
+                  tasksCubit: tasksCubit
+                ),
+              QuickToolsWidget(
+                  dashboardCubit: dashboardCubit
+              ),
+            ],
           ),
         ),
       ),
@@ -97,7 +89,5 @@ abstract class DashboardPageBaseState extends State<DashboardPage> {
     super.dispose();
   }
 
-  void listener(context, state) {
-    // TODO: implement listener
-  }
+
 }

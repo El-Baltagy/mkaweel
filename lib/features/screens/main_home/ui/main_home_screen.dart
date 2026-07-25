@@ -18,9 +18,7 @@ import 'package:mkaweel/features/screens/settings/data/base_type_worker.dart';
 
 part 'widgets/bottom_nav_bar.dart';
 
-part 'widgets/home_admin.dart';
 
-part 'widgets/home_worker.dart';
 
 @RoutePage()
 class MainHomePage extends StatefulWidget implements AutoRouteWrapper {
@@ -55,9 +53,20 @@ class _MainHomePageState extends MainHomePageBaseState {
 
         User? data = state is Success<User> ? state.data : null;
         if (data != null) {
-          return data.role.toLowerCase().trim() == 'admin'
-              ? const _HomeAdmin()
-              : const _HomeWorker();
+          List< NavItemData> routesNav ()=>[];
+          return AutoTabsScaffold(
+            routes:   routesNav().map((e) => e.route).toList(),
+            bottomNavigationBuilder: (context, tabsRouter) {
+              return EntranceFader(
+                  delay:const Duration(milliseconds: 500),
+                  dx: 0,
+                  dy: 32,
+                  child: _BottomNavBar(tabsRouter: tabsRouter,routesNav:routesNav()));
+            },
+          );
+          // return data.role.toLowerCase().trim() == 'admin'
+          //     ? const _HomeAdmin()
+          //     : const _HomeWorker();
         }
         return buildLoading();
       },

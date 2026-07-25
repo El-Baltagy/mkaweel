@@ -1,18 +1,11 @@
 part of '../main_home_screen.dart';
 
-class Testtt extends StatelessWidget {
-  const Testtt({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
 
 class _BottomNavBar extends StatelessWidget {
   const _BottomNavBar({required this.tabsRouter, required this.routesNav});
   final TabsRouter tabsRouter;
-  final List<_NavItemData> routesNav;
+  final List< NavItemData> routesNav;
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +45,8 @@ class _BottomNavBar extends StatelessWidget {
   }
 }
 
-class _NavItemData {
-  const _NavItemData({required this.icon, required this.route,required this.label});
+class  NavItemData {
+  const  NavItemData({required this.icon, required this.route,required this.label});
   final IconData icon;
   final String label;
   final PageRouteInfo  route;
@@ -66,7 +59,7 @@ class _NavItem extends StatelessWidget {
     required this.isActive,
     required this.onTap,
   });
-  final _NavItemData data;
+  final NavItemData data;
   final bool isActive;
   final VoidCallback onTap;
 

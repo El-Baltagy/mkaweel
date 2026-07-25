@@ -3,9 +3,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/Material.dart';
 import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/extension/context.dart';
+import 'package:mkaweel/features/screens/main_home/ui/main_home_screen.dart';
 import 'package:mkaweel/features/screens/settings/controller/settings_cubit.dart';
-import 'package:mkaweel/features/screens/settings/ui/profile_screen.dart';
-import 'package:mkaweel/features/screens/settings/ui/settings_screen.dart';
+ import 'package:mkaweel/features/screens/settings/ui/settings_screen.dart';
 
 
 abstract class BaseUserType {
@@ -16,6 +16,7 @@ abstract class BaseUserType {
   final String title;
 
   List<SettingItem> buildSettingItems(BuildContext context,SettingsCubit  settingsCubit);
+  List< NavItemData> buildRoutesNav( );
 }
 
 class BaseTypeAdmin extends BaseUserType {
@@ -35,6 +36,17 @@ class BaseTypeAdmin extends BaseUserType {
       ),
     ];
   }
+
+  @override
+  List<NavItemData> buildRoutesNav() =>[
+    NavItemData(icon: Icons.grid_view_rounded, route:   const DashboardRoute(),    label: 'home'.tr()),
+    NavItemData(icon: Icons.business_center_outlined,route:   const ProjectsRoute(), label: 'projects_tab'.tr()),
+    NavItemData(icon: Icons.trending_up_rounded, route:   const MarketPricesRoute(), label: 'prices_tab'.tr()),
+    NavItemData(icon: Icons.group_outlined, route:   const WorkersRoute(),       label: 'workers_tab'.tr()),
+    NavItemData(icon: Icons.settings_outlined,route:     SettingsRoute(
+        args: .new( this)
+    ),     label: 'settings_tab'.tr()),
+  ];
 }
 
 
@@ -52,12 +64,13 @@ class BaseTypeWorker extends BaseUserType {
          iconColor: context.theme.primaryColor,
         onTap: () => context.pushRoute(  ChangePasswordRoute(args: .new(settingsCubit))),
       ),
-      // SettingItem(
-      //   icon: Icons.task_rounded,
-      //   title: 'tasks'.tr(context: context),
-      //   iconColor: context.theme.primaryColor,
-      //   onTap: () => context.pushRoute(  TasksRoute(args: .new())),
-      // ),
-    ];
+     ];
   }
+
+  @override
+  List<NavItemData> buildRoutesNav() =>[
+     NavItemData(icon: Icons.settings_outlined,route:     SettingsRoute(
+        args: .new( this)
+    ),     label: 'settings_tab'.tr()),
+  ];
 }
