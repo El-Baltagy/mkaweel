@@ -60,56 +60,7 @@ class _TaskListItem extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                GestureDetector(
-                  child: const Icon(Icons.edit_outlined,
-                      color: AppColors.primaryLightColor, size: AppSizes.s20),
-                  onTap: () async {
-                    final result = await context.push(AddEditTasksRoute(args: AddEditTasksRouteArgs(
-                        taskItem ,
-                        tasksCubit, parameter
-                    )));
-                    if (result == true) {
-                      await tasksCubit.getAllTasksFunc(
-                        parameter: parameter
-                      );
-                    }
-                  },
-                ),
-                10.horizontalSpace,
-                BlocSelector<TasksCubit, TasksState, BaseEmit?>(
-                  selector: (state) =>
-                      state is TasksLoaded ? state.deleteTaskState : null,
-                  builder: (context, deleteState) {
-                    final isThisDeleting = deleteState is Loading<String> &&
-                        deleteState.item == taskItem.id.toString();
-                    return GestureDetector(
-                      onTap: isThisDeleting
-                          ? null
-                          : DeletePjDialouge(
-                              title: 'delete_task'.tr(),
-                              subTitle:
-                                  'are_you_sure_you_want_to_delete_this_task'
-                                      .tr(),
-                              onPressedDelete: () => tasksCubit.deleteTaskFunc(
-                                DeleteProjectParameter(taskItem.id.toString()),
-                              ),
-                            ).toShowDialouge,
-                      child: isThisDeleting
-                          ? const SizedBox(
-                              width: AppSizes.s20,
-                              height: AppSizes.s20,
-                              child: CircularProgressIndicator.adaptive(
-                                strokeWidth: 2,
-                              ),
-                            )
-                          : const Icon(
-                              Icons.delete_outline,
-                              color: AppColors.secondryLightColor,
-                              size: AppSizes.s20,
-                            ),
-                    );
-                  },
-                ),
+               ...parameter.listActions(context,taskItem,tasksCubit,parameter)
               ],
             ),
           ),

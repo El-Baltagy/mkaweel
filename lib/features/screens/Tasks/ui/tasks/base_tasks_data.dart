@@ -40,7 +40,20 @@
 //   @override
 //   Map<String, dynamic>? getQuery() =>null;
 // }
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/Material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mkaweel/core/app/route.dart';
+import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_api.dart';
+import 'package:mkaweel/core/extension/context.dart';
+import 'package:mkaweel/core/extension/double.dart';
+import 'package:mkaweel/core/theming/app_colors.dart';
+import 'package:mkaweel/core/theming/app_values.dart';
+import 'package:mkaweel/features/screens/Tasks/controller/Tasks_cubit.dart';
+import 'package:mkaweel/features/screens/Tasks/data/model/tasks_res/tasks_res.dart';
+import 'package:mkaweel/features/screens/projects/data/model/delete_pj_parameter.dart';
+import 'package:mkaweel/features/screens/projects/ui/all_projects/widgets/delete_pj_dialouge.dart';
 
 abstract class BaseTasksData {
   const BaseTasksData();
@@ -49,6 +62,58 @@ abstract class BaseTasksData {
   String get title;
   bool get showAddingTaskBtn;
   Map<String, dynamic>? get query;
+    List<Widget> listActions(BuildContext context,TaskItem taskItem,TasksCubit tasksCubit,BaseTasksData parameter)=>[
+      GestureDetector(
+        child: const Icon(Icons.edit_outlined,
+            color: AppColors.primaryLightColor, size: AppSizes.s20),
+        onTap: () async {
+          final result = await context.push(AddEditTasksRoute(args: AddEditTasksRouteArgs(
+              taskItem ,
+              tasksCubit, parameter
+          )));
+          if (result == true) {
+            await tasksCubit.getAllTasksFunc(
+                parameter: parameter
+            );
+          }
+        },
+      ),
+      10.horizontalSpace,
+      BlocSelector<TasksCubit, TasksState, BaseEmit?>(
+        selector: (state) =>
+        state is TasksLoaded ? state.deleteTaskState : null,
+        builder: (context, deleteState) {
+          final isThisDeleting = deleteState is Loading<String> &&
+              deleteState.item == taskItem.id.toString();
+          return GestureDetector(
+            onTap: isThisDeleting
+                ? null
+                : DeletePjDialouge(
+              title: 'delete_task'.tr(),
+              subTitle:
+              'are_you_sure_you_want_to_delete_this_task'
+                  .tr(),
+              onPressedDelete: () => tasksCubit.deleteTaskFunc(
+                DeleteProjectParameter(taskItem.id.toString()),
+              ),
+            ).toShowDialouge,
+            child: isThisDeleting
+                ? const SizedBox(
+              width: AppSizes.s20,
+              height: AppSizes.s20,
+              child: CircularProgressIndicator.adaptive(
+                strokeWidth: 2,
+              ),
+            )
+                : const Icon(
+              Icons.delete_outline,
+              color: AppColors.secondryLightColor,
+              size: AppSizes.s20,
+            ),
+          );
+        },
+      ),
+  ];
  }
 
 enum AdminTaskType {
@@ -106,4 +171,12 @@ class WorkerTasksData extends BaseTasksData {
   bool get showAddingTaskBtn =>false;
   @override
   Map<String, dynamic>? get query => null;
+  @override
+  List<Widget>listActions(BuildContext context,TaskItem taskItem,TasksCubit tasksCubit,BaseTasksData parameter)=>[
+    if(taskItem.status.toLowerCase()!='completed')
+      ...[
+
+        Text("mark as complete")
+      ]
+  ];
 }
