@@ -81,7 +81,7 @@ final TasksCubit tasksCubit;
               return TasksListWidget(
                 parameter: const AdminTasksData(AdminTaskType.today),
                 state: state,
-                margin:  .zero,
+                margin:  .only(bottom: 15),
                 isScrolled: false,
                 loadingItemNumbers:1,
                 tasksCubit: tasksCubit,

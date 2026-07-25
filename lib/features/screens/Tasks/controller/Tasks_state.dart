@@ -22,7 +22,7 @@ class TasksLoaded extends TasksState {
     BaseEmit? addUpdateTaskFuncState,
     BaseEmit? deleteTaskState,
     BaseEmit? getTasksState,
-     BaseEmit? homeTasksState,
+     BaseEmit? todayTasksState,
     BaseEmit? allWorkersEmit,
     TasksState? refreshOrInit,
   }) {
@@ -31,7 +31,7 @@ class TasksLoaded extends TasksState {
       addUpdateTaskFuncState: addUpdateTaskFuncState ?? this.addUpdateTaskFuncState,
       deleteTaskState: deleteTaskState ?? this.deleteTaskState,
       getTasksState: getTasksState ?? this.getTasksState,
-       homeTasksState: homeTasksState ?? this.homeTasksState,
+       homeTasksState: todayTasksState ?? this.homeTasksState,
       refreshOrInit: refreshOrInit ?? this.refreshOrInit,
        allWorkersEmit: allWorkersEmit ?? this.allWorkersEmit,
      );

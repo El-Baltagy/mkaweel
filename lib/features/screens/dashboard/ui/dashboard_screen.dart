@@ -81,7 +81,7 @@ abstract class DashboardPageBaseState extends State<DashboardPage> {
     tasksCubit = TasksCubit.get(context: context);
     super.initState();
     dashboardCubit.getStatisticsFunc(Init());
-    tasksCubit.getAllTasksFunc(parameter: const AdminTasksData(.home));
+    tasksCubit.getAllTasksFunc(parameter: const AdminTasksData(.today));
   }
 
   @override

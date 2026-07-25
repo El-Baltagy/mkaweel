@@ -42,20 +42,20 @@ class TasksCubit extends BaseCubit<TasksState> {
 
 
   Future<void> getAllTasksFunc( {required BaseTasksData  parameter}) async {
-    final isHome = parameter is AdminTasksData && parameter.type == AdminTaskType.home;
+    final isHome = parameter is AdminTasksData && parameter.type == AdminTaskType.today;
 
        await _service.getTasksServ(
         RequestCallbackObserver<TasksRes, BaseTasksData>(
 
           parameter: parameter,
            onLoadCallback: () => safeEmit(isHome
-              ? _current.copyWith(homeTasksState: Loading()) 
+              ? _current.copyWith(todayTasksState: Loading())
               : _current.copyWith(getTasksState: Loading())),
           onRightCallback: (data) => safeEmit(isHome 
-              ? _current.copyWith(homeTasksState: Success(data)) 
+              ? _current.copyWith(todayTasksState: Success(data))
               : _current.copyWith(getTasksState: Success(data))),
           onLeftCallback: (failure) => safeEmit(isHome 
-              ? _current.copyWith(homeTasksState: ErrorState(failure)) 
+              ? _current.copyWith(todayTasksState: ErrorState(failure))
               : _current.copyWith(getTasksState: ErrorState(failure))),
         ),
       );

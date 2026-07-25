@@ -36,9 +36,7 @@ class TasksListWidget extends StatelessWidget {
       dx: context.isLTR ? -32 : 32,
       enableAnimation: !isLoading,
       child: isScrolled?ListView.builder(
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        padding: const EdgeInsets.symmetric(vertical: AppPadding.p8),
+          padding: const EdgeInsets.symmetric(vertical: AppPadding.p8),
         itemCount: listTasks.length,
         itemBuilder: (context, index) {
           return buildSkeletonizer(isLoading, listTasks, index);

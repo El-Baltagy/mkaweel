@@ -87,7 +87,7 @@ class ProjectCard extends StatelessWidget {
         title: 'tasks',
         onTap: () async {
           await context.push(TasksRoute(args: .new(
-              AdminProjectTasksData(projectInfoData.id.toString())
+              AdminAllProjectTasksData(projectInfoData.id.toString())
           )));
         },
       ),
