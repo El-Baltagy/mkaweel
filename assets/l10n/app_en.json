@@ -307,5 +307,6 @@
   "worker_notes_hint": "Any notes about the worker...",
   "workers_management": "Workers Management",
   "workers_tab": "Workers",
-  "you_can_choose_multi_choices": "you can choose multi choices"
+  "you_can_choose_multi_choices": "you can choose multi choices",
+  "your_tasks": "your tasks"
 }

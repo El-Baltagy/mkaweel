@@ -96,6 +96,7 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: MarketPricesRoute.page),
         AutoRoute(page: WorkersRoute.page),
         AutoRoute(page: SettingsRoute.page),
+        AutoRoute(page: TasksRoute.page),
       ],
     ),
     AutoRoute(page: CreateProjectRoute.page),

@@ -68,9 +68,7 @@ class _MainHomePageState extends MainHomePageBaseState {
                   child: _BottomNavBar(tabsRouter: tabsRouter,routesNav:routesNav()));
             },
           );
-          // return data.role.toLowerCase().trim() == 'admin'
-          //     ? const _HomeAdmin()
-          //     : const _HomeWorker();
+
         }
         return buildLoading();
       },

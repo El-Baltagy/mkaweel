@@ -57,7 +57,7 @@ class _TasksPageState extends TasksPageBaseState {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'all_construction_tasks'.tr()),
+      appBar: CustomAppBar(title:widget.args.baseTasksData.title.tr()),
       body: BlocSelector<TasksCubit, TasksState, BaseEmit?>(
         selector: (state) => state is TasksLoaded ? state.getTasksState : null,
         builder: (context, state) {
@@ -69,7 +69,7 @@ class _TasksPageState extends TasksPageBaseState {
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: widget.args.baseTasksData.showAddingTaskBtn?FloatingActionButton(
         backgroundColor: context.theme.colorScheme.secondary,
         onPressed: () async {
           final result = await context.push(
@@ -80,7 +80,7 @@ class _TasksPageState extends TasksPageBaseState {
           }
         },
         child: Icon(Icons.add, color: context.theme.scaffoldBackgroundColor),
-      ),
+      ):null,
     );
   }
 }

@@ -46,9 +46,10 @@ abstract class BaseTasksData {
   const BaseTasksData();
 
   String get api;
-
+  String get title;
+  bool get showAddingTaskBtn;
   Map<String, dynamic>? get query;
-}
+ }
 
 enum AdminTaskType {
   today,
@@ -64,7 +65,11 @@ class AdminTasksData extends BaseTasksData {
 
   @override
   String get api => EndPoints.getAdminTasks;
-
+  @override
+  String get title =>'all_construction_tasks' ;
+  @override
+  // TODO: implement showAddingTaskBtn
+  bool get showAddingTaskBtn =>true;
   @override
   Map<String, dynamic> get query => {
     'type': type.name,
@@ -76,7 +81,11 @@ class AdminProjectTasksData extends BaseTasksData {
   const AdminProjectTasksData(this.projectId);
 
   final String projectId;
-
+  @override
+  String get title =>'all_construction_tasks' ;
+  @override
+  // TODO: implement showAddingTaskBtn
+  bool get showAddingTaskBtn =>true;
   @override
   String get api => EndPoints.getProjectTasks(projectId);
 
@@ -88,10 +97,13 @@ class WorkerTasksData extends BaseTasksData {
   const WorkerTasksData._();
 
   static const instance = WorkerTasksData._();
-
+  @override
+  String get title =>'your_tasks' ;
   @override
   String get api => EndPoints.getWorkerTasks;
-
+  @override
+  // TODO: implement showAddingTaskBtn
+  bool get showAddingTaskBtn =>false;
   @override
   Map<String, dynamic>? get query => null;
 }
