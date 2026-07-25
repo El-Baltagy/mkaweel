@@ -18,6 +18,7 @@ import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/features/screens/projects/data/model/create_project_res/create_project_res.dart';
+import 'package:mkaweel/features/screens/projects/data/model/delete_project_res/delete_project_res.dart';
 import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/location_selection.dart';
 import 'package:mkaweel/features/screens/workers/data/model/add_worker_data_request.dart';
 import 'package:mkaweel/features/screens/attendence/data/model/attendence_res/attendence_res.dart';
@@ -51,7 +52,13 @@ class _AttendencePageState extends AttendencePageBaseState {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'attendance'.tr()),
+      appBar: CustomAppBar(title: 'attendance'.tr(),
+      actions: [
+        GestureDetector(
+            onTap:    attendenceCubit.getCurrentAttendenceFunc ,
+            child: Icon(Icons.refresh_rounded))
+      ],
+      ),
       body: BlocListener<AttendenceCubit, AttendenceState>(
         listener: listenerAttendenceCubit,
         child: BlocSelector<AttendenceCubit, AttendenceState, BaseEmit?>(
@@ -61,13 +68,7 @@ class _AttendencePageState extends AttendencePageBaseState {
             // sync state into mixin flag
             handleAttendanceState(attendanceEmit);
 
-            final bool isLoadingAttendance =
-            attendanceEmit is! Success<AttendenceRes>;
-            // final bool isCheckedIn =
-            //     !isLoadingAttendance &&
-            //      attendanceEmit   .data! .data .is_checked_in==true &&
-            //      attendanceEmit .data!.data.current_attendance?.check_out_time ==   null;
-//_isCheckedInNotifier.value
+            final bool isLoadingAttendance =   attendanceEmit is! Success<AttendenceRes>;
             return ValueListenableBuilder(valueListenable: _isCheckedInNotifier,
               builder: (context, _isCheckedInVal, child) {
                 return SingleChildScrollView(
@@ -132,45 +133,51 @@ class _AttendencePageState extends AttendencePageBaseState {
                       40.verticalSpace,
 
                       // ── Single button toggling check-in / check-out ─────────────
-                      SizedBox(
-                        width: double.infinity,
-                        child: isLoadingAttendance
-                            ? const Center(child: CircularProgressIndicator())
-                            : _isCheckedInVal
-                            ? ElevatedButton.icon(
-                          onPressed: checkInOutToogle,
-                          icon: const Icon(Icons.logout, color: Colors.white),
-                          label: Text(
-                            'check_out'.tr(),
-                            style: AppTextStyles.font16SemiBold.copyWith(
-                              color: Colors.white,
-                            ),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.red,
-                            padding: const EdgeInsets.symmetric(vertical: 15),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(AppSizes.s8),
-                            ),
-                          ),
-                        )
-                            : ElevatedButton.icon(
-                          onPressed: checkInOutToogle,
-                          icon: const Icon(Icons.login, color: Colors.white),
-                          label: Text(
-                            'check_in'.tr(),
-                            style: AppTextStyles.font16SemiBold.copyWith(
-                              color: Colors.white,
-                            ),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: context.theme.primaryColor,
-                            padding: const EdgeInsets.symmetric(vertical: 15),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(AppSizes.s8),
-                            ),
-                          ),
-                        ),
+                      BlocSelector<AttendenceCubit, AttendenceState, BaseEmit?>(
+                        selector: (s) => s is AttendenceLoaded ? s.checkInOutToogleState : null,
+                        builder: (context, toggleState) {
+                          final bool isToggling = toggleState is Loading;
+                          return SizedBox(
+                            width: double.infinity,
+                            child: isLoadingAttendance || isToggling
+                                ? const Center(child: CircularProgressIndicator())
+                                : _isCheckedInVal
+                                    ? ElevatedButton.icon(
+                                        onPressed: checkInOutToogle,
+                                        icon: const Icon(Icons.logout, color: Colors.white),
+                                        label: Text(
+                                          'check_out'.tr(),
+                                          style: AppTextStyles.font16SemiBold.copyWith(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.red,
+                                          padding: const EdgeInsets.symmetric(vertical: 15),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(AppSizes.s8),
+                                          ),
+                                        ),
+                                      )
+                                    : ElevatedButton.icon(
+                                        onPressed: checkInOutToogle,
+                                        icon: const Icon(Icons.login, color: Colors.white),
+                                        label: Text(
+                                          'check_in'.tr(),
+                                          style: AppTextStyles.font16SemiBold.copyWith(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: context.theme.primaryColor,
+                                          padding: const EdgeInsets.symmetric(vertical: 15),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(AppSizes.s8),
+                                          ),
+                                        ),
+                                      ),
+                          );
+                        },
                       ),
                     ],
                   ),

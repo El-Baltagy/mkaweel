@@ -82,22 +82,20 @@ abstract class AttendencePageBaseState extends State<AttendencePage> {
     }
     attendenceCubit.checkInOutToogleFunc(parameter: CheckInOutParameter(
       latLng: LatLng(33.51380000, 36.27650000),
-      projectId: _isCheckedInNotifier.value?null:projectsList.value[selectedProjectNotifier.value.first].apiValue.id,
+      projectId: _isCheckedInNotifier.value ? null : projectsList.value[selectedProjectNotifier.value.first].apiValue.id,
     ));
-
-
-CircularProgressIndicator
-
   }
-  listenerAttendenceCubit(BuildContext c,AttendenceState state){
-  if(state is AttendenceLoaded){
-    if(state.checkInOutToogleState is Success<AttendenceRes>){
-      context.showToast((state as Success<AttendenceRes>).data!.message );
-      attendenceCubit.getCurrentAttendenceFunc();
+
+  void listenerAttendenceCubit(BuildContext c, AttendenceState state) {
+    if (state is AttendenceLoaded) {
+      if (state.checkInOutToogleState is Success<DeleteProjectRes>) {
+        final res = (state.checkInOutToogleState as Success<DeleteProjectRes>).data!;
+        context.showToast(res.message);
+        attendenceCubit.getCurrentAttendenceFunc();
+      } else if (state.checkInOutToogleState is ErrorState) {
+        final err = state.checkInOutToogleState as ErrorState;
+        context.showToast(err.failure.message, isSuccess: false);
+      }
     }
-    if(state is ErrorState){
-      context.showToast((state as ErrorState).failure.message);
-    }
-  }
   }
  }
