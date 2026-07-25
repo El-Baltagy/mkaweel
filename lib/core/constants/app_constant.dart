@@ -105,5 +105,9 @@ abstract class AppConstant {
   static const String addUpdateTaskFuncKeyCash = 'Tasks_addUpdateTaskFunc_cache';
 
   static const int addUpdateTaskFuncKeyCode = 6816;
+
+  static const String getCurrentAttendenceKeyCash = 'attendence_getCurrentAttendence_cache';
+
+  static const int getCurrentAttendenceKeyCode = 4212;
 }
 

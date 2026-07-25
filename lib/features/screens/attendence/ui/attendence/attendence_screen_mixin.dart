@@ -16,6 +16,7 @@ abstract class AttendencePageBaseState extends State<AttendencePage> {
     projectsCubit = ProjectsCubit.get(context: context);
     super.initState();
     projectsCubit.getAllProjectsFunc(Init());
+    attendenceCubit.getCurrentAttendenceFunc( );
 
   }
 
