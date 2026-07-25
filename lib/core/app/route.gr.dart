@@ -15,6 +15,16 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    AttendenceRoute.name: (routeData) {
+      final args = routeData.argsAs<AttendenceRouteArgs>( );
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(
+            child: AttendencePage(
+           args: args ,
+        )),
+      );
+    },
     ProjectInvoicesRoute.name: (routeData) {
       final args = routeData.argsAs<ProjectInvoicesRouteArgs>( );
       return AutoRoutePage<dynamic>(
@@ -708,4 +718,25 @@ class ProjectInvoicesRouteArgs {
   const ProjectInvoicesRouteArgs( this.projectsCubit,this.projectID);
   final ProjectsCubit projectsCubit;
   final String projectID;
+ }
+
+/// generated route for
+/// [AttendencePage]
+class AttendenceRoute extends PageRouteInfo<AttendenceRouteArgs> {
+  AttendenceRoute({
+   required AttendenceRouteArgs args  ,
+    List<PageRouteInfo>? children,
+  }) : super(
+    AttendenceRoute.name,
+    args: args,
+    initialChildren: children,
+  );
+
+  static const String name = 'AttendenceRoute';
+
+  static const PageInfo<AttendenceRouteArgs> page =
+  PageInfo<AttendenceRouteArgs>(name);
+}
+class AttendenceRouteArgs {
+  const AttendenceRouteArgs( );
  }

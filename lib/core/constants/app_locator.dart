@@ -1,4 +1,7 @@
 
+import 'package:mkaweel/features/screens/attendence/data/repo/remote/attendence_repo.dart';
+import 'package:mkaweel/features/screens/attendence/service/attendence_service.dart';
+import 'package:mkaweel/features/screens/attendence/controller/attendence_cubit.dart';
 import 'package:mkaweel/features/screens/Tasks/data/repo/remote/Tasks_repo.dart';
 import 'package:mkaweel/features/screens/Tasks/service/Tasks_service.dart';
 import 'package:mkaweel/features/screens/Tasks/controller/Tasks_cubit.dart';
@@ -40,6 +43,11 @@ class AppLocator {
   GetIt call() => _sl;
 
   void init(){
+    ///..................attendence.................///
+    _sl.registerLazySingleton(() => AttendenceRepo(_sl()));
+    _sl.registerLazySingleton(() => AttendenceService(_sl(), _sl()));
+    _sl.registerFactory(() => AttendenceCubit(_sl()));
+
 
     ///..................tasks.................///
     _sl.registerLazySingleton(() => TasksRepo(_sl()));

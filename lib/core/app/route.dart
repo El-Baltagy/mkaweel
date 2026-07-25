@@ -36,6 +36,7 @@ import 'package:mkaweel/features/screens/projects/ui/project_phases/phase_progre
 import 'package:mkaweel/features/screens/workers/ui/add_workers/add_worker_screen.dart';
 import 'package:mkaweel/features/screens/Tasks/ui/Tasks/tasks_screen.dart';
  import 'package:mkaweel/features/screens/projects/ui/project_invoices/project_invoices_screen.dart';
+import 'package:mkaweel/features/screens/attendence/ui/attendence/attendence_screen.dart';
 part 'route.gr.dart';
 
   @AutoRouterConfig(replaceInRouteName: 'Page,Route')
@@ -45,43 +46,37 @@ class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
       AutoRoute(
+        page: AttendenceRoute.page,
+       ),
+      AutoRoute(
         page: ProjectInvoicesRoute.page,
-        // initial: true,
-      ),
+       ),
       AutoRoute(
         page: InvoiceRoute.page,
-        // initial: true,
-      ),
+       ),
       AutoRoute(
         page: ProjectPhaseUpdateRoute.page,
-        // initial: true,
-      ),
+       ),
       AutoRoute(
         page: ChangePasswordRoute.page,
-        // initial: true,
-      ),
+       ),
       AutoRoute(
         page: WeatherRoute.page,
-        // initial: true,
-      ),
+       ),
     AutoRoute(
       page: SuppliersInfoRoute.page,
-      // initial: true,
-    ),
+     ),
     AutoRoute(
       page: AddEditTasksRoute.page,
-      // initial: true,
-    ),
+     ),
 
     AutoRoute(
       page: TasksRoute.page,
-      // initial: true,
-    ),
+     ),
 
     AutoRoute(
       page: AddWorkerRoute.page,
-      // initial: true,
-    ),
+     ),
     AutoRoute(page: ProjectDetailsRoute.page),
     AutoRoute(page: PhaseProgressRoute.page),
     AutoRoute(page: LoginRoute.page, guards: [AuthGuard()]),
@@ -97,6 +92,7 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: WorkersRoute.page),
         AutoRoute(page: SettingsRoute.page),
         AutoRoute(page: TasksRoute.page),
+        AutoRoute(page:  AttendenceRoute.page),
       ],
     ),
     AutoRoute(page: CreateProjectRoute.page),

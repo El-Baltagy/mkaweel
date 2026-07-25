@@ -69,7 +69,7 @@ class BaseTypeWorker extends BaseUserType {
 
   @override
   List<NavItemData> buildRoutesNav() =>[
-    NavItemData(icon: Icons.grid_view_rounded, route:   const DashboardRoute(),    label: 'home'.tr()),
+    NavItemData(icon: Icons.grid_view_rounded, route:     AttendenceRoute(args: const AttendenceRouteArgs()),    label: 'attendence'.tr()),
     NavItemData(icon: Icons.task_sharp, route:     TasksRoute(args: const TasksRouteArgs(
       WorkerTasksData.instance
     )),    label: 'tasks'.tr()),

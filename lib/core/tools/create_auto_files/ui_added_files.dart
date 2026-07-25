@@ -69,7 +69,7 @@ class $widgetName extends StatefulWidget implements AutoRouteWrapper {
   @override
   Widget wrappedRoute(BuildContext context) {
     return BlocProvider<${PathConstants().cubitName()}>(
-      create: (context) => ${PathConstants().cubitName()}(AppLocator()()()),
+      create: (context) =>  AppLocator()()() ,
       child: this,
     );
   }
