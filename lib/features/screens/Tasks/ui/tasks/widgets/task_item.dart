@@ -67,7 +67,7 @@ class _TaskListItem extends StatelessWidget {
                         tasksCubit, parameter
                     )));
                     if (result == true) {
-                      await tasksCubit.getTasksFunc(
+                      await tasksCubit.getAllTasksFunc(
                         parameter: parameter
                       );
                     }

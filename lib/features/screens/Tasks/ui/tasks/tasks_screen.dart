@@ -76,7 +76,7 @@ class _TasksPageState extends TasksPageBaseState {
             AddEditTasksRoute(args: AddEditTasksRouteArgs(null, tasksCubit,widget.args.baseTasksData)),
           );
           if (result == true) {
-            await tasksCubit.getTasksFunc(parameter: widget.args.baseTasksData);
+            await tasksCubit.getAllTasksFunc(parameter: widget.args.baseTasksData);
           }
         },
         child: Icon(Icons.add, color: context.theme.scaffoldBackgroundColor),

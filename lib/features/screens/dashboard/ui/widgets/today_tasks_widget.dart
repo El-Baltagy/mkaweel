@@ -6,11 +6,12 @@ import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/extension/context.dart';
+import 'package:mkaweel/features/screens/Tasks/controller/Tasks_cubit.dart';
 import 'package:mkaweel/features/screens/Tasks/ui/tasks/base_tasks_data.dart';
 
 class TodayTasksWidget extends StatelessWidget {
-  const TodayTasksWidget({super.key});
-
+  const TodayTasksWidget({super.key, required this.tasksCubit});
+final TasksCubit tasksCubit;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -26,8 +27,7 @@ class TodayTasksWidget extends StatelessWidget {
                  onTap: () => context.push(TasksRoute(args: const TasksRouteArgs(
                      AdminTasksData(.all )
                  ))),
-                // onTap: () => context.push(TasksRoute(args: TasksRouteArgs())),
-                child: Text(
+                 child: Text(
                   'show_all'.tr(),
                   style: AppTextStyles.font14Regular.copyWith(color: Theme.of(context).primaryColor),
                 ),

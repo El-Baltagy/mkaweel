@@ -27,7 +27,6 @@ class TasksCubit extends BaseCubit<TasksState> {
        ? state as TasksLoaded
        : TasksLoaded();
        
-      int get getTasksKeyCode => AppConstant.getTasksKeyCode;
 
     int get deleteTaskKeyCode => AppConstant.deleteTaskKeyCode;
 
@@ -38,23 +37,30 @@ class TasksCubit extends BaseCubit<TasksState> {
 
    }
 
-   
+   // Future<void> getTodayTasksFunc( {required BaseTasksData  parameter}) async {
+   //   await _service.getTasksServ(
+   //     RequestCallbackObserver<TasksRes, BaseTasksData>(
+   //        parameter: parameter,
+   //       onLoadCallback: () => safeEmit(_current.copyWith(todayTasksState: Loading())),
+   //       onRightCallback: (data) => safeEmit(_current.copyWith(todayTasksState: Success(data))),
+   //       onLeftCallback: (failure) => safeEmit(_current.copyWith(todayTasksState: ErrorState(failure))),
+   //     ),
+   //   );
+   // }
   
 
-  Future<void> getTasksFunc( {required BaseTasksData  parameter}) async {
-    await CancelManager.runCancelableFun(getTasksKeyCode, (token) async {
-      await _service.getTasksServ(
+  Future<void> getAllTasksFunc( {required BaseTasksData  parameter}) async {
+       await _service.getTasksServ(
         RequestCallbackObserver<TasksRes, BaseTasksData>(
 
           parameter: parameter,
-          cancelToken: token,
-          onLoadCallback: () => safeEmit(_current.copyWith(getTasksState: Loading())),
+           onLoadCallback: () => safeEmit(_current.copyWith(getTasksState: Loading())),
           onRightCallback: (data) => safeEmit(_current.copyWith(getTasksState: Success(data))),
           onLeftCallback: (failure) => safeEmit(_current.copyWith(getTasksState: ErrorState(failure))),
         ),
       );
-    });
-  }
+   }
+
   @override
   Future<void> close() {
     // add every key in file
@@ -63,9 +69,7 @@ class TasksCubit extends BaseCubit<TasksState> {
     // add every key in file
     CancelManager.cancel(deleteTaskKeyCode);
 
-    // add every key in file
-    CancelManager.cancel(getTasksKeyCode);
-    return super.close();
+     return super.close();
   }
 
   Future<void> deleteTaskFunc(DeleteProjectParameter parameter) async {
