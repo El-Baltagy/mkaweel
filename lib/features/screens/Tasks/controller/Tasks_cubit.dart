@@ -37,29 +37,28 @@ class TasksCubit extends BaseCubit<TasksState> {
 
    }
 
-   // Future<void> getTodayTasksFunc( {required BaseTasksData  parameter}) async {
-   //   await _service.getTasksServ(
-   //     RequestCallbackObserver<TasksRes, BaseTasksData>(
-   //        parameter: parameter,
-   //       onLoadCallback: () => safeEmit(_current.copyWith(todayTasksState: Loading())),
-   //       onRightCallback: (data) => safeEmit(_current.copyWith(todayTasksState: Success(data))),
-   //       onLeftCallback: (failure) => safeEmit(_current.copyWith(todayTasksState: ErrorState(failure))),
-   //     ),
-   //   );
-   // }
-  
+
 
   Future<void> getAllTasksFunc( {required BaseTasksData  parameter}) async {
+    final isHome = parameter is AdminTasksData && parameter.type == AdminTaskType.home;
+
        await _service.getTasksServ(
         RequestCallbackObserver<TasksRes, BaseTasksData>(
 
           parameter: parameter,
-           onLoadCallback: () => safeEmit(_current.copyWith(getTasksState: Loading())),
-          onRightCallback: (data) => safeEmit(_current.copyWith(getTasksState: Success(data))),
-          onLeftCallback: (failure) => safeEmit(_current.copyWith(getTasksState: ErrorState(failure))),
+           onLoadCallback: () => safeEmit(isHome
+              ? _current.copyWith(homeTasksState: Loading()) 
+              : _current.copyWith(getTasksState: Loading())),
+          onRightCallback: (data) => safeEmit(isHome 
+              ? _current.copyWith(homeTasksState: Success(data)) 
+              : _current.copyWith(getTasksState: Success(data))),
+          onLeftCallback: (failure) => safeEmit(isHome 
+              ? _current.copyWith(homeTasksState: ErrorState(failure)) 
+              : _current.copyWith(getTasksState: ErrorState(failure))),
         ),
       );
-   }
+
+  }
 
   @override
   Future<void> close() {

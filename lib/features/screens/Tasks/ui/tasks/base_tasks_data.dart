@@ -53,6 +53,7 @@ abstract class BaseTasksData {
 enum AdminTaskType {
   today,
   all,
+  home,
 }
 
 class AdminTasksData extends BaseTasksData {

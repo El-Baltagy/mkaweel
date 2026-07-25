@@ -6,6 +6,7 @@ import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/features/screens/Tasks/controller/Tasks_cubit.dart';
+import 'package:mkaweel/features/screens/Tasks/ui/tasks/base_tasks_data.dart';
 import 'package:mkaweel/features/screens/dashboard/controller/dashboard_cubit.dart';
 import 'package:mkaweel/features/screens/dashboard/controller/dashboard_state.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/widgets/dashboard_header_widget.dart';
@@ -88,6 +89,7 @@ abstract class DashboardPageBaseState extends State<DashboardPage> {
     tasksCubit = TasksCubit.get(context: context);
     super.initState();
     dashboardCubit.getStatisticsFunc(Init());
+    tasksCubit.getAllTasksFunc(parameter: const AdminTasksData(.home));
   }
 
   @override
