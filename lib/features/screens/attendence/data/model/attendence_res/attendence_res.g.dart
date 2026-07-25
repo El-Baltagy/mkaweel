@@ -24,13 +24,17 @@ _$AttendenceDataImpl _$$AttendenceDataImplFromJson(Map<String, dynamic> json) =>
     _$AttendenceDataImpl(
       worker_id: (json['worker_id'] as num).toInt(),
       worker_name: json['worker_name'] as String,
-      is_checked_in: json['is_checked_in'] as bool,
-      is_checked_in_this_project: json['is_checked_in_this_project'] as bool,
+      is_checked_in: json['is_checked_in'] as bool?,
+      is_checked_in_this_project: json['is_checked_in_this_project'] as bool?,
       status: json['status'] as String,
-      current_attendance: Currentattendance.fromJson(
-          json['current_attendance'] as Map<String, dynamic>),
-      last_attendance: Lastattendance.fromJson(
-          json['last_attendance'] as Map<String, dynamic>),
+      current_attendance: json['current_attendance'] == null
+          ? null
+          : Currentattendance.fromJson(
+              json['current_attendance'] as Map<String, dynamic>),
+      last_attendance: json['last_attendance'] == null
+          ? null
+          : Lastattendance.fromJson(
+              json['last_attendance'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$AttendenceDataImplToJson(
@@ -41,8 +45,8 @@ Map<String, dynamic> _$$AttendenceDataImplToJson(
       'is_checked_in': instance.is_checked_in,
       'is_checked_in_this_project': instance.is_checked_in_this_project,
       'status': instance.status,
-      'current_attendance': instance.current_attendance.toJson(),
-      'last_attendance': instance.last_attendance.toJson(),
+      'current_attendance': instance.current_attendance?.toJson(),
+      'last_attendance': instance.last_attendance?.toJson(),
     };
 
 _$CurrentattendanceImpl _$$CurrentattendanceImplFromJson(

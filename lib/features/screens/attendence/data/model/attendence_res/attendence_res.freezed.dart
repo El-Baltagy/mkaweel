@@ -190,12 +190,12 @@ AttendenceData _$AttendenceDataFromJson(Map<String, dynamic> json) {
 mixin _$AttendenceData {
   int get worker_id => throw _privateConstructorUsedError;
   String get worker_name => throw _privateConstructorUsedError;
-  bool get is_checked_in => throw _privateConstructorUsedError;
-  bool get is_checked_in_this_project => throw _privateConstructorUsedError;
+  bool? get is_checked_in => throw _privateConstructorUsedError;
+  bool? get is_checked_in_this_project => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
-  Currentattendance get current_attendance =>
+  Currentattendance? get current_attendance =>
       throw _privateConstructorUsedError;
-  Lastattendance get last_attendance => throw _privateConstructorUsedError;
+  Lastattendance? get last_attendance => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -212,14 +212,14 @@ abstract class $AttendenceDataCopyWith<$Res> {
   $Res call(
       {int worker_id,
       String worker_name,
-      bool is_checked_in,
-      bool is_checked_in_this_project,
+      bool? is_checked_in,
+      bool? is_checked_in_this_project,
       String status,
-      Currentattendance current_attendance,
-      Lastattendance last_attendance});
+      Currentattendance? current_attendance,
+      Lastattendance? last_attendance});
 
-  $CurrentattendanceCopyWith<$Res> get current_attendance;
-  $LastattendanceCopyWith<$Res> get last_attendance;
+  $CurrentattendanceCopyWith<$Res>? get current_attendance;
+  $LastattendanceCopyWith<$Res>? get last_attendance;
 }
 
 /// @nodoc
@@ -237,11 +237,11 @@ class _$AttendenceDataCopyWithImpl<$Res, $Val extends AttendenceData>
   $Res call({
     Object? worker_id = null,
     Object? worker_name = null,
-    Object? is_checked_in = null,
-    Object? is_checked_in_this_project = null,
+    Object? is_checked_in = freezed,
+    Object? is_checked_in_this_project = freezed,
     Object? status = null,
-    Object? current_attendance = null,
-    Object? last_attendance = null,
+    Object? current_attendance = freezed,
+    Object? last_attendance = freezed,
   }) {
     return _then(_value.copyWith(
       worker_id: null == worker_id
@@ -252,41 +252,50 @@ class _$AttendenceDataCopyWithImpl<$Res, $Val extends AttendenceData>
           ? _value.worker_name
           : worker_name // ignore: cast_nullable_to_non_nullable
               as String,
-      is_checked_in: null == is_checked_in
+      is_checked_in: freezed == is_checked_in
           ? _value.is_checked_in
           : is_checked_in // ignore: cast_nullable_to_non_nullable
-              as bool,
-      is_checked_in_this_project: null == is_checked_in_this_project
+              as bool?,
+      is_checked_in_this_project: freezed == is_checked_in_this_project
           ? _value.is_checked_in_this_project
           : is_checked_in_this_project // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
-      current_attendance: null == current_attendance
+      current_attendance: freezed == current_attendance
           ? _value.current_attendance
           : current_attendance // ignore: cast_nullable_to_non_nullable
-              as Currentattendance,
-      last_attendance: null == last_attendance
+              as Currentattendance?,
+      last_attendance: freezed == last_attendance
           ? _value.last_attendance
           : last_attendance // ignore: cast_nullable_to_non_nullable
-              as Lastattendance,
+              as Lastattendance?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $CurrentattendanceCopyWith<$Res> get current_attendance {
-    return $CurrentattendanceCopyWith<$Res>(_value.current_attendance, (value) {
+  $CurrentattendanceCopyWith<$Res>? get current_attendance {
+    if (_value.current_attendance == null) {
+      return null;
+    }
+
+    return $CurrentattendanceCopyWith<$Res>(_value.current_attendance!,
+        (value) {
       return _then(_value.copyWith(current_attendance: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $LastattendanceCopyWith<$Res> get last_attendance {
-    return $LastattendanceCopyWith<$Res>(_value.last_attendance, (value) {
+  $LastattendanceCopyWith<$Res>? get last_attendance {
+    if (_value.last_attendance == null) {
+      return null;
+    }
+
+    return $LastattendanceCopyWith<$Res>(_value.last_attendance!, (value) {
       return _then(_value.copyWith(last_attendance: value) as $Val);
     });
   }
@@ -303,16 +312,16 @@ abstract class _$$AttendenceDataImplCopyWith<$Res>
   $Res call(
       {int worker_id,
       String worker_name,
-      bool is_checked_in,
-      bool is_checked_in_this_project,
+      bool? is_checked_in,
+      bool? is_checked_in_this_project,
       String status,
-      Currentattendance current_attendance,
-      Lastattendance last_attendance});
+      Currentattendance? current_attendance,
+      Lastattendance? last_attendance});
 
   @override
-  $CurrentattendanceCopyWith<$Res> get current_attendance;
+  $CurrentattendanceCopyWith<$Res>? get current_attendance;
   @override
-  $LastattendanceCopyWith<$Res> get last_attendance;
+  $LastattendanceCopyWith<$Res>? get last_attendance;
 }
 
 /// @nodoc
@@ -328,11 +337,11 @@ class __$$AttendenceDataImplCopyWithImpl<$Res>
   $Res call({
     Object? worker_id = null,
     Object? worker_name = null,
-    Object? is_checked_in = null,
-    Object? is_checked_in_this_project = null,
+    Object? is_checked_in = freezed,
+    Object? is_checked_in_this_project = freezed,
     Object? status = null,
-    Object? current_attendance = null,
-    Object? last_attendance = null,
+    Object? current_attendance = freezed,
+    Object? last_attendance = freezed,
   }) {
     return _then(_$AttendenceDataImpl(
       worker_id: null == worker_id
@@ -343,26 +352,26 @@ class __$$AttendenceDataImplCopyWithImpl<$Res>
           ? _value.worker_name
           : worker_name // ignore: cast_nullable_to_non_nullable
               as String,
-      is_checked_in: null == is_checked_in
+      is_checked_in: freezed == is_checked_in
           ? _value.is_checked_in
           : is_checked_in // ignore: cast_nullable_to_non_nullable
-              as bool,
-      is_checked_in_this_project: null == is_checked_in_this_project
+              as bool?,
+      is_checked_in_this_project: freezed == is_checked_in_this_project
           ? _value.is_checked_in_this_project
           : is_checked_in_this_project // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
-      current_attendance: null == current_attendance
+      current_attendance: freezed == current_attendance
           ? _value.current_attendance
           : current_attendance // ignore: cast_nullable_to_non_nullable
-              as Currentattendance,
-      last_attendance: null == last_attendance
+              as Currentattendance?,
+      last_attendance: freezed == last_attendance
           ? _value.last_attendance
           : last_attendance // ignore: cast_nullable_to_non_nullable
-              as Lastattendance,
+              as Lastattendance?,
     ));
   }
 }
@@ -388,15 +397,15 @@ class _$AttendenceDataImpl extends _AttendenceData {
   @override
   final String worker_name;
   @override
-  final bool is_checked_in;
+  final bool? is_checked_in;
   @override
-  final bool is_checked_in_this_project;
+  final bool? is_checked_in_this_project;
   @override
   final String status;
   @override
-  final Currentattendance current_attendance;
+  final Currentattendance? current_attendance;
   @override
-  final Lastattendance last_attendance;
+  final Lastattendance? last_attendance;
 
   @JsonKey(ignore: true)
   @override
@@ -417,11 +426,11 @@ abstract class _AttendenceData extends AttendenceData {
   const factory _AttendenceData(
       {required final int worker_id,
       required final String worker_name,
-      required final bool is_checked_in,
-      required final bool is_checked_in_this_project,
+      required final bool? is_checked_in,
+      required final bool? is_checked_in_this_project,
       required final String status,
-      required final Currentattendance current_attendance,
-      required final Lastattendance last_attendance}) = _$AttendenceDataImpl;
+      required final Currentattendance? current_attendance,
+      required final Lastattendance? last_attendance}) = _$AttendenceDataImpl;
   const _AttendenceData._() : super._();
 
   factory _AttendenceData.fromJson(Map<String, dynamic> json) =
@@ -432,15 +441,15 @@ abstract class _AttendenceData extends AttendenceData {
   @override
   String get worker_name;
   @override
-  bool get is_checked_in;
+  bool? get is_checked_in;
   @override
-  bool get is_checked_in_this_project;
+  bool? get is_checked_in_this_project;
   @override
   String get status;
   @override
-  Currentattendance get current_attendance;
+  Currentattendance? get current_attendance;
   @override
-  Lastattendance get last_attendance;
+  Lastattendance? get last_attendance;
   @override
   @JsonKey(ignore: true)
   _$$AttendenceDataImplCopyWith<_$AttendenceDataImpl> get copyWith =>

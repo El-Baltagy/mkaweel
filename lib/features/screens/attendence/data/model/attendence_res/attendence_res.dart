@@ -31,11 +31,11 @@ class AttendenceData with _$AttendenceData, EquatableMixin {
   const factory AttendenceData({
     required int worker_id,
     required String worker_name,
-    required bool is_checked_in,
-    required bool is_checked_in_this_project,
+    required bool? is_checked_in,
+    required bool? is_checked_in_this_project,
     required String status,
-    required Currentattendance current_attendance,
-    required Lastattendance last_attendance,
+    required Currentattendance? current_attendance,
+    required Lastattendance? last_attendance,
   }) = _AttendenceData;
 
   factory AttendenceData.fromJson(Map<String, dynamic> json) => _$AttendenceDataFromJson(json);
