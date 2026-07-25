@@ -44,67 +44,64 @@ class _LangSheetState extends State<LangSheet> {
         topRight: Radius.circular(20),
       ),
       child: Container(
-        height: (CodegenLoader.supportedLocales.length*80)+60 ,
         color: context.theme.scaffoldBackgroundColor, // Color for the background of ClipRRect
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SizedBox(height: 20 ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                GestureDetector(
-                  onTap: () =>context.pop(),
-                  child: const Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 20 , 0),
-                      child: Icon(Icons.close)
+        child: SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  GestureDetector(
+                    onTap: () => context.pop(),
+                    child: const Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
+                        child: Icon(Icons.close)),
                   ),
-                ),
-              ],
-            ),
-            ...List.generate(
-                CodegenLoader.supportedLocales.length,
-                    (index) => buildRow(
-                    index: index,
-                    langCode : CodegenLoader.supportedLocales[index].languageCode,
-                      notifier: notifier
-                )),
-            10.verticalSpace,
-            const Spacer(),
-            SizedBox(
-              width: context.width*0.6,
-              child: ElevatedButton(
-                onPressed: () async {
-                  if(selectedIndexLang!=notifier.value){
-                    final String lang=CodegenLoader.supportedLocales[notifier.value].languageCode;
-                    await  Future.wait([
-                    context.setLocale(Locale(lang)),
-                      HiveStorage().writeData(_langCode, lang)
-                    ]);
-
-                  }
-                   if(mounted) await context.pop();
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                ],
+              ),
+              ...List.generate(
+                  CodegenLoader.supportedLocales.length,
+                  (index) => buildRow(
+                      index: index,
+                      langCode: CodegenLoader.supportedLocales[index].languageCode,
+                      notifier: notifier)),
+              20.verticalSpace,
+              SizedBox(
+                width: context.width * 0.6,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    if (selectedIndexLang != notifier.value) {
+                      final String lang =
+                          CodegenLoader.supportedLocales[notifier.value].languageCode;
+                      await Future.wait([
+                        context.setLocale(Locale(lang)),
+                        HiveStorage().writeData(_langCode, lang)
+                      ]);
+                    }
+                    if (mounted) await context.pop();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    backgroundColor: context.theme.primaryColor, // Modify to match your app theme
                   ),
-                  backgroundColor: context.theme.primaryColor, // Modify to match your app theme
-                ),
-                child:   Text(
-                  'choose_language'.tr(),
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                  child: Text(
+                    'choose_language'.tr(),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
-            ),
-
-            20.verticalSpace,
-          ],
+              20.verticalSpace,
+            ],
+          ),
         ),
       ),
     );

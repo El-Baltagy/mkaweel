@@ -15,8 +15,7 @@ import 'package:mkaweel/features/screens/settings/data/model/logout_res/logout_r
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
-import 'package:mkaweel/features/screens/settings/ui/profile_screen.dart';
-import 'package:mkaweel/features/screens/settings/ui/widgets/lang_sheet.dart';
+ import 'package:mkaweel/features/screens/settings/ui/widgets/lang_sheet.dart';
  part 'widgets/setting_item.dart';
 
 @RoutePage()

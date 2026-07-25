@@ -92,10 +92,10 @@ class _BottomSheetSelectorState extends State<BottomSheetSelector> {
           child: Container(
             padding: MediaQuery.of(context).viewInsets,
             color: context.theme.scaffoldBackgroundColor,
-            child: SizedBox(
-              height: 350,
+            child: SafeArea(
               child: SingleChildScrollView(
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     25.verticalSpace,
                     Padding(
