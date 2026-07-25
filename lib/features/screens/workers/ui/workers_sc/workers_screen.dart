@@ -6,6 +6,7 @@ import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
+import 'package:mkaweel/core/shared/widgets/app_bar.dart';
  import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
@@ -48,27 +49,23 @@ class _WorkersPageState extends WorkersPageBaseState {
       listener: listenerWorkersCubit,
       child: Scaffold(
         backgroundColor: context.theme.scaffoldBackgroundColor,
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).primaryColor,
-          elevation: 0,
-          title: Text(
-            'workers_management'.tr(),
-            style: AppTextStyles.font18SemiBold.copyWith(color: context.theme.scaffoldBackgroundColor),
-          ),
-          centerTitle: true,
-          leading: IconButton(
-            icon:   Icon(Icons.add, color: context.theme.scaffoldBackgroundColor),
-            onPressed:  () async {
-              var result=await context.push(AddWorkerRoute(args:   AddWorkerRouteArgs(workerItem: null,
-                  projectsCubit: projectsCubit,
-                workersCubit: workersCubit
-                   )));
-              if (result == true) {
-                await workersCubit.getWorkersFunc();
-              }
-            } ,
-          ),
 
+        appBar: CustomAppBar(
+          title: 'workers_management'.tr()
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: context.theme.colorScheme.secondary,
+          onPressed: () async {
+            var result=await context.push(AddWorkerRoute(args:   AddWorkerRouteArgs(workerItem: null,
+                projectsCubit: projectsCubit,
+                workersCubit: workersCubit
+            )));
+            if (result == true) {
+              await workersCubit.getWorkersFunc();
+            }
+          },
+          child: Icon(Icons.add, color: context.theme.scaffoldBackgroundColor),
         ),
         body: Column(
           children: [
