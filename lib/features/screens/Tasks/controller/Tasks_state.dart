@@ -9,20 +9,18 @@ class TasksLoaded extends TasksState {
     this.addUpdateTaskFuncState,
     this.deleteTaskState,
     this.getTasksState,
-     this.todayTasksState,
-     this.homeTasksState,
+      this.homeTasksState,
      this.allWorkersEmit,
     this.refreshOrInit,
    });
-  final BaseEmit? allWorkersEmit ,todayTasksState, homeTasksState, getTasksState, deleteTaskState, addUpdateTaskFuncState;
+  final BaseEmit? allWorkersEmit , homeTasksState, getTasksState, deleteTaskState, addUpdateTaskFuncState;
   final TasksState? refreshOrInit;
 
   TasksLoaded copyWith({
     BaseEmit? addUpdateTaskFuncState,
     BaseEmit? deleteTaskState,
     BaseEmit? getTasksState,
-    BaseEmit? todayTasksState,
-    BaseEmit? homeTasksState,
+     BaseEmit? homeTasksState,
     BaseEmit? allWorkersEmit,
     TasksState? refreshOrInit,
   }) {
@@ -30,8 +28,7 @@ class TasksLoaded extends TasksState {
       addUpdateTaskFuncState: addUpdateTaskFuncState ?? this.addUpdateTaskFuncState,
       deleteTaskState: deleteTaskState ?? this.deleteTaskState,
       getTasksState: getTasksState ?? this.getTasksState,
-      todayTasksState: todayTasksState ?? this.todayTasksState,
-      homeTasksState: homeTasksState ?? this.homeTasksState,
+       homeTasksState: homeTasksState ?? this.homeTasksState,
       refreshOrInit: refreshOrInit ?? this.refreshOrInit,
        allWorkersEmit: allWorkersEmit ?? this.allWorkersEmit,
      );

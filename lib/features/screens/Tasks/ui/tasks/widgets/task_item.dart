@@ -5,9 +5,11 @@ class _TaskListItem extends StatelessWidget {
     required this.taskItem,
     required this.tasksCubit,
     required this.parameter,
+    required this.margin,
   });
 
   final TaskItem taskItem;
+  final EdgeInsetsGeometry? margin;
   final TasksCubit tasksCubit;
   final BaseTasksData parameter;
 
@@ -15,7 +17,7 @@ class _TaskListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(
+      margin: margin??const EdgeInsets.symmetric(
         horizontal: AppPadding.p16,
         vertical: AppPadding.p8,
       ),
