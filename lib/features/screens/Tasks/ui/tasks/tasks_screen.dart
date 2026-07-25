@@ -43,6 +43,11 @@ class TasksPage extends StatefulWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) {
+    if(args.tasksCubit!=null){
+      return BlocProvider.value(value:args.tasksCubit! ,
+      child: this,
+      );
+    }
     return BlocProvider<TasksCubit>(
       create: (context) => TasksCubit(AppLocator()()()),
       child: this,
@@ -75,13 +80,14 @@ class _TasksPageState extends TasksPageBaseState {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: widget.args.baseTasksData.showAddingTaskBtn?FloatingActionButton(
         backgroundColor: context.theme.colorScheme.secondary,
-        onPressed: () async {
-          final result = await context.push(
+        onPressed: ()   {
+           context.push(
             AddEditTasksRoute(args: AddEditTasksRouteArgs(null, tasksCubit,widget.args.baseTasksData)),
           );
-          if (result == true) {
-            await tasksCubit.getAllTasksFunc(parameter: widget.args.baseTasksData);
-          }
+          // if (result == true) {
+          //   await tasksCubit.getAllTasksFunc(parameter: widget.args.baseTasksData);
+          //   await tasksCubit.getAllTasksFunc(parameter: const AdminTasksData(AdminTaskType.today));
+          // }
         },
         child: Icon(Icons.add, color: context.theme.scaffoldBackgroundColor),
       ):null,

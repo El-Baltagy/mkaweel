@@ -88,6 +88,9 @@ abstract class BaseTasksData {
         );
         if (result == true) {
           await tasksCubit.getAllTasksFunc(parameter: parameter);
+          if (parameter is! AdminTasksData || parameter.type != AdminTaskType.today) {
+            tasksCubit.getAllTasksFunc(parameter: const AdminTasksData(AdminTaskType.today));
+          }
         }
       },
     ),

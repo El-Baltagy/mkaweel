@@ -28,8 +28,8 @@ final TasksCubit tasksCubit;
             children: [
                 Text('tasks'.tr(), style: AppTextStyles.font16SemiBold),
               GestureDetector(
-                 onTap: () => context.push(TasksRoute(args: const TasksRouteArgs(
-                     AdminTasksData(.all )
+                 onTap: () => context.push(TasksRoute(args:   TasksRouteArgs(
+                     AdminTasksData(.all ),tasksCubit: tasksCubit
                  ))),
                  child: Text(
                   'show_all'.tr(),

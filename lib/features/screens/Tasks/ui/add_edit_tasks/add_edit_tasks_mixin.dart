@@ -158,7 +158,14 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
         if (data.status == 'success') {
           context.showToast(data.message);
           context.pop();
-          tasksCubit.getAllTasksFunc(parameter: widget.args.baseTasksData);
+            tasksCubit.getAllTasksFunc(parameter: const AdminTasksData(AdminTaskType.today));
+            bool isToday=widget.args.baseTasksData is  AdminTasksData&&(widget.args.baseTasksData as AdminTasksData).type==AdminTaskType.today;
+            if(!isToday){
+
+              tasksCubit.getAllTasksFunc(parameter: widget.args.baseTasksData);
+            }
+
+
         }
       } else if (state.addUpdateTaskFuncState is ErrorState) {
         final ErrorState f = state.addUpdateTaskFuncState as ErrorState;

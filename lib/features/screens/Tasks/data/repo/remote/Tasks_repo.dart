@@ -76,7 +76,7 @@ class TasksRepo extends BaseRepo {
     CancelToken? cancelToken,
   }) async {
     return handleResponse(
-      onCallData: dio.getData(
+      onCallData: dio.postData(
         uri: EndPoints.workerMarkTaskComplete(parameter!.id),
         cancelToken: cancelToken,
         caller: callerTag(),

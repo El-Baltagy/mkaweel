@@ -481,8 +481,9 @@ class TasksRoute extends PageRouteInfo<TasksRouteArgs> {
 }
 
 class TasksRouteArgs {
-  const TasksRouteArgs(this.baseTasksData);
+  const TasksRouteArgs(this.baseTasksData,{this.tasksCubit});
 final BaseTasksData baseTasksData;
+final TasksCubit? tasksCubit;
  }
 
 
