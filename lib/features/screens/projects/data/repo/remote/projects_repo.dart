@@ -30,7 +30,7 @@ class ProjectsRepo extends BaseRepo {
     NoParameter? parameter, {
     CancelToken? cancelToken,
   }) async {
-     return right(AllProjectsRes.fromJson(jsonPj)) ;
+     // return right(AllProjectsRes.fromJson(jsonPj)) ;
     return handleResponse(
       onCallData: dio.getData(
         uri: EndPoints.getAllProjects,
