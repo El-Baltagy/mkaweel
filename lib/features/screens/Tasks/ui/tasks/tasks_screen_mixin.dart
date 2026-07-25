@@ -12,7 +12,7 @@ abstract class TasksPageBaseState extends State<TasksPage> {
   }
 
 
-  void tasksListener(context, state) {
+  void tasksListener(BuildContext context,TasksState state) {
      if (state is TasksLoaded) {
        if (state.addUpdateTaskFuncState is Success) {
          tasksCubit.getTasksFunc(parameter: widget.args.baseTasksData);

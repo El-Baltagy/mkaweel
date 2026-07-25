@@ -39,7 +39,7 @@ class TaskItem with _$TaskItem, EquatableMixin {
     required String due_date,
     required ProjectInfoData project,
     required Worker worker,
-    required ProjectphaseItem project_phase,
+    required ProjectphaseItem? project_phase,
   }) = _TaskItem;
 
   factory TaskItem.fromJson(Map<String, dynamic> json) =>

@@ -63,8 +63,7 @@ class _AddEditTasksPageState extends AddEditTasksBaseState {
     return BlocListener<TasksCubit, TasksState>(
       listener: taskListener,
       child: Scaffold(
-        backgroundColor: context.theme.scaffoldBackgroundColor,
-        appBar:CustomAppBar(
+         appBar:CustomAppBar(
           title:   widget.args.taskItem == null ? 'create_task_title'.tr() : 'edit_task'.tr() ,
         ),
         bottomNavigationBar: buildBtn(),

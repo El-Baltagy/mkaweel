@@ -130,7 +130,7 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
 
       final projectIndex = phaseList.value.indexWhere(
         (element) =>
-            element.apiValue.id == widget.args.taskItem?.project_phase.id,
+            element.apiValue.id == widget.args.taskItem?.project_phase?.id,
       );
       if (projectIndex != -1) {
         selectedPhaseNotifier.value = [projectIndex];

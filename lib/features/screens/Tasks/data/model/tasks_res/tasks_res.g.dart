@@ -32,8 +32,10 @@ _$TaskItemImpl _$$TaskItemImplFromJson(Map<String, dynamic> json) =>
       project:
           ProjectInfoData.fromJson(json['project'] as Map<String, dynamic>),
       worker: Worker.fromJson(json['worker'] as Map<String, dynamic>),
-      project_phase: ProjectphaseItem.fromJson(
-          json['project_phase'] as Map<String, dynamic>),
+      project_phase: json['project_phase'] == null
+          ? null
+          : ProjectphaseItem.fromJson(
+              json['project_phase'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$TaskItemImplToJson(_$TaskItemImpl instance) =>
@@ -45,7 +47,7 @@ Map<String, dynamic> _$$TaskItemImplToJson(_$TaskItemImpl instance) =>
       'due_date': instance.due_date,
       'project': instance.project.toJson(),
       'worker': instance.worker.toJson(),
-      'project_phase': instance.project_phase.toJson(),
+      'project_phase': instance.project_phase?.toJson(),
     };
 
 _$WorkerImpl _$$WorkerImplFromJson(Map<String, dynamic> json) => _$WorkerImpl(

@@ -189,7 +189,7 @@ mixin _$TaskItem {
   String get due_date => throw _privateConstructorUsedError;
   ProjectInfoData get project => throw _privateConstructorUsedError;
   Worker get worker => throw _privateConstructorUsedError;
-  ProjectphaseItem get project_phase => throw _privateConstructorUsedError;
+  ProjectphaseItem? get project_phase => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -210,11 +210,11 @@ abstract class $TaskItemCopyWith<$Res> {
       String due_date,
       ProjectInfoData project,
       Worker worker,
-      ProjectphaseItem project_phase});
+      ProjectphaseItem? project_phase});
 
   $ProjectInfoDataCopyWith<$Res> get project;
   $WorkerCopyWith<$Res> get worker;
-  $ProjectphaseItemCopyWith<$Res> get project_phase;
+  $ProjectphaseItemCopyWith<$Res>? get project_phase;
 }
 
 /// @nodoc
@@ -237,7 +237,7 @@ class _$TaskItemCopyWithImpl<$Res, $Val extends TaskItem>
     Object? due_date = null,
     Object? project = null,
     Object? worker = null,
-    Object? project_phase = null,
+    Object? project_phase = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -268,10 +268,10 @@ class _$TaskItemCopyWithImpl<$Res, $Val extends TaskItem>
           ? _value.worker
           : worker // ignore: cast_nullable_to_non_nullable
               as Worker,
-      project_phase: null == project_phase
+      project_phase: freezed == project_phase
           ? _value.project_phase
           : project_phase // ignore: cast_nullable_to_non_nullable
-              as ProjectphaseItem,
+              as ProjectphaseItem?,
     ) as $Val);
   }
 
@@ -293,8 +293,12 @@ class _$TaskItemCopyWithImpl<$Res, $Val extends TaskItem>
 
   @override
   @pragma('vm:prefer-inline')
-  $ProjectphaseItemCopyWith<$Res> get project_phase {
-    return $ProjectphaseItemCopyWith<$Res>(_value.project_phase, (value) {
+  $ProjectphaseItemCopyWith<$Res>? get project_phase {
+    if (_value.project_phase == null) {
+      return null;
+    }
+
+    return $ProjectphaseItemCopyWith<$Res>(_value.project_phase!, (value) {
       return _then(_value.copyWith(project_phase: value) as $Val);
     });
   }
@@ -316,14 +320,14 @@ abstract class _$$TaskItemImplCopyWith<$Res>
       String due_date,
       ProjectInfoData project,
       Worker worker,
-      ProjectphaseItem project_phase});
+      ProjectphaseItem? project_phase});
 
   @override
   $ProjectInfoDataCopyWith<$Res> get project;
   @override
   $WorkerCopyWith<$Res> get worker;
   @override
-  $ProjectphaseItemCopyWith<$Res> get project_phase;
+  $ProjectphaseItemCopyWith<$Res>? get project_phase;
 }
 
 /// @nodoc
@@ -344,7 +348,7 @@ class __$$TaskItemImplCopyWithImpl<$Res>
     Object? due_date = null,
     Object? project = null,
     Object? worker = null,
-    Object? project_phase = null,
+    Object? project_phase = freezed,
   }) {
     return _then(_$TaskItemImpl(
       id: null == id
@@ -375,10 +379,10 @@ class __$$TaskItemImplCopyWithImpl<$Res>
           ? _value.worker
           : worker // ignore: cast_nullable_to_non_nullable
               as Worker,
-      project_phase: null == project_phase
+      project_phase: freezed == project_phase
           ? _value.project_phase
           : project_phase // ignore: cast_nullable_to_non_nullable
-              as ProjectphaseItem,
+              as ProjectphaseItem?,
     ));
   }
 }
@@ -415,7 +419,7 @@ class _$TaskItemImpl extends _TaskItem {
   @override
   final Worker worker;
   @override
-  final ProjectphaseItem project_phase;
+  final ProjectphaseItem? project_phase;
 
   @JsonKey(ignore: true)
   @override
@@ -440,7 +444,7 @@ abstract class _TaskItem extends TaskItem {
       required final String due_date,
       required final ProjectInfoData project,
       required final Worker worker,
-      required final ProjectphaseItem project_phase}) = _$TaskItemImpl;
+      required final ProjectphaseItem? project_phase}) = _$TaskItemImpl;
   const _TaskItem._() : super._();
 
   factory _TaskItem.fromJson(Map<String, dynamic> json) =
@@ -461,7 +465,7 @@ abstract class _TaskItem extends TaskItem {
   @override
   Worker get worker;
   @override
-  ProjectphaseItem get project_phase;
+  ProjectphaseItem? get project_phase;
   @override
   @JsonKey(ignore: true)
   _$$TaskItemImplCopyWith<_$TaskItemImpl> get copyWith =>

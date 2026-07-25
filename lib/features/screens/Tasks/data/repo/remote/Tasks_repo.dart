@@ -62,7 +62,7 @@ class TasksRepo extends BaseRepo {
         EndPoints.updateTaskFunc(parameter.taskId!) ,
         cancelToken: cancelToken,
         caller: callerTag(),
-        data: parameter.toJson()
+        data: FormData.fromMap(parameter.toJson()),
       ),
       asObject: DeleteProjectRes.fromJson,
     );
