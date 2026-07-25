@@ -54,7 +54,7 @@ class _MainHomePageState extends MainHomePageBaseState {
         User? data = state is Success<User> ? state.data : null;
         if (data != null) {
           List<NavItemData> routesNav() {
-            return data.role.toLowerCase().trim() != 'admin'
+            return data.role.toLowerCase().trim() == 'admin'
                 ? BaseTypeAdmin.instance.buildRoutesNav()
                 : BaseTypeWorker.instance.buildRoutesNav();
           }

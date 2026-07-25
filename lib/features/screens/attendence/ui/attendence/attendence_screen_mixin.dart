@@ -6,6 +6,8 @@ abstract class AttendencePageBaseState extends State<AttendencePage> {
 
   final ValueNotifier<List<int>> selectedProjectNotifier = ValueNotifier([]);
   final ValueNotifier<List<UIApiKeys<ProjectInfoData>>> projectsList = ValueNotifier([]);
+  // tracks whether we have a live checked-in session
+  bool _isCheckedIn = false;
 
   late final List<(GlobalKey<FormFieldState>, FocusNode?)> listFields =
       List.generate(1, (index) => (GlobalKey<FormFieldState>(), FocusNode()));
@@ -14,10 +16,9 @@ abstract class AttendencePageBaseState extends State<AttendencePage> {
   void initState() {
     attendenceCubit = AttendenceCubit.get(context: context);
     projectsCubit = ProjectsCubit.get(context: context);
-    super.initState();
     projectsCubit.getAllProjectsFunc(Init());
-    attendenceCubit.getCurrentAttendenceFunc( );
-
+    attendenceCubit.getCurrentAttendenceFunc();
+    super.initState();
   }
 
   @override
@@ -30,32 +31,58 @@ abstract class AttendencePageBaseState extends State<AttendencePage> {
     super.dispose();
   }
 
+  /// Called every time the projects BlocSelector rebuilds.
   void setDataIntoPJNotifier(BaseEmit? state) {
-    if (state is Success && projectsList.value.isEmpty) {
-      final cachedValue = state.data as AllProjectsRes;
+    if (state is Success<AllProjectsRes> && projectsList.value.isEmpty) {
+      final res = state.data as AllProjectsRes;
       Future.microtask(() {
-        projectsList.value = cachedValue.data
+        projectsList.value = res.data
             .map<UIApiKeys<ProjectInfoData>>((e) => UIApiKeys(e.name, e))
             .toList();
+        // After list is populated, try to pre-select from attendance response
+        _preselectFromAttendance();
       });
     }
   }
 
-  void checkIn() {
-    if (selectedProjectNotifier.value.isEmpty) {
-      context.showToast('please_select_project'.tr(), isSuccess: false);
-      return;
-    }
-    final selectedProject = projectsList.value[selectedProjectNotifier.value.first].apiValue;
-    context.showToast('Checked in to ${selectedProject.name}');
+  /// Called every time the attendance BlocSelector rebuilds.
+  void handleAttendanceState(BaseEmit? state) {
+    if (state is! Success<AttendenceRes>) return;
+    final data = (state as Success<AttendenceRes>).data!.data;
+    _isCheckedIn = data.is_checked_in && data.current_attendance.check_out_time == null;
+    _preselectFromAttendance();
   }
 
-  void checkOut() {
+  void _preselectFromAttendance() {
+    if (!_isCheckedIn) return;
+    if (projectsList.value.isEmpty) return;
+    final attendanceState = attendenceCubit.state;
+    if (attendanceState is! AttendenceLoaded) return;
+    final emit = attendanceState.getCurrentAttendenceState;
+    if (emit is! Success<AttendenceRes>) return;
+    final projectId = emit.data!.data.current_attendance.project_id;
+    final idx = projectsList.value.indexWhere((e) => e.apiValue.id == projectId);
+    if (idx != -1) {
+      Future.microtask(() => selectedProjectNotifier.value = [idx]);
+    }
+  }
+
+
+
+  void checkInOutToogle() {
     if (selectedProjectNotifier.value.isEmpty) {
       context.showToast('please_select_project'.tr(), isSuccess: false);
       return;
     }
-    final selectedProject = projectsList.value[selectedProjectNotifier.value.first].apiValue;
-    context.showToast('Checked out from ${selectedProject.name}');
+    if(_isCheckedIn){
+      PrintHelper().ordinaryPrint(".............checkout action");
+    }else{
+      PrintHelper().ordinaryPrint(".............checkin action");
+    }
+    setState(() {
+      _isCheckedIn= !_isCheckedIn;
+    });
+
   }
-}
+
+ }

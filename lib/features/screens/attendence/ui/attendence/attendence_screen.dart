@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
+import 'package:mkaweel/core/shared/methods/print.dart';
 import 'package:mkaweel/core/shared/widgets/app_bar.dart';
 import 'package:mkaweel/features/screens/attendence/controller/attendence_cubit.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
@@ -18,25 +19,26 @@ import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/features/screens/projects/data/model/create_project_res/create_project_res.dart';
 import 'package:mkaweel/features/screens/workers/data/model/add_worker_data_request.dart';
+import 'package:mkaweel/features/screens/attendence/data/model/attendence_res/attendence_res.dart';
+import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/title_with_input.dart';
+import 'package:mkaweel/core/shared/widgets/text_inputs/drop_down_select.dart';
 import 'package:mkaweel/features/screens/workers/ui/add_workers/widgets/drop_down_role_selector.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+
 part 'attendence_screen_mixin.dart';
 
 @RoutePage()
 class AttendencePage extends StatefulWidget implements AutoRouteWrapper {
   const AttendencePage({super.key, required this.args});
+
   final AttendenceRouteArgs args;
 
   @override
   Widget wrappedRoute(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<AttendenceCubit>(
-          create: (context) => AppLocator()()(),
-        ),
-        BlocProvider<ProjectsCubit>(
-          create: (context) => AppLocator()()(),
-        ),
+        BlocProvider<AttendenceCubit>(create: (context) => AppLocator()()()),
+        BlocProvider<ProjectsCubit>(create: (context) => AppLocator()()()),
       ],
       child: this,
     );
@@ -50,80 +52,130 @@ class _AttendencePageState extends AttendencePageBaseState {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(
-        toolbarHeight: 5,
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(AppPadding.p20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            BlocSelector<ProjectsCubit, ProjectsState, BaseEmit?>(
-              selector: (state) => state is ProjectsLoaded ? state.allProjectsResState : null,
-              builder: (context, state) {
-                bool isLoading = state is! Success<AllProjectsRes>;
-                setDataIntoPJNotifier(state);
-                return Skeletonizer(
-                  enabled: isLoading,
-                  child: ValueListenableBuilder(
-                    valueListenable: projectsList,
-                    builder: (context, value, child) {
-                      return BottomSheetSelector(
-                        field: listFields[0],
-                        isMultiSelect: false,
-                        title: 'project'.tr(),
-                        listChoices: value,
-                        selectedNotifier: selectedProjectNotifier,
-                      );
-                    },
-                  ),
-                );
-              },
-            ),
-            40.verticalSpace,
-            Row(
-              spacing: 16,
+      appBar: CustomAppBar(title: 'attendance'.tr()),
+      body: BlocSelector<AttendenceCubit, AttendenceState, BaseEmit?>(
+        selector: (state) =>
+            state is AttendenceLoaded ? state.getCurrentAttendenceState : null,
+        builder: (context, attendanceEmit) {
+          // sync state into mixin flag
+          handleAttendanceState(attendanceEmit);
+
+          final bool isLoadingAttendance =
+              attendanceEmit is! Success<AttendenceRes>;
+          final bool isCheckedIn =
+              !isLoadingAttendance &&
+              (attendanceEmit as Success<AttendenceRes>)
+                  .data!
+                  .data
+                  .is_checked_in &&
+              (attendanceEmit).data!.data.current_attendance.check_out_time ==
+                  null;
+
+          return SingleChildScrollView(
+            padding: const EdgeInsets.all(AppPadding.p20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: checkIn,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: context.theme.primaryColor,
-                      padding: const EdgeInsets.symmetric(vertical: 15),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(AppSizes.s8),
+                // ── Project selector (locked if checked-in) ────────────────
+                BlocSelector<ProjectsCubit, ProjectsState, BaseEmit?>(
+                  selector: (state) => state is ProjectsLoaded
+                      ? state.allProjectsResState
+                      : null,
+                  builder: (context, projectsEmit) {
+                    bool isLoadingProjects =
+                        projectsEmit is! Success<AllProjectsRes>;
+                    setDataIntoPJNotifier(projectsEmit);
+                    return Skeletonizer(
+                      // enabled: isLoadingProjects,
+                      enabled: isLoadingProjects || isLoadingAttendance,
+                      child: ValueListenableBuilder(
+                        valueListenable: projectsList,
+                        builder: (context, value, child) {
+                          return AbsorbPointer(
+                            absorbing: _isCheckedIn,
+                            child: BottomSheetSelector(
+                               listChoices: value,
+                              field: listFields[0],
+                              selectedNotifier: selectedProjectNotifier,
+                              isMultiSelect: false,
+                              title:  'project'.tr(),
+                            ),
+                          );
+
+                        },
                       ),
-                    ),
-                    child: Text(
-                      'check_in'.tr(),
-                      style: AppTextStyles.font16SemiBold.copyWith(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
+                    );
+                  },
                 ),
-                 Expanded(
-                  child: ElevatedButton(
-                    onPressed: checkOut,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red,
-                      padding: const EdgeInsets.symmetric(vertical: 15),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(AppSizes.s8),
+
+                if (isCheckedIn) ...[
+                  // lock indicator
+                  8.verticalSpace,
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.lock_outline,
+                        size: 14,
+                        color: Colors.orange.shade700,
                       ),
-                    ),
-                    child: Text(
-                      'check_out'.tr(),
-                      style: AppTextStyles.font16SemiBold.copyWith(
-                        color: Colors.white,
+                      4.horizontalSpace,
+                      Text(
+                        'selecting_project_will_be_locked_untill_you_check_out'.tr(),
+                        style: AppTextStyles.font14Regular.copyWith(
+                          color: Colors.orange.shade700,
+                        ),
                       ),
-                    ),
+                    ],
                   ),
+                ],
+
+                40.verticalSpace,
+
+                // ── Single button toggling check-in / check-out ─────────────
+                SizedBox(
+                  width: double.infinity,
+                  child: isLoadingAttendance
+                      ? const Center(child: CircularProgressIndicator())
+                      : isCheckedIn
+                      ? ElevatedButton.icon(
+                          onPressed: checkInOutToogle,
+                          icon: const Icon(Icons.logout, color: Colors.white),
+                          label: Text(
+                            'check_out'.tr(),
+                            style: AppTextStyles.font16SemiBold.copyWith(
+                              color: Colors.white,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                            padding: const EdgeInsets.symmetric(vertical: 15),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(AppSizes.s8),
+                            ),
+                          ),
+                        )
+                      : ElevatedButton.icon(
+                          onPressed: checkInOutToogle,
+                          icon: const Icon(Icons.login, color: Colors.white),
+                          label: Text(
+                            'check_in'.tr(),
+                            style: AppTextStyles.font16SemiBold.copyWith(
+                              color: Colors.white,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: context.theme.primaryColor,
+                            padding: const EdgeInsets.symmetric(vertical: 15),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(AppSizes.s8),
+                            ),
+                          ),
+                        ),
                 ),
               ],
-            )
-          ],
-        ),
+            ),
+          );
+        },
       ),
     );
   }

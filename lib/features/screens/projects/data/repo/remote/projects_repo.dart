@@ -19,6 +19,7 @@ import 'package:mkaweel/features/screens/projects/data/model/project_inoices_res
 import 'package:mkaweel/features/screens/projects/data/model/project_phases_res/project_phases_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/update_phase_parameter.dart';
 import 'package:mkaweel/features/screens/projects/data/model/pj_phase_update/pj_phase_update.dart';
+import 'package:mkaweel/features/tesg.dart';
 
 
 class ProjectsRepo extends BaseRepo {
@@ -29,6 +30,7 @@ class ProjectsRepo extends BaseRepo {
     NoParameter? parameter, {
     CancelToken? cancelToken,
   }) async {
+     return right(AllProjectsRes.fromJson(jsonPj)) ;
     return handleResponse(
       onCallData: dio.getData(
         uri: EndPoints.getAllProjects,

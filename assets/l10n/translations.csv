@@ -388,3 +388,8 @@ attendence,attendence,الحضور
 
 check_in,check in,تحقق في
 check_out,check out,الدفع
+
+checked_in_project_locked,checked in project locked,تم التحقق من المشروع مغلق
+attendance,attendance,حضور
+
+selecting_project_will_be_locked_untill_you_check_out,selecting project will be locked untill you check out,سيتم قفل اختيار المشروع حتى تقوم بالخروج
