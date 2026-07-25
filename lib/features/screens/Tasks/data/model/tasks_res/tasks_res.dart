@@ -34,11 +34,11 @@ class TaskItem with _$TaskItem, EquatableMixin {
   const factory TaskItem({
     required int id,
     required String name,
-    required String description,
+    required String? description,
     required String status,
     required String due_date,
     required ProjectInfoData project,
-    required Worker worker,
+    required Worker? worker,
     required ProjectphaseItem? project_phase,
   }) = _TaskItem;
 
@@ -69,10 +69,10 @@ class Worker with _$Worker, EquatableMixin {
     required String name,
     required String email,
     required String dob,
-    required String phone,
-    required String specialization,
+    required String? phone,
+    required String? specialization,
     required String role,
-    required String avatar,
+    required String? avatar,
     required String created_at,
     required String updated_at,
   }) = _Worker;

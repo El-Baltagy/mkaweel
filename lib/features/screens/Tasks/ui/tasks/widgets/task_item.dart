@@ -126,10 +126,10 @@ class _TaskListItem extends StatelessWidget {
                   style: AppTextStyles.font16SemiBold
                       .copyWith(color: AppColors.lightTextPrimary),
                 ),
-                if (taskItem.description.isNotEmpty) ...[
+                if (taskItem.description?.isNotEmpty==true) ...[
                   4.verticalSpace,
                   Text(
-                    taskItem.description,
+                    taskItem.description!,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: AppTextStyles.font12Regular

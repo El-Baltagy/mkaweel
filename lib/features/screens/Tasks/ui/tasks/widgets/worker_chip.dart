@@ -12,10 +12,10 @@ class _WorkerChip extends StatelessWidget {
         CircleAvatar(
           radius: AppSizes.s16,
           backgroundColor: AppColors.primaryLightColor.withOpacity(0.1),
-          backgroundImage: worker.avatar.isNotEmpty
-              ? NetworkImage(worker.avatar)
+          backgroundImage: worker.avatar?.isNotEmpty==true
+              ? NetworkImage(worker.avatar!)
               : null,
-          child: worker.avatar.isEmpty
+          child: worker.avatar?.isEmpty==true
               ? const Icon(Icons.person,
               size: AppSizes.s16, color: AppColors.primaryLightColor)
               : null,

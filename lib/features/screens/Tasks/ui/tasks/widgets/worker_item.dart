@@ -11,7 +11,7 @@ class WorkerItemWidget extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: AppSizes.s10,
-          backgroundImage: NetworkImage(worker.avatar),
+          backgroundImage: NetworkImage(worker.avatar??''),
           onBackgroundImageError: (_, __) {},
           child: const Icon(
             Icons.person,
