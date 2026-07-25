@@ -70,9 +70,9 @@ abstract class AttendencePageBaseState extends State<AttendencePage> {
 
 
 
-  void checkInOutToogle() {
+  void checkInOutToogle() async{
     if (selectedProjectNotifier.value.isEmpty) {
-      context.showToast('please_select_project'.tr(), isSuccess: false);
+      await context.showToast('please_select_project'.tr(), isSuccess: false);
       return;
     }
     if(_isCheckedInNotifier.value){
@@ -80,7 +80,7 @@ abstract class AttendencePageBaseState extends State<AttendencePage> {
     }else{
       PrintHelper().ordinaryPrint(".............checkin action");
     }
-    attendenceCubit.checkInOutToogleFunc(parameter: CheckInOutParameter(
+   await  attendenceCubit.checkInOutToogleFunc(parameter: CheckInOutParameter(
       latLng: LatLng(33.51380000, 36.27650000),
       projectId: _isCheckedInNotifier.value ? null : projectsList.value[selectedProjectNotifier.value.first].apiValue.id,
     ));

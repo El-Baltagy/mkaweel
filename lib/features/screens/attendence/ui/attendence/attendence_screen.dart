@@ -56,10 +56,19 @@ class _AttendencePageState extends AttendencePageBaseState {
       actions: [
         GestureDetector(
             onTap:    attendenceCubit.getCurrentAttendenceFunc ,
-            child: Icon(Icons.refresh_rounded))
+            child: Padding(
+              padding: const  .symmetric(horizontal: 10.0),
+              child: Icon(Icons.refresh_rounded),
+            ))
       ],
       ),
       body: BlocListener<AttendenceCubit, AttendenceState>(
+        listenWhen: (previous, current) {
+          if (previous is AttendenceLoaded && current is AttendenceLoaded) {
+            return previous.checkInOutToogleState != current.checkInOutToogleState;
+          }
+          return true;
+        },
         listener: listenerAttendenceCubit,
         child: BlocSelector<AttendenceCubit, AttendenceState, BaseEmit?>(
           selector: (state) =>
@@ -116,14 +125,13 @@ class _AttendencePageState extends AttendencePageBaseState {
                             Icon(
                               Icons.lock_outline,
                               size: 14,
-                              color: Colors.orange.shade700,
+                              color: context.theme.colorScheme.secondary
                             ),
                             4.horizontalSpace,
                             Text(
-                              'selecting_project_will_be_locked_untill_you_check_out'
-                                  .tr(),
+                              'selecting_project_will_be_locked_untill_you_check_out'  .tr(),
                               style: AppTextStyles.font14Regular.copyWith(
-                                color: Colors.orange.shade700,
+                                color: context.theme.colorScheme.secondary
                               ),
                             ),
                           ],
