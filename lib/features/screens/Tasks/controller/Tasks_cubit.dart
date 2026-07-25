@@ -32,6 +32,8 @@ class TasksCubit extends BaseCubit<TasksState> {
 
     int get addUpdateTaskFuncKeyCode => AppConstant.addUpdateTaskFuncKeyCode;
 
+    int get workerMarkTaskCompleteKeyCode => AppConstant.workerMarkTaskCompleteKeyCode;
+
   Future<void> init() async {
      // TODO: implement init
 
@@ -62,6 +64,9 @@ class TasksCubit extends BaseCubit<TasksState> {
 
   @override
   Future<void> close() {
+    // add every key in file
+    CancelManager.cancel(workerMarkTaskCompleteKeyCode);
+
     // add every key in file
     CancelManager.cancel(addUpdateTaskFuncKeyCode);
 
@@ -116,6 +121,40 @@ class TasksCubit extends BaseCubit<TasksState> {
           onLoadCallback: () => safeEmit(_current.copyWith(addUpdateTaskFuncState: Loading())),
           onRightCallback: (data) => safeEmit(_current.copyWith(addUpdateTaskFuncState: Success(data))),
           onLeftCallback: (failure) => safeEmit(_current.copyWith(addUpdateTaskFuncState: ErrorState(failure))),
+        ),
+      );
+    });
+  }
+
+  Future<void> workerMarkTaskCompleteFunc( {DeleteProjectParameter? parameter}) async {
+    await CancelManager.runCancelableFun(workerMarkTaskCompleteKeyCode, (token) async {
+      await _service.workerMarkTaskCompleteServ(
+        RequestCallbackObserver<DeleteProjectRes,DeleteProjectParameter >(
+           parameter: parameter,
+          cancelToken: token,
+          onLoadCallback: () => safeEmit(_current.copyWith(workerMarkTaskCompleteState: Loading<String>(parameter?.id))),
+          onRightCallback: (data) {
+            final currentTasksState = _current.getTasksState;
+            BaseEmit? updatedTasksState = currentTasksState;
+            if (currentTasksState is Success<TasksRes> &&
+                currentTasksState.data != null &&
+                parameter != null) {
+              final updatedList = currentTasksState.data!.data.map((t) {
+                if (t.id.toString() == parameter.id) {
+                  return t.copyWith(status: 'completed');
+                }
+                return t;
+              }).toList();
+              updatedTasksState = Success(
+                currentTasksState.data!.copyWith(data: updatedList),
+              );
+            }
+            safeEmit(_current.copyWith(
+              workerMarkTaskCompleteState: Success(data),
+              getTasksState: updatedTasksState,
+            ));
+          },
+          onLeftCallback: (failure) => safeEmit(_current.copyWith(workerMarkTaskCompleteState: ErrorState(failure))),
         ),
       );
     });

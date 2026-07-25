@@ -113,5 +113,9 @@ abstract class AppConstant {
   static const String checkInOutToogleKeyCash = 'attendence_checkInOutToogle_cache';
 
   static const int checkInOutToogleKeyCode = 1417;
+
+  static const String workerMarkTaskCompleteKeyCash = 'Tasks_workerMarkTaskComplete_cache';
+
+  static const int workerMarkTaskCompleteKeyCode = 2719;
 }
 

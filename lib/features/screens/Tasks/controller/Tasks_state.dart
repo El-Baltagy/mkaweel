@@ -6,6 +6,7 @@ abstract class TasksState {}
 class TasksLoaded extends TasksState {
 
   TasksLoaded({
+    this.workerMarkTaskCompleteState,
     this.addUpdateTaskFuncState,
     this.deleteTaskState,
     this.getTasksState,
@@ -13,10 +14,11 @@ class TasksLoaded extends TasksState {
      this.allWorkersEmit,
     this.refreshOrInit,
    });
-  final BaseEmit? allWorkersEmit , homeTasksState, getTasksState, deleteTaskState, addUpdateTaskFuncState;
+  final BaseEmit? allWorkersEmit , homeTasksState, getTasksState, deleteTaskState, addUpdateTaskFuncState, workerMarkTaskCompleteState;
   final TasksState? refreshOrInit;
 
   TasksLoaded copyWith({
+    BaseEmit? workerMarkTaskCompleteState,
     BaseEmit? addUpdateTaskFuncState,
     BaseEmit? deleteTaskState,
     BaseEmit? getTasksState,
@@ -25,6 +27,7 @@ class TasksLoaded extends TasksState {
     TasksState? refreshOrInit,
   }) {
     return TasksLoaded(
+      workerMarkTaskCompleteState: workerMarkTaskCompleteState ?? this.workerMarkTaskCompleteState,
       addUpdateTaskFuncState: addUpdateTaskFuncState ?? this.addUpdateTaskFuncState,
       deleteTaskState: deleteTaskState ?? this.deleteTaskState,
       getTasksState: getTasksState ?? this.getTasksState,

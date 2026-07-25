@@ -68,4 +68,18 @@ class TasksRepo extends BaseRepo {
       asObject: DeleteProjectRes.fromJson,
     );
   }
+
+  Future<Either<Failure,DeleteProjectRes >> workerMarkTaskCompleteApi(
+      DeleteProjectParameter? parameter, {
+    CancelToken? cancelToken,
+  }) async {
+    return handleResponse(
+      onCallData: dio.getData(
+        uri: EndPoints.workerMarkTaskComplete(parameter!.id),
+        cancelToken: cancelToken,
+        caller: callerTag(),
+      ),
+      asObject: DeleteProjectRes.fromJson,
+    );
+  }
 }

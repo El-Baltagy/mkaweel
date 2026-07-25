@@ -70,4 +70,6 @@ abstract class EndPoints {
 
   static const String checkOut  = '/api/worker/attendance/check-out';
   static const String checkIn  = '/api/worker/attendance/check-in';
+
+  static   String workerMarkTaskComplete  (String id)=> '/api/worker/tasks/$id/complete';
 }

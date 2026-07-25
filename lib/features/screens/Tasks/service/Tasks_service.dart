@@ -64,4 +64,15 @@ class TasksService extends BaseService {
       )
     );
   }
+
+  Future<void> workerMarkTaskCompleteServ(
+    RequestCallbackObserver<DeleteProjectRes,DeleteProjectParameter > requestInfo,
+  ) {
+     return requestInfo.handleRequest(
+      fetchFromClient: (token) => _remoteRepo.workerMarkTaskCompleteApi(
+        requestInfo.parameter,
+        cancelToken: token,
+      )
+    );
+  }
 }
