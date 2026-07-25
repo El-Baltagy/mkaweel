@@ -77,16 +77,27 @@ abstract class AttendencePageBaseState extends State<AttendencePage> {
     }
     if(_isCheckedInNotifier.value){
       PrintHelper().ordinaryPrint(".............checkout action");
-
     }else{
-
       PrintHelper().ordinaryPrint(".............checkin action");
     }
-    attendenceCubit.getCurrentAttendenceFunc();
-    // setState(() {
-    //   _isCheckedIn= !_isCheckedIn;
-    // });
+    attendenceCubit.checkInOutToogleFunc(parameter: CheckInOutParameter(
+      latLng: LatLng(33.51380000, 36.27650000),
+      projectId: _isCheckedInNotifier.value?null:projectsList.value[selectedProjectNotifier.value.first].apiValue.id,
+    ));
+
+
+CircularProgressIndicator
 
   }
-
+  listenerAttendenceCubit(BuildContext c,AttendenceState state){
+  if(state is AttendenceLoaded){
+    if(state.checkInOutToogleState is Success<AttendenceRes>){
+      context.showToast((state as Success<AttendenceRes>).data!.message );
+      attendenceCubit.getCurrentAttendenceFunc();
+    }
+    if(state is ErrorState){
+      context.showToast((state as ErrorState).failure.message);
+    }
+  }
+  }
  }

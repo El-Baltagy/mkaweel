@@ -109,5 +109,9 @@ abstract class AppConstant {
   static const String getCurrentAttendenceKeyCash = 'attendence_getCurrentAttendence_cache';
 
   static const int getCurrentAttendenceKeyCode = 4212;
+
+  static const String checkInOutToogleKeyCash = 'attendence_checkInOutToogle_cache';
+
+  static const int checkInOutToogleKeyCode = 1417;
 }
 

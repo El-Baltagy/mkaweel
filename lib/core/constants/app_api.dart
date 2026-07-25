@@ -67,4 +67,7 @@ abstract class EndPoints {
   static   String  updateTaskFunc (String id)=> '/api/tasks/$id/update';
 
   static const String getCurrentAttendence = '/api/worker/attendance/status';
+
+  static const String checkOut  = '/api/worker/attendance/check-out';
+  static const String checkIn  = '/api/worker/attendance/check-in';
 }
