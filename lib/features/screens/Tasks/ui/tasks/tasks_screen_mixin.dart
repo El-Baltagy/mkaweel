@@ -11,12 +11,12 @@ abstract class TasksPageBaseState extends State<TasksPage> {
     tasksCubit.getTasksFunc(parameter: widget.args.baseTasksData);
   }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
+
   void tasksListener(context, state) {
-    // TODO: implement listener
+     if (state is TasksLoaded) {
+       if (state.addUpdateTaskFuncState is Success) {
+         tasksCubit.getTasksFunc(parameter: widget.args.baseTasksData);
+       }
+     }
   }
 }

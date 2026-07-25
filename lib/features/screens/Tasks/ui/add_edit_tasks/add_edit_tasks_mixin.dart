@@ -2,7 +2,7 @@ part of 'add_edit_tasks_screen.dart';
 
 abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
   final List<UIApiKeys<String>> statusChoices = [
-    UIApiKeys('pending_status'.tr(), 'pending'),
+    UIApiKeys('pending_status'.tr(), 'Pending'),
     UIApiKeys('in_progress_status'.tr(), 'in_progress'),
     UIApiKeys('completed_status'.tr(), 'completed'),
   ];
@@ -150,19 +150,43 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
     );
   }
 
-  Future<void> saveTask( ) async {
-     if (await _key.validateAndScroll(context, listRecorder: listFields)) {
+  void taskListener(BuildContext context, TasksState state) {
+    if (state is TasksLoaded) {
+      if (state.addUpdateTaskFuncState is Success<DeleteProjectRes>) {
+        final DeleteProjectRes data =
+            (state.addUpdateTaskFuncState as Success<DeleteProjectRes>).data!;
+        if (data.status == 'success') {
+          context.showToast(data.message).whenComplete(() => context.pop());
+        }
+      } else if (state.addUpdateTaskFuncState is ErrorState) {
+        final ErrorState f = state.addUpdateTaskFuncState as ErrorState;
+        context.showToast(f.failure.message, isSuccess: false);
+      }
+    }
+  }
+
+  Future<void> saveTask() async {
+    if (await _key.validateAndScroll(context, listRecorder: listFields)) {
       await tasksCubit.addUpdateTaskFuncFunc(
         parameter: AddEditTaskRequest(
           name: _nameController.text.trim(),
           description: _descriptionController.text.trim(),
           dueDate: _dueDateController.text.trim(),
           taskId: widget.args.taskItem?.id.toString(),
+          status: statusChoices[statusNotifier.value.first].apiValue,
+          workerId:
+              workersList.value[selectedWorkerNotifier.value.first].apiValue,
+          projectId: projectsList
+              .value[selectedProjectNotifier.value.first]
+              .apiValue
+              .id
+              .toString(),
 
-          status:  ,
-          projectId: '',
-          workerId: '',
-          projectPhaseId: '',
+          projectPhaseId: phaseList
+              .value[selectedPhaseNotifier.value.first]
+              .apiValue
+              .id
+              .toString(),
         ),
       );
     }

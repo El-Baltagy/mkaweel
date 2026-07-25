@@ -5,6 +5,7 @@ import 'package:mkaweel/core/api_helper/cancel/cancel_manager.dart';
 import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mkaweel/core/shared/methods/print.dart';
 import 'package:mkaweel/features/screens/Tasks/data/model/add_edit_update_task_parameter.dart';
 import 'package:mkaweel/features/screens/Tasks/data/model/tasks_res/tasks_res.dart';
 import 'package:mkaweel/features/screens/Tasks/ui/tasks/base_tasks_data.dart';
@@ -102,8 +103,9 @@ class TasksCubit extends BaseCubit<TasksState> {
     });
   }
 
-  Future<void> addUpdateTaskFuncFunc( {AddEditTaskRequest? parameter}) async {
-    await CancelManager.runCancelableFun(addUpdateTaskFuncKeyCode, (token) async {
+  Future<void> addUpdateTaskFuncFunc( {required AddEditTaskRequest  parameter}) async {
+    PrintHelper().ordinaryPrint(parameter.toJson());
+     await CancelManager.runCancelableFun(addUpdateTaskFuncKeyCode, (token) async {
       await _service.addUpdateTaskFuncServ(
         RequestCallbackObserver<DeleteProjectRes, AddEditTaskRequest>(
            parameter: parameter,

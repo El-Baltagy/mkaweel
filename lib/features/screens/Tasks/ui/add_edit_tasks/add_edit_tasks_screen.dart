@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/app/route.dart';
@@ -21,6 +22,7 @@ import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart
 import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
 import 'package:mkaweel/features/screens/projects/data/model/all_projects_res/all_projects_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/create_project_res/create_project_res.dart';
+import 'package:mkaweel/features/screens/projects/data/model/delete_project_res/delete_project_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/get_project_data_parameter.dart';
 import 'package:mkaweel/features/screens/projects/data/model/project_phases_res/project_phases_res.dart';
 import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/title_with_input.dart';
@@ -59,15 +61,13 @@ class _AddEditTasksPageState extends AddEditTasksBaseState {
   @override
   Widget build(BuildContext context) {
     return BlocListener<TasksCubit, TasksState>(
-      listener: (context, state) {
-        // Handle states here (loading, success, error)
-      },
+      listener: taskListener,
       child: Scaffold(
         backgroundColor: context.theme.scaffoldBackgroundColor,
         appBar:CustomAppBar(
           title:   widget.args.taskItem == null ? 'create_task_title'.tr() : 'edit_task'.tr() ,
         ),
-
+        bottomNavigationBar: buildBtn(),
         body: Form(
           key: _key,
           child: SingleChildScrollView(
@@ -89,43 +89,6 @@ class _AddEditTasksPageState extends AddEditTasksBaseState {
                 buildStatusSelector(),
 
                 buildDescription(),
-                30.verticalSpace,
-
-                SizedBox(
-                  width: double.infinity,
-                  height: AppSizes.s48,
-                  child: BlocSelector<TasksCubit, TasksState,BaseEmit?>(
-                    selector: (state) => state is TasksLoaded?state.addUpdateTaskFuncState:null,
-                    builder: (context, state) {
-                      bool isLoading = state is Loading; // Add your loading condition here
-                      return isLoading
-                          ? Row(
-                        mainAxisAlignment: .center,
-                            children: [
-                              CircularProgressIndicator(
-                                                      color: context.theme.scaffoldBackgroundColor,
-                                                    ),
-                            ],
-                          )
-                          : ElevatedButton(
-                        onPressed: saveTask,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: context.theme.primaryColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(AppSizes.s8),
-                          ),
-                        ),
-                        child: Text(
-                          'save'.tr(),
-                          style: AppTextStyles.font16SemiBold.copyWith(
-                            color: context.theme.scaffoldBackgroundColor,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                20.verticalSpace,
               ],
             ),
           ),
@@ -133,6 +96,44 @@ class _AddEditTasksPageState extends AddEditTasksBaseState {
       ),
     );
   }
+
+  Container buildBtn() {
+    return Container(
+        margin: const EdgeInsets.all(20).copyWith(top: 10),
+        width: double.infinity,
+        height: AppSizes.s48,
+        child: BlocSelector<TasksCubit, TasksState,BaseEmit?>(
+          selector: (state) => state is TasksLoaded?state.addUpdateTaskFuncState:null,
+          builder: (context, state) {
+            bool isLoading = state is Loading; // Add your loading condition here
+            return isLoading
+                ? const Row(
+              mainAxisAlignment: .center,
+              children: [
+                CircularProgressIndicator(  ),
+              ],
+            )
+                : ElevatedButton(
+              onPressed: saveTask,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: context.theme.primaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(AppSizes.s8),
+                ),
+              ),
+              child: Text(
+                'save'.tr(),
+                style: AppTextStyles.font16SemiBold.copyWith(
+                  color: context.theme.scaffoldBackgroundColor,
+                ),
+              ),
+            );
+          },
+        ),
+      );
+  }
+
+
 
   TitleWithInputField buildName() {
     return TitleWithInputField(
@@ -177,8 +178,6 @@ class _AddEditTasksPageState extends AddEditTasksBaseState {
       selector: (state)=>state is ProjectsLoaded?state.getProjectPhasesState:null,
       builder: (context, state) {
         bool isLoading=
-        // widget.args.taskItem==null&&selPj.isEmpty?
-        //     false:
         state is !Success<ProjectPhasesRes>;
         setDataIntoPhaseNotifier(state);
         return Skeletonizer(
