@@ -89,7 +89,7 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
       if (widget.args.taskItem != null) {
         final workerIndex = workersList.value.indexWhere(
           (element) =>
-              element.apiValue == widget.args.taskItem!.worker.id.toString(),
+              element.apiValue == widget.args.taskItem!.worker?.id.toString(),
         );
         if (workerIndex != -1) {
           selectedWorkerNotifier.value = [workerIndex];

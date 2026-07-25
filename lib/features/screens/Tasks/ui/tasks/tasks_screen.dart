@@ -57,7 +57,11 @@ class _TasksPageState extends TasksPageBaseState {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title:widget.args.baseTasksData.title.tr()),
+      appBar: CustomAppBar(title:widget.args.baseTasksData.title.tr(),
+      actions: [
+        IconButton(onPressed:  ()async => await  tasksCubit.getAllTasksFunc(parameter: widget.args.baseTasksData) , icon: Icon(Icons.refresh))
+      ],
+      ),
       body: BlocSelector<TasksCubit, TasksState, BaseEmit?>(
         selector: (state) => state is TasksLoaded ? state.getTasksState : null,
         builder: (context, state) {

@@ -169,8 +169,11 @@ class _TaskListItem extends StatelessWidget {
                     ),
                   ],
                 ),
-                8.verticalSpace,
-                _WorkerChip(worker: taskItem.worker),
+                if(taskItem.worker!=null)
+                ...[
+                  8.verticalSpace,
+                  _WorkerChip(worker: taskItem.worker!),
+                ]
               ],
             ),
           ),
