@@ -39,7 +39,7 @@ extension RequestHandler<T, P> on RequestCallbackObserver<T, P> {
       if (fetchLocal != null) {
         final localData = await fetchLocal();
         if (localData != null) {
-          onRightCallback(localData);
+          Future.microtask(() => onRightCallback(localData));
           return;
         }
       }

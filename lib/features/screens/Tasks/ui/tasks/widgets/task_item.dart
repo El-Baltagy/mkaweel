@@ -50,7 +50,7 @@ class _TaskListItem extends StatelessWidget {
                     borderRadius: BorderRadius.circular(AppSizes.s20),
                   ),
                   child: Text(
-                    taskItem.status,
+                    taskItem.status.toLowerCase().tr(),
                     style: AppTextStyles.font12Regular.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.w600,
@@ -64,7 +64,7 @@ class _TaskListItem extends StatelessWidget {
                   onTap: () async {
                     final result = await context.push(AddEditTasksRoute(args: AddEditTasksRouteArgs(
                         taskItem ,
-                        tasksCubit
+                        tasksCubit, parameter
                     )));
                     if (result == true) {
                       await tasksCubit.getTasksFunc(

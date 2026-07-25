@@ -61,6 +61,12 @@ class _AddEditTasksPageState extends AddEditTasksBaseState {
   @override
   Widget build(BuildContext context) {
     return BlocListener<TasksCubit, TasksState>(
+      listenWhen: (previous, current) {
+        if (previous is TasksLoaded && current is TasksLoaded) {
+          return previous.addUpdateTaskFuncState != current.addUpdateTaskFuncState;
+        }
+        return true;
+      },
       listener: taskListener,
       child: Scaffold(
          appBar:CustomAppBar(
@@ -85,7 +91,7 @@ class _AddEditTasksPageState extends AddEditTasksBaseState {
 
                 buildDOB(context),
 
-                buildStatusSelector(),
+                // buildStatusSelector(),
 
                 buildDescription(),
               ],

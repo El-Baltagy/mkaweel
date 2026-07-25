@@ -536,9 +536,10 @@ class AddEditTasksRoute extends PageRouteInfo<AddEditTasksRouteArgs> {
   PageInfo<AddEditTasksRouteArgs>(name);
 }
 class AddEditTasksRouteArgs {
-  const AddEditTasksRouteArgs( this.taskItem,this.tasksCubit);
+  const AddEditTasksRouteArgs( this.taskItem,this.tasksCubit,this.baseTasksData);
   final TaskItem? taskItem;
   final TasksCubit tasksCubit;
+  final BaseTasksData baseTasksData;
 
  }
 

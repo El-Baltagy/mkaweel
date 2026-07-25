@@ -156,7 +156,9 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
         final DeleteProjectRes data =
             (state.addUpdateTaskFuncState as Success<DeleteProjectRes>).data!;
         if (data.status == 'success') {
-          context.showToast(data.message).whenComplete(() => context.pop());
+          context.showToast(data.message);
+          context.pop();
+          tasksCubit.getTasksFunc(parameter: widget.args.baseTasksData);
         }
       } else if (state.addUpdateTaskFuncState is ErrorState) {
         final ErrorState f = state.addUpdateTaskFuncState as ErrorState;
@@ -173,7 +175,8 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
           description: _descriptionController.text.trim(),
           dueDate: _dueDateController.text.trim(),
           taskId: widget.args.taskItem?.id.toString(),
-          status: statusChoices[statusNotifier.value.first].apiValue,
+          status: statusChoices.first.apiValue,
+          // status: statusChoices[statusNotifier.value.first].apiValue,
           workerId:
               workersList.value[selectedWorkerNotifier.value.first].apiValue,
           projectId: projectsList
