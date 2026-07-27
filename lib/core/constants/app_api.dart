@@ -17,7 +17,8 @@ abstract class EndPoints {
   static const String updateProfile = '/api/update_profile';
 
 
-  static const String getAllProjects = '/api/projects';
+  static const String getAdminProjects = '/api/projects';
+  static const String getWorkerProjects = '/api/worker/projects';
   static const String createProject = '/api/projects';
   static   String updateProject (String id) => '/api/projects/$id/update';
    static String getProjectData(String id) => '/api/projects/$id';

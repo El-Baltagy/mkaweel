@@ -6,12 +6,14 @@ import 'package:mkaweel/features/screens/projects/data/model/all_projects_res/al
 import 'package:mkaweel/features/screens/projects/data/model/create_project_res/create_project_res.dart';
 import 'package:mkaweel/features/screens/projects/ui/all_projects/widgets/empty_projects_widget.dart';
 import 'package:mkaweel/features/screens/projects/ui/all_projects/widgets/project_card.dart';
+import 'package:mkaweel/features/screens/settings/data/base_type_worker.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class ProjectsListWidget extends StatelessWidget {
-  const ProjectsListWidget({super.key, required this.state, required this.projectsCubit});
+  const ProjectsListWidget({super.key, required this.state, required this.projectsCubit,required this.baseTypeAdmin});
   final BaseEmit? state;
   final ProjectsCubit projectsCubit;
+  final BaseUserType baseTypeAdmin;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class ProjectsListWidget extends StatelessWidget {
           children: list.map((e) => Skeletonizer(
             enabled:  isLoading,
             child: ProjectCard(
+              baseTypeAdmin: baseTypeAdmin,
               margin: const .symmetric(horizontal: 12,vertical: 6),
               projectsCubit:projectsCubit ,
               projectInfoData:e

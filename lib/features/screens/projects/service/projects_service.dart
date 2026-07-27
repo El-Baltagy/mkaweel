@@ -14,6 +14,7 @@ import 'package:mkaweel/features/screens/projects/data/model/project_phases_res/
 import 'package:mkaweel/features/screens/projects/data/model/update_phase_parameter.dart';
 import 'package:mkaweel/features/screens/projects/data/repo/remote/projects_repo.dart';
 import 'package:mkaweel/features/screens/projects/data/model/pj_phase_update/pj_phase_update.dart';
+import 'package:mkaweel/features/screens/settings/data/base_type_worker.dart';
 
 
 class ProjectsService extends BaseService {
@@ -23,7 +24,7 @@ class ProjectsService extends BaseService {
   final BaseLocalRepo _localRepo;
 
   Future<void> getAllProjectsServ(
-    RequestCallbackObserver<AllProjectsRes, NoParameter> requestInfo,
+    RequestCallbackObserver<AllProjectsRes, BaseUserType> requestInfo,
   ) {
     const cacheKey = AppConstant.getAllProjectsKeyCash;
      return requestInfo.handleRequest(

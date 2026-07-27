@@ -56,6 +56,7 @@ import 'package:mkaweel/features/screens/Tasks/data/model/tasks_res/tasks_res.da
 import 'package:mkaweel/features/screens/Tasks/data/model/add_edit_update_task_parameter.dart';
 import 'package:mkaweel/features/screens/projects/data/model/delete_pj_parameter.dart';
 import 'package:mkaweel/features/screens/projects/ui/all_projects/widgets/delete_pj_dialouge.dart';
+import 'package:mkaweel/features/screens/settings/data/base_type_worker.dart';
 
 abstract class BaseTasksData {
   const BaseTasksData();
@@ -89,7 +90,7 @@ abstract class BaseTasksData {
         if (result == true) {
           await tasksCubit.getAllTasksFunc(parameter: parameter);
           if (parameter is! AdminTasksData || parameter.type != AdminTaskType.today) {
-            tasksCubit.getAllTasksFunc(parameter: const AdminTasksData(AdminTaskType.today));
+            await tasksCubit.getAllTasksFunc(parameter:   const AdminTasksData(AdminTaskType.today) );
           }
         }
       },

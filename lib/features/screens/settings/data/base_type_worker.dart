@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/Material.dart';
 import 'package:mkaweel/core/app/route.dart';
+import 'package:mkaweel/core/constants/app_api.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/features/screens/Tasks/ui/tasks/base_tasks_data.dart';
 import 'package:mkaweel/features/screens/main_home/ui/main_home_screen.dart';
@@ -12,16 +13,17 @@ import 'package:mkaweel/features/screens/settings/controller/settings_cubit.dart
 abstract class BaseUserType {
   const BaseUserType({
     required this.title,
+    required this.apiProjects,
   });
 
-  final String title;
+  final String title,apiProjects;
 
   List<SettingItem> buildSettingItems(BuildContext context,SettingsCubit  settingsCubit);
   List< NavItemData> buildRoutesNav( );
 }
 
 class BaseTypeAdmin extends BaseUserType {
-  BaseTypeAdmin._() : super(title: 'settings_title');
+  BaseTypeAdmin._() : super(title: 'settings_title',apiProjects: EndPoints.getAdminProjects);
    static final instance = BaseTypeAdmin._ ();
 
   @override
@@ -51,7 +53,7 @@ class BaseTypeAdmin extends BaseUserType {
 
 
 class BaseTypeWorker extends BaseUserType {
-  BaseTypeWorker ._() : super(title: 'home');
+  BaseTypeWorker ._() : super(title: 'home',apiProjects: EndPoints.getWorkerProjects);
 
   static final instance = BaseTypeWorker._ ();
 

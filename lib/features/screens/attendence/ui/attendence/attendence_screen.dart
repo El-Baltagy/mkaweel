@@ -20,6 +20,7 @@ import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/features/screens/projects/data/model/create_project_res/create_project_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/delete_project_res/delete_project_res.dart';
 import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/location_selection.dart';
+import 'package:mkaweel/features/screens/settings/data/base_type_worker.dart';
 import 'package:mkaweel/features/screens/workers/data/model/add_worker_data_request.dart';
 import 'package:mkaweel/features/screens/attendence/data/model/attendence_res/attendence_res.dart';
 import 'package:mkaweel/features/screens/workers/ui/add_workers/widgets/drop_down_role_selector.dart';

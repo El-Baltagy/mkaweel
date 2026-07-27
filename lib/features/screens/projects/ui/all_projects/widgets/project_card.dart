@@ -11,6 +11,7 @@ import 'package:mkaweel/features/screens/projects/data/model/create_project_res/
 import 'package:mkaweel/features/screens/projects/data/model/delete_pj_parameter.dart';
   import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/location_selection.dart';
 import 'package:mkaweel/features/screens/projects/ui/all_projects/widgets/delete_pj_dialouge.dart';
+import 'package:mkaweel/features/screens/settings/data/base_type_worker.dart';
 import 'package:skeletonizer/skeletonizer.dart';
  part 'info_row.dart';
  part 'location_row.dart';
@@ -20,6 +21,7 @@ class ProjectCard extends StatelessWidget {
   const ProjectCard({
     super.key,
     required this.projectInfoData,
+    required this.baseTypeAdmin,
     required this.projectsCubit,
     this.showEditDeleTasksBtns = true,
     this.margin,
@@ -27,6 +29,7 @@ class ProjectCard extends StatelessWidget {
 
   final ProjectInfoData projectInfoData;
   final ProjectsCubit projectsCubit;
+  final BaseUserType baseTypeAdmin;
   final bool showEditDeleTasksBtns;
   final EdgeInsetsGeometry? margin;
 
@@ -53,7 +56,7 @@ class ProjectCard extends StatelessWidget {
             ),
           );
           if (result == true) {
-            await projectsCubit.getAllProjectsFunc(Reload());
+            await projectsCubit.getAllProjectsFunc(Reload(),baseTypeAdmin);
           }
         },
       ),

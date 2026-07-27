@@ -27,6 +27,7 @@ import 'package:mkaweel/features/screens/projects/data/model/delete_project_res/
 import 'package:mkaweel/features/screens/projects/data/model/get_project_data_parameter.dart';
 import 'package:mkaweel/features/screens/projects/data/model/project_phases_res/project_phases_res.dart';
 import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/title_with_input.dart';
+import 'package:mkaweel/features/screens/settings/data/base_type_worker.dart';
 import 'package:mkaweel/features/screens/workers/controller/workers_cubit.dart';
 import 'package:mkaweel/features/screens/workers/data/model/add_worker_data_request.dart';
 import 'package:mkaweel/features/screens/workers/data/model/all_workers/all_workers.dart';

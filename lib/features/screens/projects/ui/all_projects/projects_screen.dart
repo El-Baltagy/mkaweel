@@ -13,6 +13,7 @@ import 'package:mkaweel/core/shared/widgets/classic_header_refresh.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
  import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/features/screens/projects/ui/all_projects/widgets/projects_list.dart';
+import 'package:mkaweel/features/screens/settings/data/base_type_worker.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 @RoutePage()
@@ -54,7 +55,7 @@ class _ProjectsPageState extends ProjectsPageBaseState {
            controller: refreshController,
            header: const ClassicHeaderRefresh(),
              onRefresh: () {
-                projectsCubit.getAllProjectsFunc(Reload()).whenComplete(() {
+                projectsCubit.getAllProjectsFunc(Reload(),baseTypeAdmin).whenComplete(() {
                  refreshController.refreshCompleted();
                },);
              },
@@ -62,6 +63,7 @@ class _ProjectsPageState extends ProjectsPageBaseState {
                   selector: (state) =>state is ProjectsLoaded ? state.allProjectsResState : null,
                   builder: (context, state) {
            return ProjectsListWidget(
+             baseTypeAdmin: baseTypeAdmin,
                 projectsCubit: projectsCubit,
              state: state,
            );
@@ -75,7 +77,7 @@ class _ProjectsPageState extends ProjectsPageBaseState {
            onPressed: () async {
              final result = await context.push(CreateProjectRoute(args:   CreateProjectRouteArgs(null,projectsCubit)));
              if (result == true) {
-               await projectsCubit.getAllProjectsFunc(Reload());
+               await projectsCubit.getAllProjectsFunc(Reload(),baseTypeAdmin);
              }
            },
            child:   Icon(Icons.add, color: context.theme.scaffoldBackgroundColor),
@@ -88,13 +90,14 @@ class _ProjectsPageState extends ProjectsPageBaseState {
 }
 
 abstract class  ProjectsPageBaseState extends State<ProjectsPage> {
+    BaseUserType baseTypeAdmin=BaseTypeAdmin.instance;
   late final ProjectsCubit projectsCubit;
   RefreshController refreshController=.new();
   @override
   void initState() {
     super.initState();
     projectsCubit = ProjectsCubit.get(context: context);
-    projectsCubit.getAllProjectsFunc(Init());
+    projectsCubit.getAllProjectsFunc(Init(),baseTypeAdmin);
   }
 
   @override

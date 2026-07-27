@@ -54,7 +54,7 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
     workersCubit.getWorkersFunc();
 
     selectedProjectNotifier.addListener(_onProjectChanged);
-    projectsCubit.getAllProjectsFunc(Init());
+    projectsCubit.getAllProjectsFunc(Init(),BaseTypeAdmin.instance);
   }
 
   @override

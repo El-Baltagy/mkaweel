@@ -59,7 +59,7 @@ abstract class InvoicePageBaseState extends State<InvoicePage> {
           .toList();
     }
 
-        await projectsCubit.getAllProjectsFunc(  Init());
+        await projectsCubit.getAllProjectsFunc(  Init(),BaseTypeAdmin.instance);
 
 
     final invoiceItem = widget.args.invoiceItem;

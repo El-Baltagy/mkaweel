@@ -17,6 +17,7 @@ import 'package:mkaweel/features/screens/dashboard/ui/ghant_chart/widgets/custom
  import 'package:mkaweel/features/screens/dashboard/ui/ghant_chart/widgets/gantt_project_dropdown_widget.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
+import 'package:mkaweel/features/screens/settings/data/base_type_worker.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 part 'ghant_screen_mixin.dart';

@@ -11,6 +11,7 @@ import 'package:mkaweel/core/shared/widgets/app_bar.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/data/model/delete_project_res/delete_project_res.dart';
+import 'package:mkaweel/features/screens/settings/data/base_type_worker.dart';
 import 'package:mkaweel/features/screens/workers/controller/workers_cubit.dart';
  import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/features/screens/workers/ui/workers_sc/widgets/workers_widgets.dart';
@@ -28,7 +29,7 @@ class WorkersPage extends StatefulWidget implements AutoRouteWrapper {
          create: (context) => WorkersCubit(AppLocator()()())..getWorkersFunc(),
       ),
       BlocProvider<ProjectsCubit>(
-         create: (context) => ProjectsCubit(AppLocator()()())..getAllProjectsFunc(Init()),
+         create: (context) => ProjectsCubit(AppLocator()()())..getAllProjectsFunc(Init(),BaseTypeAdmin.instance),
       ),
 
     ], child: this);

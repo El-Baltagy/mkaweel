@@ -15,6 +15,7 @@ import 'package:mkaweel/features/screens/projects/data/model/get_project_data_pa
 import 'package:mkaweel/features/screens/projects/data/model/project_inoices_res/project_inoices_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/project_phases_res/project_phases_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/update_phase_parameter.dart';
+import 'package:mkaweel/features/screens/settings/data/base_type_worker.dart';
 import 'package:mkaweel/main.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
 import 'package:mkaweel/features/screens/projects/service/projects_service.dart';
@@ -124,12 +125,12 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
   }
 
   Future<void> getAllProjectsFunc(
-    BaseRequestBackType? baseRequestBackType, {
-    NoParameter? parameter,
-  }) async {
+    BaseRequestBackType? baseRequestBackType,
+        BaseUserType  parameter,
+   ) async {
     await CancelManager.runCancelableFun(getAllProjectsKeyCode, (token) async {
       await _service.getAllProjectsServ(
-        RequestCallbackObserver<AllProjectsRes, NoParameter>(
+        RequestCallbackObserver<AllProjectsRes, BaseUserType>(
           baseRequestBackType: baseRequestBackType,
           parameter: parameter,
           cancelToken: token,

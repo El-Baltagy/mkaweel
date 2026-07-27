@@ -12,7 +12,7 @@ abstract class GanttChartPageBaseState extends State<GanttChartPage> {
     dashboardCubit.init();
     super.initState();
 
-    projectsCubit.getAllProjectsFunc(Init());
+    projectsCubit.getAllProjectsFunc(Init(),BaseTypeAdmin.instance);
   }
 
 
