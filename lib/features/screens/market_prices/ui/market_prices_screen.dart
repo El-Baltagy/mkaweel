@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:mkaweel/core/base/base_state.dart';
@@ -20,8 +19,7 @@ import 'package:mkaweel/features/screens/market_prices/ui/widgets/currency_tabs_
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/search_and_filter_widget.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/price_item_widget.dart';
 import 'package:mkaweel/core/extension/context.dart';
-import 'package:mkaweel/features/screens/market_prices/ui/widgets/text_input_filter.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 @RoutePage()
 class MarketPricesPage extends StatefulWidget implements AutoRouteWrapper {
@@ -30,7 +28,7 @@ class MarketPricesPage extends StatefulWidget implements AutoRouteWrapper {
   @override
   Widget wrappedRoute(BuildContext context) {
     return BlocProvider<MarketPricesCubit>(
-      create: (context) => MarketPricesCubit(AppLocator()()()),
+      create: (context) => AppLocator()()() ,
       child: this,
     );
   }

@@ -9,6 +9,7 @@ import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/features/screens/market_prices/data/model/catogeries_res/catogeries_res.dart';
 import 'package:mkaweel/features/screens/market_prices/data/model/sub_catogeries_data/sub_catogeries_data.dart';
+import 'package:mkaweel/features/screens/market_prices/ui/widgets/currency_tabs_widget.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class SubCatogeries extends StatelessWidget {
@@ -63,12 +64,13 @@ class SubCatogeries extends StatelessWidget {
       ],
     ),
     child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment:  .spaceBetween,
       children: [
         Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment:  .end,
           children: [
-            Text(subCatogeryItem.unit_price.toString(), style: AppTextStyles.font18SemiBold.copyWith(color: Theme.of(context).primaryColor)),
+            Text( '${subCatogeryItem.unit_price} ${CurrencyTabsWidget.listTabs.firstWhere((e) =>e.shortcut==subCatogeryItem.currency?.toLowerCase().trim()).label}', style: AppTextStyles.font18SemiBold.copyWith(color: Theme.of(context).primaryColor)),
+            // Text( '${subCatogeryItem.unit_price} ${subCatogeryItem.currency}', style: AppTextStyles.font18SemiBold.copyWith(color: Theme.of(context).primaryColor)),
             5.verticalSpace,
             Text(DateTimeHelper.formatDateTimeFromString(
 
@@ -78,7 +80,7 @@ class SubCatogeries extends StatelessWidget {
           ],
         ),
         Column(
-          crossAxisAlignment:  .end,
+          crossAxisAlignment:  .start,
           children: [
             Row(
               children: [
@@ -109,7 +111,7 @@ class SubCatogeries extends StatelessWidget {
             Text(subCatogeryItem.unit.toString(), style: AppTextStyles.font12Regular),
           ],
         ),
-      ],
+      ].reversed.toList(),
     ),
   );
   }

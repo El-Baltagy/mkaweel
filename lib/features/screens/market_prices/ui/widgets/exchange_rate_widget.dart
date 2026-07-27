@@ -41,7 +41,7 @@ class ExchangeRateWidget extends StatelessWidget {
                 child: const Icon(Icons.sync, color: AppColors.contractorGreyText)),
             ValueListenableBuilder(valueListenable: currencyTabNotifier, builder: (context, value, child) {
               return Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment:  .start,
                 children: [
                   Text('live_exchange_rates'.tr(), style: AppTextStyles.font14Regular.copyWith(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold)),
                   5.verticalSpace,
@@ -54,7 +54,7 @@ class ExchangeRateWidget extends StatelessWidget {
                 ],
               );
             },),
-          ],
+          ].reversed.toList(),
         ),
       ),
     );
