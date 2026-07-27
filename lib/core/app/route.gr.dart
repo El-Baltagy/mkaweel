@@ -167,9 +167,10 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     DashboardRoute.name: (routeData) {
+      final args = routeData.argsAs< DashboardRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: WrappedRoute(child: const DashboardPage(args: args))),
+        child: WrappedRoute(child:   DashboardPage(args: args)) ,
       );
     },
 

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_constant.dart';
 import 'package:mkaweel/core/shared/methods/date_helper.dart';
@@ -9,16 +10,21 @@ import 'package:mkaweel/core/storage/storage_helper.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/extension/context.dart';
- import 'package:mkaweel/features/screens/dashboard/data/model/statistics_res/statistics_res.dart';
+import 'package:mkaweel/features/screens/Tasks/controller/Tasks_cubit.dart';
+import 'package:mkaweel/features/screens/Tasks/ui/tasks/base_tasks_data.dart';
+import 'package:mkaweel/features/screens/dashboard/data/model/statistics_res/statistics_res.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:auto_route/auto_route.dart';
 
 class DashboardHeaderWidget extends StatelessWidget {
-  const DashboardHeaderWidget({super.key, required this.state});
+  const DashboardHeaderWidget({super.key, required this.state, required this.tasksCubit});
   final BaseEmit? state;
+  final TasksCubit   tasksCubit;
   @override
   Widget build(BuildContext context) {
-    final bool isLoading= state is !Success<StatisticsRes>;
-    final StatisticData    statistics =isLoading?StatisticData.empty:(state as Success<StatisticsRes>).data!.data;
+    final bool isLoading = state is! Success<StatisticsRes>;
+    final StatisticData statistics = isLoading ? StatisticData.empty : (state as Success<StatisticsRes>).data!.data;
+    final items = list(context, statistics,tasksCubit);
 
     return Container(
       padding: const EdgeInsets.all(AppPadding.p20),
@@ -36,10 +42,12 @@ class DashboardHeaderWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                DateTimeHelper.formatDateTimeFromString(DateTime.now().toString(),DateFormat('dd MMM , EEE ',HiveStorage().readData(AppConstant.langCode)??'en')),
+                DateTimeHelper.formatDateTimeFromString(
+                  DateTime.now().toString(),
+                  DateFormat('dd MMM , EEE ', HiveStorage().readData(AppConstant.langCode) ?? 'en'),
+                ),
                 style: AppTextStyles.font14Regular.copyWith(color: context.theme.scaffoldBackgroundColor.withOpacity(0.8)),
               ),
-
             ],
           ),
           5.verticalSpace,
@@ -50,44 +58,46 @@ class DashboardHeaderWidget extends StatelessWidget {
           20.verticalSpace,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children:List.generate(list(statistics).length, (index) => Row(
+            children: List.generate(items.length, (index) => Row(
               spacing: 10,
               children: [
-                if(index!=0)
-                _buildDivider(context),
-                 GestureDetector(
-                   onTap: list(statistics)[index].$3 ,
-                   child: Column(
+                if (index != 0) _buildDivider(context),
+                GestureDetector(
+                  onTap: items[index].$3,
+                  child: Column(
                     children: [
                       Skeletonizer(
                         enabled: isLoading,
                         child: Text(
-                          list(statistics)[index].$1,
+                          items[index].$1,
                           style: AppTextStyles.font24Bold.copyWith(color: context.theme.scaffoldBackgroundColor),
                         ),
                       ),
                       Text(
-                        list(statistics)[index].$2,
+                        items[index].$2,
                         style: AppTextStyles.font14Regular.copyWith(color: context.theme.scaffoldBackgroundColor.withOpacity(0.8)),
                       ),
-
                     ],
-                                   ),
-                 ),
+                  ),
+                ),
               ],
-            ))
+            )),
           ),
         ],
       ),
     );
   }
 
-  List<(String, String,void Function()? onTap)> list(StatisticData statistics) {
+  List<(String, String, void Function()? onTap)> list(BuildContext context, StatisticData statistics,TasksCubit tasksCubit) {
     return [
-            (statistics.total_projects.toString(),'total_projects'.tr(),(){}),
-            (statistics.completed_projects.toString(),'completed_projects'.tr(),(){}),
-            (statistics.total_tasks.toString(),'total_tasks'.tr(),(){}),
-           ];
+      (statistics.total_projects.toString(), 'total_projects'.tr(), () {
+        AutoTabsRouter.of(context).setActiveIndex(1);
+      }),
+      (statistics.completed_projects.toString(), 'completed_projects'.tr(), () {}),
+      (statistics.total_tasks.toString(), 'total_tasks'.tr(), () {
+        context.push(TasksRoute(args: TasksRouteArgs( AdminTasksData(.all ),tasksCubit: tasksCubit)));
+      }),
+    ];
   }
 
 

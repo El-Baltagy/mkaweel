@@ -54,6 +54,7 @@ class _DashboardPageState extends DashboardPageBaseState {
                 builder: (context, state) {
                   return DashboardHeaderWidget(
                     state: state,
+                    tasksCubit: tasksCubit,
                   );
                 },
               ),

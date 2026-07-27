@@ -59,6 +59,7 @@ class _MainHomePageState extends MainHomePageBaseState {
                 : BaseTypeWorker.instance.buildRoutesNav( );
           }
           return AutoTabsScaffold(
+
             routes:   routesNav().map((e) => e.route).toList(),
             bottomNavigationBuilder: (context, tabsRouter) {
               return EntranceFader(
