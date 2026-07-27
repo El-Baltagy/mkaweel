@@ -19,7 +19,8 @@ abstract class InvoicePageBaseState extends State<InvoicePage> {
   final ValueNotifier<List<int>> selectedCurrencyNotifier = ValueNotifier([]);
   final ValueNotifier<String> attachmentNotifier = ValueNotifier('');
 
-  late  final List<UIApiKeys<String>> currenciesList = CurrencyTabsWidget.listTabs
+  late final List<UIApiKeys<String>> currenciesList = CurrencyTabsWidget
+      .listTabs
       .map((e) => UIApiKeys(e.label, e.shortcut))
       .toList();
 
@@ -38,8 +39,7 @@ abstract class InvoicePageBaseState extends State<InvoicePage> {
         "${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}";
     super.initState();
 
-    Future.delayed(Duration(milliseconds: 200),setDataIntoControllers);
-
+    Future.delayed(Duration(milliseconds: 200), setDataIntoControllers);
   }
 
   @override
@@ -49,80 +49,89 @@ abstract class InvoicePageBaseState extends State<InvoicePage> {
     notesController.dispose();
     categoriesList.dispose();
     projectsList.dispose();
+    attachmentNotifier.dispose();
+    selectedCurrencyNotifier.dispose();
+    selectedCategoryNotifier.dispose();
+    selectedProjectNotifier.dispose();
     super.dispose();
   }
+
   Future<void> setDataIntoControllers() async {
-    final categoriesRes = await marketPricesCubit.getCatogeriesFunc(  Init());
-    if (categoriesRes != null) {
-      categoriesList.value = categoriesRes.data
-          .map((e) => UIApiKeys(e.name, e.id.toString()))
-          .toList();
-    }
-
-        await projectsCubit.getAllProjectsFunc(  Init(),BaseTypeAdmin.instance);
-
-
     final invoiceItem = widget.args.invoiceItem;
+    await marketPricesCubit.getCatogeriesFunc(Init());
+    await projectsCubit.getAllProjectsFunc(Init(), BaseTypeAdmin.instance);
 
-    if (invoiceItem != null) {
-      amountController.text = invoiceItem.$1.amount.toString();
-      dateController.text = invoiceItem.$1.invoice_date;
-      notesController.text = invoiceItem.$1.notes ?? '';
+    /// controllers data
+    amountController.text = invoiceItem?.$1.amount.toString() ?? '';
+    dateController.text = invoiceItem?.$1.invoice_date ?? '';
+    notesController.text = invoiceItem?.$1.notes ?? '';
 
-      final projIndex = projectsList.value.indexWhere(
-        (element) => element.apiValue == invoiceItem.$1.project_id.toString(),
-      );
-      if (projIndex != -1) {
-        selectedProjectNotifier.value = [projIndex];
-      }
-
-      final catIndex = categoriesList.value.indexWhere(
-        (element) => element.apiValue == invoiceItem.$1.category_id.toString(),
-      );
-      if (catIndex != -1) {
-        selectedCategoryNotifier.value = [catIndex];
-      }
-
-      final currIndex = currenciesList.indexWhere(
-        (element) =>
-            element.apiValue.toLowerCase() ==
-            invoiceItem.$2.currency.toLowerCase(),
-      );
-      if (currIndex != -1) {
-        selectedCurrencyNotifier.value = [currIndex];
-      }
-
-      attachmentNotifier.value = invoiceItem.$1.attachment ?? '';
+    ///currency
+    final currIndex = currenciesList.indexWhere(
+      (element) =>
+          element.apiValue.toLowerCase() ==
+          invoiceItem?.$2.currency.toLowerCase(),
+    );
+    if (currIndex != -1) {
+      selectedCurrencyNotifier.value = [currIndex];
     }
+
+    ///attachment
+    attachmentNotifier.value = invoiceItem?.$1.attachment ?? '';
   }
-
-
 
   void dashboardListener(BuildContext context, DashboardState state) {
-    if(state is DashboardLoaded   ){
-      if(state.createInvoiceState is Success<InvoiceRes>){
-        final InvoiceRes data=(state.createInvoiceState as Success<InvoiceRes>).data!;
-        if(data.status=='success' ){
+    if (state is DashboardLoaded) {
+      if (state.createInvoiceState is Success<InvoiceRes>) {
+        final InvoiceRes data =
+            (state.createInvoiceState as Success<InvoiceRes>).data!;
+        if (data.status == 'success') {
           context.showToast(data.message).whenComplete(() => context.pop());
-         }
-      } else if(state.createInvoiceState is ErrorState){
-        final ErrorState f=state.createInvoiceState as ErrorState  ;
-        context.showToast(f.failure.message,
-            isSuccess: false
-        );
+        }
+      } else if (state.createInvoiceState is ErrorState) {
+        final ErrorState f = state.createInvoiceState as ErrorState;
+        context.showToast(f.failure.message, isSuccess: false);
       }
     }
   }
-  setDataIntoProjectController(BaseEmit? state){
+
+  setDataIntoCatogeriesController(BaseEmit? state) {
+    if (state is Success && categoriesList.value.isEmpty) {
+      final categoriesRes = state.data as CatogeriesRes?;
+      if (categoriesRes != null) {
+        categoriesList.value = categoriesRes.data
+            .map((e) => UIApiKeys(e.name, e.id.toString()))
+            .toList();
+        final catIndex = categoriesList.value.indexWhere(
+          (element) =>
+              element.apiValue == widget.args.invoiceItem?.$1.category_id.toString(),
+        );
+        if (catIndex != -1) {
+          selectedCategoryNotifier.value = [catIndex];
+        }
+      }
+    }
+  }
+
+  setDataIntoProjectController(BaseEmit? state) {
     if (state is Success && projectsList.value.isEmpty) {
       final projectsRes = state.data as AllProjectsRes?;
       if (projectsRes != null) {
         projectsList.value = projectsRes.data
             .map((e) => UIApiKeys(e.name, e.id.toString()))
             .toList();
+        final projIndex = projectsList.value.indexWhere(
+          (element) =>
+              element.apiValue ==
+              widget.args.invoiceItem?.$1.project_id.toString(),
+        );
+        if (projIndex != -1) {
+          selectedProjectNotifier.value = [projIndex];
+        }
       }
     }
   }
+
   Future<void> submitInvoice() async {
     if (await formKey.validateAndScroll(context, listRecorder: fields)) {
       if (!mounted) return;
@@ -140,11 +149,17 @@ abstract class InvoicePageBaseState extends State<InvoicePage> {
         parameter: CreateInvoiceParameter(
           amount: amountController.text,
           invoiceDate: dateController.text,
-          category: categoriesList.value[selectedCategoryNotifier.value.first].apiValue,
+          category: categoriesList
+              .value[selectedCategoryNotifier.value.first]
+              .apiValue,
           notes: notesController.text,
-          currency: currenciesList[selectedCurrencyNotifier.value.first].apiValue,
-          attachment: attachmentNotifier.value.isNotEmpty ? attachmentNotifier.value : null,
-          projectId: projectsList.value[selectedProjectNotifier.value.first].apiValue,
+          currency:
+              currenciesList[selectedCurrencyNotifier.value.first].apiValue,
+          attachment: attachmentNotifier.value.isNotEmpty
+              ? attachmentNotifier.value
+              : null,
+          projectId:
+              projectsList.value[selectedProjectNotifier.value.first].apiValue,
         ),
       );
     }

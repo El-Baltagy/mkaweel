@@ -51,12 +51,12 @@ class _MainHomePageState extends MainHomePageBaseState {
           return buildError();
         }
 
-        User? data = state is Success<User> ? state.data : null;
+        final User? data = state is Success<User> ? state.data : null;
         if (data != null) {
-          List<NavItemData> routesNav() {
+          List<NavItemData> routesNav( ) {
             return data.role.toLowerCase().trim() == 'admin'
-                ? BaseTypeAdmin.instance.buildRoutesNav()
-                : BaseTypeWorker.instance.buildRoutesNav();
+                ? BaseTypeAdmin.instance.buildRoutesNav( )
+                : BaseTypeWorker.instance.buildRoutesNav( );
           }
           return AutoTabsScaffold(
             routes:   routesNav().map((e) => e.route).toList(),
@@ -65,7 +65,7 @@ class _MainHomePageState extends MainHomePageBaseState {
                   delay:const Duration(milliseconds: 500),
                   dx: 0,
                   dy: 32,
-                  child: _BottomNavBar(tabsRouter: tabsRouter,routesNav:routesNav()));
+                  child: _BottomNavBar(tabsRouter: tabsRouter,routesNav:routesNav( )));
             },
           );
 

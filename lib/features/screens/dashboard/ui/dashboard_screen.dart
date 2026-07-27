@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
  import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/base/base_cubit.dart';
  import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
@@ -15,8 +16,9 @@ import 'package:mkaweel/features/screens/dashboard/ui/widgets/quick_tools_widget
 
 @RoutePage()
 class DashboardPage extends StatefulWidget implements AutoRouteWrapper {
-  const DashboardPage({super.key});
-
+  const DashboardPage({super.key, required this.args});
+final DashboardRouteArgs args;
+// final TabsRouter
   @override
   Widget wrappedRoute(BuildContext context) {
     return MultiBlocProvider(providers:[

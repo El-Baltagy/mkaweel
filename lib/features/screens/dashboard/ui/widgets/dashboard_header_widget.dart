@@ -5,13 +5,11 @@ import 'package:mkaweel/core/constants/app_constant.dart';
 import 'package:mkaweel/core/shared/methods/date_helper.dart';
 import 'package:mkaweel/core/storage/hive_storage.dart';
 import 'package:mkaweel/core/storage/storage_helper.dart';
-import 'package:mkaweel/core/theming/app_colors.dart';
-import 'package:mkaweel/core/theming/app_text_styles.dart';
+ import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/extension/context.dart';
-import 'package:mkaweel/features/screens/dashboard/controller/dashboard_cubit.dart';
-import 'package:mkaweel/features/screens/dashboard/data/model/statistics_res/statistics_res.dart';
+ import 'package:mkaweel/features/screens/dashboard/data/model/statistics_res/statistics_res.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class DashboardHeaderWidget extends StatelessWidget {
@@ -19,8 +17,8 @@ class DashboardHeaderWidget extends StatelessWidget {
   final BaseEmit? state;
   @override
   Widget build(BuildContext context) {
-    bool isLoading= state is !Success<StatisticsRes>;
-    StatisticData    statistics =isLoading?StatisticData.empty:(state as Success<StatisticsRes>).data!.data;
+    final bool isLoading= state is !Success<StatisticsRes>;
+    final StatisticData    statistics =isLoading?StatisticData.empty:(state as Success<StatisticsRes>).data!.data;
 
     return Container(
       padding: const EdgeInsets.all(AppPadding.p20),
@@ -57,22 +55,25 @@ class DashboardHeaderWidget extends StatelessWidget {
               children: [
                 if(index!=0)
                 _buildDivider(context),
-                 Column(
-                  children: [
-                    Skeletonizer(
-                      enabled: isLoading,
-                      child: Text(
-                        list(statistics)[index].$1,
-                        style: AppTextStyles.font24Bold.copyWith(color: context.theme.scaffoldBackgroundColor),
+                 GestureDetector(
+                   onTap: list(statistics)[index].$3 ,
+                   child: Column(
+                    children: [
+                      Skeletonizer(
+                        enabled: isLoading,
+                        child: Text(
+                          list(statistics)[index].$1,
+                          style: AppTextStyles.font24Bold.copyWith(color: context.theme.scaffoldBackgroundColor),
+                        ),
                       ),
-                    ),
-                    Text(
-                      list(statistics)[index].$2,
-                      style: AppTextStyles.font14Regular.copyWith(color: context.theme.scaffoldBackgroundColor.withOpacity(0.8)),
-                    ),
+                      Text(
+                        list(statistics)[index].$2,
+                        style: AppTextStyles.font14Regular.copyWith(color: context.theme.scaffoldBackgroundColor.withOpacity(0.8)),
+                      ),
 
-                  ],
-                                 ),
+                    ],
+                                   ),
+                 ),
               ],
             ))
           ),
@@ -81,11 +82,11 @@ class DashboardHeaderWidget extends StatelessWidget {
     );
   }
 
-  List<(String, String)> list(StatisticData statistics) {
+  List<(String, String,void Function()? onTap)> list(StatisticData statistics) {
     return [
-            (statistics.total_projects.toString(),'total_projects'.tr()),
-            (statistics.completed_projects.toString(),'completed_projects'.tr()),
-            (statistics.total_tasks.toString(),'total_tasks'.tr()),
+            (statistics.total_projects.toString(),'total_projects'.tr(),(){}),
+            (statistics.completed_projects.toString(),'completed_projects'.tr(),(){}),
+            (statistics.total_tasks.toString(),'total_tasks'.tr(),(){}),
            ];
   }
 

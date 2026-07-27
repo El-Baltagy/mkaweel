@@ -169,7 +169,7 @@ abstract class _$AppRouter extends RootStackRouter {
     DashboardRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: WrappedRoute(child: const DashboardPage()),
+        child: WrappedRoute(child: const DashboardPage(args: args))),
       );
     },
 
@@ -267,14 +267,17 @@ class CreateProjectRouteArgs {
 /// generated route for
 /// [DashboardPage]
 class DashboardRoute extends PageRouteInfo<void> {
-  const DashboardRoute({List<PageRouteInfo>? children})
-      : super(DashboardRoute.name, initialChildren: children);
+  const DashboardRoute({required DashboardRouteArgs args  ,List<PageRouteInfo>? children})
+      : super(DashboardRoute.name,    args: args, initialChildren: children);
 
   static const String name = 'DashboardRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
-
+class DashboardRouteArgs {
+  const DashboardRouteArgs(  );
+  // final TabsRouter tabsRouter;
+ }
 /// generated route for
 /// [GanttChartPage]
 

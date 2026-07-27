@@ -22,6 +22,8 @@ import 'package:mkaweel/features/screens/dashboard/data/model/invoice_res/invoic
 import 'package:mkaweel/features/screens/dashboard/data/model/create_invoice_parameter.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/invoice/widgets/invoice_image_picker.dart';
 import 'package:mkaweel/features/screens/market_prices/controller/market_prices_cubit.dart';
+import 'package:mkaweel/features/screens/market_prices/controller/market_prices_state.dart';
+import 'package:mkaweel/features/screens/market_prices/data/model/catogeries_res/catogeries_res.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/widgets/currency_tabs_widget.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
@@ -82,11 +84,12 @@ class _InvoicePageState extends InvoicePageBaseState {
               children: [
                 // 1. Select Project
                 BlocSelector<ProjectsCubit, ProjectsState, BaseEmit?>(
-                  selector: (state) => state is ProjectsLoaded
+                  selector: (state) =>
+                  state is ProjectsLoaded
                       ? state.allProjectsResState
                       : null,
                   builder: (context, state) {
-                   setDataIntoProjectController(state);
+                    setDataIntoProjectController(state);
                     return ValueListenableBuilder(
                       valueListenable: projectsList,
                       builder: (context, value, child) {
@@ -102,15 +105,23 @@ class _InvoicePageState extends InvoicePageBaseState {
                   },
                 ),
                 // 2. Select Category
-                ValueListenableBuilder(
-                  valueListenable: categoriesList,
-                  builder: (context, value, child) {
-                    return BottomSheetSelector(
-                      field: fields[1],
-                      title: 'category'.tr(),
-                      isMultiSelect: false,
-                      listChoices: value,
-                      selectedNotifier: selectedCategoryNotifier,
+                BlocSelector<MarketPricesCubit, MarketPricesState, BaseEmit?>(
+                  selector: (state) =>state is MarketPricesLoaded
+                      ? state.categoriesEmit
+                      : null,
+                  builder: (context, state) {
+                    setDataIntoCatogeriesController(state);
+                    return ValueListenableBuilder(
+                      valueListenable: categoriesList,
+                      builder: (context, value, child) {
+                        return BottomSheetSelector(
+                          field: fields[1],
+                          title: 'category'.tr(),
+                          isMultiSelect: false,
+                          listChoices: value,
+                          selectedNotifier: selectedCategoryNotifier,
+                        );
+                      },
                     );
                   },
                 ),
@@ -151,7 +162,8 @@ class _InvoicePageState extends InvoicePageBaseState {
                       );
                       if (date != null) {
                         dateController.text =
-                            "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
+                        "${date.year}-${date.month.toString().padLeft(
+                            2, '0')}-${date.day.toString().padLeft(2, '0')}";
                       }
                     },
                     controller: dateController,
@@ -177,7 +189,8 @@ class _InvoicePageState extends InvoicePageBaseState {
 
                 // Submit Button
                 BlocSelector<DashboardCubit, DashboardState, BaseEmit?>(
-                  selector: (state) => state is DashboardLoaded
+                  selector: (state) =>
+                  state is DashboardLoaded
                       ? state.createInvoiceState
                       : null,
                   builder: (context, state) {
@@ -187,31 +200,31 @@ class _InvoicePageState extends InvoicePageBaseState {
 
                       child: isLoading
                           ? const Row(
-                              mainAxisAlignment: .center,
-                              children: [CircularProgressIndicator.adaptive()],
-                            )
+                        mainAxisAlignment: .center,
+                        children: [CircularProgressIndicator.adaptive()],
+                      )
                           : SizedBox(
-                              width: double.infinity,
-                              height: AppSizes.s48,
-                              child: ElevatedButton(
-                                onPressed: submitInvoice,
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: context.theme.primaryColor,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      AppSizes.s8,
-                                    ),
-                                  ),
-                                ),
-                                child: Text(
-                                  'save'.tr(),
-                                  style: AppTextStyles.font16SemiBold.copyWith(
-                                    color:
-                                        context.theme.scaffoldBackgroundColor,
-                                  ),
-                                ),
+                        width: double.infinity,
+                        height: AppSizes.s48,
+                        child: ElevatedButton(
+                          onPressed: submitInvoice,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: context.theme.primaryColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                AppSizes.s8,
                               ),
                             ),
+                          ),
+                          child: Text(
+                            'save'.tr(),
+                            style: AppTextStyles.font16SemiBold.copyWith(
+                              color:
+                              context.theme.scaffoldBackgroundColor,
+                            ),
+                          ),
+                        ),
+                      ),
                     );
                   },
                 ),
