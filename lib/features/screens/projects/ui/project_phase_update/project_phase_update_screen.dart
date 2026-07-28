@@ -15,22 +15,22 @@ import 'package:mkaweel/features/screens/projects/data/model/pj_phase_update/pj_
 import 'package:mkaweel/features/screens/projects/data/model/get_project_data_parameter.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-
 part 'project_phase_update_screen_mixin.dart';
+
 part 'widgets/progress_history_item.dart';
+
 part 'widgets/photo_gallery.dart';
 
 @RoutePage()
-class ProjectPhaseUpdatePage extends StatefulWidget implements AutoRouteWrapper {
+class ProjectPhaseUpdatePage extends StatefulWidget
+    implements AutoRouteWrapper {
   const ProjectPhaseUpdatePage({super.key, required this.args});
+
   final ProjectPhaseUpdateRouteArgs args;
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    return BlocProvider.value(
-      value: args.projectsCubit,
-      child: this,
-    );
+    return BlocProvider.value(value: args.projectsCubit, child: this);
   }
 
   @override
@@ -48,9 +48,7 @@ class _ProjectPhaseUpdatePageState extends ProjectPhaseUpdatePageBaseState {
       },
       child: Scaffold(
         backgroundColor: context.theme.scaffoldBackgroundColor,
-        appBar: CustomAppBar(
-          title: 'progress_history'.tr(),
-        ),
+        appBar: CustomAppBar(title: 'progress_history'.tr()),
         body: BlocBuilder<ProjectsCubit, ProjectsState>(
           builder: (context, state) {
             final phaseUpdateState = state is ProjectsLoaded
@@ -66,9 +64,20 @@ class _ProjectPhaseUpdatePageState extends ProjectPhaseUpdatePageBaseState {
             }
 
             final List<ProgressupdateItem> items =
-                phaseUpdateState is Success<PjPhaseUpdate>
-                    ? (phaseUpdateState.data?.data.progress_updates ?? [])
-                    : [];
+                phaseUpdateState is Success<PjPhaseUpdate>?
+                 // List<ProgressupdateItem>.generate(
+                 //    4,
+                 //    (index) => ProgressupdateItem(
+                 //      id: index,
+                 //      progress_percentage: 10,
+                 //      update_date: '12-10-2020',
+                 //      notes: '144',
+                 //      photos: ['https://muqawili.app/public/assets/images/users/avatar-1.jpg'],
+                 //      creator_name: '1255',
+                 //    ),
+                 //  )
+                  (phaseUpdateState.data?.data.progress_updates ?? [])
+                : [];
 
             if (items.isEmpty && phaseUpdateState != null) {
               return _buildEmpty(context, isDark);
@@ -99,11 +108,7 @@ class _ProjectPhaseUpdatePageState extends ProjectPhaseUpdatePageBaseState {
       itemBuilder: (context, index) {
         final item = items[index];
         final isLast = index == items.length - 1;
-        return _ProgressHistoryItem(
-          item: item,
-          isLast: isLast,
-          isDark: isDark,
-        );
+        return _ProgressHistoryItem(item: item, isLast: isLast, isDark: isDark);
       },
     );
   }
@@ -119,11 +124,7 @@ class _ProjectPhaseUpdatePageState extends ProjectPhaseUpdatePageBaseState {
     );
   }
 
-  Widget _buildError(
-    BuildContext context,
-    ErrorState errorState,
-    bool isDark,
-  ) {
+  Widget _buildError(BuildContext context, ErrorState errorState, bool isDark) {
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -137,7 +138,9 @@ class _ProjectPhaseUpdatePageState extends ProjectPhaseUpdatePageBaseState {
           Text(
             errorState.failure.message ?? 'error_occurred'.tr(),
             style: AppTextStyles.font16SemiBold.copyWith(
-              color: isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary,
+              color: isDark
+                  ? AppColors.darkTextPrimary
+                  : AppColors.lightTextPrimary,
             ),
             textAlign: TextAlign.center,
           ),
@@ -190,12 +193,14 @@ class _ProjectPhaseUpdatePageState extends ProjectPhaseUpdatePageBaseState {
 
 class _SkeletonHistoryItem extends StatelessWidget {
   const _SkeletonHistoryItem({required this.isDark});
+
   final bool isDark;
 
   @override
   Widget build(BuildContext context) {
-    final shimmerColor =
-        isDark ? const Color(0xFF2D3748) : const Color(0xFFE8ECF0);
+    final shimmerColor = isDark
+        ? const Color(0xFF2D3748)
+        : const Color(0xFFE8ECF0);
     return Padding(
       padding: const EdgeInsets.only(bottom: AppPadding.p20),
       child: Row(
@@ -212,11 +217,7 @@ class _SkeletonHistoryItem extends StatelessWidget {
                   shape: BoxShape.circle,
                 ),
               ),
-              Container(
-                width: 2,
-                height: 160,
-                color: shimmerColor,
-              ),
+              Container(width: 2, height: 160, color: shimmerColor),
             ],
           ),
           AppPadding.p12.horizontalSpace,
@@ -257,12 +258,7 @@ class _SkeletonHistoryItem extends StatelessWidget {
     );
   }
 
-  Widget _shimmerBox(
-    double width,
-    double height,
-    Color color,
-    double radius,
-  ) =>
+  Widget _shimmerBox(double width, double height, Color color, double radius) =>
       Container(
         width: width,
         height: height,

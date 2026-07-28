@@ -74,9 +74,11 @@ abstract class PhaseProgressPageBaseState extends State<PhaseProgressPage> {
 
   updateAction() async {
     if (await _key.validateAndScroll(context, listRecorder: listFiels)) {
+      // PrintHelper().ordinaryPrint(imagesListNotifier.value.toString());
+      // return ;
       await projectsCubit.updatePhaseFunc(
 
-          parameter: .new(
+          parameter:UpdateProjectPhaseRequest(
           phaseId: args.projectPhaseItem.id,
           progressPercentage: progressValue.value.toString(),
           updateDate: _updateDateController.text.trim(),
