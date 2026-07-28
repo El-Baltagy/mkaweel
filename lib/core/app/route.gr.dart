@@ -167,10 +167,10 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     DashboardRoute.name: (routeData) {
-      final args = routeData.argsAs< DashboardRouteArgs>();
+      // final args = routeData.argsAs< DashboardRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: WrappedRoute(child:   DashboardPage(args: args)) ,
+        child: WrappedRoute(child:   DashboardPage( )) ,
       );
     },
 
@@ -268,8 +268,8 @@ class CreateProjectRouteArgs {
 /// generated route for
 /// [DashboardPage]
 class DashboardRoute extends PageRouteInfo<void> {
-  const DashboardRoute({required DashboardRouteArgs args  ,List<PageRouteInfo>? children})
-      : super(DashboardRoute.name,    args: args, initialChildren: children);
+  const DashboardRoute({    List<PageRouteInfo>? children})
+      : super(DashboardRoute.name,   initialChildren: children);
 
   static const String name = 'DashboardRoute';
 
@@ -576,8 +576,9 @@ class WeatherRoute extends PageRouteInfo<WeatherRouteArgs> {
   PageInfo<WeatherRouteArgs>(name);
 }
 class WeatherRouteArgs {
-  const WeatherRouteArgs(this.dashboardCubit );
-  final DashboardCubit dashboardCubit;
+  const WeatherRouteArgs(this.dashboardCubit,{this.latlng} );
+  final DashboardCubit? dashboardCubit;
+  final LatLng? latlng;
  }
 
 

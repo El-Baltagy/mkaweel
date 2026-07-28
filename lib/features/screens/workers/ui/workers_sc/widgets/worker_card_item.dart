@@ -54,16 +54,16 @@ class WorkerCardWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-              if(worker.dob!=null)
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      '${'date_of_birth'.tr()} : ${worker.dob}',
-                      style: AppTextStyles.font12Regular,
-                    ),
-                  ],
-                ),
+              // if(worker.dob!=null)
+              //   Row(
+              //     mainAxisAlignment: MainAxisAlignment.end,
+              //     children: [
+              //       Text(
+              //         '${'date_of_birth'.tr()} : ${worker.dob}',
+              //         style: AppTextStyles.font12Regular,
+              //       ),
+              //     ],
+              //   ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: AppPadding.p12, vertical: AppPadding.p4),
                 decoration: BoxDecoration(

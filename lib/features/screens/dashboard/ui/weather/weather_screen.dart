@@ -9,7 +9,9 @@ import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/shared/widgets/app_bar.dart';
 import 'package:mkaweel/features/screens/dashboard/controller/dashboard_cubit.dart';
 import 'package:mkaweel/features/screens/dashboard/controller/dashboard_state.dart';
+import 'package:mkaweel/features/screens/dashboard/data/model/weather_parameter.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/weather/widgets/weather_content_widget.dart';
+import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/location_selection.dart';
 
 part 'weather_screen_mixin.dart';
 
@@ -21,7 +23,13 @@ class WeatherPage extends StatefulWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    return BlocProvider.value(value: args.dashboardCubit,
+    if( args.dashboardCubit==null){
+      return BlocProvider<DashboardCubit>(
+        create: (context) => AppLocator()()(),
+        child: this,
+      );
+    }
+    return BlocProvider.value(value: args.dashboardCubit!,
     child: this
     );
   }
@@ -42,7 +50,9 @@ class _WeatherPageState extends WeatherPageBaseState {
         builder: (context, state) {
           return WeatherContentWidget(
             state:state,
-            onRetry:() =>  dashboardCubit.getWeatherFunc(Reload()),
+            onRetry:() =>  dashboardCubit.getWeatherFunc(Reload(),
+            parameter: weatherParameter
+            ),
           );
         },
       ),

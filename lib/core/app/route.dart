@@ -16,6 +16,7 @@ import 'package:mkaweel/features/screens/projects/data/model/create_project_res/
 import 'package:mkaweel/features/screens/projects/data/model/project_inoices_res/project_inoices_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/project_phases_res/project_phases_res.dart';
 import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/create_project_screen.dart';
+import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/location_selection.dart';
 import 'package:mkaweel/features/screens/projects/ui/all_projects/projects_screen.dart';
 import 'package:mkaweel/features/screens/market_prices/ui/market_prices_screen.dart';
 import 'package:mkaweel/features/screens/main_home/ui/main_home_screen.dart';

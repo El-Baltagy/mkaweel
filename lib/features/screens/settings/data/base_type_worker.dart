@@ -41,7 +41,7 @@ class BaseTypeAdmin extends BaseUserType {
 
   @override
   List<NavItemData> buildRoutesNav() =>[
-    NavItemData(icon: Icons.grid_view_rounded, route:     DashboardRoute(args:DashboardRouteArgs() ),    label: 'home'.tr()),
+    NavItemData(icon: Icons.grid_view_rounded, route:     const DashboardRoute(  ),    label: 'home'.tr()),
     NavItemData(icon: Icons.business_center_outlined,route:   const ProjectsRoute(), label: 'projects_tab'.tr()),
     NavItemData(icon: Icons.trending_up_rounded, route:   const MarketPricesRoute(), label: 'prices_tab'.tr()),
     NavItemData(icon: Icons.group_outlined, route:   const WorkersRoute(),       label: 'workers_tab'.tr()),

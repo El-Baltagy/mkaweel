@@ -100,8 +100,7 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
 
                 buildPhone(),
 
-                buildDOB(context),
-                
+
                 buildPJBlocPSelector(),
 
                  Container(
@@ -245,30 +244,30 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
             );
   }
 
-  TitleWithInputField buildDOB(BuildContext context) {
-    return TitleWithInputField(
-              'date_of_birth'.tr(),
-              DOPInputData(
-                fontSize: 13,
-                labelText: 'mm/dd/yyyy',
-                onTap: () async {
-                   final date = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now() ,
-                    firstDate: DateTime(1950),
-
-                    lastDate: DateTime.now(),
-                  );
-                  if (date != null) {
-                    _dobController.text =
-                    "${date.year}-${date.month.toString().padLeft(
-                        2, '0')}-${date.day.toString().padLeft(2, '0')}";
-                  }
-                },
-                controller: _dobController,
-              ),
-            );
-  }
+  // TitleWithInputField buildDOB(BuildContext context) {
+  //   return TitleWithInputField(
+  //             'date_of_birth'.tr(),
+  //             DOPInputData(
+  //               fontSize: 13,
+  //               labelText: 'mm/dd/yyyy',
+  //               onTap: () async {
+  //                  final date = await showDatePicker(
+  //                   context: context,
+  //                   initialDate: DateTime.now() ,
+  //                   firstDate: DateTime(1950),
+  //
+  //                   lastDate: DateTime.now(),
+  //                 );
+  //                 if (date != null) {
+  //                   _dobController.text =
+  //                   "${date.year}-${date.month.toString().padLeft(
+  //                       2, '0')}-${date.day.toString().padLeft(2, '0')}";
+  //                 }
+  //               },
+  //               controller: _dobController,
+  //             ),
+  //           );
+  // }
 
 
 }

@@ -16,7 +16,7 @@ abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
 
   final _specController = TextEditingController();
   final _phoneController = TextEditingController();
-  final _dobController = TextEditingController();
+  // final _dobController = TextEditingController();
 
   final ValueNotifier<List<int>> _roleIndexesNotifier = .new([]);
   final ValueNotifier<List<int>> _projectIdsNotifier = .new([]);
@@ -42,8 +42,7 @@ abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
     _emailController.text = widget.args.workerItem?.email ?? "";
     _specController.text = widget.args.workerItem?.specialization ?? "";
     _phoneController.text = widget.args.workerItem?.phone ?? "";
-    _dobController.text = widget.args.workerItem?.dob ?? "";
-    avatarNotifier.value = widget.args.workerItem?.avatar ?? "";
+     avatarNotifier.value = widget.args.workerItem?.avatar ?? "";
 
     Future.delayed(const Duration(milliseconds: 500), () {
       final idx = listChoices.indexWhere(
@@ -78,7 +77,6 @@ abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
 
     _specController.dispose();
     _phoneController.dispose();
-    _dobController.dispose();
 
     avatarNotifier.dispose();
 
@@ -93,8 +91,7 @@ abstract class AddWorkerPageBaseState extends State<AddWorkerPage> {
         name: _nameController.text.trim(),
         email: _emailController.text.trim(),
         password: _pwController.text.trim(),
-        dob: _dobController.text.trim(),
-        phone: _phoneController.text.trim(),
+         phone: _phoneController.text.trim(),
         specialization: _specController.text.trim(),
         role: listChoices[_roleIndexesNotifier.value.first].apiValue,
         projectIds: _projectIdsNotifier.value

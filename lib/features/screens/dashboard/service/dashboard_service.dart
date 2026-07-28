@@ -94,35 +94,20 @@ class DashboardService extends BaseService {
   Future<void> getWeatherServ(
     RequestCallbackObserver<WeatherRes, WeatherParameter> requestInfo,
   ) {
-    const cacheKey = AppConstant.getWeatherKeyCash;
-    const latLngCacheKey = AppConstant.getLatLngKeyCash;
 
     return requestInfo.handleRequest(
       fetchFromClient: (token) async {
         WeatherParameter? param = requestInfo.parameter;
 
-        if (param == null) {
-          // Try to get from cache first
-          final cachedLatLng = await _localRepo.readData(latLngCacheKey);
-          if (cachedLatLng != null && cachedLatLng.$2.containsKey('lat') && cachedLatLng.$2.containsKey('lng')) {
-            param = WeatherParameter(
-              latitude: double.parse(cachedLatLng.$2['lat'].toString()),
-              longitude:double.parse(cachedLatLng.$2['lng'].toString())  ,
-            );
-          } else {
-            // Get from GPS
-            final position = await LocationService().getCurrentLocation();
-            if (position != null) {
-              param = WeatherParameter(
-                latitude: position.latitude,
-                longitude: position.longitude,
-              );
-              // Cache it
-              await _localRepo.saveData(latLngCacheKey, savedData: param.toJson());
-            }
-          }
-        }
-
+           if(param==null){
+             final position = await LocationService().getCurrentLocation();
+             if (position != null) {
+               param = WeatherParameter(
+                 latitude: position.latitude,
+                 longitude: position.longitude,
+               );
+             }
+           }
         if (param == null) {
           return const Left<Failure, WeatherRes>(Failure( 'Could not get location',   0));
         }
@@ -131,23 +116,7 @@ class DashboardService extends BaseService {
           param,
           cancelToken: token,
         );
-      },
-      fetchLocal: () async {
-        final tuple = await _localRepo.readData(cacheKey);
-        // PrintHelper().loggerPrint(tuple?.$1['pr'],.info,callerTag());
-
-        if (tuple?.$1['pr'] == _localRepo.primarySessionId) {
-          return WeatherRes.fromJson(tuple!.$2);
-        }
-        return null;
-      },
-
-      saveLocal: (old, newData) async {
-        if (newData != null) {
-          await _localRepo.saveData(cacheKey, savedData: newData.toJson());
-        }
-      },
-      clearLocal: () => _localRepo.clearData(cacheKey),
+      }
     );
   }
 

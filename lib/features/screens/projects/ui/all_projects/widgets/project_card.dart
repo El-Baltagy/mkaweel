@@ -6,6 +6,7 @@ import 'package:mkaweel/core/extension/context.dart';
  import 'package:mkaweel/core/shared/methods/location_Service.dart';
 import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/features/screens/Tasks/ui/tasks/base_tasks_data.dart';
+import 'package:mkaweel/features/screens/dashboard/ui/weather/weather_screen.dart';
 import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
 import 'package:mkaweel/features/screens/projects/data/model/create_project_res/create_project_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/delete_pj_parameter.dart';
@@ -131,6 +132,28 @@ class ProjectCard extends StatelessWidget {
                projectsCubit,
                   projectInfoData.id.toString(),
                ),
+            ),
+          );
+        },
+      ),
+      if(projectInfoData.latitude!=null&&projectInfoData.longitude!=null)
+      PopMenuValues(
+        widget: Row(
+          children: [
+            Icon(Icons. sunny, color: context.theme.primaryColor),
+            const SizedBox(width: 8),
+            Text('weather_updates'.tr()),
+          ],
+        ),
+        title: 'weather_updates',
+        onTap: () async {
+          await context.push(
+            WeatherRoute(
+              args: WeatherRouteArgs(
+                null,
+                  latlng:
+                  LatLng(double.parse(projectInfoData.latitude.toString()), double.parse(projectInfoData.longitude.toString()))
+              ),
             ),
           );
         },

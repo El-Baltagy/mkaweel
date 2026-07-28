@@ -106,6 +106,7 @@ class LocationService {
       baseUrl: 'https://nominatim.openstreetmap.org/',
       headers: {
         'User-Agent': 'MkaweelApp/1.0',
+        // 'lang': 'ar',
       },
     ),
   );

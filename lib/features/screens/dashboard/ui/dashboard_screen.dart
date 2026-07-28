@@ -16,9 +16,8 @@ import 'package:mkaweel/features/screens/dashboard/ui/widgets/quick_tools_widget
 
 @RoutePage()
 class DashboardPage extends StatefulWidget implements AutoRouteWrapper {
-  const DashboardPage({super.key, required this.args});
-final DashboardRouteArgs args;
-// final TabsRouter
+  const DashboardPage({super.key });
+ // final TabsRouter
   @override
   Widget wrappedRoute(BuildContext context) {
     return MultiBlocProvider(providers:[

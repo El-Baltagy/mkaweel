@@ -118,7 +118,9 @@ class DashboardCubit extends BaseCubit<DashboardState> {
       );
    }
 
-  Future<void> getWeatherFunc(BaseRequestBackType baseRequestBackType,{WeatherParameter? parameter}) async {
+  Future<void> getWeatherFunc(BaseRequestBackType baseRequestBackType,{required WeatherParameter?  parameter}) async {
+    PrintHelper().ordinaryPrint('.................wasd');
+    PrintHelper().ordinaryPrint(parameter?.toJson());
     await CancelManager.runCancelableFun(getWeatherKeyCode, (token) async {
       await _service.getWeatherServ(
         RequestCallbackObserver<WeatherRes, WeatherParameter>(
