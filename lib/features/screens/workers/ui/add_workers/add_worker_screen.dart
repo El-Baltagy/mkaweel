@@ -74,7 +74,7 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
         body: Form(
           key: _key,
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(AppPadding.p20),
+            padding: const  .all(AppPadding.p20),
             child: Column(
               spacing: AppSizes.s16,
               crossAxisAlignment:  .start,
@@ -137,6 +137,7 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
                     },
                   ),
                 ),
+                AppPadding.p20.verticalSpace
               ],
             ),
           ),
