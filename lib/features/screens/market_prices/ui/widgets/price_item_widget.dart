@@ -69,7 +69,7 @@ class SubCatogeries extends StatelessWidget {
         Column(
           crossAxisAlignment:  .end,
           children: [
-            Text( '${subCatogeryItem.unit_price} ${CurrencyTabsWidget.listTabs.firstWhere((e) =>e.shortcut==subCatogeryItem.currency?.toLowerCase().trim()).label}', style: AppTextStyles.font18SemiBold.copyWith(color: Theme.of(context).primaryColor)),
+            Text( '${subCatogeryItem.unit_price} ${CurrencyTabsWidget.listTabs.where((e) =>e.shortcut==subCatogeryItem.currency?.toLowerCase().trim()).firstOrNull?.label}', style: AppTextStyles.font18SemiBold.copyWith(color: Theme.of(context).primaryColor)),
             // Text( '${subCatogeryItem.unit_price} ${subCatogeryItem.currency}', style: AppTextStyles.font18SemiBold.copyWith(color: Theme.of(context).primaryColor)),
             5.verticalSpace,
             Text(DateTimeHelper.formatDateTimeFromString(

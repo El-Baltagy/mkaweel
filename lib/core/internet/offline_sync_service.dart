@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/Material.dart';
 import 'package:mkaweel/core/base/base_service.dart';
 import 'package:mkaweel/core/internet/connected_bloc.dart';
 import 'package:mkaweel/core/storage/hive_storage.dart';
@@ -9,17 +8,15 @@ import 'package:mkaweel/core/shared/methods/location_Service.dart';
 import 'package:mkaweel/features/screens/projects/data/model/create_project_parameters.dart';
 import 'package:mkaweel/features/screens/projects/service/projects_service.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
-import 'package:mkaweel/core/base/base_state.dart';
-import 'package:mkaweel/features/screens/projects/data/model/create_project_res/create_project_res.dart';
+ import 'package:mkaweel/features/screens/projects/data/model/create_project_res/create_project_res.dart';
 import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/location_selection.dart';
-import 'package:mkaweel/main.dart';
 
 class OfflineSyncService {
   OfflineSyncService._();
   static final OfflineSyncService _instance = OfflineSyncService._();
   factory OfflineSyncService() => _instance;
 
-  bool _isSyncing = false;
+  final ValueNotifier<bool> isSyncingNotifier = ValueNotifier<bool>(false);
 
   void init() {
     ConnectivityService.connectivityStream.listen((hasInternet) {
@@ -30,31 +27,12 @@ class OfflineSyncService {
   }
 
   Future<void> _syncOfflineProjectRequests() async {
-    if (_isSyncing) return;
+    if (isSyncingNotifier.value) return;
     
     final offlineRequestsJson = HiveStorage().readData<List<String>>('offline_project_requests');
     if (offlineRequestsJson == null || offlineRequestsJson.isEmpty) return;
 
-    _isSyncing = true;
-    
-    BuildContext? currentContext = navigatorKey.currentContext;
-    if (currentContext != null) {
-      await showDialog(
-        context: currentContext,
-        barrierDismissible: false,
-        builder: (context) {
-          return AlertDialog(
-            content: Row(
-              children: [
-                const CircularProgressIndicator(),
-                const SizedBox(width: 20),
-                Expanded(child: Text('syncing_offline_projects'.tr())),
-              ],
-            ),
-          );
-        },
-      );
-    }
+    isSyncingNotifier.value = true;
 
     List<String> failedRequests = [];
 
@@ -125,10 +103,6 @@ class OfflineSyncService {
       await HiveStorage().writeData('offline_project_requests', failedRequests);
     }
     
-    if (currentContext != null && navigatorKey.currentContext != null) {
-      Navigator.of(navigatorKey.currentContext!).pop();
-    }
-    
-    _isSyncing = false;
+    isSyncingNotifier.value = false;
   }
 }

@@ -62,7 +62,7 @@ class ProjectsService extends BaseService {
 
 
   Future<void> createProjectServ(
-      RequestCallbackObserver<CreateProjectRes, CreateProjectParameters> requestInfo,
+      RequestCallbackObserver<(CreateProjectRes,bool), CreateProjectParameters> requestInfo,
       ) {
     return requestInfo.handleRequest(
         fetchFromClient: (token) => _remoteRepo.createprojectApi(

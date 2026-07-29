@@ -8,7 +8,9 @@ import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/double.dart';
+import 'package:mkaweel/core/internet/offline_sync_service.dart';
 import 'package:mkaweel/core/shared/widgets/entrance_fader.dart';
+import 'package:mkaweel/core/theming/app_colors.dart';
 import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/features/screens/dashboard/controller/dashboard_cubit.dart';
 import 'package:mkaweel/features/screens/login/data/model/login_res/login_res.dart';
@@ -58,16 +60,39 @@ class _MainHomePageState extends MainHomePageBaseState {
                 ? BaseTypeAdmin.instance.buildRoutesNav( )
                 : BaseTypeWorker.instance.buildRoutesNav( );
           }
-          return AutoTabsScaffold(
-
-            routes:   routesNav().map((e) => e.route).toList(),
-            bottomNavigationBuilder: (context, tabsRouter) {
-              return EntranceFader(
-                  delay:const Duration(milliseconds: 500),
-                  dx: 0,
-                  dy: 32,
-                  child: _BottomNavBar(tabsRouter: tabsRouter,routesNav:routesNav( )));
-            },
+          return Stack(
+            children: [
+              AbsorbPointer(
+                absorbing: false,
+                child: AutoTabsScaffold(
+                
+                  routes:   routesNav().map((e) => e.route).toList(),
+                  bottomNavigationBuilder: (context, tabsRouter) {
+                    return EntranceFader(
+                        delay:const Duration(milliseconds: 500),
+                        dx: 0,
+                        dy: 32,
+                        child: _BottomNavBar(tabsRouter: tabsRouter,routesNav:routesNav( )));
+                  },
+                ),
+              ),
+              if(false)
+              ...[
+                Container(
+                  height: double.infinity,
+                  color:AppColors.lightTextSecondary.withOpacity(0.3),
+                ),
+                AlertDialog(
+                  content: Row(
+                    children: [
+                      const CircularProgressIndicator(),
+                      const SizedBox(width: 20),
+                      Expanded(child: Text('syncing_offline_projects'.tr())),
+                    ],
+                  ),
+                )
+              ]
+            ],
           );
 
         }
@@ -112,15 +137,39 @@ class _MainHomePageState extends MainHomePageBaseState {
 
 abstract class MainHomePageBaseState extends State<MainHomePage> {
   // late final MainHomeCubit argData;
+  void _syncListener() {
+    if (OfflineSyncService().isSyncingNotifier.value) {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return AlertDialog(
+            content: Row(
+              children: [
+                const CircularProgressIndicator(),
+                const SizedBox(width: 20),
+                Expanded(child: Text('syncing_offline_projects'.tr())),
+              ],
+            ),
+          );
+        },
+      );
+    } else {
+      if (Navigator.canPop(context)) {
+        Navigator.pop(context);
+      }
+    }
+  }
+  @override
+  void initState() {
+    super.initState();
+    OfflineSyncService().isSyncingNotifier.addListener(_syncListener);
+    // argData = MainHomeCubit.get(context: context);
+  }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   argData = MainHomeCubit.get(context: context);
-  // }
-  //
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    OfflineSyncService().isSyncingNotifier.removeListener(_syncListener);
+    super.dispose();
+  }
 }

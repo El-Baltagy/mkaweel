@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:dartz/dartz.dart';
+import 'package:mkaweel/core/internet/connected_bloc.dart';
 import 'package:dio/dio.dart';
 
 import '../../core/api_helper/dio_error_handler.dart';
@@ -7,7 +9,7 @@ import 'base_cubit.dart';
 abstract class BaseService{
 
 }
-class RequestCallbackObserver<T, P> extends {
+class RequestCallbackObserver<T, P>   {
   RequestCallbackObserver({
       this.baseRequestBackType,
       this.parameter,
@@ -44,10 +46,14 @@ extension RequestHandler<T, P> on RequestCallbackObserver<T, P> {
         }
       }
     } else if (type is Reload) {
+      // final hasInternet = await ConnectivityService.validateInternetConnection();
+      // if (!hasInternet) {
+      //   onLeftCallback(Failure('No internet connection.', null, const SocketException('No internet')));
+      //   return;
+      // }
       if(clearLocal!=null){
         await clearLocal?.call();
       }
-
     } else if (type is PaginationInfo) {
       if ((type.currentPage??0) >= (type.lastPage??0)) return;
     }
@@ -60,7 +66,7 @@ extension RequestHandler<T, P> on RequestCallbackObserver<T, P> {
     final result = await fetchFromClient(cancelToken);
 
     // ── Handle result ──────────────────────────────────────────────────────
-    result.fold(
+    await result.fold(
           (failure) async {
             if (fetchLocal != null) {
               final localData = await fetchLocal();

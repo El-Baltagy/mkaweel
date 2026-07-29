@@ -26,7 +26,7 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
   void initState() {
     isLoadingNotifier = .new(widget.args.projectId!=null );
     super.initState();
-    projectsCubit = ProjectsCubit.get(context: context);
+     projectsCubit = ProjectsCubit.get(context: context);
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async{
       if(widget.args.projectId==null)return ;
@@ -66,8 +66,9 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
 
   }
 
-  @override
+   @override
   void dispose() {
+
     // TODO: implement dispose
     field1.$2?.dispose();
     field2.$2?.dispose();
@@ -98,7 +99,8 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
     )) {
       await projectsCubit.createProjectFunc(
         parameter: CreateProjectParameters(
-          projectId: widget.args.projectId,
+          projectId:null,
+          // projectId: widget.args.projectId,
           name: _controllerName.text,
           owner_name: _controllerOwner_name.text,
           contract_value: _controllerContract_value.text,
@@ -118,11 +120,12 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
   }
    void createProjectLisener(BuildContext context,ProjectsState state) {
     if (state is ProjectsLoaded) {
-      if(state.createProjectResState  is Success<CreateProjectRes>) {
-        final CreateProjectRes data=(state.createProjectResState as Success<CreateProjectRes>).data!;
+      if(state.createProjectResState  is Success<(CreateProjectRes,bool)>) {
+        final CreateProjectRes data=(state.createProjectResState as Success<(CreateProjectRes,bool)>).data!.$1;
         context.showToast(
             data.message
         );
+
         context.pop(true);
       }else{
         if(state.createProjectResState  is ErrorState ) {

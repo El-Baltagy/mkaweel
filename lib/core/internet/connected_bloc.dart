@@ -96,8 +96,8 @@ class ConnectivityService {
         if (showToasts) {
           _showToast(
             message:
-            hasInternet? 'connectedToInternet':
-            'notConnectedToInternet',
+            hasInternet? 'connected_to_internet'.tr():
+            'not_connected_to_internet'.tr(),
             backgroundColor: backgroundColor,
             webBackgroundColor: webBackgroundColor,
             gravity: toastGravity,

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:mkaweel/core/internet/connected_bloc.dart';
 import 'package:mkaweel/core/storage/hive_storage.dart';
 import 'package:mkaweel/core/base/base_service.dart';
 import 'package:mkaweel/core/base/base_state.dart';
@@ -152,16 +153,20 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
   }
 
   Future<void> createProjectFunc({CreateProjectParameters? parameter}) async {
+    // late bool hasInternet  ;
+
     await CancelManager.runCancelableFun(createProjectKeyCode, (token) async {
       await _service.createProjectServ(
-        RequestCallbackObserver<CreateProjectRes, CreateProjectParameters>(
+        RequestCallbackObserver<(CreateProjectRes,bool), CreateProjectParameters>(
+        // RequestCallbackObserver<(CreateProjectRes,bool), CreateProjectParameters>(
           baseRequestBackType: Reload(),
           parameter: parameter,
           cancelToken: token,
-          onLoadCallback: () =>
-              safeEmit(current.copyWith(createProjectResState: Loading())),
+          onLoadCallback: () async {
+            safeEmit(current.copyWith(createProjectResState: Loading()));
+           },
           onRightCallback: (data) =>
-              safeEmit(current.copyWith(createProjectResState: Success(data))),
+              safeEmit(current.copyWith(createProjectResState: Success((data,true)))),
           onLeftCallback: (failure) {
             if (failure.error is SocketException && parameter != null) {
               final offlineRequests = HiveStorage().readData<List<String>>('offline_project_requests') ?? <String>[];
@@ -171,11 +176,13 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
               safeEmit(
                 current.copyWith(
                   createProjectResState:   Success(
-                      CreateProjectRes(
-                      status: 'offline',
-                      message: 'Request saved offline. It will be sent when internet is restored.',
-                      data: getEmptyProjectInfoData
-                    ),
+                      (   CreateProjectRes(
+                          status: 'offline',
+                          message: 'Request saved offline. It will be sent when internet is restored.',
+                          data: getEmptyProjectInfoData
+                      ),
+                      false
+                      )
                   ),
                 ),
               );
@@ -188,6 +195,7 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
         ),
       );
     });
+    // return hasInternet;
   }
 
   Future<CreateProjectRes?> getProjectDataFunc({

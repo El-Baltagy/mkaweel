@@ -33,7 +33,7 @@ abstract class EndPoints {
 
   static const String getSuppliers = '/api/suppliers';
 
-  static   String updatePhase (String id) =>  '/api/project-phases/$id/store';
+  static   String updatePhase (String id) =>  '/api/project-phases/$id/updates';
 
   static String getPhaseUpdates(String phaseId) => '/api/project-phases/$phaseId';
 

@@ -386,8 +386,8 @@ your_tasks,your tasks,المهام الخاصة بك
 
 attendence,attendence,الحضور
 
-check_in,check in,الدخول
-check_out,check out,الخروج
+check_in,check in,تسجيل الحضور
+check_out,check out,تسجيل الانصراف
 
  attendance,attendance,حضور
 
@@ -396,3 +396,8 @@ selecting_project_will_be_locked_untill_you_check_out,selecting project will be 
 mark_as_complete,mark as complete,وضع علامة على أنها كاملة
 
 weather_updates,weather updates,تحديثات الطقس
+
+connected_to_internet,connected to internet,متصل بالإنترنت
+not_connected_to_internet,not connected to internet,غير متصل بالإنترنت
+
+syncing_offline_projects,syncing offline projects,مزامنة المشاريع دون اتصال

@@ -1,4 +1,5 @@
 
+import 'dart:io';
 import 'package:mkaweel/core/api_helper/caller_tag.dart';
 import 'package:mkaweel/core/constants/app_constant.dart';
 import 'package:dio/dio.dart';
@@ -53,21 +54,33 @@ class ProjectsRepo extends BaseRepo {
       asObject: DeleteProjectRes.fromJson,
     );
   }
-  Future<Either<Failure, CreateProjectRes>> createprojectApi(
+  Future<Either<Failure, (CreateProjectRes, bool)>> createprojectApi(
       CreateProjectParameters? parameter, {
         CancelToken? cancelToken,
       }) async {
-    return handleResponse(
-      onCallData: dio.postData(
-        data: parameter?.toJsonBody(),
-        uri:
-        parameter!.projectId !=null?
-        EndPoints. updateProject(parameter.projectId!):
-        EndPoints.createProject,
-        cancelToken: cancelToken,
-      ),
-      asObject: CreateProjectRes.fromJson,
-    );
+    try {
+      final result = await handleResponse(
+        onCallData: dio.postData(
+          data: parameter?.toJsonBody(),
+          uri: parameter!.projectId != null
+              ? EndPoints.updateProject(parameter.projectId!)
+              : EndPoints.createProject,
+          cancelToken: cancelToken,
+        ),
+        asObject: CreateProjectRes.fromJson,
+      );
+      return result.fold(
+        (failure) {
+          if (failure.error is SocketException) {
+            return right((CreateProjectRes.fromJson({'status': 'offline', 'message': failure.message, 'data': {}}), false));
+          }
+          return left(failure);
+        },
+        (data) => right((data, true)),
+      );
+    } on SocketException catch (e) {
+      return right((CreateProjectRes.fromJson({'status': 'offline', 'message': e.message, 'data': {}}), false));
+    }
   }
 
   Future<Either<Failure, CreateProjectRes>> getProjectDataApi(
