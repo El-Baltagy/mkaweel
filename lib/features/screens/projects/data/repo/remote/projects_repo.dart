@@ -22,6 +22,7 @@ import 'package:mkaweel/features/screens/projects/data/model/update_phase_parame
 import 'package:mkaweel/features/screens/projects/data/model/pj_phase_update/pj_phase_update.dart';
 import 'package:mkaweel/features/screens/settings/data/base_type_worker.dart';
 import 'package:mkaweel/features/tesg.dart';
+import 'package:mkaweel/features/dummy.dart';
 
 
 class ProjectsRepo extends BaseRepo {
@@ -72,14 +73,28 @@ class ProjectsRepo extends BaseRepo {
       return result.fold(
         (failure) {
           if (failure.error is SocketException) {
-            return right((CreateProjectRes.fromJson({'status': 'offline', 'message': failure.message, 'data': {}}), false));
+            return right((
+              CreateProjectRes(
+                status: 'offline',
+                message: failure.message,
+                data: getEmptyProjectInfoData,
+              ),
+              false,
+            ));
           }
           return left(failure);
         },
         (data) => right((data, true)),
       );
     } on SocketException catch (e) {
-      return right((CreateProjectRes.fromJson({'status': 'offline', 'message': e.message, 'data': {}}), false));
+      return right((
+        CreateProjectRes(
+          status: 'offline',
+          message: e.message,
+          data: getEmptyProjectInfoData,
+        ),
+        false,
+      ));
     }
   }
 

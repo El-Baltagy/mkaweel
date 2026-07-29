@@ -130,9 +130,10 @@ class _ProgressHistoryItem extends StatelessWidget {
                                   color: textSecondary,
                                 ),
                               ),
+                              if(item.update_date!=null)
                               Flexible(
                                 child: Text(
-                                  item.update_date,
+                                  item.update_date!,
                                   style: AppTextStyles.font12Regular.copyWith(
                                     color: textPrimary,
                                     fontWeight: FontWeight.w600,
@@ -150,8 +151,9 @@ class _ProgressHistoryItem extends StatelessWidget {
                           primaryColor: primaryColor,
                         ),
                         AppPadding.p8.horizontalSpace,
+                        if(item.creator_name!=null)
                         _CreatorChip(
-                          name: item.creator_name,
+                          name: item.creator_name!,
                           textSecondary: textSecondary,
                           isDark: isDark,
                         ),
@@ -160,19 +162,19 @@ class _ProgressHistoryItem extends StatelessWidget {
                   ),
 
                   // ── Notes / description ─────────────────────────
-                  if (item.notes.trim().isNotEmpty) ...[
+                  if (item.notes?.trim().isNotEmpty==true) ...[
                     AppPadding.p10.verticalSpace,
                     _NotesBox(
-                      notes: item.notes,
+                      notes: item.notes!,
                       isDark: isDark,
                       textPrimary: textPrimary,
                     ),
                   ],
 
                   // ── Photo gallery ───────────────────────────────
-                  if (item.photos.isNotEmpty) ...[
+                  if (item.photos?.isNotEmpty==true) ...[
                     AppPadding.p10.verticalSpace,
-                    _PhotoGallery(photos: item.photos),
+                    _PhotoGallery(photos: item.photos!),
                   ],
 
                   AppPadding.p12.verticalSpace,

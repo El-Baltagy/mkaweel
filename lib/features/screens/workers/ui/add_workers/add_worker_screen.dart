@@ -89,7 +89,7 @@ class _AddWorkerPageState extends AddWorkerPageBaseState {
                 buildName(),
 
                 buildEmail(),
-                if(widget.args.workerItem==null)
+                // if(widget.args.workerItem==null)
                 ...[
                   buildPW(),
                    buildPWConfirm()

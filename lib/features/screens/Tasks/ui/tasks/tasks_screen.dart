@@ -62,18 +62,59 @@ class _TasksPageState extends TasksPageBaseState {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title:widget.args.baseTasksData.title.tr(),
-      actions: [
-        IconButton(onPressed:  ()async => await  tasksCubit.getAllTasksFunc(parameter: widget.args.baseTasksData) , icon: Icon(Icons.refresh))
-      ],
+      appBar: CustomAppBar(
+        title: widget.args.baseTasksData.title.tr(),
+        actions: [
+          ValueListenableBuilder<TaskFilter>(
+            valueListenable: filterNotifier,
+            builder: (context, filter, _) {
+              return PopupMenuButton<TaskFilter>(
+                icon: Icon(
+                  Icons.list_rounded,
+                  color: filter != TaskFilter.all
+                      ? context.theme.scaffoldBackgroundColor
+                      : null,
+                ),
+                initialValue: filter,
+                onSelected: (value) => filterNotifier.value = value,
+                itemBuilder: (context) =>
+                    <(String,TaskFilter)>[
+                      ('all_tasks',.all),
+                      ('completed',.completed),
+                      ('un_completed',.uncompleted),
+                    ].map((e) =>       PopupMenuItem(
+                      value: e.$2,
+                      child:  Text( e.$1.tr(),
+                      style: TextStyle(
+                        color: e.$2==filter?
+                            context.theme.primaryColor:null
+                      ),
+                      )
+                    )).toList()
+
+              );
+            },
+          ),
+          IconButton(
+            onPressed: () async =>
+                await tasksCubit.getAllTasksFunc(parameter: widget.args.baseTasksData),
+            icon: const Icon(Icons.refresh),
+          ),
+        ],
       ),
       body: BlocSelector<TasksCubit, TasksState, BaseEmit?>(
         selector: (state) => state is TasksLoaded ? state.getTasksState : null,
         builder: (context, state) {
-          return TasksListWidget(
-            parameter: widget.args.baseTasksData,
-            state: state,
-            tasksCubit: tasksCubit,
+          return ValueListenableBuilder<TaskFilter>(
+            valueListenable: filterNotifier,
+            builder: (context, filter, _) {
+              return TasksListWidget(
+                parameter: widget.args.baseTasksData,
+                state: state,
+                tasksCubit: tasksCubit,
+                filter: filter,
+              );
+            },
           );
         },
       ),

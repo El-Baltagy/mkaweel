@@ -401,3 +401,7 @@ connected_to_internet,connected to internet,متصل بالإنترنت
 not_connected_to_internet,not connected to internet,غير متصل بالإنترنت
 
 syncing_offline_projects,syncing offline projects,مزامنة المشاريع دون اتصال
+
+completed,completed,مكتمل
+un_completed,un completed,غير مكتمل
+all_tasks,all tasks,جميع المهام
