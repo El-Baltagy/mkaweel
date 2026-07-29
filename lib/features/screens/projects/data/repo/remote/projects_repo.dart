@@ -124,7 +124,7 @@ class ProjectsRepo extends BaseRepo {
       asObject: (map) => ProjectPhasesRes(
         status: map['status']as String,
         message: map['message']as String,
-        data: [ProjectphaseItem.fromJson(map['data']as Map<String, dynamic> )],
+        data: [ProjectphaseItem.fromJson(map['phase']as Map<String, dynamic> )],
       ),
     );
   }

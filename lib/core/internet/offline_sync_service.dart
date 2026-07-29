@@ -74,7 +74,7 @@ class OfflineSyncService {
         bool success = false;
         
         await projectsService.createProjectServ(
-          RequestCallbackObserver<CreateProjectRes, CreateProjectParameters>(
+          RequestCallbackObserver<(CreateProjectRes,bool), CreateProjectParameters>(
             parameter: updatedParameter,
             onLoadCallback: () {},
             onRightCallback: (data) {
