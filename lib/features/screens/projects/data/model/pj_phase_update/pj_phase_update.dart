@@ -45,10 +45,10 @@ class ProgressupdateItem with _$ProgressupdateItem, EquatableMixin {
   const factory ProgressupdateItem({
     required int id,
     required int progress_percentage,
-    required String update_date,
-    required String notes,
-    required List<String> photos,
-    required String creator_name,
+    required String? update_date,
+    required String? notes,
+    required List<String>? photos,
+    required String? creator_name,
   }) = _ProgressupdateItem;
 
   factory ProgressupdateItem.fromJson(Map<String, dynamic> json) => _$ProgressupdateItemFromJson(json);

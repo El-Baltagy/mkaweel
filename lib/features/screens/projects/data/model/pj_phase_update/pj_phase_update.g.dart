@@ -38,11 +38,11 @@ _$ProgressupdateItemImpl _$$ProgressupdateItemImplFromJson(
     _$ProgressupdateItemImpl(
       id: (json['id'] as num).toInt(),
       progress_percentage: (json['progress_percentage'] as num).toInt(),
-      update_date: json['update_date'] as String,
-      notes: json['notes'] as String,
+      update_date: json['update_date'] as String?,
+      notes: json['notes'] as String?,
       photos:
-          (json['photos'] as List<dynamic>).map((e) => e as String).toList(),
-      creator_name: json['creator_name'] as String,
+          (json['photos'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      creator_name: json['creator_name'] as String?,
     );
 
 Map<String, dynamic> _$$ProgressupdateItemImplToJson(

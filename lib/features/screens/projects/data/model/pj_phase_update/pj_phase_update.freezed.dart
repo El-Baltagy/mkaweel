@@ -306,10 +306,10 @@ ProgressupdateItem _$ProgressupdateItemFromJson(Map<String, dynamic> json) {
 mixin _$ProgressupdateItem {
   int get id => throw _privateConstructorUsedError;
   int get progress_percentage => throw _privateConstructorUsedError;
-  String get update_date => throw _privateConstructorUsedError;
-  String get notes => throw _privateConstructorUsedError;
-  List<String> get photos => throw _privateConstructorUsedError;
-  String get creator_name => throw _privateConstructorUsedError;
+  String? get update_date => throw _privateConstructorUsedError;
+  String? get notes => throw _privateConstructorUsedError;
+  List<String>? get photos => throw _privateConstructorUsedError;
+  String? get creator_name => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -326,10 +326,10 @@ abstract class $ProgressupdateItemCopyWith<$Res> {
   $Res call(
       {int id,
       int progress_percentage,
-      String update_date,
-      String notes,
-      List<String> photos,
-      String creator_name});
+      String? update_date,
+      String? notes,
+      List<String>? photos,
+      String? creator_name});
 }
 
 /// @nodoc
@@ -347,10 +347,10 @@ class _$ProgressupdateItemCopyWithImpl<$Res, $Val extends ProgressupdateItem>
   $Res call({
     Object? id = null,
     Object? progress_percentage = null,
-    Object? update_date = null,
-    Object? notes = null,
-    Object? photos = null,
-    Object? creator_name = null,
+    Object? update_date = freezed,
+    Object? notes = freezed,
+    Object? photos = freezed,
+    Object? creator_name = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -361,22 +361,22 @@ class _$ProgressupdateItemCopyWithImpl<$Res, $Val extends ProgressupdateItem>
           ? _value.progress_percentage
           : progress_percentage // ignore: cast_nullable_to_non_nullable
               as int,
-      update_date: null == update_date
+      update_date: freezed == update_date
           ? _value.update_date
           : update_date // ignore: cast_nullable_to_non_nullable
-              as String,
-      notes: null == notes
+              as String?,
+      notes: freezed == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
-              as String,
-      photos: null == photos
+              as String?,
+      photos: freezed == photos
           ? _value.photos
           : photos // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      creator_name: null == creator_name
+              as List<String>?,
+      creator_name: freezed == creator_name
           ? _value.creator_name
           : creator_name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -392,10 +392,10 @@ abstract class _$$ProgressupdateItemImplCopyWith<$Res>
   $Res call(
       {int id,
       int progress_percentage,
-      String update_date,
-      String notes,
-      List<String> photos,
-      String creator_name});
+      String? update_date,
+      String? notes,
+      List<String>? photos,
+      String? creator_name});
 }
 
 /// @nodoc
@@ -411,10 +411,10 @@ class __$$ProgressupdateItemImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? progress_percentage = null,
-    Object? update_date = null,
-    Object? notes = null,
-    Object? photos = null,
-    Object? creator_name = null,
+    Object? update_date = freezed,
+    Object? notes = freezed,
+    Object? photos = freezed,
+    Object? creator_name = freezed,
   }) {
     return _then(_$ProgressupdateItemImpl(
       id: null == id
@@ -425,22 +425,22 @@ class __$$ProgressupdateItemImplCopyWithImpl<$Res>
           ? _value.progress_percentage
           : progress_percentage // ignore: cast_nullable_to_non_nullable
               as int,
-      update_date: null == update_date
+      update_date: freezed == update_date
           ? _value.update_date
           : update_date // ignore: cast_nullable_to_non_nullable
-              as String,
-      notes: null == notes
+              as String?,
+      notes: freezed == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
-              as String,
-      photos: null == photos
+              as String?,
+      photos: freezed == photos
           ? _value._photos
           : photos // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      creator_name: null == creator_name
+              as List<String>?,
+      creator_name: freezed == creator_name
           ? _value.creator_name
           : creator_name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -453,7 +453,7 @@ class _$ProgressupdateItemImpl extends _ProgressupdateItem {
       required this.progress_percentage,
       required this.update_date,
       required this.notes,
-      required final List<String> photos,
+      required final List<String>? photos,
       required this.creator_name})
       : _photos = photos,
         super._();
@@ -466,19 +466,21 @@ class _$ProgressupdateItemImpl extends _ProgressupdateItem {
   @override
   final int progress_percentage;
   @override
-  final String update_date;
+  final String? update_date;
   @override
-  final String notes;
-  final List<String> _photos;
+  final String? notes;
+  final List<String>? _photos;
   @override
-  List<String> get photos {
+  List<String>? get photos {
+    final value = _photos;
+    if (value == null) return null;
     if (_photos is EqualUnmodifiableListView) return _photos;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_photos);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
-  final String creator_name;
+  final String? creator_name;
 
   @JsonKey(ignore: true)
   @override
@@ -499,10 +501,10 @@ abstract class _ProgressupdateItem extends ProgressupdateItem {
   const factory _ProgressupdateItem(
       {required final int id,
       required final int progress_percentage,
-      required final String update_date,
-      required final String notes,
-      required final List<String> photos,
-      required final String creator_name}) = _$ProgressupdateItemImpl;
+      required final String? update_date,
+      required final String? notes,
+      required final List<String>? photos,
+      required final String? creator_name}) = _$ProgressupdateItemImpl;
   const _ProgressupdateItem._() : super._();
 
   factory _ProgressupdateItem.fromJson(Map<String, dynamic> json) =
@@ -513,13 +515,13 @@ abstract class _ProgressupdateItem extends ProgressupdateItem {
   @override
   int get progress_percentage;
   @override
-  String get update_date;
+  String? get update_date;
   @override
-  String get notes;
+  String? get notes;
   @override
-  List<String> get photos;
+  List<String>? get photos;
   @override
-  String get creator_name;
+  String? get creator_name;
   @override
   @JsonKey(ignore: true)
   _$$ProgressupdateItemImplCopyWith<_$ProgressupdateItemImpl> get copyWith =>
