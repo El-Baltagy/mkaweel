@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:mkaweel/core/storage/hive_storage.dart';
 import 'package:mkaweel/core/base/base_service.dart';
 import 'package:mkaweel/core/base/base_state.dart';
@@ -162,7 +163,7 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
           onRightCallback: (data) =>
               safeEmit(current.copyWith(createProjectResState: Success(data))),
           onLeftCallback: (failure) {
-            if (failure.message == 'No internet connection.' && parameter != null) {
+            if (failure.error is SocketException && parameter != null) {
               final offlineRequests = HiveStorage().readData<List<String>>('offline_project_requests') ?? <String>[];
               offlineRequests.add(jsonEncode(parameter.toJson()));
               HiveStorage().writeData('offline_project_requests', offlineRequests);

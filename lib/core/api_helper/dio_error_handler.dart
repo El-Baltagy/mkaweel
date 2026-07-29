@@ -5,35 +5,37 @@ import 'dart:io';
 
 abstract class DioErrorHandler {
   static Failure handleError(DioException error) {
+    Failure? failure;
     switch (error.type) {
       case DioExceptionType.cancel:
-        return const Failure('Request was cancelled by user.');
+        failure=   Failure('Request was cancelled by user.');
       case DioExceptionType.connectionTimeout:
-        return const Failure('Connection timeout.');
+        failure=   Failure('Connection timeout.');
       case DioExceptionType.receiveTimeout:
-        return const Failure('Receive timeout.');
+        failure=   Failure('Receive timeout.');
       case DioExceptionType.sendTimeout:
-        return const Failure('Send timeout.');
+        failure=   Failure('Send timeout.');
       case DioExceptionType.badResponse:
-        return _handleBadResponse(error.response);
+        failure= _handleBadResponse(error.response);
       case DioExceptionType.connectionError:
         if (error.error is SocketException) {
-          return const Failure('No internet connection.');
+          failure=   Failure('No internet connection.',);
         }
-        return const Failure('Connection error.');
+        failure=   Failure('Connection error.');
       case DioExceptionType.unknown:
         if (error.error is SocketException) {
-          return const Failure('No internet connection.');
+          failure=   Failure('No internet connection.');
         }
-        return const Failure('Unexpected network error.');
+        failure=   Failure('Unexpected network error.');
       case DioExceptionType.badCertificate:
         // TODO: Handle this case.
-        return const Failure('incorrect certificate');
+        failure=   Failure('incorrect certificate');
     }
+    return failure..error=error.error;
   }
 
   static Failure _handleBadResponse(Response? response) {
-    if (response == null) return const Failure('Unknown server error.');
+    if (response == null) return   Failure('Unknown server error.');
     final code = response.statusCode ?? 0;
      String message = response.statusMessage ?? 'Unknown error';
 
@@ -86,10 +88,10 @@ abstract class DioErrorHandler {
 }
 class Failure {
 
-  const Failure(this.message, [this.code]);
+    Failure(this.message,  [this.code,this.error,]);
   final String message;
   final int? code;
-
+    Object?   error;
   @override
   String toString() => 'Failure(code: $code, message: $message)';
 }

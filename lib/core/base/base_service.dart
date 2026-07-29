@@ -7,7 +7,7 @@ import 'base_cubit.dart';
 abstract class BaseService{
 
 }
-class RequestCallbackObserver<T, P> {
+class RequestCallbackObserver<T, P> extends {
   RequestCallbackObserver({
       this.baseRequestBackType,
       this.parameter,

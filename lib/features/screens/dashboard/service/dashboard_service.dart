@@ -109,7 +109,7 @@ class DashboardService extends BaseService {
              }
            }
         if (param == null) {
-          return const Left<Failure, WeatherRes>(Failure( 'Could not get location',   0));
+          return Left<Failure, WeatherRes>(Failure( 'Could not get location',   0));
         }
 
         return _remoteRepo.getWeatherApi(

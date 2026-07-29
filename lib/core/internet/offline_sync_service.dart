@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:mkaweel/core/base/base_service.dart';
@@ -38,7 +39,7 @@ class OfflineSyncService {
     
     BuildContext? currentContext = navigatorKey.currentContext;
     if (currentContext != null) {
-      showDialog(
+      await showDialog(
         context: currentContext,
         barrierDismissible: false,
         builder: (context) {
@@ -102,7 +103,7 @@ class OfflineSyncService {
               success = true;
             },
             onLeftCallback: (failure) {
-              if (failure.message == 'No internet connection.') {
+              if (failure.error is SocketException) {
                  success = false; 
               } else {
                  success = true; 
