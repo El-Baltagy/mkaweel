@@ -59,7 +59,7 @@ class ProjectsRepo extends BaseRepo {
       CreateProjectParameters? parameter, {
         CancelToken? cancelToken,
       }) async {
-    try {
+
       final result = await handleResponse(
         onCallData: dio.postData(
           data: parameter?.toJsonBody(),
@@ -71,31 +71,10 @@ class ProjectsRepo extends BaseRepo {
         asObject: CreateProjectRes.fromJson,
       );
       return result.fold(
-        (failure) {
-          if (failure.error is SocketException) {
-            return right((
-              CreateProjectRes(
-                status: 'offline',
-                message: failure.message,
-                data: getEmptyProjectInfoData,
-              ),
-              false,
-            ));
-          }
-          return left(failure);
-        },
+        left,
         (data) => right((data, true)),
       );
-    } on SocketException catch (e) {
-      return right((
-        CreateProjectRes(
-          status: 'offline',
-          message: e.message,
-          data: getEmptyProjectInfoData,
-        ),
-        false,
-      ));
-    }
+
   }
 
   Future<Either<Failure, CreateProjectRes>> getProjectDataApi(

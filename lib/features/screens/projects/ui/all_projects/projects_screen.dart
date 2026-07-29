@@ -7,6 +7,7 @@ import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
+import 'package:mkaweel/core/internet/offline_sync_service.dart';
 import 'package:mkaweel/core/shared/widgets/app_bar.dart';
 import 'package:mkaweel/core/shared/widgets/classic_header_refresh.dart';
  import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
@@ -96,6 +97,8 @@ abstract class  ProjectsPageBaseState extends State<ProjectsPage> {
   @override
   void initState() {
     super.initState();
+    OfflineSyncService().isSyncingNotifier.addListener(_syncListener);
+
     projectsCubit = ProjectsCubit.get(context: context);
     projectsCubit.getAllProjectsFunc(Init(),baseTypeAdmin);
   }
@@ -103,6 +106,15 @@ abstract class  ProjectsPageBaseState extends State<ProjectsPage> {
   @override
   void dispose() {
     refreshController.dispose();
+    OfflineSyncService().isSyncingNotifier.removeListener(_syncListener);
+
     super.dispose();
   }
+
+
+    void _syncListener() {
+      if (!OfflineSyncService().isSyncingNotifier.value) {
+        projectsCubit.getAllProjectsFunc(Reload(),baseTypeAdmin);
+      }
+    }
 }
