@@ -1,0 +1,133 @@
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:mkaweel/core/base/base_service.dart';
+import 'package:mkaweel/core/internet/connected_bloc.dart';
+import 'package:mkaweel/core/storage/hive_storage.dart';
+import 'package:mkaweel/core/shared/methods/location_Service.dart';
+import 'package:mkaweel/features/screens/projects/data/model/create_project_parameters.dart';
+import 'package:mkaweel/features/screens/projects/service/projects_service.dart';
+import 'package:mkaweel/core/constants/app_locator.dart';
+import 'package:mkaweel/core/base/base_state.dart';
+import 'package:mkaweel/features/screens/projects/data/model/create_project_res/create_project_res.dart';
+import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/location_selection.dart';
+import 'package:mkaweel/main.dart';
+
+class OfflineSyncService {
+  OfflineSyncService._();
+  static final OfflineSyncService _instance = OfflineSyncService._();
+  factory OfflineSyncService() => _instance;
+
+  bool _isSyncing = false;
+
+  void init() {
+    ConnectivityService.connectivityStream.listen((hasInternet) {
+      if (hasInternet) {
+        _syncOfflineProjectRequests();
+      }
+    });
+  }
+
+  Future<void> _syncOfflineProjectRequests() async {
+    if (_isSyncing) return;
+    
+    final offlineRequestsJson = HiveStorage().readData<List<String>>('offline_project_requests');
+    if (offlineRequestsJson == null || offlineRequestsJson.isEmpty) return;
+
+    _isSyncing = true;
+    
+    BuildContext? currentContext = navigatorKey.currentContext;
+    if (currentContext != null) {
+      showDialog(
+        context: currentContext,
+        barrierDismissible: false,
+        builder: (context) {
+          return AlertDialog(
+            content: Row(
+              children: [
+                const CircularProgressIndicator(),
+                const SizedBox(width: 20),
+                Expanded(child: Text('syncing_offline_projects'.tr())),
+              ],
+            ),
+          );
+        },
+      );
+    }
+
+    List<String> failedRequests = [];
+
+    for (String requestJson in offlineRequestsJson) {
+      try {
+        final Map<String, dynamic> requestMap = jsonDecode(requestJson) as Map<String, dynamic>;
+        final CreateProjectParameters parameter = CreateProjectParameters.fromJson(requestMap);
+
+        String locationAddress = parameter.location;
+
+        if (locationAddress.isEmpty && parameter.latitude.isNotEmpty && parameter.longitude.isNotEmpty) {
+          final lat = double.tryParse(parameter.latitude);
+          final lng = double.tryParse(parameter.longitude);
+          if (lat != null && lng != null) {
+            final addressModel = await LocationService().reverseGeocode(LatLng(lat, lng));
+            if (addressModel != null) {
+              locationAddress = addressModel.toString();
+            }
+          }
+        }
+
+        final updatedParameter = CreateProjectParameters(
+          name: parameter.name,
+          owner_name: parameter.owner_name,
+          start_date: parameter.start_date,
+          end_date: parameter.end_date,
+          latitude: parameter.latitude,
+          longitude: parameter.longitude,
+          contract_value: parameter.contract_value,
+          currency: parameter.currency,
+          extra_details: parameter.extra_details,
+          description: parameter.description,
+          projectId: parameter.projectId,
+          location: locationAddress,
+        );
+
+        final projectsService = AppLocator().call()<ProjectsService>();
+        
+        bool success = false;
+        
+        await projectsService.createProjectServ(
+          RequestCallbackObserver<CreateProjectRes, CreateProjectParameters>(
+            parameter: updatedParameter,
+            onLoadCallback: () {},
+            onRightCallback: (data) {
+              success = true;
+            },
+            onLeftCallback: (failure) {
+              if (failure.message == 'No internet connection.') {
+                 success = false; 
+              } else {
+                 success = true; 
+              }
+            },
+          ),
+        );
+        
+        if (!success) {
+          failedRequests.add(requestJson);
+        }
+      } catch (e) {
+      }
+    }
+
+    if (failedRequests.isEmpty) {
+      await HiveStorage().deleteData('offline_project_requests');
+    } else {
+      await HiveStorage().writeData('offline_project_requests', failedRequests);
+    }
+    
+    if (currentContext != null && navigatorKey.currentContext != null) {
+      Navigator.of(navigatorKey.currentContext!).pop();
+    }
+    
+    _isSyncing = false;
+  }
+}

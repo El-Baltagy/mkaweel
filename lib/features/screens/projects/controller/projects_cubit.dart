@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:mkaweel/core/storage/hive_storage.dart';
 import 'package:mkaweel/core/base/base_service.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_constant.dart';
@@ -6,6 +8,7 @@ import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/shared/methods/print.dart';
+import 'package:mkaweel/features/dummy.dart';
 import 'package:mkaweel/features/screens/projects/data/model/all_projects_res/all_projects_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/create_project_parameters.dart';
 import 'package:mkaweel/features/screens/projects/data/model/create_project_res/create_project_res.dart';
@@ -158,9 +161,29 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
               safeEmit(current.copyWith(createProjectResState: Loading())),
           onRightCallback: (data) =>
               safeEmit(current.copyWith(createProjectResState: Success(data))),
-          onLeftCallback: (failure) => safeEmit(
-            current.copyWith(createProjectResState: ErrorState(failure)),
-          ),
+          onLeftCallback: (failure) {
+            if (failure.message == 'No internet connection.' && parameter != null) {
+              final offlineRequests = HiveStorage().readData<List<String>>('offline_project_requests') ?? <String>[];
+              offlineRequests.add(jsonEncode(parameter.toJson()));
+              HiveStorage().writeData('offline_project_requests', offlineRequests);
+              
+              safeEmit(
+                current.copyWith(
+                  createProjectResState:   Success(
+                      CreateProjectRes(
+                      status: 'offline',
+                      message: 'Request saved offline. It will be sent when internet is restored.',
+                      data: getEmptyProjectInfoData
+                    ),
+                  ),
+                ),
+              );
+            } else {
+              safeEmit(
+                current.copyWith(createProjectResState: ErrorState(failure)),
+              );
+            }
+          },
         ),
       );
     });

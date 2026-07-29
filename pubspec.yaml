@@ -29,6 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   stack_trace: ^1.11.0
+  connectivity_plus: ^7.0.0
   rxdart: ^0.27.0
   geolocator:
   geocoding:
