@@ -405,3 +405,6 @@ syncing_offline_projects,syncing offline projects,مزامنة المشاريع 
 completed,completed,مكتمل
 un_completed,un completed,غير مكتمل
 all_tasks,all tasks,جميع المهام
+
+request_saved_offline,Request saved offline,تم حفظ الطلب بلا إنترنت
+it_will_be_sent_when_internet_is_restored,It will be sent when internet is restored.,سيتم إرساله عند استعادة الإنترنت.

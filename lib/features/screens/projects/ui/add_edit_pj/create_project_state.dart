@@ -120,6 +120,7 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
   }
    void createProjectLisener(BuildContext context,ProjectsState state) {
     if (state is ProjectsLoaded) {
+      PrintHelper().ordinaryPrint('${ state.createProjectResState}');
       if(state.createProjectResState  is Success<(CreateProjectRes,bool)>) {
         PrintHelper().ordinaryPrint('...................wasd');
         final (CreateProjectRes,bool) data=(state.createProjectResState as Success<(CreateProjectRes,bool)>).data! ;

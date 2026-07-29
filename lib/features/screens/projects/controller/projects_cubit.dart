@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:mkaweel/core/internet/connected_bloc.dart';
 import 'package:mkaweel/core/storage/hive_storage.dart';
 import 'package:mkaweel/core/base/base_service.dart';
@@ -166,7 +167,7 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
             safeEmit(current.copyWith(createProjectResState: Loading()));
            },
           onRightCallback: (data) =>
-              safeEmit(current.copyWith(createProjectResState: Success((data,true)))),
+              safeEmit(current.copyWith(createProjectResState: Success(data))),
           onLeftCallback: (failure) {
             if (failure.error is SocketException && parameter != null) {
               final offlineRequests = HiveStorage().readData<List<String>>('offline_project_requests') ?? <String>[];
@@ -178,7 +179,8 @@ class ProjectsCubit extends BaseCubit<ProjectsState> {
                   createProjectResState:   Success(
                       (   CreateProjectRes(
                           status: 'offline',
-                          message: 'Request saved offline. It will be sent when internet is restored.',
+                          message: 'request_saved_offline'.tr()+' '+'it_will_be_sent_when_internet_is_restored'.tr(),
+                          // message: 'Request_saved_offline. It_will_be_sent_when_internet_is_restored.',
                           data: getEmptyProjectInfoData
                       ),
                       false
