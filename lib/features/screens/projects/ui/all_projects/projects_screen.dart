@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,7 @@ import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
+import 'package:mkaweel/core/internet/connected_bloc.dart';
 import 'package:mkaweel/core/internet/offline_sync_service.dart';
 import 'package:mkaweel/core/shared/widgets/app_bar.dart';
 import 'package:mkaweel/core/shared/widgets/classic_header_refresh.dart';
@@ -94,6 +97,7 @@ abstract class  ProjectsPageBaseState extends State<ProjectsPage> {
     BaseUserType baseTypeAdmin=BaseTypeAdmin.instance;
   late final ProjectsCubit projectsCubit;
   RefreshController refreshController=.new();
+    late final StreamSubscription<bool> _connectivitySubscription;
   @override
   void initState() {
     super.initState();
@@ -101,13 +105,20 @@ abstract class  ProjectsPageBaseState extends State<ProjectsPage> {
 
     projectsCubit = ProjectsCubit.get(context: context);
     projectsCubit.getAllProjectsFunc(Init(),baseTypeAdmin);
+    _connectivitySubscription =
+        ConnectivityService.connectivityStream.listen(_listenIntoInternetChange);
   }
 
+    void _listenIntoInternetChange(bool hasInternet) {
+      if (hasInternet) {
+        projectsCubit.getAllProjectsFunc(Init(),baseTypeAdmin);
+      }
+    }
   @override
   void dispose() {
     refreshController.dispose();
     OfflineSyncService().isSyncingNotifier.removeListener(_syncListener);
-
+    _connectivitySubscription.cancel();
     super.dispose();
   }
 

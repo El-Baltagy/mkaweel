@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
  import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -77,6 +79,7 @@ class _DashboardPageState extends DashboardPageBaseState {
 abstract class DashboardPageBaseState extends State<DashboardPage> {
   late final DashboardCubit dashboardCubit;
   late final TasksCubit tasksCubit;
+  late final StreamSubscription<bool> _connectivitySubscription;
 
   @override
   void initState() {
@@ -85,17 +88,20 @@ abstract class DashboardPageBaseState extends State<DashboardPage> {
     super.initState();
     dashboardCubit.getStatisticsFunc(Init());
     tasksCubit.getAllTasksFunc(parameter: const AdminTasksData(.today));
-    ConnectivityService.connectivityStream.listen(_listenIntoInternetChange);
+    _connectivitySubscription =
+        ConnectivityService.connectivityStream.listen(_listenIntoInternetChange);
   }
-_listenIntoInternetChange(bool hasInternet){
-  if (hasInternet) {
-    dashboardCubit.getStatisticsFunc(Init());
-    tasksCubit.getAllTasksFunc(parameter: const AdminTasksData(.today));
+
+  _listenIntoInternetChange(bool hasInternet) {
+    if (hasInternet) {
+      dashboardCubit.getStatisticsFunc(Init());
+      tasksCubit.getAllTasksFunc(parameter: const AdminTasksData(.today));
+    }
   }
-}
+
   @override
   void dispose() {
-    ConnectivityService.connectivityStream.removeListener(_listenIntoInternetChange);
+    _connectivitySubscription.cancel();
     super.dispose();
   }
 

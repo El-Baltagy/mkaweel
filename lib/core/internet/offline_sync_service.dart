@@ -1,10 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/Material.dart';
+import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:mkaweel/core/base/base_service.dart';
 import 'package:mkaweel/core/internet/connected_bloc.dart';
+import 'package:mkaweel/core/shared/methods/print.dart';
 import 'package:mkaweel/core/storage/hive_storage.dart';
 import 'package:mkaweel/core/shared/methods/location_Service.dart';
+import 'package:mkaweel/features/screens/login/data/model/login_res/login_res.dart';
+import 'package:mkaweel/features/screens/main_home/service/main_home_service.dart';
 import 'package:mkaweel/features/screens/projects/data/model/create_project_parameters.dart';
 import 'package:mkaweel/features/screens/projects/service/projects_service.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
@@ -28,12 +32,32 @@ class OfflineSyncService {
 
   Future<void> _syncOfflineProjectRequests() async {
     if (isSyncingNotifier.value) return;
-    
+
     final offlineRequestsJson = HiveStorage().readData<List<String>>('offline_project_requests');
     if (offlineRequestsJson == null || offlineRequestsJson.isEmpty) return;
 
-    isSyncingNotifier.value = true;
+    // Check the user's role before proceeding with sync.
+    // A Completer is used to capture the async callback result so we can
+    // properly guard the rest of this method with an early return.
+    final mainHomeService = AppLocator().call()<MainHomeService>();
+    final isAdminCompleter = Completer<bool>();
 
+    await mainHomeService.getProfileDataServ(RequestCallbackObserver<User, NoParameter>(
+      parameter: NoParameter(),
+      onLoadCallback: () {},
+      baseRequestBackType: Init(),
+      onRightCallback: (data) {
+        isAdminCompleter.complete(data?.role == 'admin');
+      },
+      onLeftCallback: (failure) {
+        isAdminCompleter.complete(false);
+      },
+    ));
+
+    final isAdmin = await isAdminCompleter.future;
+    if (!isAdmin) return;
+
+    isSyncingNotifier.value = true;
     List<String> failedRequests = [];
 
     for (String requestJson in offlineRequestsJson) {
@@ -70,7 +94,8 @@ class OfflineSyncService {
         );
 
         final projectsService = AppLocator().call()<ProjectsService>();
-        
+
+
         bool success = false;
         
         await projectsService.createProjectServ(

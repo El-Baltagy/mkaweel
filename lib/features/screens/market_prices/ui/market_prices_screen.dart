@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:auto_route/auto_route.dart';
  import 'package:flutter/material.dart';
@@ -5,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
+import 'package:mkaweel/core/internet/connected_bloc.dart';
 import 'package:mkaweel/core/shared/methods/print.dart';
 import 'package:mkaweel/core/shared/widgets/classic_header_refresh.dart';
 import 'package:mkaweel/features/screens/market_prices/controller/market_prices_cubit.dart';
@@ -195,7 +198,7 @@ abstract class MarketPricesPageBaseState extends State<MarketPricesPage>
       ),
     );
   }
-
+  late final StreamSubscription<bool> _connectivitySubscription;
   @override
   void initState() {
     super.initState();
@@ -203,10 +206,17 @@ abstract class MarketPricesPageBaseState extends State<MarketPricesPage>
     marketPriceCubit = MarketPricesCubit.get(context: context);
     selectedCatIdNotifier.addListener(_listenerCatIdNotfieir);
     currencyTabNotifier.addListener(_listenerCurrencyNotfieir);
-
     _loadData();
+    _connectivitySubscription =
+        ConnectivityService.connectivityStream.listen(_listenIntoInternetChange);
+
   }
 
+  void _listenIntoInternetChange(bool hasInternet) {
+    if (hasInternet) {
+      _loadData();
+    }
+  }
   Future<void> _loadData([BaseRequestBackType? requestType]) async {
     debugPrint("loading data in Market Prices Cubit ................");
     await Future.wait([
@@ -231,6 +241,7 @@ abstract class MarketPricesPageBaseState extends State<MarketPricesPage>
     currencyTabNotifier.removeListener(_listenerCurrencyNotfieir);
     currencyTabNotifier.dispose();
     refreshController.dispose();
+    _connectivitySubscription.cancel();
     super.dispose();
   }
 

@@ -3,18 +3,28 @@ part of 'workers_screen.dart';
 abstract class WorkersPageBaseState extends State<WorkersPage> {
   late final WorkersCubit workersCubit;
   late final ProjectsCubit projectsCubit;
-
+  late final StreamSubscription<bool> _connectivitySubscription;
   @override
   void initState() {
+    workersCubit = WorkersCubit.get( );
+    projectsCubit = ProjectsCubit.get( );
     super.initState();
-    workersCubit = WorkersCubit.get(context: context);
-    projectsCubit = ProjectsCubit.get(context: context);
 
+    workersCubit.getWorkersFunc();
+    projectsCubit.getAllProjectsFunc(Init(),BaseTypeAdmin.instance);
+    _connectivitySubscription =
+        ConnectivityService.connectivityStream.listen(_listenIntoInternetChange);
   }
-
+  void _listenIntoInternetChange(bool hasInternet) {
+    if (hasInternet) {
+      workersCubit.getWorkersFunc();
+      projectsCubit.getAllProjectsFunc(Init(),BaseTypeAdmin.instance);
+    }
+  }
 
   @override
   void dispose() {
+    _connectivitySubscription.cancel();
     super.dispose();
   }
 

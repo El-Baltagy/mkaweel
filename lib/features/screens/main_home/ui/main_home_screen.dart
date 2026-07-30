@@ -143,8 +143,7 @@ abstract class MainHomePageBaseState extends State<MainHomePage> {
   void initState() {
     super.initState();
     OfflineSyncService().isSyncingNotifier.addListener(_syncListener);
-    // argData = MainHomeCubit.get(context: context);
-  }
+   }
 
   @override
   void dispose() {

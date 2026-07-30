@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +8,7 @@ import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
+import 'package:mkaweel/core/internet/connected_bloc.dart';
 import 'package:mkaweel/core/shared/widgets/app_bar.dart';
  import 'package:mkaweel/core/theming/app_text_styles.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
@@ -26,10 +29,10 @@ class WorkersPage extends StatefulWidget implements AutoRouteWrapper {
 
     return MultiBlocProvider(providers: [
       BlocProvider<WorkersCubit>(
-         create: (context) => WorkersCubit(AppLocator()()())..getWorkersFunc(),
+         create: (context) => WorkersCubit(AppLocator()()()),
       ),
       BlocProvider<ProjectsCubit>(
-         create: (context) => ProjectsCubit(AppLocator()()())..getAllProjectsFunc(Init(),BaseTypeAdmin.instance),
+         create: (context) => ProjectsCubit(AppLocator()()()),
       ),
 
     ], child: this);
