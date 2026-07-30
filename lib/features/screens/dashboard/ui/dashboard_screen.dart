@@ -6,6 +6,7 @@ import 'package:mkaweel/core/base/base_cubit.dart';
  import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
+import 'package:mkaweel/core/internet/connected_bloc.dart';
 import 'package:mkaweel/features/screens/Tasks/controller/Tasks_cubit.dart';
 import 'package:mkaweel/features/screens/Tasks/ui/tasks/base_tasks_data.dart';
 import 'package:mkaweel/features/screens/dashboard/controller/dashboard_cubit.dart';
@@ -84,10 +85,17 @@ abstract class DashboardPageBaseState extends State<DashboardPage> {
     super.initState();
     dashboardCubit.getStatisticsFunc(Init());
     tasksCubit.getAllTasksFunc(parameter: const AdminTasksData(.today));
+    ConnectivityService.connectivityStream.listen(_listenIntoInternetChange);
   }
-
+_listenIntoInternetChange(bool hasInternet){
+  if (hasInternet) {
+    dashboardCubit.getStatisticsFunc(Init());
+    tasksCubit.getAllTasksFunc(parameter: const AdminTasksData(.today));
+  }
+}
   @override
   void dispose() {
+    ConnectivityService.connectivityStream.removeListener(_listenIntoInternetChange);
     super.dispose();
   }
 

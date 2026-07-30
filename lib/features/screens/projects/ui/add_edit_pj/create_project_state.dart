@@ -99,8 +99,8 @@ abstract class CreateProjectPageBaseState extends State<CreateProjectPage> {
     )) {
       await projectsCubit.createProjectFunc(
         parameter: CreateProjectParameters(
-          projectId:null,
-          // projectId: widget.args.projectId,
+          // projectId:null,
+          projectId: widget.args.projectId,
           name: _controllerName.text,
           owner_name: _controllerOwner_name.text,
           contract_value: _controllerContract_value.text,
