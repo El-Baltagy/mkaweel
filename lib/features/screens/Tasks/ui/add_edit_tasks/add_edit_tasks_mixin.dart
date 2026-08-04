@@ -1,7 +1,8 @@
 part of 'add_edit_tasks_screen.dart';
 
 abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
-  bool isEditMode() =>  (widget.args.taskItem?.id??-1) >0;
+  bool isEditMode() => (widget.args.taskItem?.id ?? -1) > 0;
+  bool isThisCashRequest() =>(widget.args.taskItem?.id??-1) < 0  ;
   final List<UIApiKeys<String>> statusChoices = [
     UIApiKeys('pending_status'.tr(), 'Pending'),
     UIApiKeys('in_progress_status'.tr(), 'in_progress'),
@@ -58,9 +59,11 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
     workersCubit.getWorkersFunc();
 
     selectedProjectNotifier.addListener(_onProjectChanged);
-    projectsCubit.getAllProjectsFunc(Init(),BaseTypeAdmin.instance);
+    projectsCubit.getAllProjectsFunc(Init(), BaseTypeAdmin.instance);
 
-    _connectivitySubscription = ConnectivityService.connectivityStream.listen((connected) {
+    _connectivitySubscription = ConnectivityService.connectivityStream.listen((
+      connected,
+    ) {
       if (mounted) setState(() => hasInternet = connected);
     });
   }
@@ -166,26 +169,30 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
             (state.addUpdateTaskFuncState as Success<DeleteProjectRes>).data!;
         if (data.status == 'success') {
           context.showToast(data.message);
-          
+
           if (widget.args.taskItem != null && widget.args.taskItem!.id < 0) {
-            final offlineRequests = HiveStorage().readData<List<String>>('offline_task_requests') ?? [];
+            final offlineRequests =
+                HiveStorage().readData<List<String>>('offline_task_requests') ??
+                [];
             final idToRemove = widget.args.taskItem!.id.toString();
             offlineRequests.removeWhere((req) {
-               final map = jsonDecode(req) as Map<String, dynamic>;
-               return map['task_id'] == idToRemove;
+              final map = jsonDecode(req) as Map<String, dynamic>;
+              return map['task_id'] == idToRemove;
             });
             HiveStorage().writeData('offline_task_requests', offlineRequests);
           }
 
           context.pop();
-            tasksCubit.getAllTasksFunc(parameter: const AdminTasksData(AdminTaskType.today));
-            bool isToday=widget.args.baseTasksData is  AdminTasksData&&(widget.args.baseTasksData as AdminTasksData).type==AdminTaskType.today;
-            if(!isToday){
-
-              tasksCubit.getAllTasksFunc(parameter: widget.args.baseTasksData);
-            }
-
-
+          tasksCubit.getAllTasksFunc(
+            parameter: const AdminTasksData(AdminTaskType.today),
+          );
+          bool isToday =
+              widget.args.baseTasksData is AdminTasksData &&
+              (widget.args.baseTasksData as AdminTasksData).type ==
+                  AdminTaskType.today;
+          if (!isToday) {
+            tasksCubit.getAllTasksFunc(parameter: widget.args.baseTasksData);
+          }
         }
       } else if (state.addUpdateTaskFuncState is ErrorState) {
         final ErrorState f = state.addUpdateTaskFuncState as ErrorState;
@@ -196,50 +203,70 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
 
   Future<void> saveTask(BuildContext context) async {
     if (await _key.validateAndScroll(context, listRecorder: listFields)) {
-      final request = AddEditTaskRequest(
+      AddEditTaskRequest request = AddEditTaskRequest(
         name: _nameController.text.trim(),
         description: _descriptionController.text.trim(),
         dueDate: _dueDateController.text.trim(),
-        taskId: widget.args.taskItem?.id.toString(),
+        taskId: (widget.args.taskItem != null && widget.args.taskItem!.id < 0)
+            ? null
+            : widget.args.taskItem?.id.toString(),
         status: statusChoices.first.apiValue,
-        workerId: selectedWorkerNotifier.value.isNotEmpty ? workersList.value[selectedWorkerNotifier.value.first].apiValue : null,
-        projectId: selectedProjectNotifier.value.isNotEmpty ? projectsList.value[selectedProjectNotifier.value.first].apiValue.id.toString() : null,
-        projectPhaseId: selectedPhaseNotifier.value.isNotEmpty ? phaseList.value[selectedPhaseNotifier.value.first].apiValue.id.toString() : null,
+        workerId: selectedWorkerNotifier.value.isNotEmpty
+            ? workersList.value[selectedWorkerNotifier.value.first].apiValue
+            : null,
+        projectId: selectedProjectNotifier.value.isNotEmpty
+            ? projectsList
+                  .value[selectedProjectNotifier.value.first]
+                  .apiValue
+                  .id
+                  .toString()
+            : null,
+        projectPhaseId: selectedPhaseNotifier.value.isNotEmpty
+            ? phaseList.value[selectedPhaseNotifier.value.first].apiValue.id
+                  .toString()
+            : null,
       );
 
       if (!hasInternet) {
-        final offlineRequests = HiveStorage().readData<List<String>>('offline_task_requests') ?? [];
-        final cacheId = (widget.args.taskItem != null && widget.args.taskItem!.id < 0) 
-             ? widget.args.taskItem!.id.toString() 
-             : '${-(DateTime.now().millisecondsSinceEpoch.remainder(100000))}';
-        
+        final offlineRequests =
+            HiveStorage().readData<List<String>>('offline_task_requests') ?? [];
+        final cacheId =
+            (widget.args.taskItem != null && widget.args.taskItem!.id < 0)
+            ? widget.args.taskItem!.id.toString()
+            : '${-(DateTime.now().millisecondsSinceEpoch.remainder(100000))}';
+
         final cachedRequest = AddEditTaskRequest(
-           name: request.name,
-           description: request.description,
-           dueDate: request.dueDate,
-           taskId: cacheId,
-           status: request.status,
-           workerId: request.workerId,
-           projectId: request.projectId,
-           projectPhaseId: request.projectPhaseId,
+          name: request.name,
+          description: request.description,
+          dueDate: request.dueDate,
+          taskId: cacheId,
+          status: request.status,
+          workerId: request.workerId,
+          projectId: request.projectId,
+          projectPhaseId: request.projectPhaseId,
         );
-        
+
         // Remove old entry if editing existing offline task
         offlineRequests.removeWhere((req) {
-           final map = jsonDecode(req) as Map<String, dynamic>;
-           return map['task_id'] == cacheId;
+          final map = jsonDecode(req) as Map<String, dynamic>;
+          return map['task_id'] == cacheId;
         });
 
         offlineRequests.add(jsonEncode(cachedRequest.toJson()));
         await HiveStorage().writeData('offline_task_requests', offlineRequests);
-       if(context.mounted) await context.showToast('task_saved_offline'.tr());
-        if(context.mounted)  await context.pop();
+        if (context.mounted) await context.showToast('task_saved_offline'.tr());
+        if (context.mounted) await context.pop();
         return;
       }
 
-      await tasksCubit.addUpdateTaskFuncFunc(parameter: request.copyWith(
-        taskId: isEditMode()?widget.args.taskItem?.id.toString():null
-      ));
+      await tasksCubit.addUpdateTaskFuncFunc(
+        parameter: request
+          ..taskId = isEditMode()?
+              widget.args.taskItem?.id.toString()
+              :null
+      );
+
+     
     }
   }
 }

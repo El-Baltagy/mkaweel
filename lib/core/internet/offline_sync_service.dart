@@ -40,6 +40,14 @@ class OfflineSyncService {
     });
   }
 
+  Future<void> syncNow() async {
+    final hasInternet = await ConnectivityService.validateInternetConnection();
+    if (hasInternet) {
+      await _syncOfflineProjectRequests();
+      await _syncOfflineTasks();
+    }
+  }
+
   Future<void> _syncOfflineProjectRequests() async {
     if (isSyncingNotifier.value) return;
 

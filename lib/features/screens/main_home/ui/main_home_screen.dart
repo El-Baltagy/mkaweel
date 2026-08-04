@@ -22,7 +22,6 @@ import 'package:mkaweel/features/screens/settings/data/base_type_worker.dart';
 part 'widgets/bottom_nav_bar.dart';
 
 
-
 @RoutePage()
 class MainHomePage extends StatefulWidget implements AutoRouteWrapper {
   const MainHomePage({super.key, required this.args});
@@ -33,7 +32,8 @@ class MainHomePage extends StatefulWidget implements AutoRouteWrapper {
   Widget wrappedRoute(BuildContext context) {
     return BlocProvider<MainHomeCubit>(
       create: (context) =>
-          MainHomeCubit(AppLocator()()())..getProfileDataFunc(Init()),
+      MainHomeCubit(AppLocator()()())
+        ..getProfileDataFunc(Init()),
       child: this,
     );
   }
@@ -45,38 +45,45 @@ class MainHomePage extends StatefulWidget implements AutoRouteWrapper {
 class _MainHomePageState extends MainHomePageBaseState {
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<MainHomeCubit, MainHomeState, BaseEmit?>(
-      selector: (state) =>
-          state is MainHomeLoaded ? state.getProfileDataState : null,
-      builder: (context, state) {
-        // bool isLoading = state is Loading;
-        if (state is Loading) {
-          return buildLoading();
+    return BlocListener<MainHomeCubit, MainHomeState>(
+      listener: (context, state) {
+        if(state is MainHomeLoaded && state.getProfileDataState is Success<User>){
+          OfflineSyncService().syncNow();
         }
+      },
+      child: BlocSelector<MainHomeCubit, MainHomeState, BaseEmit?>(
+        selector: (state) =>
+        state is MainHomeLoaded ? state.getProfileDataState : null,
+        builder: (context, state) {
+          // bool isLoading = state is Loading;
+          if (state is Loading) {
+            return buildLoading();
+          }
 
-        final User? data = state is Success<User> ? state.data : StorageHelper.userData;
-       if(data==null){
-         return buildError();
-       }
-          List<NavItemData> routesNav( ) {
+          final User? data = state is Success<User> ? state.data : StorageHelper
+              .userData;
+          if (data == null) {
+            return buildError();
+          }
+          List<NavItemData> routesNav() {
             return data.role.toLowerCase().trim() == 'admin'
-                ? BaseTypeAdmin.instance.buildRoutesNav( )
-                : BaseTypeWorker.instance.buildRoutesNav( );
+                ? BaseTypeAdmin.instance.buildRoutesNav()
+                : BaseTypeWorker.instance.buildRoutesNav();
           }
           return AutoTabsScaffold(
 
-            routes:   routesNav().map((e) => e.route).toList(),
+            routes: routesNav().map((e) => e.route).toList(),
             bottomNavigationBuilder: (context, tabsRouter) {
               return EntranceFader(
-                  delay:const Duration(milliseconds: 500),
+                  delay: const Duration(milliseconds: 500),
                   dx: 0,
                   dy: 32,
-                  child: _BottomNavBar(tabsRouter: tabsRouter,routesNav:routesNav( )));
+                  child: _BottomNavBar(
+                      tabsRouter: tabsRouter, routesNav: routesNav()));
             },
           );
-
-
-      },
+        },
+      ),
     );
   }
 
@@ -139,11 +146,12 @@ abstract class MainHomePageBaseState extends State<MainHomePage> {
       }
     }
   }
+
   @override
   void initState() {
     super.initState();
     OfflineSyncService().isSyncingNotifier.addListener(_syncListener);
-   }
+  }
 
   @override
   void dispose() {

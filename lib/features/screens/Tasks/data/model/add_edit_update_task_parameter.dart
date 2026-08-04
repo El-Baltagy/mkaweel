@@ -1,6 +1,6 @@
 class AddEditTaskRequest {
 
-  const AddEditTaskRequest({
+    AddEditTaskRequest({
     required this.projectId,
     required this.workerId,
     required this.name,
@@ -10,7 +10,8 @@ class AddEditTaskRequest {
     required this.taskId,
     required this.projectPhaseId,
   });
-  final String? projectId,taskId, workerId, name, description, status, dueDate, projectPhaseId;
+  final String? projectId,  workerId, name, description, status, dueDate, projectPhaseId;
+    String? taskId;
 
   AddEditTaskRequest copyWith({
     String? projectId,
@@ -51,14 +52,14 @@ class AddEditTaskRequest {
 
   factory AddEditTaskRequest.fromJson(Map<String, dynamic> json) {
     return AddEditTaskRequest(
-      projectId: json['project_id'],
-      workerId: json['worker_id'],
-      name: json['name'],
-      description: json['description'],
-      status: json['status'],
-      dueDate: json['due_date'],
-      projectPhaseId: json['project_phase_id'],
-      taskId: json['task_id'],
+      projectId: json['project_id']as String?,
+      workerId: json['worker_id']as String?,
+      name: json['name']as String?,
+      description: json['description']as String?,
+      status: json['status']as String?,
+      dueDate: json['due_date']as String?,
+      projectPhaseId: json['project_phase_id']as String?,
+      taskId: json['task_id']as String?,
     );
   }
 }

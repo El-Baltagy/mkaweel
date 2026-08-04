@@ -274,7 +274,7 @@ class _AddEditTasksPageState extends AddEditTasksBaseState {
       NameInputData(
         isLabel: false,
         widgetPrefix: const SizedBox.shrink(),
-        field: listFields[6],
+        // field: listFields[6],
         maxLines: 4,
         validator: (v) => null,
         labelText: 'detail_the_steps'.tr(),
