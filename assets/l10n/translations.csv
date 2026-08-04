@@ -408,3 +408,7 @@ all_tasks,all tasks,جميع المهام
 
 request_saved_offline,Request saved offline,تم حفظ الطلب بلا إنترنت
 it_will_be_sent_when_internet_is_restored,It will be sent when internet is restored.,سيتم إرساله عند استعادة الإنترنت.
+
+edit_task,edit task,مهمة التحرير
+offline_tasks_ready_to_sync,offline tasks ready to sync,المهام دون اتصال بالإنترنت جاهزة للمزامنة
+please_complete_the_following_tasks_to_sync,please complete the following tasks to sync,يرجى إكمال المهام التالية للمزامنة

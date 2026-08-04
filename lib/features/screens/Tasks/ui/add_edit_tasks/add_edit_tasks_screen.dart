@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'dart:convert';
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -7,6 +9,8 @@ import 'package:mkaweel/core/app/route.dart';
 import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
+import 'package:mkaweel/core/internet/connected_bloc.dart';
+import 'package:mkaweel/core/storage/hive_storage.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/extension/form_auto_scroll.dart';
@@ -72,7 +76,7 @@ class _AddEditTasksPageState extends AddEditTasksBaseState {
       listener: taskListener,
       child: Scaffold(
          appBar:CustomAppBar(
-          title:   widget.args.taskItem == null ? 'create_task_title'.tr() : 'edit_task'.tr() ,
+          title:  isEditMode() ? 'edit_task'.tr() : 'create_task_title'.tr() ,
         ),
         bottomNavigationBar: buildBtn(),
         body: Form(
@@ -121,7 +125,7 @@ class _AddEditTasksPageState extends AddEditTasksBaseState {
               ],
             )
                 : ElevatedButton(
-              onPressed: saveTask,
+              onPressed:()=> saveTask(context),
               style: ElevatedButton.styleFrom(
                 backgroundColor: context.theme.primaryColor,
                 shape: RoundedRectangleBorder(
@@ -169,6 +173,7 @@ class _AddEditTasksPageState extends AddEditTasksBaseState {
               return BottomSheetSelector(
                 field: listFields[1],
                 isMultiSelect: false,
+                isRequired: hasInternet,
                 title: 'project'.tr(),
                 listChoices: value,
                 selectedNotifier: selectedProjectNotifier,
@@ -193,6 +198,7 @@ class _AddEditTasksPageState extends AddEditTasksBaseState {
             return BottomSheetSelector(
               field: listFields[2],
               isMultiSelect: false,
+              isRequired: hasInternet,
               title: 'construction_phase'.tr(),
               listChoices: value,
               selectedNotifier: selectedPhaseNotifier,
@@ -217,6 +223,7 @@ class _AddEditTasksPageState extends AddEditTasksBaseState {
           child: BottomSheetSelector(
             field: listFields[3],
             isMultiSelect: false,
+            isRequired: hasInternet,
             title: 'assign_worker'.tr(),
             listChoices: value,
             selectedNotifier: selectedWorkerNotifier,

@@ -15,6 +15,14 @@ import 'package:mkaweel/features/screens/projects/service/projects_service.dart'
 import 'package:mkaweel/core/constants/app_locator.dart';
  import 'package:mkaweel/features/screens/projects/data/model/create_project_res/create_project_res.dart';
 import 'package:mkaweel/features/screens/projects/ui/add_edit_pj/widgets/location_selection.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:mkaweel/main.dart';
+import 'package:mkaweel/core/app/app.dart';
+import 'package:mkaweel/core/app/route.dart';
+import 'package:mkaweel/features/screens/Tasks/controller/Tasks_cubit.dart';
+import 'package:mkaweel/features/screens/Tasks/ui/tasks/base_tasks_data.dart';
+import 'package:mkaweel/features/screens/Tasks/data/model/tasks_res/tasks_res.dart';
+import 'package:mkaweel/features/screens/Tasks/data/model/add_edit_update_task_parameter.dart';
 
 class OfflineSyncService {
   OfflineSyncService._();
@@ -27,6 +35,7 @@ class OfflineSyncService {
     ConnectivityService.connectivityStream.listen((hasInternet) {
       if (hasInternet) {
         _syncOfflineProjectRequests();
+        _syncOfflineTasks();
       }
     });
   }
@@ -130,5 +139,99 @@ class OfflineSyncService {
     }
     
     isSyncingNotifier.value = false;
+  }
+
+  Future<void> _syncOfflineTasks() async {
+    final offlineRequestsJson = HiveStorage().readData<List<String>>('offline_task_requests');
+    if (offlineRequestsJson == null || offlineRequestsJson.isEmpty) return;
+
+    final context = navigatorKey.currentContext;
+    if (context == null) return;
+
+    final cachedTasks = offlineRequestsJson.map((req) {
+      final map = jsonDecode(req) as Map<String, dynamic>;
+      return AddEditTaskRequest.fromJson(map);
+    }).toList();
+
+    await showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (ctx) {
+        return SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'offline_tasks_ready_to_sync'.tr(),
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10),
+                Text('please_complete_the_following_tasks_to_sync'.tr()),
+                const SizedBox(height: 15),
+                ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: cachedTasks.length,
+                  separatorBuilder: (_, __) => const Divider(),
+                  itemBuilder: (ctx, index) {
+                    final taskReq = cachedTasks[index];
+                    return ListTile(
+                      title: Text(taskReq.name ?? 'no_name'.tr()),
+                      subtitle: Text(taskReq.description ?? ''),
+                      trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                      onTap: () {
+                        Navigator.pop(ctx);
+
+                        final dummyTask = TaskItem.fromJson({
+                          "id": -(DateTime.now().millisecondsSinceEpoch.remainder(100000)),
+                          "name": taskReq.name ?? '',
+                          "description": taskReq.description ?? '',
+                          "status": taskReq.status ?? 'Pending',
+                          "due_date": taskReq.dueDate ?? '',
+                          "project": {
+                            "id": -1,
+                            "name": "",
+                            "owner_name": "",
+                            "start_date": "",
+                            "end_date": "",
+                            "latitude": null,
+                            "longitude": null,
+                            "description": null,
+                            "location": null,
+                            "extra_details": null,
+                            "contract_value": null,
+                            "currency": null,
+                            "progress_percentage": 0,
+                            "project_phases": null,
+                            "created_at": "",
+                            "updated_at": ""
+                          },
+                          "worker": null,
+                          "project_phase": null
+                        });
+
+                        final tasksCubit = AppLocator().call()<TasksCubit>();
+                        appRouter.push(AddEditTasksRoute(args: AddEditTasksRouteArgs(
+                          dummyTask,
+                          tasksCubit,
+                          const AdminTasksData(AdminTaskType.today)
+                        )));
+                      },
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 }

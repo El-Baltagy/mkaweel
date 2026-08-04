@@ -14,6 +14,7 @@ class BottomSheetSelector extends StatefulWidget {
     required this.selectedNotifier,
     required this.isMultiSelect,
     required this.title,
+    this.isRequired = true,
       this.onTap,
     this.field,
   });
@@ -22,6 +23,7 @@ class BottomSheetSelector extends StatefulWidget {
   final ValueNotifier<List<int>> selectedNotifier;
   final bool isMultiSelect;
   final String title;
+  final bool isRequired;
   final void Function()? onTap;
   final (GlobalKey<FormFieldState<dynamic>>, FocusNode?)? field;
 
@@ -73,6 +75,7 @@ class _BottomSheetSelectorState extends State<BottomSheetSelector> {
       DropDownSingleSelectData(
         field: widget.field,
         isLabel: false,
+        isRequired: widget.isRequired,
         onTap: widget.onTap??() => chooseFromBottomSheet(context),
         controller: _controller,
       ),
