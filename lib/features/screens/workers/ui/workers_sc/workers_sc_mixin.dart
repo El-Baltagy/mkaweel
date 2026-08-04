@@ -6,10 +6,10 @@ abstract class WorkersPageBaseState extends State<WorkersPage> {
   late final StreamSubscription<bool> _connectivitySubscription;
   @override
   void initState() {
-    workersCubit = WorkersCubit.get( );
-    projectsCubit = ProjectsCubit.get( );
-    super.initState();
 
+    super.initState();
+    workersCubit = WorkersCubit.get(context: context );
+    projectsCubit = ProjectsCubit.get( context: context);
     workersCubit.getWorkersFunc();
     projectsCubit.getAllProjectsFunc(Init(),BaseTypeAdmin.instance);
     _connectivitySubscription =
