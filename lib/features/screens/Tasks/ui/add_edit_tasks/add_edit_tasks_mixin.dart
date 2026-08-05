@@ -171,6 +171,7 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
           context.showToast(data.message);
 
           if (widget.args.taskItem != null && widget.args.taskItem!.id < 0) {
+            PrintHelper().ordinaryPrint("...........cccccccccaaaa");
             final offlineRequests =
                 HiveStorage().readData<List<String>>('offline_task_requests') ??
                 [];

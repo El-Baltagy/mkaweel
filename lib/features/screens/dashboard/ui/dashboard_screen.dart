@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
  import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/app/route.dart';
@@ -9,6 +10,7 @@ import 'package:mkaweel/core/base/base_cubit.dart';
 import 'package:mkaweel/core/constants/app_locator.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/internet/connected_bloc.dart';
+import 'package:mkaweel/core/internet/offline_sync_service.dart';
 import 'package:mkaweel/features/screens/Tasks/controller/Tasks_cubit.dart';
 import 'package:mkaweel/features/screens/Tasks/ui/tasks/base_tasks_data.dart';
 import 'package:mkaweel/features/screens/dashboard/controller/dashboard_cubit.dart';
@@ -45,6 +47,12 @@ class _DashboardPageState extends DashboardPageBaseState {
        appBar: AppBar(
         toolbarHeight: 5,
       ),
+      floatingActionButton:kDebugMode? FloatingActionButton(
+        onPressed: () {
+          OfflineSyncService().syncNow();
+        },
+        child: const Icon(Icons.add),
+      ):null,
       body: SafeArea(
         bottom: false,
         child: SingleChildScrollView(
