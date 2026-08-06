@@ -15,6 +15,7 @@ import 'package:mkaweel/features/screens/Tasks/ui/tasks/base_tasks_data.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/statistics_res/statistics_res.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:mkaweel/core/internet/offline_sync_service.dart';
 
 class DashboardHeaderWidget extends StatelessWidget {
   const DashboardHeaderWidget({super.key, required this.state, required this.tasksCubit});
@@ -47,6 +48,16 @@ class DashboardHeaderWidget extends StatelessWidget {
                   DateFormat('dd MMM , EEE ', HiveStorage().readData(AppConstant.langCode) ?? 'en'),
                 ),
                 style: AppTextStyles.font14Regular.copyWith(color: context.theme.scaffoldBackgroundColor.withOpacity(0.8)),
+              ),
+              Spacer(),
+              IconButton(
+                onPressed: () {
+                  OfflineSyncService().syncNow();
+                },
+                icon: Icon(
+                  Icons.sync,
+                  color: context.theme.scaffoldBackgroundColor.withOpacity(0.8),
+                ),
               ),
             ],
           ),
