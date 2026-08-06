@@ -150,7 +150,8 @@ class OfflineSyncService {
   }
 
   Future<void> _syncOfflineTasks() async {
-    final offlineRequestsJson = HiveStorage().readData<List<String>>('offline_task_requests');
+    final raw = HiveStorage().readData<List<dynamic>>('offline_task_requests');
+    final offlineRequestsJson = raw?.map((e) => e.toString()).toList();
     if (offlineRequestsJson == null || offlineRequestsJson.isEmpty) return;
 
     final context = navigatorKey.currentContext;
@@ -198,7 +199,7 @@ class OfflineSyncService {
                         Navigator.pop(ctx);
 
                         final dummyTask = TaskItem.fromJson({
-                          "id": -(DateTime.now().millisecondsSinceEpoch.remainder(100000)),
+                          "id": int.tryParse(taskReq.taskId.toString())??(-DateTime.now().millisecondsSinceEpoch.remainder(100000)),
                           "name": taskReq.name ?? '',
                           "description": taskReq.description ?? '',
                           "status": taskReq.status ?? 'Pending',

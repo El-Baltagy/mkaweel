@@ -35,7 +35,7 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
   late final List<(GlobalKey<FormFieldState>, FocusNode?)> listFields =
       List.generate(7, (index) => (GlobalKey<FormFieldState>(), FocusNode()));
 
-  bool hasInternet = true;
+   ValueNotifier<bool> hasInternetNotifier = ValueNotifier<bool>(true);
   StreamSubscription<bool>? _connectivitySubscription;
 
   @override
@@ -64,7 +64,7 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
     _connectivitySubscription = ConnectivityService.connectivityStream.listen((
       connected,
     ) {
-      if (mounted) setState(() => hasInternet = connected);
+      hasInternetNotifier.value=connected;
     });
   }
 
@@ -78,6 +78,7 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
     projectsList.dispose();
     selectedPhaseNotifier.dispose();
     phaseList.dispose();
+    hasInternetNotifier.dispose();
     selectedWorkerNotifier.dispose();
     workersList.dispose();
     statusNotifier.dispose();
@@ -162,29 +163,33 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
     );
   }
 
-  void taskListener(BuildContext context, TasksState state) {
+  Future<void> taskListener(BuildContext context, TasksState state) async {
     if (state is TasksLoaded) {
       if (state.addUpdateTaskFuncState is Success<DeleteProjectRes>) {
         final DeleteProjectRes data =
             (state.addUpdateTaskFuncState as Success<DeleteProjectRes>).data!;
         if (data.status == 'success') {
-          context.showToast(data.message);
+          await context.showToast(data.message);
 
           if (widget.args.taskItem != null && widget.args.taskItem!.id < 0) {
-            PrintHelper().ordinaryPrint("...........cccccccccaaaa");
-            final offlineRequests =
-                HiveStorage().readData<List<String>>('offline_task_requests') ??
-                [];
+            final raw = HiveStorage().readData<List<dynamic>>('offline_task_requests');
+            final offlineRequests = raw?.map((e) => e.toString()).toList() ?? [];
             final idToRemove = widget.args.taskItem!.id.toString();
+            PrintHelper().ordinaryPrint( '..............eeeeeeeeeee}');
+            PrintHelper().ordinaryPrint( '$idToRemove\n${offlineRequests.toString()}');
             offlineRequests.removeWhere((req) {
               final map = jsonDecode(req) as Map<String, dynamic>;
               return map['task_id'] == idToRemove;
             });
-            HiveStorage().writeData('offline_task_requests', offlineRequests);
+            if (offlineRequests.isEmpty) {
+              await HiveStorage().deleteData('offline_task_requests');
+            } else {
+              await HiveStorage().writeData('offline_task_requests', offlineRequests);
+            }
           }
 
-          context.pop();
-          tasksCubit.getAllTasksFunc(
+        if(context.mounted)  await context.pop();
+          await tasksCubit.getAllTasksFunc(
             parameter: const AdminTasksData(AdminTaskType.today),
           );
           bool isToday =
@@ -192,12 +197,12 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
               (widget.args.baseTasksData as AdminTasksData).type ==
                   AdminTaskType.today;
           if (!isToday) {
-            tasksCubit.getAllTasksFunc(parameter: widget.args.baseTasksData);
+            await tasksCubit.getAllTasksFunc(parameter: widget.args.baseTasksData);
           }
         }
       } else if (state.addUpdateTaskFuncState is ErrorState) {
         final ErrorState f = state.addUpdateTaskFuncState as ErrorState;
-        context.showToast(f.failure.message, isSuccess: false);
+        await context.showToast(f.failure.message, isSuccess: false);
       }
     }
   }
@@ -228,13 +233,16 @@ abstract class AddEditTasksBaseState extends State<AddEditTasksPage> {
             : null,
       );
 
-      if (!hasInternet) {
+      if (!hasInternetNotifier.value&&!isEditMode()) {
         final offlineRequests =
-            HiveStorage().readData<List<String>>('offline_task_requests') ?? [];
+            (HiveStorage().readData<List<dynamic>>('offline_task_requests') ?? [])
+                .map((e) => e.toString())
+                .toList();
         final cacheId =
-            (widget.args.taskItem != null && widget.args.taskItem!.id < 0)
-            ? widget.args.taskItem!.id.toString()
-            : '${-(DateTime.now().millisecondsSinceEpoch.remainder(100000))}';
+            // (widget.args.taskItem != null && widget.args.taskItem!.id < 0)
+            // ? widget.args.taskItem!.id.toString()
+            // :
+    '${-(DateTime.now().millisecondsSinceEpoch.remainder(100000))}';
 
         final cachedRequest = AddEditTaskRequest(
           name: request.name,

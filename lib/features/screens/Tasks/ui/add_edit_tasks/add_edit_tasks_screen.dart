@@ -170,14 +170,16 @@ class _AddEditTasksPageState extends AddEditTasksBaseState {
           child: ValueListenableBuilder(
             valueListenable: projectsList,
             builder: (context, value, child) {
-              return BottomSheetSelector(
-                field: listFields[1],
-                isMultiSelect: false,
-                isRequired: hasInternet,
-                title: 'project'.tr(),
-                listChoices: value,
-                selectedNotifier: selectedProjectNotifier,
-              );
+              return ValueListenableBuilder(valueListenable: hasInternetNotifier, builder: (context, hasInternet, child) {
+                return BottomSheetSelector(
+                  field: listFields[1],
+                  isMultiSelect: false,
+                  isRequired: hasInternet&&!isEditMode(),
+                  title: 'project'.tr(),
+                  listChoices: value,
+                  selectedNotifier: selectedProjectNotifier,
+                );
+              });
             },
           ),
         );
@@ -195,14 +197,16 @@ class _AddEditTasksPageState extends AddEditTasksBaseState {
         return Skeletonizer(
           enabled: isLoading,
           child: ValueListenableBuilder(valueListenable:phaseList , builder: (context, value, child) {
-            return BottomSheetSelector(
-              field: listFields[2],
-              isMultiSelect: false,
-              isRequired: hasInternet,
-              title: 'construction_phase'.tr(),
-              listChoices: value,
-              selectedNotifier: selectedPhaseNotifier,
-            );
+            return ValueListenableBuilder(valueListenable: hasInternetNotifier, builder: (context, hasInternet, child) {
+              return BottomSheetSelector(
+                field: listFields[2],
+                isMultiSelect: false,
+                isRequired: hasInternet&&!isEditMode(),
+                title: 'construction_phase'.tr(),
+                listChoices: value,
+                selectedNotifier: selectedPhaseNotifier,
+              );
+            });
           },),
         );
       },
@@ -220,14 +224,16 @@ class _AddEditTasksPageState extends AddEditTasksBaseState {
       return ValueListenableBuilder(valueListenable: workersList, builder: (context, value, child) {
         return Skeletonizer(
           enabled: isLoading,
-          child: BottomSheetSelector(
-            field: listFields[3],
-            isMultiSelect: false,
-            isRequired: hasInternet,
-            title: 'assign_worker'.tr(),
-            listChoices: value,
-            selectedNotifier: selectedWorkerNotifier,
-          ),
+          child: ValueListenableBuilder(valueListenable: hasInternetNotifier, builder: (context, hasInternet, child) {
+            return BottomSheetSelector(
+              field: listFields[3],
+              isMultiSelect: false,
+              isRequired: hasInternet&&!isEditMode(),
+              title: 'assign_worker'.tr(),
+              listChoices: value,
+              selectedNotifier: selectedWorkerNotifier,
+            );
+          }),
         );
       },);
     },);
