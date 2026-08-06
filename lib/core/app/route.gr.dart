@@ -15,6 +15,16 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    InvoiceDetailsRoute.name: (routeData) {
+      final args = routeData.argsAs<InvoiceDetailsRouteArgs>( );
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(
+            child: InvoiceDetailsPage(
+           args: args ,
+        )),
+      );
+    },
     AttendenceRoute.name: (routeData) {
       final args = routeData.argsAs<AttendenceRouteArgs>( );
       return AutoRoutePage<dynamic>(
@@ -746,4 +756,26 @@ class AttendenceRoute extends PageRouteInfo<AttendenceRouteArgs> {
 }
 class AttendenceRouteArgs {
   const AttendenceRouteArgs( );
+ }
+
+/// generated route for
+/// [InvoiceDetailsPage]
+class InvoiceDetailsRoute extends PageRouteInfo<InvoiceDetailsRouteArgs> {
+  InvoiceDetailsRoute({
+   required InvoiceDetailsRouteArgs args  ,
+    List<PageRouteInfo>? children,
+  }) : super(
+    InvoiceDetailsRoute.name,
+    args: args,
+    initialChildren: children,
+  );
+
+  static const String name = 'InvoiceDetailsRoute';
+
+  static const PageInfo<InvoiceDetailsRouteArgs> page =
+  PageInfo<InvoiceDetailsRouteArgs>(name);
+}
+class InvoiceDetailsRouteArgs {
+  const InvoiceDetailsRouteArgs(this.invoiceItem );
+  InvoiceItem   invoiceItem;
  }

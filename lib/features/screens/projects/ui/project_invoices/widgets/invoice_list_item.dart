@@ -30,7 +30,11 @@ class _InvoiceListItem extends StatelessWidget {
       ),
       padding: const EdgeInsets.all(AppPadding.p16),
       child: GestureDetector(
-        onTap: () => context.push( ),
+        onTap: () => context.push(
+            InvoiceDetailsRoute(
+              args: InvoiceDetailsRouteArgs(item  ),
+            )
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
