@@ -273,6 +273,7 @@
   "task_description": "وصف المهمة",
   "task_information": "معلومات المهمة",
   "task_name": "اسم المهمة",
+  "task_saved_offline": "تم حفظ المهمة في وضع عدم الاتصال",
   "tasks": "المهام",
   "tasks_0_0": "المهام",
   "tax_number": "الرقم الضريبي",

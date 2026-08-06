@@ -30,11 +30,11 @@ class _InvoiceListItem extends StatelessWidget {
       ),
       padding: const EdgeInsets.all(AppPadding.p16),
       child: GestureDetector(
-        onTap: () => context.push(
-            InvoiceDetailsRoute(
-              args: InvoiceDetailsRouteArgs(item  ),
-            )
-        ),
+        // onTap: () => context.push(
+        //     InvoiceDetailsRoute(
+        //       args: InvoiceDetailsRouteArgs(item  ),
+        //     )
+        // ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -106,6 +106,16 @@ class _InvoiceListItem extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
+            AppPadding.p10.verticalSpace,
+
+            Text(
+              item.category_details.description ,
+              style: AppTextStyles.font14Regular.copyWith(
+                color: isDark ? Colors.grey[400] : Colors.grey[600],
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
             AppPadding.p10.verticalSpace,
             Row(

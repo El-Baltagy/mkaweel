@@ -777,5 +777,5 @@ class InvoiceDetailsRoute extends PageRouteInfo<InvoiceDetailsRouteArgs> {
 }
 class InvoiceDetailsRouteArgs {
   const InvoiceDetailsRouteArgs(this.invoiceItem );
-  InvoiceItem   invoiceItem;
+  final InvoiceItem   invoiceItem;
  }
