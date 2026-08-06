@@ -1,15 +1,24 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mkaweel/core/base/base_state.dart';
 import 'package:mkaweel/core/extension/context.dart';
 import 'package:mkaweel/core/extension/double.dart';
 import 'package:mkaweel/core/shared/widgets/entrance_fader.dart';
 import 'package:mkaweel/core/theming/app_values.dart';
+import 'package:mkaweel/features/dummy.dart';
 import 'package:mkaweel/features/screens/dashboard/data/model/weather_res/weather_res.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/weather/widgets/weather_description_card_widget.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/weather/widgets/weather_details_row_widget.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/weather/widgets/weather_error_widget.dart';
 import 'package:mkaweel/features/screens/dashboard/ui/weather/widgets/weather_header_widget.dart';
  import 'package:mkaweel/features/screens/dashboard/ui/weather/widgets/weather_location_card_widget.dart';
+import 'package:mkaweel/features/screens/projects/controller/projects_cubit.dart';
+import 'package:mkaweel/features/screens/projects/controller/projects_state.dart';
+import 'package:mkaweel/features/screens/projects/data/model/all_projects_res/all_projects_res.dart';
+import 'package:mkaweel/features/screens/projects/data/model/create_project_res/create_project_res.dart';
+import 'package:mkaweel/features/screens/workers/data/model/add_worker_data_request.dart';
+import 'package:mkaweel/features/screens/workers/ui/add_workers/widgets/drop_down_role_selector.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 /// Renders the weather content based on the current [BaseEmit] state.
@@ -18,10 +27,16 @@ class WeatherContentWidget extends StatelessWidget {
     super.key,
     required this.state,
     required this.onRetry,
+    required this.projectsList,
+    required this.selectedNotifier,
+    required this.setDataIntoPJNotifier,
   });
 
   final BaseEmit? state;
   final VoidCallback onRetry;
+  final ValueNotifier<List<UIApiKeys<ProjectInfoData>>>? projectsList;
+  final ValueNotifier<List<int>>? selectedNotifier;
+  final void Function(BaseEmit? state) setDataIntoPJNotifier;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +50,7 @@ class WeatherContentWidget extends StatelessWidget {
 
     // Use dummy data for skeleton loading
     final WeatherRes data = isLoading
-        ? _dummyWeatherRes
+        ?  dummyWeatherRes
         : (state as Success<WeatherRes>).data!;
 
     final weather = data.data.weather;
@@ -52,8 +67,10 @@ class WeatherContentWidget extends StatelessWidget {
             vertical: AppPadding.p20,
           ),
           child: Column(
+            spacing: 16,
             children: [
-
+              if( projectsList!=null)
+              buildProjectSelector(),
               // Hero temperature display
               WeatherHeaderWidget(
                 temperature: weather.temperature,
@@ -62,22 +79,22 @@ class WeatherContentWidget extends StatelessWidget {
                 status: weather.status,
                 locationName: location.formatted_address,
               ),
-              24.verticalSpace,
 
               // Wind speed + condition row
-               WeatherDetailsRowWidget(
-                windSpeed: weather.wind_speed,
-                windSpeedUnit: weather.wind_speed_unit,
-                status: weather.status,
-                description: weather.description,
-              ),
-              16.verticalSpace,
+               Padding(
+                 padding: const EdgeInsets.only(top: 8.0),
+                 child: WeatherDetailsRowWidget(
+                  windSpeed: weather.wind_speed,
+                  windSpeedUnit: weather.wind_speed_unit,
+                  status: weather.status,
+                  description: weather.description,
+                               ),
+               ),
 
               // Description card
               WeatherDescriptionCardWidget(
                 description: weather.description,
               ),
-              16.verticalSpace,
 
               // Location card
               WeatherLocationCardWidget(
@@ -86,34 +103,37 @@ class WeatherContentWidget extends StatelessWidget {
                 subdivision: location.subdivision,
                 country: location.country,
               ),
-              24.verticalSpace,
+              8.verticalSpace,
             ],
           ),
         ),
       ),
     );
   }
+  Widget buildProjectSelector() {
+    return BlocSelector<ProjectsCubit, ProjectsState, BaseEmit?>(
+      selector: (state) => state is ProjectsLoaded?state.allProjectsResState:null,
+      builder: (context, state) {
+        bool isLoading=state is !Success<AllProjectsRes>;
+        setDataIntoPJNotifier(state);
+        return Skeletonizer(
+          enabled: isLoading,
+          child: ValueListenableBuilder(
+            valueListenable: projectsList!,
+            builder: (context, value, child) {
+              return BottomSheetSelector(
+                // field: listFields[1],
+                isMultiSelect: false,
+                title: 'project'.tr(),
+                listChoices: value,
+                selectedNotifier: selectedNotifier!,
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
 }
 
-/// Dummy data used for skeleton loading state.
-final WeatherRes _dummyWeatherRes = WeatherRes(
-  status: 'ok',
-  data: WeatherData(
-    coordinates: const Coordinates(latitude: 0, longitude: 0),
-    location: const Location(
-      region: 'Loading region',
-      subdivision: 'Loading sub',
-      country: 'Loading country',
-      formatted_address: 'Loading address...',
-    ),
-    weather: const Weather(
-      temperature: 25,
-      temperature_unit: '°C',
-      wind_speed: 10,
-      wind_speed_unit: 'km/h',
-      weather_code: 0,
-      status: 'Loading...',
-      description: 'Loading weather description...',
-    ),
-  ),
-);
+

@@ -1,7 +1,33 @@
 import 'package:mkaweel/features/screens/Tasks/data/model/tasks_res/tasks_res.dart';
+import 'package:mkaweel/features/screens/dashboard/data/model/weather_res/weather_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/create_project_res/create_project_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/project_inoices_res/project_inoices_res.dart';
 import 'package:mkaweel/features/screens/projects/data/model/project_phases_res/project_phases_res.dart';
+
+
+/// Dummy data used for skeleton loading state.
+final WeatherRes dummyWeatherRes = WeatherRes(
+  status: 'ok',
+  data: WeatherData(
+    coordinates: const Coordinates(latitude: 0, longitude: 0),
+    location: const Location(
+      region: 'Loading region',
+      subdivision: 'Loading sub',
+      country: 'Loading country',
+      formatted_address: 'Loading address...',
+    ),
+    weather: const Weather(
+      temperature: 25,
+      temperature_unit: '°C',
+      wind_speed: 10,
+      wind_speed_unit: 'km/h',
+      weather_code: 0,
+      status: 'Loading...',
+      description: 'Loading weather description...',
+    ),
+  ),
+);
+
 
   InvoiceItem emptyInvoice = InvoiceItem.fromJson( {
   "id": 14,

@@ -151,8 +151,11 @@ class ProjectCard extends StatelessWidget {
             WeatherRoute(
               args: WeatherRouteArgs(
                 null,
+                  projectId: projectInfoData.id,
                   latlng:
-                  LatLng(double.parse(projectInfoData.latitude.toString()), double.parse(projectInfoData.longitude.toString()))
+                  LatLng(double.tryParse(projectInfoData.latitude.toString())??30.0626,
+                      double.tryParse(projectInfoData.longitude.toString())??31.2497
+                  )
               ),
             ),
           );

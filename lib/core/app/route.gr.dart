@@ -576,9 +576,10 @@ class WeatherRoute extends PageRouteInfo<WeatherRouteArgs> {
   PageInfo<WeatherRouteArgs>(name);
 }
 class WeatherRouteArgs {
-  const WeatherRouteArgs(this.dashboardCubit,{this.latlng} );
+  const WeatherRouteArgs(this.dashboardCubit,{this.latlng,this.projectId} );
   final DashboardCubit? dashboardCubit;
   final LatLng? latlng;
+  final int? projectId;
  }
 
 
