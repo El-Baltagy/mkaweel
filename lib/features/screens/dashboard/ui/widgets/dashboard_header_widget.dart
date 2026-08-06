@@ -52,7 +52,7 @@ class DashboardHeaderWidget extends StatelessWidget {
               Spacer(),
               IconButton(
                 onPressed: () {
-                  OfflineSyncService().syncNow();
+                  OfflineSyncService().syncNow(showToastIfEmpty: true);
                 },
                 icon: Icon(
                   Icons.sync,

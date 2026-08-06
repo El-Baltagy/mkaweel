@@ -23,6 +23,7 @@ import 'package:mkaweel/features/screens/Tasks/controller/Tasks_cubit.dart';
 import 'package:mkaweel/features/screens/Tasks/ui/tasks/base_tasks_data.dart';
 import 'package:mkaweel/features/screens/Tasks/data/model/tasks_res/tasks_res.dart';
 import 'package:mkaweel/features/screens/Tasks/data/model/add_edit_update_task_parameter.dart';
+import 'package:mkaweel/core/extension/context.dart';
 
 class OfflineSyncService {
   OfflineSyncService._();
@@ -40,11 +41,23 @@ class OfflineSyncService {
     });
   }
 
-  Future<void> syncNow() async {
+  Future<void> syncNow({bool showToastIfEmpty = false}) async {
     final hasInternet = await ConnectivityService.validateInternetConnection();
     if (hasInternet) {
+      final offlineProjects = HiveStorage().readData<List<String>>('offline_project_requests');
+      final offlineTasksRaw = HiveStorage().readData<List<dynamic>>('offline_task_requests');
+      
+      final hasProjects = offlineProjects != null && offlineProjects.isNotEmpty;
+      final hasTasks = offlineTasksRaw != null && offlineTasksRaw.isNotEmpty;
+      
+      if (!hasProjects && !hasTasks && showToastIfEmpty) {
+        await navigatorKey.currentContext?.showToast('لا توجد بيانات محفوظة للمزامنة');
+      }
+
       await _syncOfflineProjectRequests();
       await _syncOfflineTasks();
+    } else if (showToastIfEmpty) {
+      await navigatorKey.currentContext?.showToast('not_connected_to_internet'.tr(), isSuccess: false);
     }
   }
 
